@@ -31,7 +31,7 @@ public class HistoryManager implements History {
      * @param model The model system for managing tasks.
      * @return A message indicating the command was undone and the current list of tasks.
      */
-    public String undo(Model model) throws Exception {
+    public String undo(Model model) {
         State prevState = getCurrState();
         rollBackState();
         State currState = getCurrState();
@@ -48,7 +48,7 @@ public class HistoryManager implements History {
      * @param model The model system for managing tasks.
      * @return A message indicating the command was redone and the current list of tasks.
      */
-    public String redo(Model model) throws Exception {
+    public String redo(Model model) {
         rollForwardState();
         State currState = getCurrState();
         // model.restoreState(currState);
@@ -74,19 +74,19 @@ public class HistoryManager implements History {
      * Removes states after the current state, effectively truncating the history.
      */
     private void truncate() {
-        assert (currStateIdx >= 0 && currStateIdx < states.size() - 1);
-        states.subList(currStateIdx + 1, states.size()).clear();
+        //        assert (currStateIdx >= 0 && currStateIdx < states.size() - 1);
+        //        states.subList(currStateIdx + 1, states.size()).clear();
     }
 
     /**
      * Rolls back to the previous state in the history.
      */
     @Override
-    public void rollBackState() throws Exception {
-        if (currStateIdx == 0) {
-            throw new Exception();
-        }
-        currStateIdx -= 1;
+    public void rollBackState() {
+        //        if (currStateIdx == 0) {
+        //            throw new Exception();
+        //        }
+        //        currStateIdx -= 1;
     }
 
     /**
@@ -95,11 +95,11 @@ public class HistoryManager implements History {
      * @throws Exception If there are no more future states to roll forward to.
      */
     @Override
-    public void rollForwardState() throws Exception {
-        if (currStateIdx == states.size() - 1) {
-            throw new Exception("You can't roll forward the state anymore!");
-        }
-        currStateIdx += 1;
+    public void rollForwardState() {
+        //        if (currStateIdx == states.size() - 1) {
+        //            throw new Exception("You can't roll forward the state anymore!");
+        //        }
+        //        currStateIdx += 1;
     }
 
     /**
