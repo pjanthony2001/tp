@@ -3,23 +3,11 @@ name: Java CI
 on: [push, pull_request]
 
 jobs:
-  check_token:
-    runs-on: ubuntu-latest
-    outputs:
-      output: ${{ steps.codecov.outputs.test }}
-    steps:
-    - id: codecov
-      env:
-        super_secret: ${{ secrets.CODECOV_TOKEN }}
-      if: ${{ env.super_secret == '' }}
-      run: echo "test=false" >> "$GITHUB_OUTPUT"
-
   build:
     strategy:
       matrix:
         platform: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
-    needs: check_token
 
     steps:
       - name: Set up repository
@@ -50,12 +38,22 @@ jobs:
       - name: Build and check with Gradle
         run: ./gradlew check coverage
 
+      - name: Check for Secret availability
+        id: secret-check
+        # perform secret check & put boolean result as an output
+        shell: bash
+        run: |
+          if [ "${{ secrets.CODECOV_TOKEN }}" != '' ]; then
+            echo "available=true" >> $GITHUB_OUTPUT;
+          else
+            echo "available=false" >> $GITHUB_OUTPUT;
+          fi
+
       - name: Upload coverage reports to Codecov
         env:
-          output_token_check: ${{needs.check_token.outputs.output}}
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           slug: AY2324S2-CS2103T-W12-4/tp
-        if: ${{ runner.os == 'Linux' && env.output_token_check != 'false'}}
+        if: ${{ runner.os == 'Linux' && steps.secret-check.outputs.available == 'true'}}
         uses: codecov/codecov-action@v4.0.1
         with:
           verbose: true
