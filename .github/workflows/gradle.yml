@@ -10,9 +10,9 @@ jobs:
     steps:
     - id: codecov
       env:
-        token: ${{ secrets.CODECOV_TOKEN }}
-      if: ${{ env.token != '' }}
-      run: echo "test=true" >> "$GITHUB_OUTPUT"
+        super_secret: ${{ secrets.CODECOV_TOKEN }}
+      if: ${{ env.super_secret == '' }}
+      run: echo "test=false" >> "$GITHUB_OUTPUT"
 
   build:
     strategy:
@@ -55,7 +55,7 @@ jobs:
           output_token_check: ${{needs.check_token.outputs.output}}
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           slug: AY2324S2-CS2103T-W12-4/tp
-        if: ${{ runner.os == 'Linux' && env.output_token_check == 'true'}}
+        if: ${{ runner.os == 'Linux' && env.output_token_check != 'false'}}
         uses: codecov/codecov-action@v4.0.1
         with:
           verbose: true
