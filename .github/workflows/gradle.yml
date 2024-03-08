@@ -4,6 +4,7 @@ on: [push, pull_request]
 
 jobs:
   check_token:
+    runs-on: ubuntu-latest
     outputs:
       output: ${{ steps.codecov.outputs.test }}
     steps:
