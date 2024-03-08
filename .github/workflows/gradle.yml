@@ -38,8 +38,15 @@ jobs:
       - name: Build and check with Gradle
         run: ./gradlew check coverage
 
+      - name: Check if CodeCov token exists
+        id: token_check
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        if: ${{ env.CODECOV_TOKEN == ''}}
+        run: exit 1
+
       - name: Upload coverage reports to Codecov
-        if: ${{ runner.os == 'Linux' && env.CODECOV_TOKEN != '' }}
+        if: ${{ runner.os == 'Linux' && success() }}
         uses: codecov/codecov-action@v4.0.1
         with:
           verbose: true
