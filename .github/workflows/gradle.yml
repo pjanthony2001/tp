@@ -42,7 +42,7 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           slug: AY2324S2-CS2103T-W12-4/tp
-        if: ${{ runner.os == 'Linux' && env.CODECOV_TOKEN != '' }}
+        if: ${{ runner.os == 'Linux' }}
         uses: codecov/codecov-action@v4.0.1
         with:
           verbose: true
