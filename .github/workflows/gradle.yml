@@ -45,5 +45,3 @@ jobs:
           verbose: true
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
-        env:
-          slug: AY2324S2-CS2103T-W12-4/tp
