@@ -1,10 +1,12 @@
 package seedu.address.history;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.testutil.HistoryUtil.TYPICAL_START_STATE;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import seedu.address.history.exceptions.HistoryException;
 
 class HistoryManagerTest {
     private HistoryManager history;
@@ -29,13 +31,19 @@ class HistoryManagerTest {
     }
 
     @Test
-    void rollBackState() {
-        history.rollBackState();
+    void rollBackStateSuccess() {
+        assertDoesNotThrow(() -> history.rollBackState());
     }
 
     @Test
+    void rollBackStateFailure() {
+        assertThrows(HistoryException.class, () -> history.rollBackState());
+    }
+
+
+    @Test
     void rollForwardState() {
-        history.rollForwardState();
+        assertDoesNotThrow(() -> history.rollForwardState());
     }
 
     @Test

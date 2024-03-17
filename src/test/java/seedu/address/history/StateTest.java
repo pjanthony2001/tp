@@ -7,9 +7,10 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.AddressBook;
-
+import seedu.address.model.person.Person;
 
 
 class StateTest {
@@ -18,7 +19,8 @@ class StateTest {
     void setup() {
         AddressBook addressBook = getTypicalAddressBook();
         Command command = getCommandStub();
-        state = new State(command, addressBook);
+        FilteredList<Person> filteredPersons = new FilteredList<>(addressBook.getPersonList());
+        state = new State(command, addressBook, filteredPersons);
     }
     @Test
     void getAddressBook() {

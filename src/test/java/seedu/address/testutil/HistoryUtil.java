@@ -11,5 +11,5 @@ import seedu.address.model.AddressBook;
  */
 public class HistoryUtil {
     private static final AddressBook START_ADDRESSBOOK = getTypicalAddressBook();
-    public static final State TYPICAL_START_STATE = new State(getCommandStub(), START_ADDRESSBOOK);
+    public static final State TYPICAL_START_STATE = new State(getCommandStub(), START_ADDRESSBOOK, filteredPersons);
 }

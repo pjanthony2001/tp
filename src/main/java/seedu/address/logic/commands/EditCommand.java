@@ -63,8 +63,10 @@ public class EditCommand extends Command {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
 
+        super.setTracked(true);
         this.index = index;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+
     }
 
     @Override
@@ -238,5 +240,9 @@ public class EditCommand extends Command {
                     .add("tags", tags)
                     .toString();
         }
+    }
+    @Override
+    public String getCommandString() {
+        return COMMAND_WORD;
     }
 }

@@ -22,8 +22,12 @@ public class FindCommand extends Command {
 
     private final NameContainsKeywordsPredicate predicate;
 
+    /**
+     * @param predicate The predicate used to check if any of the names in the addressbook have keywords
+     */
     public FindCommand(NameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
+        super.setTracked(true);
     }
 
     @Override
@@ -54,5 +58,9 @@ public class FindCommand extends Command {
         return new ToStringBuilder(this)
                 .add("predicate", predicate)
                 .toString();
+    }
+    @Override
+    public String getCommandString() {
+        return COMMAND_WORD;
     }
 }

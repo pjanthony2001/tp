@@ -11,6 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.history.History;
+import seedu.address.history.HistoryManager;
+import seedu.address.history.State;
+import seedu.address.history.exceptions.HistoryException;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.person.Person;
 
 /**
@@ -21,7 +26,8 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private FilteredList<Person> filteredPersons;
+    private final History history;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -33,7 +39,10 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+
+        State startState = new State(null, getAddressBook(), getFilteredPersonList());
+        history = new HistoryManager(startState);
     }
 
     public ModelManager() {
@@ -127,7 +136,45 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
+    public void setFilteredPersonsList(ObservableList<Person> filteredPersonsList) {
+        this.filteredPersons = new FilteredList<>(filteredPersonsList);
+    }
+    //============== History ===============================================================================
+    /**
+     * Gets current state
+     */
+    @Override
+    public State getCurrentState() {
+        return history.getCurrState();
+    }
 
+    /**
+     * @param command Last command executed to reach this state
+     */
+    @Override
+    public void updateState(Command command) {
+        if (!command.isTracked()) {
+            return;
+        }
+        State state = new State(command, getAddressBook(), getFilteredPersonList());
+        history.addState(state);
+    }
+    /**
+     * @param state State to be restored
+     */
+    @Override
+    public void restoreState(State state) {
+        ObservableList<Person> newFilteredPersons = state.getFilteredList();
+        ReadOnlyAddressBook newAddressBook = state.getAddressBook();
+        setAddressBook(newAddressBook);
+        setFilteredPersonsList(newFilteredPersons);
+    }
+    /**
+     * @throws HistoryException If state cannot be rolled back
+     */
+    public void rollBackState() throws HistoryException {
+        history.rollBackState();
+    }
     @Override
     public boolean equals(Object other) {
         if (other == this) {
