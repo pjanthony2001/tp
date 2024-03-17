@@ -31,7 +31,7 @@ public class DeleteCommand extends Command {
      * @param targetIndex Index to be deleted
      */
     public DeleteCommand(Index targetIndex) {
-        super.setTracked(false);
+        super.setTracked(true);
         this.targetIndex = targetIndex;
     }
 

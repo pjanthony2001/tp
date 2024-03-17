@@ -10,15 +10,15 @@ import seedu.address.model.Model;
 /**
  * Undoes a command
  */
-public class UndoCommand extends Command {
+public class RedoCommand extends Command {
 
-    public static final String COMMAND_WORD = "undo";
+    public static final String COMMAND_WORD = "redo";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undoes the most recent command.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redoes the most recent command.";
     public static final String MESSAGE_SUCCESS = "Command undone: %1$s";
-    public static final String MESSAGE_NO_ROLLBACK = "There is no more history to roll back!";
+    public static final String MESSAGE_NO_ROLLFORWARD = "There is no more history to roll forward!";
 
-    public UndoCommand() {
+    public RedoCommand() {
         setTracked(false);
     }
 
@@ -31,17 +31,16 @@ public class UndoCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        State prevState = model.getCurrentState();
         try {
-            model.rollBackState();
+            model.rollForwardState();
         } catch (HistoryException e) {
-            throw new CommandException(MESSAGE_NO_ROLLBACK);
+            throw new CommandException(MESSAGE_NO_ROLLFORWARD);
         }
 
         State currState = model.getCurrentState();
         model.restoreState(currState);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, prevState.getCommand().getCommandString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, currState.getCommand().getCommandString()));
     }
     @Override
     public String getCommandString() {

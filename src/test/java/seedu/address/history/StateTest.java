@@ -20,7 +20,7 @@ class StateTest {
         AddressBook addressBook = getTypicalAddressBook();
         Command command = getCommandStub();
         FilteredList<Person> filteredPersons = new FilteredList<>(addressBook.getPersonList());
-        state = new State(command, addressBook, filteredPersons);
+        state = new State(command, addressBook, filteredPersons, getFilteredPersonsListPredicate());
     }
     @Test
     void getAddressBook() {

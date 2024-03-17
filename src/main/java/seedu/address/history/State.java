@@ -2,9 +2,10 @@ package seedu.address.history;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.Command;
-import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+
+import java.util.function.Predicate;
 
 
 /**
@@ -15,18 +16,22 @@ public class State {
     private final Command command;
     private final ReadOnlyAddressBook addressBook;
     private final ObservableList<Person> filteredPersons;
+    private final Predicate<? super Person> filteredPersonsListPredicate;
 
     /**
      * Constructs a new State object with the given command and task list.
      *
-     * @param command         The command executed to reach this state.
-     * @param addressBook     The list of tasks at this state.
-     * @param filteredPersons The list of filtered persons fis
+     * @param command                      The command executed to reach this state.
+     * @param addressBook                  The list of tasks at this state.
+     * @param filteredPersons              The list of source persons in the filtered list
+     * @param filteredPersonsListPredicate The predicate of the filtered list
      */
-    public State(Command command, ReadOnlyAddressBook addressBook, ObservableList<Person> filteredPersons) {
+    public State(Command command, ReadOnlyAddressBook addressBook,
+                 ObservableList<Person> filteredPersons, Predicate<? super Person> filteredPersonsListPredicate) {
         this.command = command;
         this.addressBook = addressBook;
         this.filteredPersons = filteredPersons;
+        this.filteredPersonsListPredicate = filteredPersonsListPredicate;
     }
 
     /**
@@ -53,5 +58,8 @@ public class State {
      */
     public ObservableList<Person> getFilteredList() {
         return filteredPersons;
+    }
+    public Predicate<? super Person> getFilteredPersonsListPredicate() {
+        return filteredPersonsListPredicate;
     }
 }

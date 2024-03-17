@@ -38,7 +38,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) throws HistoryException {
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
@@ -47,11 +47,10 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
-        State startState = new State(null, getAddressBook(), getFilteredPersonList());
-        history = new HistoryManager(startState);
+        history = new HistoryManager(generateState(null));
     }
 
-    public ModelManager() {
+    public ModelManager() throws HistoryException {
         this(new AddressBook(), new UserPrefs());
     }
 
@@ -137,12 +136,14 @@ public class ModelManager implements Model {
         return filteredPersons;
     }
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredPersonList(Predicate<? super Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
-    public void setFilteredPersonsList(ObservableList<Person> filteredPersonsList) {
+    public void setFilteredPersonsList(ObservableList<Person> filteredPersonsList,
+                                       Predicate<? super Person> predicate) {
         this.filteredPersons = new FilteredList<>(filteredPersonsList);
+        updateFilteredPersonList(predicate);
     }
 
     /**
@@ -150,7 +151,8 @@ public class ModelManager implements Model {
      * @throws IllegalValueException
      */
     public ObservableList<Person> deepCopyFilteredPersonsList() throws IllegalValueException {
-        List<JsonAdaptedPerson> jsonList = filteredPersons.stream()
+        List<JsonAdaptedPerson> jsonList = filteredPersons.getSource()
+                .stream()
                 .map(JsonAdaptedPerson::new)
                 .collect(Collectors.toList());
         List<Person> personList = new ArrayList<>();
@@ -158,6 +160,12 @@ public class ModelManager implements Model {
             personList.add(jsonPerson.toModelType());
         }
         return FXCollections.observableList(personList);
+    }
+    public Predicate<? super Person> getFilteredPersonsListPredicate() {
+        if (filteredPersons.getPredicate() == null) {
+            return PREDICATE_SHOW_ALL_PERSONS;
+        }
+        return filteredPersons.getPredicate();
     }
     //============== History ===============================================================================
     /**
@@ -173,12 +181,23 @@ public class ModelManager implements Model {
      */
     @Override
     public void updateState(Command command) throws HistoryException {
-        if (!command.isTracked()) {
-            return;
-        }
-        try {
-            State state = new State(command, getAddressBook().deepCopy(), deepCopyFilteredPersonsList());
+        if (command.isTracked()) {
+            State state = generateState(command);
             history.addState(state);
+        }
+    }
+
+    /**
+     * @param command Last command executed to reach this state
+     * @return Generated state
+     * @throws HistoryException if error while making deep copy
+     */
+    public State generateState(Command command) throws HistoryException {
+        try {
+            return new State(command,
+                    getAddressBook().deepCopy(),
+                    deepCopyFilteredPersonsList(),
+                    getFilteredPersonsListPredicate());
         } catch (IllegalValueException e) {
             throw new HistoryException("Error while creating deepcopy", e);
         }
@@ -190,15 +209,29 @@ public class ModelManager implements Model {
     public void restoreState(State state) {
         ObservableList<Person> newFilteredPersons = state.getFilteredList();
         ReadOnlyAddressBook newAddressBook = state.getAddressBook();
+        Predicate<? super Person> newPredicate = state.getFilteredPersonsListPredicate();
+
         setAddressBook(newAddressBook);
-        setFilteredPersonsList(newFilteredPersons);
+        setFilteredPersonsList(newFilteredPersons, newPredicate);
+        System.out.println(filteredPersons.getSource());
+        System.out.println(filteredPersons);
     }
     /**
      * @throws HistoryException If state cannot be rolled back
      */
+    @Override
     public void rollBackState() throws HistoryException {
         history.rollBackState();
     }
+
+    /**
+     * @throws HistoryException If state cannot be rolled forward
+     */
+    @Override
+    public void rollForwardState() throws HistoryException {
+        history.rollForwardState();
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

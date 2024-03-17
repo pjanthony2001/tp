@@ -1,6 +1,8 @@
 package seedu.address.history;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.testutil.HistoryUtil.TYPICAL_START_STATE;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,11 +15,6 @@ class HistoryManagerTest {
     @BeforeEach
     void setup() {
         history = new HistoryManager(TYPICAL_START_STATE);
-    }
-
-    @Test
-    void undo() {
-        history.undo(null);
     }
 
     @Test

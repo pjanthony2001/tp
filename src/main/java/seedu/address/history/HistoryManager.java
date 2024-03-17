@@ -27,39 +27,11 @@ public class HistoryManager implements History {
     }
 
     /**
-     * Redoes the last undone command and restores the next state.
-     * Transferred to command
-     * @param model The model system for managing tasks.
-     * @return A message indicating the command was redone and the current list of tasks.
-     */
-    public String redo(Model model) {
-        //        rollForwardState();
-        //        State currState = getCurrState();
-        // model.restoreState(currState);
-        // return String.format("Your %s command was redone!\nThis is your current list:\n%s",
-        //      currState.getCommand(),
-        //      model.displayList());
-        return null;
-    }
-
-    /**
-     * Updates the history with a new state, if necessary.
-     *
-     * @param state The new state to be added to the history.
-     */
-    public void updateHistory(State state) {
-        //        if (state.isIgnoredHistory()) {
-        //            return;
-        //        }
-        addState(state);
-    }
-
-    /**
      * Removes states after the current state, effectively truncating the history.
      */
     private void truncate() {
-        //        assert (currStateIdx >= 0 && currStateIdx < states.size() - 1);
-        //        states.subList(currStateIdx + 1, states.size()).clear();
+        assert (currStateIdx >= 0 && currStateIdx < states.size() - 1);
+        states.subList(currStateIdx + 1, states.size()).clear();
     }
 
     /**
