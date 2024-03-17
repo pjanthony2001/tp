@@ -4,19 +4,25 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.history.History;
 import seedu.address.history.HistoryManager;
 import seedu.address.history.State;
 import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.person.Person;
+import seedu.address.storage.JsonAdaptedPerson;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -130,7 +136,6 @@ public class ModelManager implements Model {
     public ObservableList<Person> getFilteredPersonList() {
         return filteredPersons;
     }
-
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
@@ -138,6 +143,21 @@ public class ModelManager implements Model {
     }
     public void setFilteredPersonsList(ObservableList<Person> filteredPersonsList) {
         this.filteredPersons = new FilteredList<>(filteredPersonsList);
+    }
+
+    /**
+     * @return Deep Copy of the current FilteredPersonsList
+     * @throws IllegalValueException
+     */
+    public ObservableList<Person> deepCopyFilteredPersonsList() throws IllegalValueException {
+        List<JsonAdaptedPerson> jsonList = filteredPersons.stream()
+                .map(JsonAdaptedPerson::new)
+                .collect(Collectors.toList());
+        List<Person> personList = new ArrayList<>();
+        for (JsonAdaptedPerson jsonPerson : jsonList) {
+            personList.add(jsonPerson.toModelType());
+        }
+        return FXCollections.observableList(personList);
     }
     //============== History ===============================================================================
     /**
@@ -152,12 +172,16 @@ public class ModelManager implements Model {
      * @param command Last command executed to reach this state
      */
     @Override
-    public void updateState(Command command) {
+    public void updateState(Command command) throws HistoryException {
         if (!command.isTracked()) {
             return;
         }
-        State state = new State(command, getAddressBook(), getFilteredPersonList());
-        history.addState(state);
+        try {
+            State state = new State(command, getAddressBook().deepCopy(), deepCopyFilteredPersonsList());
+            history.addState(state);
+        } catch (IllegalValueException e) {
+            throw new HistoryException("Error while creating deepcopy", e);
+        }
     }
     /**
      * @param state State to be restored

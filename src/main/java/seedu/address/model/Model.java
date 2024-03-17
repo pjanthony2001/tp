@@ -91,5 +91,5 @@ public interface Model {
     State getCurrentState();
     void restoreState(State state);
     void rollBackState() throws HistoryException;
-    void updateState(Command command);
+    void updateState(Command command) throws HistoryException;
 }
