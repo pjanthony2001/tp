@@ -27,7 +27,8 @@ public class LogicManager implements Logic {
 
     public static final String FILE_OPS_PERMISSION_ERROR_FORMAT =
             "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
-
+    public static final String HISTORY_SAVE_ERROR_FORMAT =
+            "Could not save state to history due to encoding errors. %s";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -44,7 +45,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException, HistoryException {
+    public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
@@ -59,7 +60,13 @@ public class LogicManager implements Logic {
             throw new CommandException(String.format(FILE_OPS_ERROR_FORMAT, ioe.getMessage()), ioe);
         }
 
-        model.updateState(command);
+        try {
+            model.updateState(command);
+        } catch (HistoryException e) {
+            model.restoreState(model.getCurrentState()); //Revert the command if there are issues updating state
+            throw new CommandException(String.format(HISTORY_SAVE_ERROR_FORMAT, e.getMessage()), e);
+        }
+
 
         return commandResult;
     }

@@ -1,11 +1,12 @@
 package seedu.address.history;
 
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 
-import java.util.function.Predicate;
 
 
 /**

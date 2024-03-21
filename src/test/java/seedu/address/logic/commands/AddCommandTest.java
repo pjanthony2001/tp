@@ -16,6 +16,8 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.history.State;
+import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -155,6 +157,31 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<? super Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public State getCurrentState() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void restoreState(State state) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void rollBackState() throws HistoryException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void rollForwardState() throws HistoryException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateState(Command command) throws HistoryException {
             throw new AssertionError("This method should not be called.");
         }
     }

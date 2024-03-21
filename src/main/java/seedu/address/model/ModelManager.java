@@ -22,6 +22,7 @@ import seedu.address.history.State;
 import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.person.Person;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.JsonAdaptedPerson;
 
 /**
@@ -38,7 +39,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) throws HistoryException {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
@@ -47,10 +48,20 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
-        history = new HistoryManager(generateState(null));
+        State startState;
+        try {
+            startState = generateState(null);
+        } catch (HistoryException e) {
+            ReadOnlyAddressBook sampleAddressBook = SampleDataUtil.getSampleAddressBook();
+            startState = new State(null,
+                    SampleDataUtil.getSampleAddressBook(),
+                    sampleAddressBook.getPersonList(),
+                    PREDICATE_SHOW_ALL_PERSONS);
+        }
+        history = new HistoryManager(startState);
     }
 
-    public ModelManager() throws HistoryException {
+    public ModelManager() {
         this(new AddressBook(), new UserPrefs());
     }
 
@@ -213,8 +224,6 @@ public class ModelManager implements Model {
 
         setAddressBook(newAddressBook);
         setFilteredPersonsList(newFilteredPersons, newPredicate);
-        System.out.println(filteredPersons.getSource());
-        System.out.println(filteredPersons);
     }
     /**
      * @throws HistoryException If state cannot be rolled back

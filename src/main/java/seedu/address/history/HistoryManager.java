@@ -3,7 +3,6 @@ package seedu.address.history;
 import java.util.ArrayList;
 
 import seedu.address.history.exceptions.HistoryException;
-import seedu.address.model.Model;
 
 
 /**
@@ -30,7 +29,7 @@ public class HistoryManager implements History {
      * Removes states after the current state, effectively truncating the history.
      */
     private void truncate() {
-        assert (currStateIdx >= 0 && currStateIdx < states.size() - 1);
+        assert (currStateIdx >= 0 && currStateIdx < states.size());
         states.subList(currStateIdx + 1, states.size()).clear();
     }
 
