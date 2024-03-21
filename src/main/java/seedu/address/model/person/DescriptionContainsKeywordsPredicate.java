@@ -38,8 +38,8 @@ public class DescriptionContainsKeywordsPredicate implements Predicate<Person> {
             return false;
         }
 
-        DescriptionContainsKeywordsPredicate otherDescContainsKeywordsPredicate = (DescriptionContainsKeywordsPredicate) other;
-        return keywords.equals(otherDescContainsKeywordsPredicate.keywords);
+        DescriptionContainsKeywordsPredicate otherDescPredicate = (DescriptionContainsKeywordsPredicate) other;
+        return keywords.equals(otherDescPredicate.keywords);
     }
 
     @Override

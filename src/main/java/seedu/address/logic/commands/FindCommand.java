@@ -1,7 +1,8 @@
 package seedu.address.logic.commands;
 
-import java.util.Arrays;
 import static java.util.Objects.requireNonNull;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -36,6 +37,16 @@ public class FindCommand extends Command {
 
     private final List<Predicate<Person>> predicates;
 
+    /**
+     * Constructor for FindCommand
+     * @param namePredicate
+     * @param phonePredicate
+     * @param addressPredicate
+     * @param emailPredicate
+     * @param tagPredicate
+     * @param kinPredicate
+     * @param descriptionPredicate
+     */
     public FindCommand(NameContainsKeywordsPredicate namePredicate, PhoneContainsKeywordsPredicate phonePredicate,
             AddressContainsKeywordsPredicate addressPredicate, EmailContainsKeywordsPredicate emailPredicate,
             TagContainsKeywordsPredicate tagPredicate, KinContainsKeywordsPredicate kinPredicate,

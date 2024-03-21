@@ -38,8 +38,8 @@ public class AddressContainsKeywordsPredicate implements Predicate<Person> {
             return false;
         }
 
-        AddressContainsKeywordsPredicate otherAddressContainsKeywordsPredicate = (AddressContainsKeywordsPredicate) other;
-        return keywords.equals(otherAddressContainsKeywordsPredicate.keywords);
+        AddressContainsKeywordsPredicate otherAddContainsKeywordsPredicate = (AddressContainsKeywordsPredicate) other;
+        return keywords.equals(otherAddContainsKeywordsPredicate.keywords);
     }
 
     @Override
