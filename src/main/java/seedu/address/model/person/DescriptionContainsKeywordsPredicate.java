@@ -7,20 +7,23 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Person}'s {@code Description} matches any of the
+ * keywords given.
  */
-public class NameContainsKeywordsPredicate implements Predicate<Person> {
+public class DescriptionContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
 
-    public NameContainsKeywordsPredicate(List<String> keywords) {
+    public DescriptionContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
     @Override
     public boolean test(Person person) {
+        if (keywords.isEmpty()) {
+            return true;
+        }
         boolean personmatches = keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
-        
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getDescription().toString(), keyword));
         return personmatches;
     }
 
@@ -31,12 +34,12 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof NameContainsKeywordsPredicate)) {
+        if (!(other instanceof DescriptionContainsKeywordsPredicate)) {
             return false;
         }
 
-        NameContainsKeywordsPredicate otherNameContainsKeywordsPredicate = (NameContainsKeywordsPredicate) other;
-        return keywords.equals(otherNameContainsKeywordsPredicate.keywords);
+        DescriptionContainsKeywordsPredicate otherDescContainsKeywordsPredicate = (DescriptionContainsKeywordsPredicate) other;
+        return keywords.equals(otherDescContainsKeywordsPredicate.keywords);
     }
 
     @Override
