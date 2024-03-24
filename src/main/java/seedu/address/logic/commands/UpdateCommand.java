@@ -71,15 +71,10 @@ public class UpdateCommand extends Command {
         requireNonNull(name);
         requireNonNull(updatePersonDescriptor);
 
-<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/EditCommand.java
         super.setTracked(true);
-        this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
-
-=======
         this.name = name;
         this.updatePersonDescriptor = new UpdatePersonDescriptor(updatePersonDescriptor);
->>>>>>> master:src/main/java/seedu/address/logic/commands/UpdateCommand.java
+
     }
 
     @Override

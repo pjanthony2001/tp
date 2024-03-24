@@ -1,9 +1,10 @@
 package seedu.address.history;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.testutil.CommandUtil.getCommandStub;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,16 +15,18 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 
-import java.util.function.Predicate;
 
 
 class StateTest {
     private State state;
+    private AddressBook addressBook;
+    private FilteredList<Person> filteredPersons;
+    private Command command;
     @BeforeEach
     void setup() {
-        AddressBook addressBook = getTypicalAddressBook();
-        Command command = getCommandStub();
-        FilteredList<Person> filteredPersons = new FilteredList<>(addressBook.getPersonList());
+        addressBook = getTypicalAddressBook();
+        command = getCommandStub();
+        filteredPersons = new FilteredList<>(addressBook.getPersonList());
         state = new State(command, addressBook, filteredPersons, person -> true);
     }
     @Test
@@ -41,23 +44,16 @@ class StateTest {
     }
 
     @Test
-    void getCommandFailure() {
-        Command original = getCommandStub();
-        Command retrieved = state.getCommand();
-        assertEquals(original, retrieved);
-    }
-
-    @Test
     void getPredicateSuccess() {
-        Predicate<Person> expectedPredicate = person -> true;
-        Command retrieved = state.getCommand();
-        assertEquals(expectedPredicate, retrieved);
+        int sizeBeforePredicate = filteredPersons.size();
+        Predicate<? super Person> retrieved = state.getFilteredPersonsListPredicate();
+        filteredPersons.setPredicate(retrieved);
+        int sizeAfterPredicate = filteredPersons.size();
+        assertEquals(sizeBeforePredicate, sizeAfterPredicate);
     }
 
     @Test
-    void getPredicateFailure() {
-        Predicate<Person> expectedPredicate = person -> false;
-        Command retrieved = state.getCommand();
-        assertNotEquals(expectedPredicate, retrieved);
+    void getFilteredList() {
+        assertEquals(filteredPersons, state.getFilteredList());
     }
 }

@@ -16,12 +16,9 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-<<<<<<< HEAD
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
-=======
 import seedu.address.logic.commands.UpdateCommand;
->>>>>>> master
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

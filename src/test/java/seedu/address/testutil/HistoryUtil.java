@@ -14,4 +14,9 @@ public class HistoryUtil {
             START_ADDRESSBOOK,
             START_ADDRESSBOOK.getPersonList(),
             person -> true);
+
+    public static final State TYPICAL_SECOND_STATE = new State(null,
+            START_ADDRESSBOOK,
+            START_ADDRESSBOOK.getPersonList(),
+            person -> false);
 }
