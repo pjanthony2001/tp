@@ -3,12 +3,15 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.commands.StartCommand.getStartCommand;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.CommandUtil.getCommandStub;
+import static seedu.address.testutil.HistoryUtil.TYPICAL_SECOND_STATE;
+import static seedu.address.testutil.HistoryUtil.TYPICAL_START_STATE;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
@@ -170,6 +173,12 @@ public class ModelManagerTest {
                 modelManager.getFilteredPersonList(),
                 modelManager.getFilteredPersonsListPredicate()
         ));
+    }
+
+    @Test
+    public void restoreStateTest() {
+        State prevState = modelManager.getCurrentState();
+        modelManager.restoreState(TYPICAL_SECOND_STATE);
     }
 
     @Test
