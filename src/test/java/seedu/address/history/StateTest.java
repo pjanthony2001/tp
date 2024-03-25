@@ -1,7 +1,11 @@
 package seedu.address.history;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static seedu.address.logic.commands.StartCommand.getStartCommand;
 import static seedu.address.testutil.CommandUtil.getCommandStub;
+import static seedu.address.testutil.HistoryUtil.TYPICAL_SECOND_STATE;
+import static seedu.address.testutil.HistoryUtil.TYPICAL_START_STATE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.function.Predicate;
@@ -55,5 +59,16 @@ class StateTest {
     @Test
     void getFilteredList() {
         assertEquals(filteredPersons, state.getFilteredList());
+    }
+
+    @Test
+    void equalsTest() {
+        assertNotEquals(TYPICAL_START_STATE, TYPICAL_SECOND_STATE);
+        assertEquals(TYPICAL_START_STATE, TYPICAL_START_STATE); //check for same pointer
+        assertNotEquals(TYPICAL_SECOND_STATE, null); //check for null
+        assertEquals(TYPICAL_START_STATE, new State(getStartCommand(),
+                getTypicalAddressBook(),
+                getTypicalAddressBook().getPersonList(),
+                person -> true));
     }
 }
