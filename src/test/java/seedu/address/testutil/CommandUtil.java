@@ -21,7 +21,7 @@ public class CommandUtil {
 
         @Override
         public String getCommandString() {
-            return "";
+            return "STUB";
         }
     }
 

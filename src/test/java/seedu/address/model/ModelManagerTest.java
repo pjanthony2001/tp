@@ -1,21 +1,34 @@
 package seedu.address.model;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static seedu.address.logic.commands.StartCommand.getStartCommand;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.CommandUtil.getCommandStub;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.history.State;
+import seedu.address.history.exceptions.HistoryException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -94,7 +107,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void equals() {
+    public void equalsTest() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
@@ -128,5 +141,77 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+    }
+
+    @Test
+    public void initializationFailure() {
+        assertDoesNotThrow(ModelHistoryFailureStub::new);
+        Model modelInitFailure = new ModelHistoryFailureStub();
+        State state = modelInitFailure.getCurrentState();
+        assertEquals(state.getAddressBook(), SampleDataUtil.getSampleAddressBook());
+    }
+
+    @Test
+    public void setFilteredPersonsListTest() {
+        ArrayList<Person> newSource = new ArrayList<>();
+        newSource.add(ALICE);
+        newSource.add(BENSON);
+        modelManager.setFilteredPersonsList(new FilteredList<>(FXCollections.observableList(newSource)),
+                PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.getFilteredPersonList();
+        assertEquals(modelManager.getFilteredPersonList(), FXCollections.observableList(newSource));
+    }
+
+    @Test
+    public void getCurrentStateTest() {
+        State currState = modelManager.getCurrentState();
+        assertEquals(currState, new State(getStartCommand(),
+                modelManager.getAddressBook(),
+                modelManager.getFilteredPersonList(),
+                modelManager.getFilteredPersonsListPredicate()
+        ));
+    }
+
+    @Test
+    public void updateStateSuccess() {
+        assertDoesNotThrow(() -> modelManager.updateState(getCommandStub()));
+    }
+
+    @Test
+    public void rollBackStateSuccess() {
+        try {
+            modelManager.updateState(getCommandStub());
+        } catch (HistoryException e) {
+            fail();
+        }
+        assertDoesNotThrow(() -> modelManager.rollBackState());
+    }
+
+    @Test
+    public void rollBackStateFailure() {
+        assertThrows(HistoryException.class, () -> modelManager.rollBackState());
+    }
+
+    @Test
+    public void rollForwardStateSuccess() {
+        try {
+            modelManager.updateState(getCommandStub());
+            modelManager.rollBackState();
+        } catch (HistoryException e) {
+            fail();
+        }
+        assertDoesNotThrow(() -> modelManager.rollForwardState());
+    }
+
+    @Test
+    public void rollForwardStateFailure() {
+        assertThrows(HistoryException.class, () -> modelManager.rollForwardState());
+    }
+
+    private static class ModelHistoryFailureStub extends ModelManager {
+        @Override
+        public ObservableList<Person> deepCopyFilteredPersonsList() throws IllegalValueException {
+            throw new IllegalValueException("FAILURE TO CLONE");
+        }
     }
 }

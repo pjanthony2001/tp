@@ -63,4 +63,22 @@ public class State {
     public Predicate<? super Person> getFilteredPersonsListPredicate() {
         return filteredPersonsListPredicate;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof State)) {
+            return false;
+        }
+
+        State otherState = (State) other;
+        return addressBook.equals(otherState.addressBook)
+                && command.equals(otherState.command)
+                && filteredPersonsListPredicate.equals(otherState.filteredPersonsListPredicate)
+                && filteredPersons.equals(otherState.filteredPersons);
+    }
 }

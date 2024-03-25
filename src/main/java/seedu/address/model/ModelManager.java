@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.commands.StartCommand.getStartCommand;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -50,10 +51,10 @@ public class ModelManager implements Model {
 
         State startState;
         try {
-            startState = generateState(null);
+            startState = generateState(getStartCommand());
         } catch (HistoryException e) {
             ReadOnlyAddressBook sampleAddressBook = SampleDataUtil.getSampleAddressBook();
-            startState = new State(null,
+            startState = new State(getStartCommand(),
                     SampleDataUtil.getSampleAddressBook(),
                     sampleAddressBook.getPersonList(),
                     PREDICATE_SHOW_ALL_PERSONS);
