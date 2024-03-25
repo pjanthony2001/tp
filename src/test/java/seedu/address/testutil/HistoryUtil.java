@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.commands.StartCommand.getStartCommand;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.CommandUtil.getCommandStub;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -15,10 +16,10 @@ public class HistoryUtil {
     public static final State TYPICAL_START_STATE = new State(getStartCommand(),
             START_ADDRESSBOOK,
             START_ADDRESSBOOK.getPersonList(),
-            person -> true);
+            PREDICATE_SHOW_ALL_PERSONS);
 
     public static final State TYPICAL_SECOND_STATE = new State(getCommandStub(),
             START_ADDRESSBOOK,
             START_ADDRESSBOOK.getPersonList(),
-            person -> false);
+            PREDICATE_SHOW_ALL_PERSONS);
 }

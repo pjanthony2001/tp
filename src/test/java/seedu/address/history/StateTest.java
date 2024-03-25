@@ -3,6 +3,7 @@ package seedu.address.history;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.logic.commands.StartCommand.getStartCommand;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.CommandUtil.getCommandStub;
 import static seedu.address.testutil.HistoryUtil.TYPICAL_SECOND_STATE;
 import static seedu.address.testutil.HistoryUtil.TYPICAL_START_STATE;
@@ -69,6 +70,6 @@ class StateTest {
         assertEquals(TYPICAL_START_STATE, new State(getStartCommand(),
                 getTypicalAddressBook(),
                 getTypicalAddressBook().getPersonList(),
-                person -> true));
+                PREDICATE_SHOW_ALL_PERSONS));
     }
 }

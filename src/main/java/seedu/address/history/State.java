@@ -78,7 +78,6 @@ public class State {
         State otherState = (State) other;
         return addressBook.equals(otherState.addressBook)
                 && command.equals(otherState.command)
-                && filteredPersonsListPredicate.equals(otherState.filteredPersonsListPredicate)
                 && filteredPersons.equals(otherState.filteredPersons);
     }
 }
