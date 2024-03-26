@@ -2,7 +2,6 @@ package seedu.address.history;
 
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -17,7 +16,6 @@ import seedu.address.model.person.Person;
 public class State {
     private final Command command;
     private final ReadOnlyAddressBook addressBook;
-    private final ObservableList<Person> filteredPersonsSource;
     private final Predicate<? super Person> filteredPersonsListPredicate;
 
     /**
@@ -25,14 +23,12 @@ public class State {
      *
      * @param command                      The command executed to reach this state.
      * @param addressBook                  The list of tasks at this state.
-     * @param filteredPersons              The list of source persons in the filtered list
      * @param filteredPersonsListPredicate The predicate of the filtered list
      */
     public State(Command command, ReadOnlyAddressBook addressBook,
-                 ObservableList<Person> filteredPersons, Predicate<? super Person> filteredPersonsListPredicate) {
+                 Predicate<? super Person> filteredPersonsListPredicate) {
         this.command = command;
         this.addressBook = addressBook;
-        this.filteredPersonsSource = filteredPersons;
         this.filteredPersonsListPredicate = filteredPersonsListPredicate;
     }
 
@@ -58,9 +54,6 @@ public class State {
      *
      * @return The command.
      */
-    public ObservableList<Person> getFilteredList() {
-        return filteredPersonsSource;
-    }
     public Predicate<? super Person> getFilteredPersonsListPredicate() {
         return filteredPersonsListPredicate;
     }
@@ -78,15 +71,14 @@ public class State {
 
         State otherState = (State) other;
 
-        FilteredList<Person> filteredListOther = new FilteredList<>(otherState.filteredPersonsSource);
+        FilteredList<Person> filteredListOther = new FilteredList<>(otherState.addressBook.getPersonList());
         filteredListOther.setPredicate(otherState.filteredPersonsListPredicate);
 
-        FilteredList<Person> filteredList = new FilteredList<>(filteredPersonsSource);
+        FilteredList<Person> filteredList = new FilteredList<>(otherState.addressBook.getPersonList());
         filteredList.setPredicate(filteredPersonsListPredicate);
 
         return addressBook.equals(otherState.addressBook)
                 && command.equals(otherState.command)
-                && filteredPersonsSource.equals(otherState.filteredPersonsSource)
                 && filteredList.equals(filteredListOther);
 
     }

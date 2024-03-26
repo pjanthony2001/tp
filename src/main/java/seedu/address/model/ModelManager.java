@@ -5,13 +5,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.commands.StartCommand.getStartCommand;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -24,7 +20,6 @@ import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.person.Person;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.JsonAdaptedPerson;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -55,8 +50,7 @@ public class ModelManager implements Model {
         } catch (HistoryException e) {
             ReadOnlyAddressBook sampleAddressBook = SampleDataUtil.getSampleAddressBook();
             startState = new State(getStartCommand(),
-                    SampleDataUtil.getSampleAddressBook(),
-                    sampleAddressBook.getPersonList(),
+                    sampleAddressBook,
                     PREDICATE_SHOW_ALL_PERSONS);
         }
         history = new HistoryManager(startState);
@@ -148,30 +142,13 @@ public class ModelManager implements Model {
         return filteredPersons;
     }
     @Override
+    public void setFilteredPersonsListSource(ObservableList<Person> filteredPersonsListSource) {
+        filteredPersons = new FilteredList<>(filteredPersonsListSource);
+    }
+    @Override
     public void updateFilteredPersonList(Predicate<? super Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
-    }
-    public void setFilteredPersonsList(ObservableList<Person> filteredPersonsList,
-                                       Predicate<? super Person> predicate) {
-        this.filteredPersons = new FilteredList<>(filteredPersonsList);
-        updateFilteredPersonList(predicate);
-    }
-
-    /**
-     * @return Deep Copy of the source of FilteredPersonsList
-     * @throws IllegalValueException
-     */
-    public ObservableList<Person> deepCopyFilteredPersonsListSource() throws IllegalValueException {
-        List<JsonAdaptedPerson> jsonList = filteredPersons.getSource()
-                .stream()
-                .map(JsonAdaptedPerson::new)
-                .collect(Collectors.toList());
-        List<Person> personList = new ArrayList<>();
-        for (JsonAdaptedPerson jsonPerson : jsonList) {
-            personList.add(jsonPerson.toModelType());
-        }
-        return FXCollections.observableList(personList);
     }
     public Predicate<? super Person> getFilteredPersonsListPredicate() {
         if (filteredPersons.getPredicate() == null) {
@@ -206,12 +183,18 @@ public class ModelManager implements Model {
      */
     public State generateState(Command command) throws HistoryException {
         try {
+            for (Person person : getAddressBook().getPersonList()) {
+                System.out.println(System.identityHashCode(person));
+            }
+            for (Person person : getAddressBook().deepCopy().getPersonList()) {
+                System.out.println(System.identityHashCode(person));
+            }
+
             return new State(command,
                     getAddressBook().deepCopy(),
-                    deepCopyFilteredPersonsListSource(),
                     getFilteredPersonsListPredicate());
         } catch (IllegalValueException e) {
-            throw new HistoryException("Error while creating deepcopy", e);
+            throw new HistoryException("Error while generating state", e);
         }
     }
     /**
@@ -219,12 +202,15 @@ public class ModelManager implements Model {
      */
     @Override
     public void restoreState(State state) {
-        ObservableList<Person> newFilteredPersons = state.getFilteredList();
         ReadOnlyAddressBook newAddressBook = state.getAddressBook();
+        ObservableList<Person> newFilterPersonsSource = newAddressBook.getPersonList();
         Predicate<? super Person> newPredicate = state.getFilteredPersonsListPredicate();
 
         setAddressBook(newAddressBook);
-        setFilteredPersonsList(newFilteredPersons, newPredicate);
+        setFilteredPersonsListSource(newFilterPersonsSource);
+        updateFilteredPersonList(newPredicate);
+        
+        System.out.println(getFilteredPersonList());
     }
     /**
      * @throws HistoryException If state cannot be rolled back

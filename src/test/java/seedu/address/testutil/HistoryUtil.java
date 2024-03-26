@@ -15,11 +15,9 @@ public class HistoryUtil {
     private static final AddressBook START_ADDRESSBOOK = getTypicalAddressBook();
     public static final State TYPICAL_START_STATE = new State(getStartCommand(),
             START_ADDRESSBOOK,
-            START_ADDRESSBOOK.getPersonList(),
             PREDICATE_SHOW_ALL_PERSONS);
 
     public static final State TYPICAL_SECOND_STATE = new State(getCommandStub(),
             START_ADDRESSBOOK,
-            START_ADDRESSBOOK.getPersonList(),
             PREDICATE_SHOW_ALL_PERSONS);
 }

@@ -21,12 +21,11 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.history.State;
 import seedu.address.history.exceptions.HistoryException;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.util.SampleDataUtil;
@@ -157,8 +156,7 @@ public class ModelManagerTest {
         ArrayList<Person> newSource = new ArrayList<>();
         newSource.add(ALICE);
         newSource.add(BENSON);
-        modelManager.setFilteredPersonsList(new FilteredList<>(FXCollections.observableList(newSource)),
-                PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.setFilteredPersonsListSource(FXCollections.observableList(newSource));
         modelManager.getFilteredPersonList();
         assertEquals(modelManager.getFilteredPersonList(), FXCollections.observableList(newSource));
     }
@@ -168,7 +166,6 @@ public class ModelManagerTest {
         State currState = modelManager.getCurrentState();
         assertEquals(currState, new State(getStartCommand(),
                 modelManager.getAddressBook(),
-                modelManager.getFilteredPersonList(),
                 modelManager.getFilteredPersonsListPredicate()
         ));
     }
@@ -176,7 +173,7 @@ public class ModelManagerTest {
     @Test
     public void restoreStateTest() {
         modelManager.restoreState(TYPICAL_SECOND_STATE);
-        FilteredList<Person> filteredList = new FilteredList<>(TYPICAL_SECOND_STATE.getFilteredList());
+        FilteredList<Person> filteredList = new FilteredList<>(TYPICAL_SECOND_STATE.getAddressBook().getPersonList());
         filteredList.setPredicate(TYPICAL_SECOND_STATE.getFilteredPersonsListPredicate());
         assertEquals(modelManager.getAddressBook(), TYPICAL_SECOND_STATE.getAddressBook());
         assertEquals(modelManager.getFilteredPersonList(), filteredList);
@@ -220,8 +217,8 @@ public class ModelManagerTest {
 
     private static class ModelHistoryFailureStub extends ModelManager {
         @Override
-        public ObservableList<Person> deepCopyFilteredPersonsListSource() throws IllegalValueException {
-            throw new IllegalValueException("FAILURE TO CLONE");
+        public State generateState(Command command) throws HistoryException {
+            throw new HistoryException("FAILURE TO GENERATE");
         }
     }
 }

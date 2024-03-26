@@ -32,7 +32,7 @@ class StateTest {
         addressBook = getTypicalAddressBook();
         command = getCommandStub();
         filteredPersons = new FilteredList<>(addressBook.getPersonList());
-        state = new State(command, addressBook, filteredPersons, person -> true);
+        state = new State(command, addressBook, person -> true);
     }
     @Test
     void getAddressBook() {
@@ -58,18 +58,12 @@ class StateTest {
     }
 
     @Test
-    void getFilteredList() {
-        assertEquals(filteredPersons, state.getFilteredList());
-    }
-
-    @Test
     void equalsTest() {
         assertNotEquals(TYPICAL_START_STATE, TYPICAL_SECOND_STATE);
         assertEquals(TYPICAL_START_STATE, TYPICAL_START_STATE); //check for same pointer
         assertNotEquals(TYPICAL_SECOND_STATE, null); //check for null
         assertEquals(TYPICAL_START_STATE, new State(getStartCommand(),
                 getTypicalAddressBook(),
-                getTypicalAddressBook().getPersonList(),
                 PREDICATE_SHOW_ALL_PERSONS));
     }
 }
