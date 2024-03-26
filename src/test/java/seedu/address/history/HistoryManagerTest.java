@@ -28,12 +28,12 @@ class HistoryManagerTest {
         assertThrows(HistoryException.class, () -> history.rollForwardState());
     }
     @Test
-    void getCurrState() {
+    void getCurrStateTest() {
         State state = history.getCurrState();
         assertEquals(state, TYPICAL_START_STATE);
     }
     @Test
-    void addState() {
+    void addStateTest() {
         history.addState(TYPICAL_SECOND_STATE);
         assertEquals(history.getCurrState(), TYPICAL_SECOND_STATE);
     }
