@@ -8,6 +8,8 @@ import seedu.address.model.Model;
  */
 public class StartCommand extends Command {
 
+    public static final String COMMAND_WORD = "start";
+    public static final String MESSAGE_SHOULD_NOT_EXECUTE = "Start Command should not be executed!";
     private static StartCommand startCommand = null;
 
     private StartCommand() {
@@ -20,7 +22,7 @@ public class StartCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        throw new CommandException("Start Command should not be executed!");
+        throw new CommandException(MESSAGE_SHOULD_NOT_EXECUTE);
     }
 
     /**
@@ -28,7 +30,7 @@ public class StartCommand extends Command {
      */
     @Override
     public String getCommandString() {
-        return "START COMMAND";
+        return COMMAND_WORD;
     }
 
     public static StartCommand getStartCommand() {
