@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.commands.StartCommand.getStartCommand;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -17,13 +16,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.history.State;
 import seedu.address.history.exceptions.HistoryException;
-import seedu.address.logic.commands.Command;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.util.SampleDataUtil;
@@ -31,7 +31,12 @@ import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
 
-    private ModelManager modelManager = new ModelManager();
+    private ModelManager modelManager;
+
+    @BeforeEach
+    public void setup() {
+        modelManager = new ModelManager();
+    }
 
     @Test
     public void constructor() {
@@ -142,7 +147,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void initializationFailure() {
+    public void initialization_historyFailureStub_doesNotThrowHistoryException() {
         assertDoesNotThrow(ModelHistoryFailureStub::new);
         Model modelInitFailure = new ModelHistoryFailureStub();
         State state = modelInitFailure.getCurrentState();
@@ -150,7 +155,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getCurrentStateTest() {
+    public void getCurrentState_startState_successfullyReturnsStartState() {
         State currState = modelManager.getCurrentState();
         assertEquals(currState, new State(getStartCommand(),
                 modelManager.getAddressBook(),
@@ -159,7 +164,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void restoreStateTest() {
+    public void restoreState_typicalSecondState_successfullyRestoresSecondState() {
         modelManager.restoreState(TYPICAL_SECOND_STATE);
         FilteredList<Person> filteredList = new FilteredList<>(TYPICAL_SECOND_STATE.getAddressBook().getPersonList());
         filteredList.setPredicate(TYPICAL_SECOND_STATE.getFilteredPersonsListPredicate());
@@ -168,45 +173,59 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void updateStateSuccess() {
+    public void updateState_commandStub_successfullyUpdatesCurrentState() throws HistoryException {
         assertDoesNotThrow(() -> modelManager.updateState(getCommandStub()));
+        modelManager.updateState(getCommandStub());
+        assertEquals(modelManager.getCurrentState(),
+                new State(getCommandStub(),
+                        modelManager.getAddressBook(),
+                        modelManager.getFilteredPersonsListPredicate()
+                ));
     }
 
     @Test
-    public void rollBackStateSuccess() {
-        try {
-            modelManager.updateState(getCommandStub());
-        } catch (HistoryException e) {
-            fail();
-        }
+    public void rollBackState_successfullyRollbacksCurrentState() {
+        assertDoesNotThrow(() -> modelManager.updateState(getCommandStub()));
         assertDoesNotThrow(() -> modelManager.rollBackState());
+        assertEquals(new State(getStartCommand(),
+                modelManager.getAddressBook(),
+                modelManager.getFilteredPersonsListPredicate()),
+                modelManager.getCurrentState()
+        );
     }
 
     @Test
-    public void rollBackStateFailure() {
+    public void rollBackState_failsRollbackState() {
         assertThrows(HistoryException.class, () -> modelManager.rollBackState());
     }
 
     @Test
-    public void rollForwardStateSuccess() {
-        try {
-            modelManager.updateState(getCommandStub());
-            modelManager.rollBackState();
-        } catch (HistoryException e) {
-            fail();
-        }
+    public void rollForwardState_successfullyRollForwardToCurrentState() {
+        assertDoesNotThrow(() -> modelManager.updateState(getCommandStub()));
+        assertDoesNotThrow(() -> modelManager.rollBackState());
         assertDoesNotThrow(() -> modelManager.rollForwardState());
+        assertEquals(new State(getCommandStub(),
+                        modelManager.getAddressBook(),
+                        modelManager.getFilteredPersonsListPredicate()),
+                modelManager.getCurrentState()
+        );
     }
 
     @Test
-    public void rollForwardStateFailure() {
+    public void rollForwardState_failsRollForwardState() {
         assertThrows(HistoryException.class, () -> modelManager.rollForwardState());
     }
 
     private static class ModelHistoryFailureStub extends ModelManager {
         @Override
-        public State generateState(Command command) throws HistoryException {
-            throw new HistoryException("FAILURE TO GENERATE");
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook() {
+                @Override
+                public ReadOnlyAddressBook deepCopy() throws IllegalValueException {
+                    throw new IllegalValueException("FAILURE TO DEEPCOPY ADDRESSBOOK");
+                }
+            };
         }
+
     }
 }
