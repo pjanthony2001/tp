@@ -3,6 +3,7 @@ package seedu.address.history;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
@@ -16,7 +17,7 @@ import seedu.address.model.person.Person;
 public class State {
     private final Command command;
     private final ReadOnlyAddressBook addressBook;
-    private final ObservableList<Person> filteredPersons;
+    private final ObservableList<Person> filteredPersonsSource;
     private final Predicate<? super Person> filteredPersonsListPredicate;
 
     /**
@@ -31,7 +32,7 @@ public class State {
                  ObservableList<Person> filteredPersons, Predicate<? super Person> filteredPersonsListPredicate) {
         this.command = command;
         this.addressBook = addressBook;
-        this.filteredPersons = filteredPersons;
+        this.filteredPersonsSource = filteredPersons;
         this.filteredPersonsListPredicate = filteredPersonsListPredicate;
     }
 
@@ -58,7 +59,7 @@ public class State {
      * @return The command.
      */
     public ObservableList<Person> getFilteredList() {
-        return filteredPersons;
+        return filteredPersonsSource;
     }
     public Predicate<? super Person> getFilteredPersonsListPredicate() {
         return filteredPersonsListPredicate;
@@ -76,8 +77,17 @@ public class State {
         }
 
         State otherState = (State) other;
+
+        FilteredList<Person> filteredListOther = new FilteredList<>(otherState.filteredPersonsSource);
+        filteredListOther.setPredicate(otherState.filteredPersonsListPredicate);
+
+        FilteredList<Person> filteredList = new FilteredList<>(filteredPersonsSource);
+        filteredList.setPredicate(filteredPersonsListPredicate);
+
         return addressBook.equals(otherState.addressBook)
                 && command.equals(otherState.command)
-                && filteredPersons.equals(otherState.filteredPersons);
+                && filteredPersonsSource.equals(otherState.filteredPersonsSource)
+                && filteredList.equals(filteredListOther);
+
     }
 }

@@ -159,10 +159,10 @@ public class ModelManager implements Model {
     }
 
     /**
-     * @return Deep Copy of the current FilteredPersonsList
+     * @return Deep Copy of the source of FilteredPersonsList
      * @throws IllegalValueException
      */
-    public ObservableList<Person> deepCopyFilteredPersonsList() throws IllegalValueException {
+    public ObservableList<Person> deepCopyFilteredPersonsListSource() throws IllegalValueException {
         List<JsonAdaptedPerson> jsonList = filteredPersons.getSource()
                 .stream()
                 .map(JsonAdaptedPerson::new)
@@ -208,7 +208,7 @@ public class ModelManager implements Model {
         try {
             return new State(command,
                     getAddressBook().deepCopy(),
-                    deepCopyFilteredPersonsList(),
+                    deepCopyFilteredPersonsListSource(),
                     getFilteredPersonsListPredicate());
         } catch (IllegalValueException e) {
             throw new HistoryException("Error while creating deepcopy", e);

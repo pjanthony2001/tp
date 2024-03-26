@@ -220,7 +220,7 @@ public class ModelManagerTest {
 
     private static class ModelHistoryFailureStub extends ModelManager {
         @Override
-        public ObservableList<Person> deepCopyFilteredPersonsList() throws IllegalValueException {
+        public ObservableList<Person> deepCopyFilteredPersonsListSource() throws IllegalValueException {
             throw new IllegalValueException("FAILURE TO CLONE");
         }
     }
