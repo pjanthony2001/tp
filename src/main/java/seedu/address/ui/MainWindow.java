@@ -147,6 +147,10 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    public void handleDisplay(String details) {
+
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -178,6 +182,9 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            if (commandResult.isDisplayCommand()) {
+                handleDisplay(commandResult.getFeedbackToUser());
+            }
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }

@@ -12,6 +12,7 @@ import seedu.address.commons.util.ToStringBuilder;
 public class CommandResult {
 
     private final String feedbackToUser;
+    private final boolean isDisplayCommand;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
@@ -26,6 +27,15 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.isDisplayCommand = false;
+
+    }
+
+    public CommandResult(String feedbackToUser, boolean isDisplayCommand) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.isDisplayCommand = isDisplayCommand;
+        this.showHelp = false;
+        this.exit = false;
     }
 
     /**
@@ -42,6 +52,10 @@ public class CommandResult {
 
     public boolean isShowHelp() {
         return showHelp;
+    }
+
+    public boolean isDisplayCommand() {
+        return isDisplayCommand;
     }
 
     public boolean isExit() {
