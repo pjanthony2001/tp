@@ -10,7 +10,7 @@ import seedu.address.model.person.Person;
 
 
 /**
- * The `State` class represents a snapshot of the HAL9000 application's state at a specific point in time.
+ * The `State` class represents a snapshot of the ConnectCare application's state at a specific point in time.
  * It contains information about the executed command and the list of tasks at that time.
  */
 public class State {
@@ -49,6 +49,7 @@ public class State {
     public Command getCommand() {
         return command;
     }
+
     /**
      * Gets the command executed to reach this state.
      *

@@ -3,7 +3,7 @@ package seedu.address.history;
 import seedu.address.history.exceptions.HistoryException;
 
 /**
- * The `History` class manages the history of states in the HAL9000 application.
+ * The `History` class manages the history of states in the ConnectCare application.
  * It allows for rolling back and rolling forward to previous states.
  */
 public interface History {

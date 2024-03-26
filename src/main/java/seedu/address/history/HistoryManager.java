@@ -13,7 +13,6 @@ public class HistoryManager implements History {
     private int currStateIdx;
     private final ArrayList<State> states;
 
-
     /**
      * Constructs a new HistoryManager with a starting state.
      *

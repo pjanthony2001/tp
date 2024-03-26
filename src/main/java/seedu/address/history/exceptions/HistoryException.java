@@ -1,7 +1,7 @@
 package seedu.address.history.exceptions;
 
 /**
- * Represents an error which occurs during execution of a history rollback
+ * Represents an error which occurs during execution of an invalid history rollback/roll-forward
  */
 public class HistoryException extends Exception {
 

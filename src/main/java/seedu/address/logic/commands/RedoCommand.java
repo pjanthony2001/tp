@@ -23,7 +23,7 @@ public class RedoCommand extends Command {
     }
 
     /**
-     * Undoes the last command and restores the previous state.
+     * Redoes the last command and restores the previous state.
      *
      * @param model The model system for managing the address book
      */
