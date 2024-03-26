@@ -16,6 +16,11 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+import javafx.geometry.Insets;
+
+
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -147,8 +152,25 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    public void handleDisplay(String details) {
+    public void handleDisplay(CommandResult commandResult) {
 
+        personListPanelPlaceholder.getChildren().clear(); // Clear existing content
+
+        VBox detailsBox = new VBox(10); // Create container for details
+        detailsBox.setPadding(new Insets(10));
+
+        // Splitting details, assuming they're newline-separated
+        String[] details = commandResult.getFeedbackToUser().split("\n");
+        for (String detail : details) {
+            Label detailLabel = new Label(detail);
+            detailLabel.setWrapText(true); // Allow long text to wrap
+            detailLabel.setMaxWidth(400); // Set wider for more detail, adjust as necessary
+            detailsBox.getChildren().add(detailLabel);
+        }
+
+        personListPanelPlaceholder.getChildren().add(detailsBox);
+        personListPanelPlaceholder.setMinWidth(450); // Set a larger width for the details box, adjust as needed
+        personListPanelPlaceholder.setVisible(true);
     }
 
     void show() {
@@ -183,7 +205,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isDisplayCommand()) {
-                handleDisplay(commandResult.getFeedbackToUser());
+                handleDisplay(commandResult);
             }
             if (commandResult.isShowHelp()) {
                 handleHelp();
