@@ -13,7 +13,7 @@ public class StartCommand extends Command {
     private static StartCommand startCommand = null;
 
     private StartCommand() {
-        super.setTracked(true);
+        super.setReversible(true);
     }
 
     /**

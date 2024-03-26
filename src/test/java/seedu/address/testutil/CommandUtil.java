@@ -27,7 +27,7 @@ public class CommandUtil {
 
     private static class CommandStubTracked extends CommandStub {
         public CommandStubTracked() {
-            super.setTracked(true);
+            super.setReversible(true);
         }
     }
 

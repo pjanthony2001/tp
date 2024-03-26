@@ -15,7 +15,7 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all persons";
 
     public ListCommand() {
-        super.setTracked(true);
+        super.setReversible(true);
     }
 
 

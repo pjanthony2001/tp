@@ -52,7 +52,7 @@ public class AddCommand extends Command {
     public AddCommand(Person person) {
         requireNonNull(person);
 
-        super.setTracked(true);
+        super.setReversible(true);
         toAdd = person;
     }
 

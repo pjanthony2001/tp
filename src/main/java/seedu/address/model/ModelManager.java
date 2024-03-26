@@ -30,6 +30,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private FilteredList<Person> filteredPersons;
+    private ObservableList<Person> source;
     private final History history;
 
     /**
@@ -42,7 +43,8 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.source = this.addressBook.getPersonList();
+        this.filteredPersons = new FilteredList<>(source);
 
         State startState;
         try {
@@ -54,6 +56,7 @@ public class ModelManager implements Model {
                     PREDICATE_SHOW_ALL_PERSONS);
         }
         history = new HistoryManager(startState);
+
     }
 
     public ModelManager() {
@@ -100,6 +103,7 @@ public class ModelManager implements Model {
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         this.addressBook.resetData(addressBook);
+        this.source = this.addressBook.getPersonList();
     }
 
     @Override
@@ -141,15 +145,13 @@ public class ModelManager implements Model {
     public ObservableList<Person> getFilteredPersonList() {
         return filteredPersons;
     }
-    @Override
-    public void setFilteredPersonsListSource(ObservableList<Person> filteredPersonsListSource) {
-        filteredPersons = new FilteredList<>(filteredPersonsListSource);
-    }
+
     @Override
     public void updateFilteredPersonList(Predicate<? super Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
+
     public Predicate<? super Person> getFilteredPersonsListPredicate() {
         if (filteredPersons.getPredicate() == null) {
             return PREDICATE_SHOW_ALL_PERSONS;
@@ -170,7 +172,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void updateState(Command command) throws HistoryException {
-        if (command.isTracked()) {
+        if (command.isReversible()) {
             State state = generateState(command);
             history.addState(state);
         }
@@ -183,13 +185,6 @@ public class ModelManager implements Model {
      */
     public State generateState(Command command) throws HistoryException {
         try {
-            for (Person person : getAddressBook().getPersonList()) {
-                System.out.println(System.identityHashCode(person));
-            }
-            for (Person person : getAddressBook().deepCopy().getPersonList()) {
-                System.out.println(System.identityHashCode(person));
-            }
-
             return new State(command,
                     getAddressBook().deepCopy(),
                     getFilteredPersonsListPredicate());
@@ -197,21 +192,19 @@ public class ModelManager implements Model {
             throw new HistoryException("Error while generating state", e);
         }
     }
+
     /**
      * @param state State to be restored
      */
     @Override
     public void restoreState(State state) {
         ReadOnlyAddressBook newAddressBook = state.getAddressBook();
-        ObservableList<Person> newFilterPersonsSource = newAddressBook.getPersonList();
         Predicate<? super Person> newPredicate = state.getFilteredPersonsListPredicate();
 
         setAddressBook(newAddressBook);
-        setFilteredPersonsListSource(newFilterPersonsSource);
         updateFilteredPersonList(newPredicate);
-        
-        System.out.println(getFilteredPersonList());
     }
+
     /**
      * @throws HistoryException If state cannot be rolled back
      */

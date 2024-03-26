@@ -82,8 +82,6 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
-    void setFilteredPersonsListSource(ObservableList<Person> filteredPersonsListSource);
-
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -91,8 +89,12 @@ public interface Model {
     void updateFilteredPersonList(Predicate<? super Person> predicate);
 
     State getCurrentState();
+
     void restoreState(State state);
+
     void rollBackState() throws HistoryException;
+
     void rollForwardState() throws HistoryException;
+
     void updateState(Command command) throws HistoryException;
 }

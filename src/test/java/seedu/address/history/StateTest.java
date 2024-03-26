@@ -32,24 +32,24 @@ class StateTest {
         addressBook = getTypicalAddressBook();
         command = getCommandStub();
         filteredPersons = new FilteredList<>(addressBook.getPersonList());
-        state = new State(command, addressBook, person -> true);
+        state = new State(command, addressBook, PREDICATE_SHOW_ALL_PERSONS);
     }
     @Test
-    void getAddressBook() {
+    void getAddressBook_typicalAddressBook_successfullyReturnsTypicalAddressBook() {
         AddressBook original = getTypicalAddressBook();
         ReadOnlyAddressBook retrieved = state.getAddressBook();
         assertEquals(original, retrieved);
     }
 
     @Test
-    void getCommandSuccess() {
+    void getCommand_commandStubTracked_successfullyReturnsCommandStub() {
         Command original = getCommandStub();
         Command retrieved = state.getCommand();
         assertEquals(original, retrieved);
     }
 
     @Test
-    void getPredicateSuccess() {
+    void getPredicate_showAllPersons_successfullyReturnsShowAllPersons() {
         int sizeBeforePredicate = filteredPersons.size();
         Predicate<? super Person> retrieved = state.getFilteredPersonsListPredicate();
         filteredPersons.setPredicate(retrieved);

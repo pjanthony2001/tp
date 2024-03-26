@@ -19,7 +19,7 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_NO_ROLLBACK = "There is no more history to roll back!";
 
     public UndoCommand() {
-        setTracked(false);
+        setReversible(false);
     }
 
     /**
@@ -43,6 +43,7 @@ public class UndoCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, prevState.getCommand().getCommandString()));
     }
+
     @Override
     public String getCommandString() {
         return COMMAND_WORD;

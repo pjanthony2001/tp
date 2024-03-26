@@ -27,7 +27,7 @@ public class FindCommand extends Command {
      */
     public FindCommand(NameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
-        super.setTracked(true);
+        super.setReversible(true);
     }
 
     @Override

@@ -71,7 +71,7 @@ public class UpdateCommand extends Command {
         requireNonNull(name);
         requireNonNull(updatePersonDescriptor);
 
-        super.setTracked(true);
+        super.setReversible(true);
         this.name = name;
         this.updatePersonDescriptor = new UpdatePersonDescriptor(updatePersonDescriptor);
 
@@ -288,6 +288,7 @@ public class UpdateCommand extends Command {
                     .toString();
         }
     }
+
     @Override
     public String getCommandString() {
         return COMMAND_WORD;

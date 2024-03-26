@@ -15,12 +15,10 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.history.State;
@@ -149,16 +147,6 @@ public class ModelManagerTest {
         Model modelInitFailure = new ModelHistoryFailureStub();
         State state = modelInitFailure.getCurrentState();
         assertEquals(state.getAddressBook(), SampleDataUtil.getSampleAddressBook());
-    }
-
-    @Test
-    public void setFilteredPersonsListTest() {
-        ArrayList<Person> newSource = new ArrayList<>();
-        newSource.add(ALICE);
-        newSource.add(BENSON);
-        modelManager.setFilteredPersonsListSource(FXCollections.observableList(newSource));
-        modelManager.getFilteredPersonList();
-        assertEquals(modelManager.getFilteredPersonList(), FXCollections.observableList(newSource));
     }
 
     @Test

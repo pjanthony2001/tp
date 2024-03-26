@@ -19,7 +19,7 @@ public class RedoCommand extends Command {
     public static final String MESSAGE_NO_ROLLFORWARD = "There is no more history to roll forward!";
 
     public RedoCommand() {
-        setTracked(false);
+        setReversible(false);
     }
 
     /**

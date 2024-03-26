@@ -20,25 +20,25 @@ class HistoryManagerTest {
     }
 
     @Test
-    void rollBackStateFailure() {
+    void rollBackState_noPreviousState_exceptionThrown() {
         assertThrows(HistoryException.class, () -> history.rollBackState());
     }
     @Test
-    void rollForwardStateFailure() {
+    void rollForwardState_noNextState_exceptionThrown() {
         assertThrows(HistoryException.class, () -> history.rollForwardState());
     }
     @Test
-    void getCurrStateTest() {
+    void getCurrState_typicalStartState_successfullyReturnsStartState() {
         State state = history.getCurrState();
         assertEquals(state, TYPICAL_START_STATE);
     }
     @Test
-    void addStateTest() {
+    void addState_typicalSecondState_successfullyReturnsSecondState() {
         history.addState(TYPICAL_SECOND_STATE);
         assertEquals(history.getCurrState(), TYPICAL_SECOND_STATE);
     }
     @Test
-    void rollBackStateSuccess() {
+    void rollBackState_typicalSecondState_doesNotThrowExceptions() {
         history.addState(TYPICAL_SECOND_STATE);
         assertDoesNotThrow(() -> history.rollBackState());
     }
