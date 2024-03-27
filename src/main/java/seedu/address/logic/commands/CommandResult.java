@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.Person;
 
 /**
  * Represents the result of a command execution.
@@ -13,6 +14,7 @@ public class CommandResult {
 
     private final String feedbackToUser;
     private final boolean isDisplayCommand;
+    private Person firstMatchedPerson;
 
     /** Help information should be shown to the user. */
     private final boolean showHelp;
@@ -31,10 +33,11 @@ public class CommandResult {
 
     }
 
-    public CommandResult(String feedbackToUser, boolean isDisplayCommand) {
+    public CommandResult(String feedbackToUser, Person firstMatchedPerson, boolean isDisplayCommand) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.isDisplayCommand = isDisplayCommand;
         this.showHelp = false;
+        this.firstMatchedPerson = firstMatchedPerson;
         this.exit = false;
     }
 
@@ -48,6 +51,10 @@ public class CommandResult {
 
     public String getFeedbackToUser() {
         return feedbackToUser;
+    }
+
+    public Person getPerson() {
+        return firstMatchedPerson;
     }
 
     public boolean isShowHelp() {
