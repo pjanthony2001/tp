@@ -25,20 +25,22 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean isDisplayCommand, Person firstMatchedPerson) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.isDisplayCommand = false;
+        this.isDisplayCommand = isDisplayCommand;
+        this.firstMatchedPerson = firstMatchedPerson;
+
 
     }
 
     public CommandResult(String feedbackToUser, Person firstMatchedPerson, boolean isDisplayCommand) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.isDisplayCommand = isDisplayCommand;
-        this.showHelp = false;
-        this.firstMatchedPerson = firstMatchedPerson;
-        this.exit = false;
+        this(feedbackToUser, false,false,  isDisplayCommand,  firstMatchedPerson);
+    }
+
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+        this(feedbackToUser, showHelp, exit, false, null);
     }
 
     /**
@@ -46,7 +48,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false, null);
     }
 
     public String getFeedbackToUser() {
