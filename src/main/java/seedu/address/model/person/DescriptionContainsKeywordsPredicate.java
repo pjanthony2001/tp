@@ -20,7 +20,7 @@ public class DescriptionContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         if (keywords.isEmpty()) {
-            return true;
+            return false;
         }
         boolean personmatches = keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getDescription().toString(), keyword));

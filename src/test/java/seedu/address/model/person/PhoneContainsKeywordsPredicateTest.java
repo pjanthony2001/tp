@@ -60,7 +60,7 @@ public class PhoneContainsKeywordsPredicateTest {
     public void test_phoneDoesNotContainKeywords_returnsTrue() {
         // Zero keywords
         PhoneContainsKeywordsPredicate predicate = new PhoneContainsKeywordsPredicate(Collections.emptyList());
-        assertTrue(predicate.test(new PersonBuilder().withPhone("123").build()));
+        assertFalse(predicate.test(new PersonBuilder().withPhone("123").build()));
 
         // Non-matching keyword
         predicate = new PhoneContainsKeywordsPredicate(Arrays.asList("666"));

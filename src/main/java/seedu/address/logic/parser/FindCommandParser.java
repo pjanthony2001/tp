@@ -40,8 +40,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_ADDRESS, PREFIX_NOK,
-                PREFIX_DESCRIPTION, PREFIX_TAG);
+            PREFIX_ADDRESS, PREFIX_NOK,
+            PREFIX_DESCRIPTION, PREFIX_TAG);
         List<String> nameKeywords = argMultimap.getAllValues(PREFIX_NAME);
         List<String> phoneKeywords = argMultimap.getAllValues(PREFIX_PHONE);
         List<String> emailKeywords = argMultimap.getAllValues(PREFIX_EMAIL);
@@ -50,9 +50,11 @@ public class FindCommandParser implements Parser<FindCommand> {
         List<String> tagKeywords = argMultimap.getAllValues(PREFIX_TAG);
         List<String> descriptionKeywords = argMultimap.getAllValues(PREFIX_DESCRIPTION);
 
-        if (nameKeywords.isEmpty()) {
+        if (nameKeywords.isEmpty() && phoneKeywords.isEmpty() && emailKeywords.isEmpty()
+            && addressKeywords.isEmpty() && kinKeywords.isEmpty() && tagKeywords.isEmpty()
+            && descriptionKeywords.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
         return new FindCommand(new NameContainsKeywordsPredicate(nameKeywords),

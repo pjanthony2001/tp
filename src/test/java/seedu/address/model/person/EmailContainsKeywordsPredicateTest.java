@@ -63,7 +63,7 @@ public class EmailContainsKeywordsPredicateTest {
     public void test_emailDoesNotContainKeywords_returnsTrue() {
         // Zero keywords
         EmailContainsKeywordsPredicate predicate = new EmailContainsKeywordsPredicate(Collections.emptyList());
-        assertTrue(predicate.test(new PersonBuilder().withEmail("Alice@gmail.com").build()));
+        assertFalse(predicate.test(new PersonBuilder().withEmail("Alice@gmail.com").build()));
 
         // Non-matching keyword
         predicate = new EmailContainsKeywordsPredicate(Arrays.asList("Carol"));

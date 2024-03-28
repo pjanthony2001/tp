@@ -32,7 +32,8 @@ public class FindCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
             + "the specified keywords (case-insensitive) and optionally by additional parameters and \n"
             + "displays them as a list with index numbers.\n"
-            + "Parameters: n/ KEYWORD [OPTIONAL PARAMETER] [OPTIONAL KEYWORD]...\n"
+            + "Parameters: [OPTIONAL PARAMETER] [OPTIONAL PARAMETER] [OPTIONAL KEYWORD]...\n"
+            + "A minimum of ONE parameter must be passed in. \n"
             + "Example: " + COMMAND_WORD + " n/alice n/bob p/1 e/nus a/clementi t/friends k/amy d/colleague\n";
 
     private final List<Predicate<Person>> predicates;
@@ -58,7 +59,7 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        Optional<Predicate<Person>> combinedPredicate = predicates.stream().reduce(Predicate::and);
+        Optional<Predicate<Person>> combinedPredicate = predicates.stream().reduce(Predicate::or);
         if (combinedPredicate.isPresent()) {
             model.updateFilteredPersonList(combinedPredicate.get());
         }

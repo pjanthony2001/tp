@@ -67,7 +67,7 @@ public class TagContainsKeywordsPredicateTest {
     public void test_tagDoesNotContainKeywords_returnsTrue() {
         // Zero keywords
         TagContainsKeywordsPredicate predicate = new TagContainsKeywordsPredicate(Collections.emptyList());
-        assertTrue(predicate.test(new PersonBuilder().withTags("Important").build()));
+        assertFalse(predicate.test(new PersonBuilder().withTags("Important").build()));
 
         // Non-matching keyword
         predicate = new TagContainsKeywordsPredicate(Arrays.asList("Carol"));

@@ -63,7 +63,7 @@ public class KinContainsKeywordsPredicateTest {
     public void test_kinDoesNotContainKeywords_returnsTrue() {
         // Zero keywords
         KinContainsKeywordsPredicate predicate = new KinContainsKeywordsPredicate(Collections.emptyList());
-        assertTrue(predicate.test(new PersonBuilder().withNextOfKin("Alice").build()));
+        assertFalse(predicate.test(new PersonBuilder().withNextOfKin("Alice").build()));
 
         // Non-matching keyword
         predicate = new KinContainsKeywordsPredicate(Arrays.asList("Carol"));

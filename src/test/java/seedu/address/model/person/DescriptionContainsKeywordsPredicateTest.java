@@ -66,7 +66,7 @@ public class DescriptionContainsKeywordsPredicateTest {
         // Zero keywords
         DescriptionContainsKeywordsPredicate predicate = new DescriptionContainsKeywordsPredicate(
             Collections.emptyList());
-        assertTrue(predicate.test(new PersonBuilder().withDescription("unwell").build()));
+        assertFalse(predicate.test(new PersonBuilder().withDescription("unwell").build()));
 
         // Non-matching keyword
         predicate = new DescriptionContainsKeywordsPredicate(Arrays.asList("ill"));

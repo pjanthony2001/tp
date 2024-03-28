@@ -65,7 +65,7 @@ public class AddressContainsKeywordsPredicateTest {
     public void test_addressDoesNotContainKeywords_returnsTrue() {
         // Zero keywords
         AddressContainsKeywordsPredicate predicate = new AddressContainsKeywordsPredicate(Collections.emptyList());
-        assertTrue(predicate.test(new PersonBuilder().withAddress("Clementi blk 28").build()));
+        assertFalse(predicate.test(new PersonBuilder().withAddress("Clementi blk 28").build()));
 
         // Non-matching keyword
         predicate = new AddressContainsKeywordsPredicate(Arrays.asList("Carol"));
