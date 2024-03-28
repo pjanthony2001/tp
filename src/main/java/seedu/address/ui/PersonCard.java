@@ -64,14 +64,19 @@ public class PersonCard extends UiPart<Region> {
                     nextOfKin.setText(nok.value);
                     nextOfKin.setVisible(true);
                     nextOfKin.setManaged(true);
-                }, () -> {
-                    nextOfKin.setVisible(false);
-                    nextOfKin.setManaged(false);
-                }
+                }, () -> hideLabel(nextOfKin)
         );
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
-
+    /**
+     * Hides the specified label if no value is present.
+     *
+     * @param label The label to hide if no value is present.
+     */
+    private void hideLabel(Label label) {
+        label.setVisible(false);
+        label.setManaged(false);
+    }
 }
