@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.history.State;
+import seedu.address.history.ModelState;
 import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -37,10 +37,10 @@ public class RedoCommand extends Command {
             throw new CommandException(MESSAGE_NO_ROLLFORWARD);
         }
 
-        State currState = model.getCurrentState();
-        model.restoreState(currState);
+        ModelState currModelState = model.getCurrentState();
+        model.restoreState(currModelState);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, currState.getCommand().getCommandString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, currModelState.getCommand().getCommandString()));
     }
     @Override
     public String getCommandString() {

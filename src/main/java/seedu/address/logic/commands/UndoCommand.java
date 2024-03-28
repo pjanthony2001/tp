@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.history.State;
+import seedu.address.history.ModelState;
 import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -31,17 +31,17 @@ public class UndoCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        State prevState = model.getCurrentState();
+        ModelState prevModelState = model.getCurrentState();
         try {
             model.rollBackState();
         } catch (HistoryException e) {
             throw new CommandException(MESSAGE_NO_ROLLBACK);
         }
 
-        State currState = model.getCurrentState();
-        model.restoreState(currState);
+        ModelState currModelState = model.getCurrentState();
+        model.restoreState(currModelState);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, prevState.getCommand().getCommandString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, prevModelState.getCommand().getCommandString()));
     }
 
     @Override

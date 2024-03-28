@@ -14,8 +14,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.history.History;
-import seedu.address.history.HistoryManager;
-import seedu.address.history.State;
+import seedu.address.history.ModelHistoryManager;
+import seedu.address.history.ModelState;
 import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.person.Person;
@@ -31,7 +31,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private FilteredList<Person> filteredPersons;
     private ObservableList<Person> source;
-    private final History history;
+    private final History<ModelState> history;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -46,16 +46,16 @@ public class ModelManager implements Model {
         this.source = this.addressBook.getPersonList();
         this.filteredPersons = new FilteredList<>(source);
 
-        State startState;
+        ModelState startModelState;
         try {
-            startState = generateState(getStartCommand());
+            startModelState = generateState(getStartCommand());
         } catch (HistoryException e) {
             ReadOnlyAddressBook sampleAddressBook = SampleDataUtil.getSampleAddressBook();
-            startState = new State(getStartCommand(),
+            startModelState = new ModelState(getStartCommand(),
                     sampleAddressBook,
                     PREDICATE_SHOW_ALL_PERSONS);
         }
-        history = new HistoryManager(startState);
+        history = new ModelHistoryManager(startModelState);
 
     }
 
@@ -158,12 +158,12 @@ public class ModelManager implements Model {
         }
         return filteredPersons.getPredicate();
     }
-    //============== History ===============================================================================
+    //============== Model History ===============================================================================
     /**
      * Gets current state
      */
     @Override
-    public State getCurrentState() {
+    public ModelState getCurrentState() {
         return history.getCurrState();
     }
 
@@ -173,8 +173,8 @@ public class ModelManager implements Model {
     @Override
     public void updateState(Command command) throws HistoryException {
         if (command.isReversible()) {
-            State state = generateState(command);
-            history.addState(state);
+            ModelState modelState = generateState(command);
+            history.addState(modelState);
         }
     }
 
@@ -183,9 +183,9 @@ public class ModelManager implements Model {
      * @return Generated state
      * @throws HistoryException if error while making deep copy
      */
-    public State generateState(Command command) throws HistoryException {
+    public ModelState generateState(Command command) throws HistoryException {
         try {
-            return new State(command,
+            return new ModelState(command,
                     getAddressBook().deepCopy(),
                     getFilteredPersonsListPredicate());
         } catch (IllegalValueException e) {
@@ -194,12 +194,12 @@ public class ModelManager implements Model {
     }
 
     /**
-     * @param state State to be restored
+     * @param modelState ModelState to be restored
      */
     @Override
-    public void restoreState(State state) {
-        ReadOnlyAddressBook newAddressBook = state.getAddressBook();
-        Predicate<? super Person> newPredicate = state.getFilteredPersonsListPredicate();
+    public void restoreState(ModelState modelState) {
+        ReadOnlyAddressBook newAddressBook = modelState.getAddressBook();
+        Predicate<? super Person> newPredicate = modelState.getFilteredPersonsListPredicate();
 
         setAddressBook(newAddressBook);
         updateFilteredPersonList(newPredicate);

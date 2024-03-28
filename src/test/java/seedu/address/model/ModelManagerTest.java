@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.StartCommand.getStartCommand;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.CommandUtil.getCommandStub;
-import static seedu.address.testutil.HistoryUtil.TYPICAL_SECOND_STATE;
+import static seedu.address.testutil.HistoryUtil.TYPICAL_SECOND_MODEL_STATE;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.history.State;
+import seedu.address.history.ModelState;
 import seedu.address.history.exceptions.HistoryException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -106,7 +106,8 @@ public class ModelManagerTest {
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+        assertThrows(
+                UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
 
     @Test
@@ -150,14 +151,14 @@ public class ModelManagerTest {
     public void initialization_historyFailureStub_doesNotThrowHistoryException() {
         assertDoesNotThrow(ModelHistoryFailureStub::new);
         Model modelInitFailure = new ModelHistoryFailureStub();
-        State state = modelInitFailure.getCurrentState();
-        assertEquals(state.getAddressBook(), SampleDataUtil.getSampleAddressBook());
+        ModelState modelState = modelInitFailure.getCurrentState();
+        assertEquals(modelState.getAddressBook(), SampleDataUtil.getSampleAddressBook());
     }
 
     @Test
     public void getCurrentState_startState_successfullyReturnsStartState() {
-        State currState = modelManager.getCurrentState();
-        assertEquals(currState, new State(getStartCommand(),
+        ModelState currModelState = modelManager.getCurrentState();
+        assertEquals(currModelState, new ModelState(getStartCommand(),
                 modelManager.getAddressBook(),
                 modelManager.getFilteredPersonsListPredicate()
         ));
@@ -165,10 +166,11 @@ public class ModelManagerTest {
 
     @Test
     public void restoreState_typicalSecondState_successfullyRestoresSecondState() {
-        modelManager.restoreState(TYPICAL_SECOND_STATE);
-        FilteredList<Person> filteredList = new FilteredList<>(TYPICAL_SECOND_STATE.getAddressBook().getPersonList());
-        filteredList.setPredicate(TYPICAL_SECOND_STATE.getFilteredPersonsListPredicate());
-        assertEquals(modelManager.getAddressBook(), TYPICAL_SECOND_STATE.getAddressBook());
+        modelManager.restoreState(TYPICAL_SECOND_MODEL_STATE);
+        FilteredList<Person> filteredList = new FilteredList<>(TYPICAL_SECOND_MODEL_STATE
+                .getAddressBook().getPersonList());
+        filteredList.setPredicate(TYPICAL_SECOND_MODEL_STATE.getFilteredPersonsListPredicate());
+        assertEquals(modelManager.getAddressBook(), TYPICAL_SECOND_MODEL_STATE.getAddressBook());
         assertEquals(modelManager.getFilteredPersonList(), filteredList);
     }
 
@@ -177,7 +179,7 @@ public class ModelManagerTest {
         assertDoesNotThrow(() -> modelManager.updateState(getCommandStub()));
         modelManager.updateState(getCommandStub());
         assertEquals(modelManager.getCurrentState(),
-                new State(getCommandStub(),
+                new ModelState(getCommandStub(),
                         modelManager.getAddressBook(),
                         modelManager.getFilteredPersonsListPredicate()
                 ));
@@ -187,7 +189,7 @@ public class ModelManagerTest {
     public void rollBackState_successfullyRollbacksCurrentState() {
         assertDoesNotThrow(() -> modelManager.updateState(getCommandStub()));
         assertDoesNotThrow(() -> modelManager.rollBackState());
-        assertEquals(new State(getStartCommand(),
+        assertEquals(new ModelState(getStartCommand(),
                 modelManager.getAddressBook(),
                 modelManager.getFilteredPersonsListPredicate()),
                 modelManager.getCurrentState()
@@ -204,7 +206,7 @@ public class ModelManagerTest {
         assertDoesNotThrow(() -> modelManager.updateState(getCommandStub()));
         assertDoesNotThrow(() -> modelManager.rollBackState());
         assertDoesNotThrow(() -> modelManager.rollForwardState());
-        assertEquals(new State(getCommandStub(),
+        assertEquals(new ModelState(getCommandStub(),
                         modelManager.getAddressBook(),
                         modelManager.getFilteredPersonsListPredicate()),
                 modelManager.getCurrentState()

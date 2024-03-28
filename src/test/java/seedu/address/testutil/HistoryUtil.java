@@ -5,7 +5,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.CommandUtil.getCommandStub;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import seedu.address.history.State;
+import seedu.address.history.ModelState;
 import seedu.address.model.AddressBook;
 
 /**
@@ -13,11 +13,11 @@ import seedu.address.model.AddressBook;
  */
 public class HistoryUtil {
     private static final AddressBook START_ADDRESSBOOK = getTypicalAddressBook();
-    public static final State TYPICAL_START_STATE = new State(getStartCommand(),
+    public static final ModelState TYPICAL_START_MODEL_STATE = new ModelState(getStartCommand(),
             START_ADDRESSBOOK,
             PREDICATE_SHOW_ALL_PERSONS);
 
-    public static final State TYPICAL_SECOND_STATE = new State(getCommandStub(),
+    public static final ModelState TYPICAL_SECOND_MODEL_STATE = new ModelState(getCommandStub(),
             START_ADDRESSBOOK,
             PREDICATE_SHOW_ALL_PERSONS);
 }

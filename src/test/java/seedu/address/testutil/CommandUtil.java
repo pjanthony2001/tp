@@ -6,7 +6,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Command Utility that can be used for testing, especially for History and State
+ * Command Utility that can be used for testing, especially for History and ModelState
  */
 public class CommandUtil {
     private static final CommandStub COMMAND_STUB_TRACKED = new CommandStubTracked();

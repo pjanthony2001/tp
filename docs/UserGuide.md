@@ -140,7 +140,7 @@ Examples: Lets say your contact list contains the following contacts: **John Doe
 
 ### Undoing a command : `undo`
 
-_This command allows you to undo your last command, restoring the ConnectCare application to its previous state._
+_This command allows you to undo your last command, restoring the ConnectCare application to its previous modelState._
 
 Format: `undo`
 

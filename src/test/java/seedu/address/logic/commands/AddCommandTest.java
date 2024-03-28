@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.history.State;
+import seedu.address.history.ModelState;
 import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -168,12 +168,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public State getCurrentState() {
+        public ModelState getCurrentState() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void restoreState(State state) {
+        public void restoreState(ModelState modelState) {
             throw new AssertionError("This method should not be called.");
         }
 

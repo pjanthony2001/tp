@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.history.State;
+import seedu.address.history.ModelState;
 import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.person.Person;
@@ -88,9 +88,9 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<? super Person> predicate);
 
-    State getCurrentState();
+    ModelState getCurrentState();
 
-    void restoreState(State state);
+    void restoreState(ModelState modelState);
 
     void rollBackState() throws HistoryException;
 

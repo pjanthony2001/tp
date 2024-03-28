@@ -4,32 +4,30 @@ import java.util.ArrayList;
 
 import seedu.address.history.exceptions.HistoryException;
 
-
 /**
- * The `HistoryManager` class manages the history of commands used in the ConnectCare application.
- * It facilitates the undoing and redoing commands and updating the command history.
+ * @param <T> The type of state that the abstract class keeps track of
  */
-public class HistoryManager implements History {
+public abstract class HistoryManager<T> implements History<T> {
     private int currStateIdx;
-    private final ArrayList<State> states;
+    private final ArrayList<T> modelStates;
 
     /**
-     * Constructs a new HistoryManager with a starting state.
+     * Constructs a new ModelHistoryManager with a starting state.
      *
      * @param startState The initial state of the history.
      */
-    public HistoryManager(State startState) {
-        states = new ArrayList<>();
-        states.add(startState);
+    public HistoryManager(T startState) {
+        modelStates = new ArrayList<>();
+        modelStates.add(startState);
         currStateIdx = 0;
     }
 
     /**
-     * Removes states after the current state, effectively truncating the history.
+     * Removes modelStates after the current state, effectively truncating the history.
      */
     private void truncate() {
-        assert (currStateIdx >= 0 && currStateIdx < states.size());
-        states.subList(currStateIdx + 1, states.size()).clear();
+        assert (currStateIdx >= 0 && currStateIdx < modelStates.size());
+        modelStates.subList(currStateIdx + 1, modelStates.size()).clear();
     }
 
     /**
@@ -46,25 +44,25 @@ public class HistoryManager implements History {
     /**
      * Rolls forward to the next state in the history.
      *
-     * @throws Exception If there are no more future states to roll forward to.
+     * @throws HistoryException If there are no more future modelStates to roll forward to.
      */
     @Override
     public void rollForwardState() throws HistoryException {
-        if (currStateIdx == states.size() - 1) {
+        if (currStateIdx == modelStates.size() - 1) {
             throw new HistoryException("You can't roll forward the state anymore!");
         }
         currStateIdx += 1;
     }
 
     /**
-     * Adds a new state to the history, removing subsequent states.
+     * Adds a new modelState to the history, removing subsequent modelStates.
      *
-     * @param state The state to add to the history.
+     * @param state The modelState to add to the history.
      */
     @Override
-    public void addState(State state) {
+    public void addState(T state) {
         truncate();
-        states.add(state);
+        modelStates.add(state);
         currStateIdx += 1;
     }
 
@@ -74,7 +72,7 @@ public class HistoryManager implements History {
      * @return The current state.
      */
     @Override
-    public State getCurrState() {
-        return states.get(currStateIdx);
+    public T getCurrState() {
+        return modelStates.get(currStateIdx);
     }
 }
