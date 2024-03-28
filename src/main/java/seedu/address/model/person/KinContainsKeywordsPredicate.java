@@ -3,6 +3,7 @@ package seedu.address.model.person;
 import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
@@ -21,7 +22,7 @@ public class KinContainsKeywordsPredicate implements Predicate<Person> {
             return true;
         }
         boolean personmatches = keywords.stream()
-                .anyMatch(keyword -> person.getNextOfKin().toString().contains(keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getNextOfKin().toString(), keyword));
         return personmatches;
     }
 

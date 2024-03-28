@@ -13,14 +13,18 @@ public class StringUtil {
 
     /**
      * Returns true if the {@code sentence} contains the {@code word}.
-     *   Ignores case, but a full word match is required.
-     *   <br>examples:<pre>
+     * Ignores case, but keyword match must be the start of the word
+     * <br>
+     * examples:
+     *
+     * <pre>
      *       containsWordIgnoreCase("ABc def", "abc") == true
      *       containsWordIgnoreCase("ABc def", "DEF") == true
-     *       containsWordIgnoreCase("ABc def", "AB") == false //not a full word match
-     *       </pre>
+     *       containsWordIgnoreCase("ABc def", "bc") == false // not the start of the word
+     * </pre>
+     *
      * @param sentence cannot be null
-     * @param word cannot be null, cannot be empty, must be a single word
+     * @param word     cannot be null, cannot be empty, must be a single word
      */
     public static boolean containsWordIgnoreCase(String sentence, String word) {
         requireNonNull(sentence);
@@ -30,7 +34,13 @@ public class StringUtil {
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
         checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
 
-        return sentence.toLowerCase().contains(preppedWord);
+        String[] words = sentence.split("\\s+");
+        for (String singleWord : words) {
+            if (singleWord.trim().toLowerCase().startsWith(preppedWord)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -47,7 +57,9 @@ public class StringUtil {
      * Returns true if {@code s} represents a non-zero unsigned integer
      * e.g. 1, 2, 3, ..., {@code Integer.MAX_VALUE} <br>
      * Will return false for any other non-null string input
-     * e.g. empty string, "-1", "0", "+1", and " 2 " (untrimmed), "3 0" (contains whitespace), "1 a" (contains letters)
+     * e.g. empty string, "-1", "0", "+1", and " 2 " (untrimmed), "3 0" (contains
+     * whitespace), "1 a" (contains letters)
+     *
      * @throws NullPointerException if {@code s} is null.
      */
     public static boolean isNonZeroUnsignedInteger(String s) {
@@ -60,4 +72,5 @@ public class StringUtil {
             return false;
         }
     }
+
 }
