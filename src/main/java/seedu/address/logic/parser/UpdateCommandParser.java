@@ -73,7 +73,6 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         parseTagsForUpdate(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(updatePersonDescriptor::setTags);
 
         if (!updatePersonDescriptor.isAnyFieldUpdated()) {
-            System.out.println("NOK???");
             throw new ParseException(UpdateCommand.MESSAGE_NOT_UPDATED);
         }
 

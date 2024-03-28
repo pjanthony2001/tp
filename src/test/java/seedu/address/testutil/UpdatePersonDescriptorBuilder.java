@@ -40,7 +40,7 @@ public class UpdatePersonDescriptorBuilder {
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
         descriptor.setDescription(person.getDescription());
-        descriptor.setNextOfKin(person.getNextOfKin());
+        descriptor.setNextOfKin(person.getNextOfKin().get());
         descriptor.setTags(person.getTags());
     }
 
