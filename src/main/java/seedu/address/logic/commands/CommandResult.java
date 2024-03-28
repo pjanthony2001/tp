@@ -26,9 +26,7 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean isDisplayCommand, Person firstMatchedPerson) {
-        if (isDisplayCommand) {
-            requireNonNull(firstMatchedPerson);
-        }
+
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
@@ -38,8 +36,10 @@ public class CommandResult {
 
     }
 
-    public CommandResult(String feedbackToUser, Person firstMatchedPerson, boolean isDisplayCommand) {
-        this(feedbackToUser, false,false,  isDisplayCommand,  firstMatchedPerson);
+    public CommandResult(String feedbackToUser, Person firstMatchedPerson) {
+        this(feedbackToUser, false,false,  true,  firstMatchedPerson);
+        requireNonNull(firstMatchedPerson);
+
     }
 
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -23,13 +24,15 @@ public class DisplayCommand extends Command{
     public DisplayCommand(NameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
-    public CommandResult execute(Model model) {
+
+    @Override
+    public CommandResult execute(Model model) throws CommandException{
         requireNonNull(model);
 
-        //model.updateFilteredPersonList(predicate);
+        model.updateFilteredPersonList(predicate);
 
         if (model.getFilteredPersonList().size() == 0) {
-            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_NAME);
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_NAME);
         }
 
         Person firstMatchedPerson = model.getFilteredPersonList().get(0);
@@ -37,7 +40,7 @@ public class DisplayCommand extends Command{
 
 
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()), firstMatchedPerson, true);
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()), firstMatchedPerson);
 
     }
 
