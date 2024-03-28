@@ -29,7 +29,7 @@ public class DisplayCommand extends Command{
         //model.updateFilteredPersonList(predicate);
 
         if (model.getFilteredPersonList().size() == 0) {
-            return new CommandResult(Messages.MESSAGE_INVALID_PERSON);
+            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_NAME);
         }
 
         Person firstMatchedPerson = model.getFilteredPersonList().get(0);
