@@ -156,9 +156,7 @@ public class MainWindow extends UiPart<Stage> {
     public void handleDisplay(CommandResult commandResult) {
         personListPanelPlaceholder .getChildren().clear();
         Person person = commandResult.getPerson();
-        //pass in person after extracting Commandresult
-        //follow commandbox.java and .fxml for descriptoin
-        //personListPanelPlaceholder.getChildren().add(new DisplayTable(person).getRoot());
+        personListPanelPlaceholder.getChildren().add(new DisplayTable().getRoot());
 
     }
 
