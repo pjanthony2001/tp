@@ -156,7 +156,7 @@ public class MainWindow extends UiPart<Stage> {
     public void handleDisplay(CommandResult commandResult) {
         personListPanelPlaceholder .getChildren().clear();
         Person person = commandResult.getPerson();
-        personListPanelPlaceholder.getChildren().add(new DisplayTable().getRoot());
+        personListPanelPlaceholder.getChildren().add(new DisplayTable(person).getRoot());
 
     }
 

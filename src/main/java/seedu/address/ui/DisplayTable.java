@@ -26,14 +26,6 @@ import seedu.address.model.tag.Tag;
  */
 public class DisplayTable extends UiPart<Region> {
     private static final String FXML = "DisplayTable.fxml";
-    private static final Name DEFAULT_NAME = new Name("Amy Bee");
-    private static final Phone DEFAULT_PHONE = new Phone("85355255");
-    private static final Email DEFAULT_EMAIL = new Email("amy@gmail.com");
-    private static final Address DEFAULT_ADDRESS = new Address("123, Jurong West Ave 6, #08-111");
-    private static final Description DEFAULT_DESCRIPTION = new Description("Blood Disorder");
-    private static final NextOfKin DEFAULT_NOK = new NextOfKin("Ben Bee");
-    private static final Set<Tag> DEFAULT_TAGS = new HashSet<>();
-
     @FXML
     private TableColumn<DisplayPerson.FieldDescription, String> field;
     @FXML
@@ -46,12 +38,10 @@ public class DisplayTable extends UiPart<Region> {
     /**
      * Display table for the display command
      */
-    public DisplayTable() {
+    public DisplayTable(Person person) {
         //Constructor should take in a person class in the future
         super(FXML);
-        Person dummyDataForNow = new Person(DEFAULT_NAME, DEFAULT_PHONE, DEFAULT_EMAIL,
-                DEFAULT_ADDRESS, DEFAULT_DESCRIPTION, DEFAULT_NOK, DEFAULT_TAGS);
-        displayPerson = new DisplayPerson(dummyDataForNow);
+        displayPerson = new DisplayPerson(person);
         data = displayPerson.getFieldDescriptions();
 
         field.setCellValueFactory(new PropertyValueFactory<>("field"));
@@ -81,7 +71,7 @@ public class DisplayTable extends UiPart<Region> {
             this.email = new FieldDescription(EMAIL_FIELD, person.getEmail().toString());
             this.phone = new FieldDescription(PHONE_FIELD, person.getPhone().toString());
             this.address = new FieldDescription(ADDRESS_FIELD, person.getAddress().toString());
-            this.nok = new FieldDescription(NOK_FIELD, person.getDescription().toString());
+            this.nok = new FieldDescription(NOK_FIELD, person.getNextOfKin().toString());
         }
 
         private ObservableList<FieldDescription> getFieldDescriptions() {
