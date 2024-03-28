@@ -145,4 +145,13 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }
 
+    @Override
+    public String retrievePreviousCommand() { //Should throw historyexception
+        return "PlaceHolder Text Up Arrow Pressed";
+    }
+    @Override
+    public String retrieveNextCommand() { //Should throw historyexception
+        return "PlaceHolder Text Up Down Pressed";
+    }
+
 }
