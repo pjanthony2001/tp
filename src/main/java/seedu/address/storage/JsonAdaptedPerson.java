@@ -3,10 +3,12 @@ package seedu.address.storage;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -31,6 +33,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final String description;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String nextOfKin;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
@@ -62,7 +65,8 @@ class JsonAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         description = source.getDescription().value;
-        nextOfKin = source.getNextOfKin().value;
+        // Optional field
+        nextOfKin = source.getNextOfKin().map(nextOfKin -> nextOfKin.value).orElse(null);
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -120,14 +124,16 @@ class JsonAdaptedPerson {
         }
         final Description modelDescription = new Description(description);
 
-        if (nextOfKin == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    NextOfKin.class.getSimpleName()));
+        final Optional<NextOfKin> modelNextOfKin;
+        // If NOK field was not filled
+        if (nextOfKin == null || nextOfKin.equals("null")) {
+            modelNextOfKin = Optional.empty();
+        } else { // If NOK field was filled
+            if (!NextOfKin.isValidNextOfKin(nextOfKin)) {
+                throw new IllegalValueException(NextOfKin.MESSAGE_CONSTRAINTS);
+            }
+            modelNextOfKin = Optional.of(new NextOfKin(nextOfKin));
         }
-        if (!NextOfKin.isValidNextOfKin(nextOfKin)) {
-            throw new IllegalValueException(NextOfKin.MESSAGE_CONSTRAINTS);
-        }
-        final NextOfKin modelNextOfKin = new NextOfKin(nextOfKin);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelDescription, modelNextOfKin, modelTags);

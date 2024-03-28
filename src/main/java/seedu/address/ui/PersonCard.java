@@ -57,9 +57,21 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         description.setText(person.getDescription().value);
-        nextOfKin.setText(person.getNextOfKin().value);
+
+        // Set text for nextOfKin label if value is present, otherwise make it invisible
+        person.getNextOfKin().ifPresentOrElse(
+                nok -> {
+                    nextOfKin.setText(nok.value);
+                    nextOfKin.setVisible(true);
+                    nextOfKin.setManaged(true);
+                }, () -> {
+                    nextOfKin.setVisible(false);
+                    nextOfKin.setManaged(false);
+                }
+        );
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
+
 }

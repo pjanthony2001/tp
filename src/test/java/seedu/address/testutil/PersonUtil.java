@@ -37,7 +37,10 @@ public class PersonUtil {
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         sb.append(PREFIX_DESCRIPTION + person.getDescription().value + " ");
-        sb.append(PREFIX_NOK + person.getNextOfKin().value + " ");
+        person.getNextOfKin().ifPresentOrElse(
+                nextOfKin -> sb.append(PREFIX_NOK).append(nextOfKin.value).append(" "),
+                () -> {} // No action for empty Optional
+        );
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );

@@ -119,7 +119,10 @@ public class UpdateCommand extends Command {
         Address updatedAddress = updatePersonDescriptor.getAddress().orElse(personToUpdate.getAddress());
         Description updatedDescription = updatePersonDescriptor.getDescription().orElse(personToUpdate
                 .getDescription());
-        NextOfKin updatedNextOfKin = updatePersonDescriptor.getNextOfKin().orElse(personToUpdate.getNextOfKin());
+
+        // Optional field
+        Optional<NextOfKin> updatedNextOfKin = updatePersonDescriptor.getNextOfKin()
+                .or(personToUpdate::getNextOfKin);
         Set<Tag> updatedTags = updatePersonDescriptor.getTags().orElse(personToUpdate.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
@@ -184,7 +187,7 @@ public class UpdateCommand extends Command {
          * Returns true if at least one field is updated.
          */
         public boolean isAnyFieldUpdated() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, nextOfKin, description, tags);
         }
 
         public void setName(Name name) {

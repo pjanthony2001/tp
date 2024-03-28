@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -30,7 +31,7 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Description description;
-    private NextOfKin nextOfKin;
+    private Optional<NextOfKin> nextOfKin;
     private Set<Tag> tags;
 
     /**
@@ -42,7 +43,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         description = new Description(DEFAULT_DESCRIPTION);
-        nextOfKin = new NextOfKin(DEFAULT_NOK);
+        nextOfKin = Optional.of(new NextOfKin(DEFAULT_NOK));
         tags = new HashSet<>();
     }
 
@@ -111,7 +112,7 @@ public class PersonBuilder {
      * Sets the {@code NextOfKin} of the {@code Person} that we are building.
      */
     public PersonBuilder withNextOfKin(String nextOfKin) {
-        this.nextOfKin = new NextOfKin(nextOfKin);
+        this.nextOfKin = Optional.of(new NextOfKin(nextOfKin));
         return this;
     }
 
