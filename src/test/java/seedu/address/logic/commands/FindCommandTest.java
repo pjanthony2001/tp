@@ -84,7 +84,7 @@ public class FindCommandTest {
 
     @Test
     public void getCommandStringTest() {
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz"); //Dummy Predicate
+        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand findCommand = new FindCommand(predicate);
         String expected = FindCommand.COMMAND_WORD;
         assertEquals(expected, findCommand.getCommandString());
