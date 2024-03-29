@@ -124,16 +124,11 @@ class JsonAdaptedPerson {
         }
         final Description modelDescription = new Description(description);
 
-        final Optional<NextOfKin> modelNextOfKin;
-        // If NOK field was not filled
-        if (nextOfKin == null || nextOfKin.equals("null")) {
-            modelNextOfKin = Optional.empty();
-        } else { // If NOK field was filled
-            if (!NextOfKin.isValidNextOfKin(nextOfKin)) {
-                throw new IllegalValueException(NextOfKin.MESSAGE_CONSTRAINTS);
-            }
-            modelNextOfKin = Optional.of(new NextOfKin(nextOfKin));
+        // Optional fields
+        if (nextOfKin != null && !NextOfKin.isValidNextOfKin(nextOfKin)) {
+            throw new IllegalValueException(NextOfKin.MESSAGE_CONSTRAINTS);
         }
+        final Optional<NextOfKin> modelNextOfKin = Optional.ofNullable(nextOfKin).map(NextOfKin::new);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelDescription, modelNextOfKin, modelTags);
