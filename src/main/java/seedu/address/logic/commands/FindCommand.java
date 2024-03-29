@@ -2,11 +2,13 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.PredicateMatchSorterUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
@@ -59,11 +61,13 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
         Optional<Predicate<Person>> combinedPredicate = predicates.stream().reduce(Predicate::or);
         if (combinedPredicate.isPresent()) {
             model.updateFilteredPersonList(combinedPredicate.get());
         }
-
+        List<Person> allPersons = new ArrayList<>(model.getFilteredPersonList());
+        List<Person> sortedPersons = PredicateMatchSorterUtil.predicatematchSort(allPersons, predicates);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
