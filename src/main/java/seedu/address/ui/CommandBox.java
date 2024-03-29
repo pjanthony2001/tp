@@ -3,6 +3,7 @@ package seedu.address.ui;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -17,6 +18,8 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private final NextCommandRetriever nextCommandRetriever;
+    private final PreviousCommandRetriever previousCommandRetriever;
 
     @FXML
     private TextField commandTextField;
@@ -24,11 +27,37 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Creates a {@code CommandBox} with the given {@code CommandExecutor}.
      */
-    public CommandBox(CommandExecutor commandExecutor) {
+    public CommandBox(CommandExecutor commandExecutor, NextCommandRetriever nextCommandRetriever,
+                      PreviousCommandRetriever previousCommandRetriever) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        this.nextCommandRetriever = nextCommandRetriever;
+        this.previousCommandRetriever = previousCommandRetriever;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.setOnKeyPressed(this::handleKeyPress);
+    }
+
+    /**
+     * Handles Key Press event
+     */
+    private void handleKeyPress(KeyEvent event) {
+        switch (event.getCode()) {
+        case UP:
+            System.out.println("Up key pressed");
+            commandTextField.setText(previousCommandRetriever.retrievePrevious());
+            break;
+        case DOWN:
+            System.out.println("Down key pressed");
+            commandTextField.setText(nextCommandRetriever.retrieveNext());
+            break;
+        case TAB:
+            System.out.println("Tab key pressed");
+            commandTextField.setText("TAB KEY PRESSED");
+            break;
+        default:
+            break;
+        }
     }
 
     /**
@@ -82,4 +111,27 @@ public class CommandBox extends UiPart<Region> {
         CommandResult execute(String commandText) throws CommandException, ParseException;
     }
 
+    /**
+     * Represents a function that can return the previously entered command in history to be displayed
+     */
+    @FunctionalInterface
+    public interface PreviousCommandRetriever {
+        /**
+         * Retrieves the previous command. Should throw History Exception
+         *
+         */
+        String retrievePrevious();
+    }
+
+    /**
+     * Represents a function that can return the "next" entered command in history to be displayed
+     */
+    @FunctionalInterface
+    public interface NextCommandRetriever {
+        /**
+         * Retrieves the previous command. Should throw History Exception
+         *
+         */
+        String retrieveNext();
+    }
 }

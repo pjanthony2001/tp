@@ -50,4 +50,7 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     ObservableList<Event> getEventList();
+    String retrievePreviousCommand(); //Should throw historyexception
+
+    String retrieveNextCommand(); //Should throw historyexception
 }

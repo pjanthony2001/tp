@@ -87,4 +87,8 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     ObservableList<Event> getEventList();
+
+    String retrievePreviousCommand(); //Should throw historyexception
+
+    String retrieveNextCommand(); //Should throw historyexception
 }

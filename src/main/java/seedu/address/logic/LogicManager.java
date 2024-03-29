@@ -86,9 +86,16 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
-
     @Override
     public ObservableList<Event> getEventList() {
         return model.getEventList();
+    }
+    @Override
+    public String retrievePreviousCommand() { //Should throw historyexception
+        return model.retrievePreviousCommand();
+    }
+    @Override
+    public String retrieveNextCommand() { //Should throw historyexception
+        return model.retrieveNextCommand();
     }
 }
