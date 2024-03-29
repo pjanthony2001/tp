@@ -151,7 +151,7 @@ public class ModelManager implements Model {
     }
     @Override
     public String retrieveNextCommand() { //Should throw historyexception
-        return "PlaceHolder Text Up Down Pressed";
+        return "PlaceHolder Text Down Arrow Pressed";
     }
 
 }

@@ -92,6 +92,14 @@ public class ModelManagerTest {
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
+    @Test
+    public void retrievePreviousCommand_noCommandsInputted_placeholderString() { //Should throw historyexception
+        assertEquals(modelManager.retrievePreviousCommand(), "PlaceHolder Text Up Arrow Pressed");
+    }
+    @Test
+    public void retrieveNextCommand_noCommandsInputted_placeholderString() { //Should throw historyexception
+        assertEquals(modelManager.retrieveNextCommand(), "PlaceHolder Text Down Arrow Pressed");
+    }
 
     @Test
     public void equals() {

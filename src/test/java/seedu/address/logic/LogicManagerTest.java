@@ -89,6 +89,15 @@ public class LogicManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
     }
 
+    @Test
+    public void retrievePreviousCommand_noCommandsInputted_placeholderString() { //Should throw historyexception
+        assertEquals(logic.retrievePreviousCommand(), "PlaceHolder Text Up Arrow Pressed");
+    }
+    @Test
+    public void retrieveNextCommand_noCommandsInputted_placeholderString() { //Should throw historyexception
+        assertEquals(logic.retrieveNextCommand(), "PlaceHolder Text Down Arrow Pressed");
+    }
+
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>
