@@ -86,8 +86,6 @@ public interface Model {
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<? super Person> predicate);
-
     ModelState getCurrentState();
 
     void restoreState(ModelState modelState);
@@ -97,4 +95,9 @@ public interface Model {
     void rollForwardState() throws HistoryException;
 
     void updateState(Command command) throws HistoryException;
+    void updateFilteredPersonList(Predicate<? super Person> predicate);
+
+    String retrievePreviousCommand(); //Should throw historyexception
+
+    String retrieveNextCommand(); //Should throw historyexception
 }

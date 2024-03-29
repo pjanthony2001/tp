@@ -47,4 +47,8 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    String retrievePreviousCommand(); //Should throw historyexception
+
+    String retrieveNextCommand(); //Should throw historyexception
 }

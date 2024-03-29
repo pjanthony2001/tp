@@ -191,6 +191,16 @@ public class AddCommandTest {
         public void updateState(Command command) throws HistoryException {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public String retrievePreviousCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String retrieveNextCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

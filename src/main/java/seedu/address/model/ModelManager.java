@@ -199,9 +199,9 @@ public class ModelManager implements Model {
     @Override
     public void restoreState(ModelState modelState) {
         ReadOnlyAddressBook newAddressBook = modelState.getAddressBook();
-        Predicate<? super Person> newPredicate = modelState.getFilteredPersonsListPredicate();
-
         setAddressBook(newAddressBook);
+
+        Predicate<? super Person> newPredicate = modelState.getFilteredPersonsListPredicate();
         updateFilteredPersonList(newPredicate);
     }
 
@@ -236,6 +236,15 @@ public class ModelManager implements Model {
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredPersons.equals(otherModelManager.filteredPersons);
+    }
+
+    @Override
+    public String retrievePreviousCommand() { //Should throw historyexception
+        return "PlaceHolder Text Up Arrow Pressed";
+    }
+    @Override
+    public String retrieveNextCommand() { //Should throw historyexception
+        return "PlaceHolder Text Down Arrow Pressed";
     }
 
 }
