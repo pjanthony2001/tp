@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -131,7 +132,12 @@ public class JsonAdaptedPersonTest {
         String expectedMessage = NextOfKin.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
-
+    @Test
+    public void toModelType_nullNextOfKin_noExceptionThrown() {
+        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE,
+                VALID_EMAIL, VALID_ADDRESS, VALID_DESCRIPTION, null, VALID_TAGS);
+        assertDoesNotThrow(person::toModelType);
+    }
     @Test
     public void toModelType_invalidTags_throwsIllegalValueException() {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
