@@ -84,4 +84,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    String retrievePreviousCommand(); //Should throw historyexception
+
+    String retrieveNextCommand(); //Should throw historyexception
 }
