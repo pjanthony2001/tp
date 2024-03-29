@@ -60,12 +60,7 @@ public class PersonCard extends UiPart<Region> {
         description.setText(person.getDescription().value);
 
         // Set text for nextOfKin label if value is present, otherwise make it invisible
-        person.getNextOfKin().ifPresentOrElse(
-                nok -> {
-                    nextOfKin.setText(nok.value);
-                    showLabel(nextOfKin);
-                }, () -> hideNode(nextOfKin)
-        );
+        person.getNextOfKin().ifPresentOrElse(nok -> displayLabel(nextOfKin, nok.value), () -> hideNode(nextOfKin));
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
@@ -80,11 +75,13 @@ public class PersonCard extends UiPart<Region> {
         node.setManaged(false);
     }
     /**
-     * Shows the specified label if value is present.
+     * Displays the specified value in the provided label.
      *
-     * @param label The label to show if value is present.
+     * @param label The label to display the value in.
+     * @param value The value to display in the label.
      */
-    private void showLabel(Label label) {
+    private void displayLabel(Label label, String value) {
+        label.setText(value);
         label.setVisible(true);
         label.setManaged(true);
     }
