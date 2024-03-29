@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import seedu.address.model.person.Description;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Name;
 
 /**
  * Event class to model the social workers events
@@ -13,18 +13,18 @@ public class Event {
     private final LocalDateTime time;
     private final Title title;
     private final Description description;
-    private final Person client;
+    private final Name clientName;
 
     /**
      * @param title The title for the meeting
      * @param time The time of the event
      * @param description The description of the event
      */
-    public Event(Title title, LocalDateTime time, Description description, Person client) {
+    public Event(Title title, LocalDateTime time, Description description, Name clientName) {
         this.title = title;
         this.time = time;
         this.description = description;
-        this.client = client;
+        this.clientName = clientName;
     }
 
     public String getDescriptionString() {
@@ -41,6 +41,6 @@ public class Event {
     }
 
     public String getClientNameString() {
-        return client.getName().toString();
+        return clientName.toString();
     }
 }

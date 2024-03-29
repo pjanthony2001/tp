@@ -4,18 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.time.LocalDateTime;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.Title;
-import seedu.address.model.person.Description;
 import seedu.address.model.person.Person;
 
 /**
@@ -23,6 +19,7 @@ import seedu.address.model.person.Person;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private final Calendar calendar;
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
@@ -31,18 +28,20 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyCalendar calendar) {
         requireAllNonNull(addressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs
+            + "and calendar " + calendar);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.calendar = new Calendar(calendar);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new Calendar());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -135,27 +134,7 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Event> getEventList() {
-        return FXCollections.observableArrayList(new Event(new Title("TITLE 1"),
-                        LocalDateTime.now(),
-                        new Description("DUMMY DESCRIPTION"),
-                        addressBook.getPersonList().get(1)),
-                new Event(new Title("TITLE 0"),
-                        LocalDateTime.now(),
-                        new Description("DUMMY DESCRIPTION"),
-                        addressBook.getPersonList().get(0)),
-                new Event(new Title("TITLE 2"),
-                        LocalDateTime.now(),
-                        new Description("DUMMY DESCRIPTION"),
-                        addressBook.getPersonList().get(2)),
-                new Event(new Title("TITLE 3"),
-                        LocalDateTime.now(),
-                        new Description("DUMMY DESCRIPTION"),
-                        addressBook.getPersonList().get(1)),
-                new Event(new Title("TITLE 4"),
-                        LocalDateTime.now(),
-                        new Description("DUMMY DESCRIPTION"),
-                        addressBook.getPersonList().get(3))
-        );
+        return calendar.getEventList();
     }
 
     @Override

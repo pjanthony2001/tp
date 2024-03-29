@@ -1,11 +1,16 @@
 package seedu.address.model.util;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.Calendar;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCalendar;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Email;
@@ -56,12 +61,45 @@ public class SampleDataUtil {
         };
     }
 
+    public static Event[] getSampleEvents() {
+        return new Event[] {
+            new Event(new Title("TITLE 1"),
+                    LocalDateTime.now(),
+                    new Description("DUMMY DESCRIPTION"),
+                    new Name("David Li")),
+            new Event(new Title("TITLE 0"),
+                    LocalDateTime.now(),
+                    new Description("DUMMY DESCRIPTION"),
+                    new Name("Irfan Ibrahim")),
+            new Event(new Title("TITLE 2"),
+                    LocalDateTime.now(),
+                    new Description("DUMMY DESCRIPTION"),
+                    new Name("Charlotte Oliveiro")),
+            new Event(new Title("TITLE 3"),
+                    LocalDateTime.now(),
+                    new Description("DUMMY DESCRIPTION"),
+                    new Name("Alex Yeoh")),
+            new Event(new Title("TITLE 4"),
+                    LocalDateTime.now(),
+                    new Description("DUMMY DESCRIPTION"),
+                    new Name("Bernice Yu"))
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
         return sampleAb;
+    }
+
+    public static ReadOnlyCalendar getSampleCalendar() {
+        Calendar sampleCalendar = new Calendar();
+        for (Event event : getSampleEvents()) {
+            sampleCalendar.addEvent(event);
+        }
+        return sampleCalendar;
     }
 
     /**
