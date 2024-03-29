@@ -36,7 +36,7 @@ public class Event {
     }
 
     public String getTimeString() {
-        return time.format(DateTimeFormatter.ofPattern("EEEE, MMM dd, yyyy - hh:mm a"));
+        return time.format(DateTimeFormatter.ofPattern("EEEE, MMMM dd - hh:mm a"));
         // Friday, Mar 29, 2024 - 05:58 PM;
     }
 
