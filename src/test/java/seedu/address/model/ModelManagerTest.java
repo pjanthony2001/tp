@@ -1,10 +1,14 @@
 package seedu.address.model;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.StartCommand.getStartCommand;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.CommandUtil.getCommandStub;
+import static seedu.address.testutil.HistoryUtil.TYPICAL_SECOND_MODEL_STATE;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
@@ -12,15 +16,27 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.history.ModelState;
+import seedu.address.history.exceptions.HistoryException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
 
-    private ModelManager modelManager = new ModelManager();
+    private ModelManager modelManager;
+
+    @BeforeEach
+    public void setup() {
+        modelManager = new ModelManager();
+    }
 
     @Test
     public void constructor() {
@@ -90,7 +106,8 @@ public class ModelManagerTest {
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+        assertThrows(
+                UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
     @Test
     public void retrievePreviousCommand_noCommandsInputted_placeholderString() { //Should throw historyexception
@@ -102,7 +119,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void equals() {
+    public void equalsTest() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
@@ -136,5 +153,89 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+    }
+
+    @Test
+    public void initialization_historyFailureStub_doesNotThrowHistoryException() {
+        assertDoesNotThrow(ModelHistoryFailureStub::new);
+        Model modelInitFailure = new ModelHistoryFailureStub();
+        ModelState modelState = modelInitFailure.getCurrentState();
+        assertEquals(modelState.getAddressBook(), SampleDataUtil.getSampleAddressBook());
+    }
+
+    @Test
+    public void getCurrentState_startState_successfullyReturnsStartState() {
+        ModelState currModelState = modelManager.getCurrentState();
+        assertEquals(currModelState, new ModelState(getStartCommand(),
+                modelManager.getAddressBook(),
+                modelManager.getFilteredPersonsListPredicate()
+        ));
+    }
+
+    @Test
+    public void restoreState_typicalSecondState_successfullyRestoresSecondState() {
+        modelManager.restoreState(TYPICAL_SECOND_MODEL_STATE);
+        FilteredList<Person> filteredList = new FilteredList<>(TYPICAL_SECOND_MODEL_STATE
+                .getAddressBook().getPersonList());
+        filteredList.setPredicate(TYPICAL_SECOND_MODEL_STATE.getFilteredPersonsListPredicate());
+        assertEquals(modelManager.getAddressBook(), TYPICAL_SECOND_MODEL_STATE.getAddressBook());
+        assertEquals(modelManager.getFilteredPersonList(), filteredList);
+    }
+
+    @Test
+    public void updateState_commandStub_successfullyUpdatesCurrentState() throws HistoryException {
+        assertDoesNotThrow(() -> modelManager.updateState(getCommandStub()));
+        modelManager.updateState(getCommandStub());
+        assertEquals(modelManager.getCurrentState(),
+                new ModelState(getCommandStub(),
+                        modelManager.getAddressBook(),
+                        modelManager.getFilteredPersonsListPredicate()
+                ));
+    }
+
+    @Test
+    public void rollBackState_successfullyRollbacksCurrentState() {
+        assertDoesNotThrow(() -> modelManager.updateState(getCommandStub()));
+        assertDoesNotThrow(() -> modelManager.rollBackState());
+        assertEquals(new ModelState(getStartCommand(),
+                modelManager.getAddressBook(),
+                modelManager.getFilteredPersonsListPredicate()),
+                modelManager.getCurrentState()
+        );
+    }
+
+    @Test
+    public void rollBackState_failsRollbackState() {
+        assertThrows(HistoryException.class, () -> modelManager.rollBackState());
+    }
+
+    @Test
+    public void rollForwardState_successfullyRollForwardToCurrentState() {
+        assertDoesNotThrow(() -> modelManager.updateState(getCommandStub()));
+        assertDoesNotThrow(() -> modelManager.rollBackState());
+        assertDoesNotThrow(() -> modelManager.rollForwardState());
+        assertEquals(new ModelState(getCommandStub(),
+                        modelManager.getAddressBook(),
+                        modelManager.getFilteredPersonsListPredicate()),
+                modelManager.getCurrentState()
+        );
+    }
+
+    @Test
+    public void rollForwardState_failsRollForwardState() {
+        assertThrows(HistoryException.class, () -> modelManager.rollForwardState());
+    }
+
+    private static class ModelHistoryFailureStub extends ModelManager {
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook() {
+                @Override
+                public ReadOnlyAddressBook deepCopy() throws IllegalValueException {
+                    throw new IllegalValueException("FAILURE TO DEEPCOPY ADDRESSBOOK");
+                }
+            };
+        }
+
     }
 }

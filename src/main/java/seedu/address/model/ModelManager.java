@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.commands.StartCommand.getStartCommand;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
@@ -11,7 +12,14 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.history.History;
+import seedu.address.history.ModelHistoryManager;
+import seedu.address.history.ModelState;
+import seedu.address.history.exceptions.HistoryException;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.person.Person;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,7 +29,9 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private FilteredList<Person> filteredPersons;
+    private ObservableList<Person> source;
+    private final History<ModelState> history;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -33,7 +43,20 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.source = this.addressBook.getPersonList();
+        this.filteredPersons = new FilteredList<>(source);
+
+        ModelState startModelState;
+        try {
+            startModelState = generateState(getStartCommand());
+        } catch (HistoryException e) {
+            ReadOnlyAddressBook sampleAddressBook = SampleDataUtil.getSampleAddressBook();
+            startModelState = new ModelState(getStartCommand(),
+                    sampleAddressBook,
+                    PREDICATE_SHOW_ALL_PERSONS);
+        }
+        history = new ModelHistoryManager(startModelState);
+
     }
 
     public ModelManager() {
@@ -80,6 +103,7 @@ public class ModelManager implements Model {
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
         this.addressBook.resetData(addressBook);
+        this.source = this.addressBook.getPersonList();
     }
 
     @Override
@@ -123,9 +147,78 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredPersonList(Predicate<? super Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    public Predicate<? super Person> getFilteredPersonsListPredicate() {
+        if (filteredPersons.getPredicate() == null) {
+            return PREDICATE_SHOW_ALL_PERSONS;
+        }
+        return filteredPersons.getPredicate();
+    }
+    //============== Model History ===============================================================================
+    /**
+     * Gets current state
+     */
+    @Override
+    public ModelState getCurrentState() {
+        return history.getCurrState();
+    }
+
+    /**
+     * @param command Last command executed to reach this state
+     */
+    @Override
+    public void updateState(Command command) throws HistoryException {
+        if (command.isReversible()) {
+            ModelState modelState = generateState(command);
+            history.addState(modelState);
+        }
+    }
+
+    /**
+     * @param command Last command executed to reach this state
+     * @return Generated state
+     * @throws HistoryException if error while making deep copy
+     */
+    public ModelState generateState(Command command) throws HistoryException {
+        try {
+            return new ModelState(command,
+                    getAddressBook().deepCopy(),
+                    getFilteredPersonsListPredicate());
+        } catch (IllegalValueException e) {
+            throw new HistoryException("Error while generating state", e);
+        }
+    }
+
+    /**
+     * @param modelState ModelState to be restored
+     */
+    @Override
+    public void restoreState(ModelState modelState) {
+        ReadOnlyAddressBook newAddressBook = modelState.getAddressBook();
+        setAddressBook(newAddressBook);
+
+        Predicate<? super Person> newPredicate = modelState.getFilteredPersonsListPredicate();
+        updateFilteredPersonList(newPredicate);
+    }
+
+    /**
+     * @throws HistoryException If state cannot be rolled back
+     */
+    @Override
+    public void rollBackState() throws HistoryException {
+        history.rollBackState();
+    }
+
+    /**
+     * @throws HistoryException If state cannot be rolled forward
+     */
+    @Override
+    public void rollForwardState() throws HistoryException {
+        history.rollForwardState();
     }
 
     @Override
