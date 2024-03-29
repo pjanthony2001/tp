@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -63,20 +64,20 @@ public class PersonCard extends UiPart<Region> {
                 nok -> {
                     nextOfKin.setText(nok.value);
                     showLabel(nextOfKin);
-                }, () -> hideLabel(nextOfKin)
+                }, () -> hideNode(nextOfKin)
         );
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
     /**
-     * Hides the specified label if no value is present.
+     * Hides the specified node if no value is present.
      *
-     * @param label The label to hide if no value is present.
+     * @param node The label to hide if no value is present.
      */
-    private void hideLabel(Label label) {
-        label.setVisible(false);
-        label.setManaged(false);
+    private void hideNode(Node node) {
+        node.setVisible(false);
+        node.setManaged(false);
     }
     /**
      * Shows the specified label if value is present.

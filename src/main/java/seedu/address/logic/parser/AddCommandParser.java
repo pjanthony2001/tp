@@ -54,12 +54,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
+        // Optional Fields
         Optional<NextOfKin> nextOfKin = Optional.ofNullable(null);
         if (argMultimap.getValue(PREFIX_NOK).isPresent()) {
             nextOfKin = Optional.of(ParserUtil.parseNextOfKin(argMultimap.getValue(PREFIX_NOK).get()));
         }
-
         Person person = new Person(name, phone, email, address, description, nextOfKin, tagList);
 
         return new AddCommand(person);
