@@ -19,13 +19,16 @@
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
             <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="data" styleClass="cell_big_label">
+                <Label fx:id="title" styleClass="cell_big_label">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
+                <Label fx:id="time" styleClass="cell_medium_label"/>
             </HBox>
+            <Label fx:id="client" styleClass="cell_medium_label"/>
+            <Label fx:id="description" styleClass="cell_small_label"/>
         </VBox>
     </GridPane>
 </HBox>

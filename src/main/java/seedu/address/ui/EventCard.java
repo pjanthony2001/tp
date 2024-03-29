@@ -26,7 +26,13 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label data;
+    private Label title;
+    @FXML
+    private Label client;
+    @FXML
+    private Label time;
+    @FXML
+    private Label description;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -34,6 +40,9 @@ public class EventCard extends UiPart<Region> {
     public EventCard(Event event) {
         super(FXML);
         this.event = event;
-        data.setText(event.getData());
+        title.setText(event.getTitleString());
+        time.setText(event.getTimeString());
+        description.setText(event.getDescriptionString());
+        client.setText(event.getClientNameString());
     }
 }

@@ -24,7 +24,7 @@
         <URL value="@Extensions.css" />
       </stylesheets>
 
-      <VBox VBox.vgrow="ALWAYS">
+      <VBox>
         <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -47,20 +47,22 @@
           </padding>
         </StackPane>
 
-        <HBox HBox.hgrow="ALWAYS">
-          <VBox fx:id="personList" styleClass="pane-with-border" minWidth="300" prefWidth="300" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
-          <VBox fx:id="eventList" styleClass="pane-with-border" minWidth="225" prefWidth="225" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="eventListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
-        </HBox>
+        <StackPane VBox.vgrow="ALWAYS">
+          <HBox>
+            <VBox fx:id="personList" styleClass="pane-with-border" minWidth="300" prefWidth="300" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+            <VBox fx:id="eventList" styleClass="pane-with-border" minWidth="225" prefWidth="225" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="eventListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+          </HBox>
+        </StackPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

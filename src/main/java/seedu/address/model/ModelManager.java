@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,6 +14,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.Title;
+import seedu.address.model.person.Description;
 import seedu.address.model.person.Person;
 
 /**
@@ -132,11 +135,26 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Event> getEventList() {
-        return FXCollections.observableArrayList(new Event("EVENT 1"),
-                new Event("EVENT 2"),
-                new Event("EVENT 3"),
-                new Event("EVENT 4"),
-                new Event("EVENT 5")
+        return FXCollections.observableArrayList(new Event(new Title("TITLE 1"),
+                        LocalDateTime.now(),
+                        new Description("DUMMY DESCRIPTION"),
+                        addressBook.getPersonList().get(1)),
+                new Event(new Title("TITLE 0"),
+                        LocalDateTime.now(),
+                        new Description("DUMMY DESCRIPTION"),
+                        addressBook.getPersonList().get(0)),
+                new Event(new Title("TITLE 2"),
+                        LocalDateTime.now(),
+                        new Description("DUMMY DESCRIPTION"),
+                        addressBook.getPersonList().get(2)),
+                new Event(new Title("TITLE 3"),
+                        LocalDateTime.now(),
+                        new Description("DUMMY DESCRIPTION"),
+                        addressBook.getPersonList().get(1)),
+                new Event(new Title("TITLE 4"),
+                        LocalDateTime.now(),
+                        new Description("DUMMY DESCRIPTION"),
+                        addressBook.getPersonList().get(3))
         );
     }
 
