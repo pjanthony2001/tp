@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.UniqueEventList;
 
 /**
  * Wraps all data at the address-book level
@@ -15,7 +15,7 @@ import seedu.address.model.event.Event;
  */
 public class Calendar implements ReadOnlyCalendar {
 
-    private final ObservableList<Event> events; //UniqueEventList
+    private final UniqueEventList events;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,7 +25,7 @@ public class Calendar implements ReadOnlyCalendar {
      *   among constructors.
      */
     {
-        events = FXCollections.emptyObservableList();
+        events = new UniqueEventList();
     }
 
     public Calendar() {}
@@ -45,7 +45,7 @@ public class Calendar implements ReadOnlyCalendar {
      * {@code persons} must not contain duplicate persons.
      */
     public void setEvents(List<Event> events) {
-        this.events.setAll(events);
+        this.events.setEvents(events);
     }
 
     /**
@@ -94,7 +94,7 @@ public class Calendar implements ReadOnlyCalendar {
 
     @Override
     public ObservableList<Event> getEventList() {
-        return events;
+        return events.asUnmodifiableObservableList();
     }
 
     @Override

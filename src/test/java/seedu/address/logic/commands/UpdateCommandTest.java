@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtName;
+import static seedu.address.testutil.TypicalEvents.getTypicalCalendar;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -42,7 +43,7 @@ public class UpdateCommandTest {
     private Model model;
     @BeforeEach
     public void setup() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalCalendar());
     }
 
     @Test
@@ -54,7 +55,8 @@ public class UpdateCommandTest {
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_PERSON_SUCCESS,
                 Messages.format(updatedPerson));
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+                getTypicalCalendar());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), updatedPerson);
 
         assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
@@ -77,7 +79,8 @@ public class UpdateCommandTest {
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_PERSON_SUCCESS,
                 Messages.format(updatedPerson));
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+                getTypicalCalendar());
         expectedModel.setPerson(lastPerson, updatedPerson);
 
         assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
@@ -91,7 +94,8 @@ public class UpdateCommandTest {
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_PERSON_SUCCESS,
                 Messages.format(updatedPerson));
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+                getTypicalCalendar());
 
         assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
     }
@@ -108,7 +112,8 @@ public class UpdateCommandTest {
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_PERSON_SUCCESS,
                 Messages.format(updatedPerson));
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+                getTypicalCalendar());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), updatedPerson);
 
         assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);

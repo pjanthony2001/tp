@@ -91,4 +91,6 @@ public interface Model {
     String retrievePreviousCommand(); //Should throw historyexception
 
     String retrieveNextCommand(); //Should throw historyexception
+
+    ReadOnlyCalendar getCalendar();
 }

@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static seedu.address.model.event.Event.DATE_TIME_FORMATTER;
+
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -62,7 +64,7 @@ class JsonAdaptedEvent {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     LocalDateTime.class.getSimpleName()));
         }
-        final LocalDateTime modelTime = LocalDateTime.parse(time);
+        final LocalDateTime modelTime = LocalDateTime.parse(time, DATE_TIME_FORMATTER);
 
         if (clientName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));

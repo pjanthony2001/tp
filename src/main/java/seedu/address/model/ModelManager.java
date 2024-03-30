@@ -162,5 +162,10 @@ public class ModelManager implements Model {
     public String retrieveNextCommand() { //Should throw historyexception
         return "PlaceHolder Text Down Arrow Pressed";
     }
+    //=========== Calendar Accessors =============================================================
+    @Override
+    public ReadOnlyCalendar getCalendar() {
+        return calendar;
+    }
 
 }

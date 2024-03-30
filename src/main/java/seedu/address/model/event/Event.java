@@ -10,6 +10,8 @@ import seedu.address.model.person.Name;
  * Event class to model the social workers events
  */
 public class Event {
+    public static final DateTimeFormatter DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("EEEE, MMMM, dd, yyyy - hh:mm a");
     private final LocalDateTime time;
     private final Title title;
     private final Description description;
@@ -36,11 +38,36 @@ public class Event {
     }
 
     public String getTimeString() {
-        return time.format(DateTimeFormatter.ofPattern("EEEE, MMMM dd - hh:mm a"));
+        return time.format(DATE_TIME_FORMATTER);
         // Friday, Mar 29, 2024 - 05:58 PM;
     }
 
     public String getClientNameString() {
         return clientName.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof Event)) {
+            return false;
+        }
+
+        Event otherPerson = (Event) other;
+        return title.equals(otherPerson.title)
+                && clientName.equals(otherPerson.clientName)
+                && description.equals(otherPerson.description)
+                && time.equals(otherPerson.time);
+    }
+
+    public static void main(String[] args) {
+        Event event = new Event(null, LocalDateTime.now(), null, null);
+        String parsedTime = event.time.format(DATE_TIME_FORMATTER);
+        System.out.println(parsedTime);
+        LocalDateTime.parse(parsedTime, DATE_TIME_FORMATTER);
     }
 }
