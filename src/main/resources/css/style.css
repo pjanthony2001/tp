@@ -1,44 +1,24 @@
+/* Table view settings with default color scheme */
 .table-view {
-    -fx-font-size: 14px;
-    -fx-table-cell-border-color: transparent;
+    -fx-font-size: 12px; /* Adjust font size if needed */
 }
 
-.table-view .column-header {
-    -fx-background-color: #f4f4f4;
-    -fx-text-fill: #333;
-}
-
+/* Table row settings with default color scheme */
 .table-row-cell {
-    -fx-padding: 10px 0px;
-    -fx-border-color: transparent;
-    -fx-border-width: 0 0 1 0;
-    -fx-border-style: solid;
+    -fx-padding: 5px; /* Slight padding for rows */
 }
 
-.table-row-cell:filled:selected {
-    -fx-background-color: #b3d9ff;
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
+/* Column header settings with default color scheme */
+.column-header {
+    -fx-font-weight: bold; /* Bold font for header */
 }
 
+/* Table cell settings with default color scheme */
 .table-cell {
-    -fx-text-fill: #333;
+    -fx-padding: 0px 5px; /* Padding inside cells */
 }
 
-.text-field-table-cell {
-    -fx-alignment: center-left;
-}
-
-.column-header-label {
-    -fx-text-fill: #333;
-    -fx-font-weight: bold;
-}
-
-/* Custom styling for specific columns if needed */
-#field {
-    -fx-alignment: center-left;
-}
-
-#description {
-    -fx-alignment: center-left;
+/* Table columns settings with default color scheme */
+.table-column {
+    -fx-alignment: CENTER-LEFT; /* Align text to the left in each column */
 }
