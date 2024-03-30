@@ -154,9 +154,18 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public void handleDisplay(CommandResult commandResult) {
-        personListPanelPlaceholder .getChildren().clear();
+        /*personListPanelPlaceholder .getChildren().clear();
         Person person = commandResult.getPerson();
-        personListPanelPlaceholder.getChildren().add(new DisplayTable(person).getRoot());
+        personListPanelPlaceholder.getChildren().add(new DisplayTable(person).getRoot());*/
+        //personListPanelPlaceholder.getChildren().add(new DescriptionBox(person).getRoot());
+        personListPanelPlaceholder.getChildren().clear();
+        Person person = commandResult.getPerson();
+
+        DisplayTable displayTable = new DisplayTable(person);
+        DescriptionBox descriptionBox = new DescriptionBox(person);
+
+        // Directly add both DisplayTable and DescriptionBox to the StackPane
+        personListPanelPlaceholder.getChildren().addAll(displayTable.getRoot(), descriptionBox.getRoot());
 
     }
 
