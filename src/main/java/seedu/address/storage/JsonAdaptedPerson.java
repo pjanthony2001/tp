@@ -3,6 +3,7 @@ package seedu.address.storage;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -27,7 +28,6 @@ import seedu.address.model.tag.Tag;
 class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
-
     private final String name;
     private final String phone;
     private final String email;
@@ -49,6 +49,9 @@ class JsonAdaptedPerson {
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("description") String description, @JsonProperty("nextOfKin") String nextOfKin,
             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+        Objects.requireNonNull(name, String.format(MISSING_FIELD_MESSAGE_FORMAT, "name"));
+        Objects.requireNonNull(phone, String.format(MISSING_FIELD_MESSAGE_FORMAT, "phone"));
+        Objects.requireNonNull(email, String.format(MISSING_FIELD_MESSAGE_FORMAT, "email"));
         this.name = name;
         this.phone = phone;
         this.email = email;

@@ -19,6 +19,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NextOfKin;
 import seedu.address.model.person.Phone;
+import seedu.address.testutil.TypicalPersons;
 
 public class JsonAdaptedPersonTest {
     private static final String INVALID_NAME = "R@chel";
@@ -28,7 +29,6 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_DESCRIPTION = " ";
     private static final String INVALID_NOK = " ";
     private static final String INVALID_TAG = "#friend";
-
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
