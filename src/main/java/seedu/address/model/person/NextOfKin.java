@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class NextOfKin {
     public static final String MESSAGE_CONSTRAINTS =
-            "Next of Kin should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Next of Kin should only contain alphanumeric characters, and it should not be blank";
 
 
     /*

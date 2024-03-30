@@ -31,7 +31,11 @@ class JsonAdaptedPerson {
     private final String name;
     private final String phone;
     private final String email;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+
     private final String address;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+
     private final String description;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String nextOfKin;
@@ -63,9 +67,9 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        address = source.getAddress().value;
-        description = source.getDescription().value;
         // Optional field
+        address = source.getAddress().map(address1 -> address1.value).orElse(null);
+        description = source.getDescription().map(descr -> descr.value).orElse(null);
         nextOfKin = source.getNextOfKin().map(nextOfKin -> nextOfKin.value).orElse(null);
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -107,28 +111,25 @@ class JsonAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
+        // Optional fields
+        // Address
+        if (address != null && !Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Optional<Address> modelAddress = Optional.ofNullable(address).map(Address::new);
 
-        if (description == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
-        }
-        if (!Description.isValidDescription(description)) {
+        // Description
+        if (description != null && !Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final Description modelDescription = new Description(description);
+        final Optional<Description> modelDescription = Optional.ofNullable(description).map(Description::new);
 
-        // Optional fields
+        // Next of Kin
         if (nextOfKin != null && !NextOfKin.isValidNextOfKin(nextOfKin)) {
             throw new IllegalValueException(NextOfKin.MESSAGE_CONSTRAINTS);
         }
         final Optional<NextOfKin> modelNextOfKin = Optional.ofNullable(nextOfKin).map(NextOfKin::new);
+
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelDescription, modelNextOfKin, modelTags);

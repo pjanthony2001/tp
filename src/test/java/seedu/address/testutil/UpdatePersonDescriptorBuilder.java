@@ -38,8 +38,8 @@ public class UpdatePersonDescriptorBuilder {
         descriptor.setName(person.getName());
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
-        descriptor.setAddress(person.getAddress());
-        descriptor.setDescription(person.getDescription());
+        descriptor.setAddress(person.getAddress().get());
+        descriptor.setDescription(person.getDescription().get());
         descriptor.setNextOfKin(person.getNextOfKin().get());
         descriptor.setTags(person.getTags());
     }

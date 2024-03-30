@@ -23,16 +23,16 @@ public class Person {
     private final Email email;
 
     // Data fields
-    private final Address address;
-    private final Description description;
+    private final Optional<Address> address;
+    private final Optional<Description> description;
     private final Optional<NextOfKin> nextOfKin;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address,
-            Description description, Optional<NextOfKin> nextOfKin, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Optional<Address> address,
+                  Optional<Description> description, Optional<NextOfKin> nextOfKin, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, description, nextOfKin, tags);
         this.name = name;
         this.phone = phone;
@@ -59,11 +59,11 @@ public class Person {
         return email;
     }
 
-    public Address getAddress() {
+    public Optional<Address> getAddress() {
         return address;
     }
 
-    public Description getDescription() {
+    public Optional<Description> getDescription() {
         return description;
     }
 

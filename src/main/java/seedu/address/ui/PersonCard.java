@@ -55,11 +55,11 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        description.setText(person.getDescription().value);
-
-        // Set text for nextOfKin label if value is present, otherwise make it invisible
+        // Optional fields
+        person.getAddress().ifPresentOrElse(address1 -> displayLabel(address, address1.value), () -> hideNode(address));
+        person.getDescription()
+                .ifPresentOrElse(descr -> displayLabel(description, descr.value), () -> hideNode(description));
         person.getNextOfKin().ifPresentOrElse(nok -> displayLabel(nextOfKin, nok.value), () -> hideNode(nextOfKin));
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

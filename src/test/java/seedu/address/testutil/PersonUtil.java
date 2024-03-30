@@ -35,8 +35,8 @@ public class PersonUtil {
         sb.append(PREFIX_NAME + person.getName().fullName + " ");
         sb.append(PREFIX_PHONE + person.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
-        sb.append(PREFIX_DESCRIPTION + person.getDescription().value + " ");
+        person.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
+        person.getDescription().ifPresent(descr -> sb.append(PREFIX_DESCRIPTION).append(descr.value).append(" "));
         person.getNextOfKin().ifPresent(nextOfKin -> sb.append(PREFIX_NOK).append(nextOfKin.value).append(" "));
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")

@@ -50,7 +50,7 @@ public class DisplayTable extends UiPart<Region> {
         //Constructor should take in a person class in the future
         super(FXML);
         Person dummyDataForNow = new Person(DEFAULT_NAME, DEFAULT_PHONE, DEFAULT_EMAIL,
-                DEFAULT_ADDRESS, DEFAULT_DESCRIPTION, Optional.of(DEFAULT_NOK), DEFAULT_TAGS);
+                Optional.of(DEFAULT_ADDRESS), Optional.of(DEFAULT_DESCRIPTION), Optional.of(DEFAULT_NOK), DEFAULT_TAGS);
         displayPerson = new DisplayPerson(dummyDataForNow);
         data = displayPerson.getFieldDescriptions();
 
