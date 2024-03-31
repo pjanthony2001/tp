@@ -44,4 +44,8 @@ public class DisplayCommand extends Command{
 
     }
 
+    public String getCommandString() {
+        return COMMAND_WORD;
+    }
+
 }
