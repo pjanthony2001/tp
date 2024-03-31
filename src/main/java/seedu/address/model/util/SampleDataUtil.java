@@ -1,6 +1,7 @@
 package seedu.address.model.util;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -63,25 +64,25 @@ public class SampleDataUtil {
 
     public static Event[] getSampleEvents() {
         return new Event[] {
-            new Event(new Title("TITLE 1"),
-                    LocalDateTime.now(),
-                    new Description("DUMMY DESCRIPTION"),
+            new Event(new Title("Client Checkin"),
+                    LocalDateTime.of(2024, Month.APRIL, 12, 10, 30),
+                    new Description("Discuss future plans and medical support"),
                     new Name("David Li")),
-            new Event(new Title("TITLE 0"),
-                    LocalDateTime.now(),
-                    new Description("DUMMY DESCRIPTION"),
+            new Event(new Title("House Visit"),
+                    LocalDateTime.of(2024, Month.APRIL, 15, 14, 30),
+                    new Description("Check if safety stipulations are met"),
                     new Name("Irfan Ibrahim")),
-            new Event(new Title("TITLE 2"),
-                    LocalDateTime.now(),
-                    new Description("DUMMY DESCRIPTION"),
+            new Event(new Title("Financial Assistance Meeting"),
+                    LocalDateTime.of(2024, Month.APRIL, 20, 15, 30),
+                    new Description("Walk through government programmes"),
                     new Name("Charlotte Oliveiro")),
-            new Event(new Title("TITLE 3"),
-                    LocalDateTime.now(),
-                    new Description("DUMMY DESCRIPTION"),
+            new Event(new Title("Monthly Appointment"),
+                    LocalDateTime.of(2024, Month.MAY, 1, 10, 0),
+                    new Description("Discuss family therapy"),
                     new Name("Alex Yeoh")),
-            new Event(new Title("TITLE 4"),
-                    LocalDateTime.now(),
-                    new Description("DUMMY DESCRIPTION"),
+            new Event(new Title("Discharge Planning Meeting"),
+                    LocalDateTime.of(2024, Month.MAY, 2, 17, 30),
+                    new Description("Discuss future outpatient care services and financial planning"),
                     new Name("Bernice Yu"))
         };
     }
