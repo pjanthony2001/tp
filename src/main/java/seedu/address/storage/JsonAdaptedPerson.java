@@ -49,9 +49,7 @@ class JsonAdaptedPerson {
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("description") String description, @JsonProperty("nextOfKin") String nextOfKin,
             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
-        Objects.requireNonNull(name, String.format(MISSING_FIELD_MESSAGE_FORMAT, "name"));
-        Objects.requireNonNull(phone, String.format(MISSING_FIELD_MESSAGE_FORMAT, "phone"));
-        Objects.requireNonNull(email, String.format(MISSING_FIELD_MESSAGE_FORMAT, "email"));
+
         this.name = name;
         this.phone = phone;
         this.email = email;
