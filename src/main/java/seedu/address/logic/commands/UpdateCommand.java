@@ -186,11 +186,8 @@ public class UpdateCommand extends Command {
          * Returns true if at least one field is updated.
          */
         public boolean isAnyFieldUpdated() {
-<<<<<<< HEAD
             return CollectionUtil.isAnyNonNull(name, phone, email, nextOfKin, description, address, tags);
-=======
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, nextOfKin, description);
->>>>>>> 9bb6ca2b (Convert table to list)
+
         }
 
         public void setName(Name name) {
