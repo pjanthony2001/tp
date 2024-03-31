@@ -101,7 +101,7 @@ public class JsonAdaptedPersonTest {
     }
 
     @Test
-    public void toModelType_nullAddress_throwsIllegalValueException() {
+    public void toModelType_nullAddress_noExceptionThrown() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE,
                 VALID_EMAIL, null, VALID_DESCRIPTION, VALID_NOK, VALID_TAGS);
         assertDoesNotThrow(person::toModelType);
@@ -116,7 +116,7 @@ public class JsonAdaptedPersonTest {
     }
 
     @Test
-    public void toModelType_nullDescription_throwsIllegalValueException() {
+    public void toModelType_nullDescription_noExceptionThrown() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE,
                 VALID_EMAIL, VALID_ADDRESS, null, VALID_NOK, VALID_TAGS);
         assertDoesNotThrow(person::toModelType);
