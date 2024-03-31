@@ -29,7 +29,7 @@
     -fx-font-family: "Segoe UI Semibold";
 }
 .text-area {
-    -fx-background-color: grey;
+    -fx-background-color: transparent;
 }
 
 .text-area .scroll-pane {
