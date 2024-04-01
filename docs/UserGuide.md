@@ -386,7 +386,7 @@ After searching for clients, you can use the `list` command to view your full li
 
 ### Undoing a command : `undo`
 
-_This command allows you to undo your last command, restoring the ConnectCare application to its previous modelState._
+_This command allows you to undo your last command, restoring the ConnectCare application to its previous state._
 
 Format: `undo`
 

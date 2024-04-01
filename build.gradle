@@ -69,8 +69,4 @@ shadowJar {
     archiveFileName = 'connectcare.jar'
 }
 
-run {
-    enableAssertions = true
-}
-
 defaultTasks 'clean', 'test'

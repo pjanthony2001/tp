@@ -51,8 +51,6 @@ public class AddCommand extends Command {
      */
     public AddCommand(Person person) {
         requireNonNull(person);
-
-        super.setReversible(true);
         toAdd = person;
     }
 
@@ -88,9 +86,5 @@ public class AddCommand extends Command {
         return new ToStringBuilder(this)
                 .add("toAdd", toAdd)
                 .toString();
-    }
-    @Override
-    public String getCommandString() {
-        return COMMAND_WORD;
     }
 }

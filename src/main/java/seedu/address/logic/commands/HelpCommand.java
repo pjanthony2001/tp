@@ -13,15 +13,9 @@ public class HelpCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
-    public HelpCommand() {
-        super.setReversible(false);
-    }
+
     @Override
     public CommandResult execute(Model model) {
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
-    }
-    @Override
-    public String getCommandString() {
-        return COMMAND_WORD;
     }
 }

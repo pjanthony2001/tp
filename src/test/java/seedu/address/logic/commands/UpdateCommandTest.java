@@ -168,11 +168,4 @@ public class UpdateCommandTest {
         assertEquals(expected, updateCommand.toString());
     }
 
-    @Test
-    public void getCommandStringTest() {
-        UpdateCommand updateCommand = new UpdateCommand(ALICE.getName(), new UpdateCommand.UpdatePersonDescriptor());
-        String expected = UpdateCommand.COMMAND_WORD;
-        assertEquals(expected, updateCommand.getCommandString());
-    }
-
 }

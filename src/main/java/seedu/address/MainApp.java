@@ -36,7 +36,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(1, 2, 1, true);
+    public static final Version VERSION = new Version(0, 2, 2, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -79,7 +79,7 @@ public class MainApp extends Application {
         ReadOnlyAddressBook initialData;
         try {
             addressBookOptional = storage.readAddressBook();
-            if (addressBookOptional.isEmpty()) {
+            if (!addressBookOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getAddressBookFilePath()
                         + " populated with a sample AddressBook.");
             }
@@ -89,6 +89,7 @@ public class MainApp extends Application {
                     + " Will be starting with an empty AddressBook.");
             initialData = new AddressBook();
         }
+
         return new ModelManager(initialData, userPrefs);
     }
 

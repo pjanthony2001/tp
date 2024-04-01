@@ -7,7 +7,6 @@ import seedu.address.model.Model;
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
-    private boolean isReversible;
 
     /**
      * Executes the command and returns the result message.
@@ -17,11 +16,5 @@ public abstract class Command {
      * @throws CommandException If an error occurs during command execution.
      */
     public abstract CommandResult execute(Model model) throws CommandException;
-    public abstract String getCommandString();
-    public boolean isReversible() {
-        return isReversible;
-    }
-    public void setReversible(boolean setValue) {
-        isReversible = setValue;
-    }
+
 }
