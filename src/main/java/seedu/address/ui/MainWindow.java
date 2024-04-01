@@ -162,8 +162,11 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.getChildren().clear();
         displayListPanel = new DisplayListPanel(commandResult.getPerson(), this::executeCommand);
         personListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
+    }
 
-
+    public void handleList() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
     }
 
     void show() {
@@ -196,6 +199,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            handleList();
 
             if (commandResult.isDisplayCommand()) {
                 handleDisplay(commandResult);
