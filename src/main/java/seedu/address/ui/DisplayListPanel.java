@@ -103,9 +103,6 @@ public class DisplayListPanel extends UiPart<Region> {
         private final FieldDescription email;
         private final FieldDescription address;
         private final FieldDescription nok;
-        
-        
-
         public DisplayPerson(Person person) {
             this.name = new FieldDescription(NAME_FIELD, person.getName().toString());
             this.email = new FieldDescription(EMAIL_FIELD, person.getEmail().toString());
@@ -120,7 +117,6 @@ public class DisplayListPanel extends UiPart<Region> {
 
         
     }
-
     public class FieldDescription {
         private final String fieldProperty;
         private final String descriptionProperty;
@@ -158,8 +154,6 @@ public class DisplayListPanel extends UiPart<Region> {
             }
         }
     }
-    
-
 }
 
 

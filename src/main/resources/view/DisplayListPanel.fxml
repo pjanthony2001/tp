@@ -8,5 +8,5 @@
 <?import javafx.scene.layout.StackPane?>
 <VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <ListView fx:id="displayListView" VBox.vgrow="SOMETIMES" />
-        <TextArea fx:id="descriptionTextArea" VBox.vgrow="ALWAYS" wrapText="true"/>
+    <TextArea fx:id="descriptionTextArea" VBox.vgrow="ALWAYS" wrapText="true"/>
 </VBox>
