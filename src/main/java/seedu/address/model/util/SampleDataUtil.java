@@ -20,8 +20,6 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static final String DESCRIPTION_PLACEHOLDER = "Description placeholder";
-    public static final String NOK_PLACEHOLDER = "Next of kin placeholder";
     public static Person[] getSamplePersons() {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
