@@ -5,6 +5,7 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -22,17 +23,17 @@ import seedu.address.model.person.Description;
 public class TypicalEvents {
     public static final Event MEETING_WITH_ALICE = new Event(
             new Title("Client Meeting"),
-            LocalDateTime.now(),
+            LocalDateTime.of(2024, Month.APRIL, 12, 10, 0),
             new Description("DUMMY DESCRIPTION"),
             ALICE.getName());
     public static final Event HOUSE_CHECKUP_BENSON = new Event(
             new Title("House Checkup"),
-            LocalDateTime.now(),
+            LocalDateTime.of(2024, Month.APRIL, 13, 11, 0),
             new Description("DUMMY DESCRIPTION"),
             BENSON.getName());
     public static final Event FINANCIAL_ASSISTANCE_CARL = new Event(
             new Title("Finanical Assistance"),
-            LocalDateTime.now(),
+            LocalDateTime.of(2024, Month.APRIL, 14, 12, 0),
             new Description("DUMMY DESCRIPTION"),
             CARL.getName());
 

@@ -29,6 +29,21 @@ public class Event {
         this.clientName = clientName;
     }
 
+    public Description getDescription() {
+        return description;
+    }
+
+    public Title getTitle() {
+        return title;
+    }
+
+    public LocalDateTime getLocalDateTime() {
+        return time;
+    }
+
+    public Name getClientName() {
+        return clientName;
+    }
     public String getDescriptionString() {
         return description.value;
     }

@@ -45,6 +45,12 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    public static final String VALID_TITLE_MEETING_WITH_ALICE = "Meeting with Alice";
+    public static final String VALID_DESCRIPTION_MEETING_WITH_ALICE = "";
+    public static final String VALID_TIME_MEETING_WITH_ALICE = "Meeting with Alice";
+    public static final String VALID_CLIENT_NAME_MEETING_WITH_ALICE = "Alice";
+
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
