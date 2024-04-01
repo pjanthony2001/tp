@@ -5,6 +5,9 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.history.ModelState;
+import seedu.address.history.exceptions.HistoryException;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
@@ -84,7 +87,16 @@ public interface Model {
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    ModelState getCurrentState();
+
+    void restoreState(ModelState modelState);
+
+    void rollBackState() throws HistoryException;
+
+    void rollForwardState() throws HistoryException;
+
+    void updateState(Command command) throws HistoryException;
+    void updateFilteredPersonList(Predicate<? super Person> predicate);
 
     ObservableList<Event> getEventList();
 

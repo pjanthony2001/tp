@@ -16,6 +16,8 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.history.ModelState;
+import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -84,6 +86,13 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(ALICE);
         String expected = AddCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
         assertEquals(expected, addCommand.toString());
+    }
+
+    @Test
+    public void getCommandStringTest() {
+        AddCommand addCommand = new AddCommand(ALICE);
+        String expected = AddCommand.COMMAND_WORD;
+        assertEquals(expected, addCommand.getCommandString());
     }
 
     /**
@@ -156,7 +165,32 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredPersonList(Predicate<? super Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ModelState getCurrentState() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void restoreState(ModelState modelState) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void rollBackState() throws HistoryException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void rollForwardState() throws HistoryException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateState(Command command) throws HistoryException {
             throw new AssertionError("This method should not be called.");
         }
 
