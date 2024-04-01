@@ -109,6 +109,13 @@ public class DeleteCommandTest {
         assertEquals(expected, deleteCommand.toString());
     }
 
+    @Test
+    public void getCommandStringTest() {
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        String expected = DeleteCommand.COMMAND_WORD;
+        assertEquals(expected, deleteCommand.getCommandString());
+    }
+
     /**
      * Updates {@code model}'s filtered list to show no one.
      */

@@ -119,7 +119,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, this::retrieveNext, this::retrievePreviousCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -193,4 +193,22 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+    private String retrieveNext() { //Should throw HistoryException
+        String nextCommand = logic.retrieveNextCommand();
+        logger.info("ShortCut DownArrow: " + nextCommand);
+        return nextCommand;
+        // Should catch HistoryException, log and throw
+        // After catching HistoryException, should update UI element to indicate that there are no more commands
+        // to revert to.
+    }
+
+    private String retrievePreviousCommand() { //Should throw HistoryException
+        String previousCommand = logic.retrievePreviousCommand();
+        logger.info("ShortCut UpArrow: " + previousCommand);
+        return previousCommand;
+        // Should catch HistoryException, log and throw
+        // After catching HistoryException, should update UI element to indicate that there are no more commands
+        // to revert to.
+    }
+
 }
