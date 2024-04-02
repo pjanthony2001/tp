@@ -1,12 +1,19 @@
 package seedu.address.model.util;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.Calendar;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCalendar;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.Heading;
+import seedu.address.model.event.Time;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Email;
@@ -55,12 +62,45 @@ public class SampleDataUtil {
         };
     }
 
+    public static Event[] getSampleEvents() {
+        return new Event[] {
+            new Event(new Heading("Client Checkin"),
+                    new Time(LocalDateTime.of(2024, Month.APRIL, 12, 10, 30)),
+                    new Description("Discuss future plans and medical support"),
+                    new Name("David Li")),
+            new Event(new Heading("House Visit"),
+                    new Time(LocalDateTime.of(2024, Month.APRIL, 15, 14, 30)),
+                    new Description("Check if safety stipulations are met"),
+                    new Name("Irfan Ibrahim")),
+            new Event(new Heading("Financial Assistance Meeting"),
+                    new Time(LocalDateTime.of(2024, Month.APRIL, 20, 15, 30)),
+                    new Description("Walk through government programmes"),
+                    new Name("Charlotte Oliveiro")),
+            new Event(new Heading("Monthly Appointment"),
+                    new Time(LocalDateTime.of(2024, Month.MAY, 1, 10, 0)),
+                    new Description("Discuss family therapy"),
+                    new Name("Alex Yeoh")),
+            new Event(new Heading("Discharge Planning Meeting"),
+                    new Time(LocalDateTime.of(2024, Month.MAY, 2, 17, 30)),
+                    new Description("Discuss future outpatient care services and financial planning"),
+                    new Name("Bernice Yu"))
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
         return sampleAb;
+    }
+
+    public static ReadOnlyCalendar getSampleCalendar() {
+        Calendar sampleCalendar = new Calendar();
+        for (Event event : getSampleEvents()) {
+            sampleCalendar.addEvent(event);
+        }
+        return sampleCalendar;
     }
 
     /**
