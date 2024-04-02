@@ -88,7 +88,7 @@ public class Calendar implements ReadOnlyCalendar {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("event", events)
+                .add("events", events)
                 .toString();
     }
 

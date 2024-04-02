@@ -110,4 +110,11 @@ public class UniqueEventListTest {
     public void toStringMethod() {
         assertEquals(uniqueEventList.asUnmodifiableObservableList().toString(), uniqueEventList.toString());
     }
+
+    @Test
+    public void equals() {
+        assertTrue(uniqueEventList.equals(uniqueEventList)); // same instance
+        assertFalse(uniqueEventList.equals(null)); // null
+        assertFalse(uniqueEventList.equals(0213)); // not same type
+    }
 }
