@@ -65,8 +65,6 @@ public class UpdateCommandParserTest {
 
         // no field specified
         assertParseFailure(parser, UPDATE_DESC_AMY, UpdateCommand.MESSAGE_NOT_UPDATED);
-        System.out.println("hi");
-
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -181,7 +179,6 @@ public class UpdateCommandParserTest {
         Name targetName = ALICE.getName();
         String userInput = " " + PREFIX_UPDATE + targetName.toString() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
 
-        System.out.println(userInput);
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE));
 
         // invalid followed by valid
