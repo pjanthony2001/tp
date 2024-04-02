@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_HEADING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.ScheduleAddCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -14,8 +16,6 @@ import seedu.address.model.event.Heading;
 import seedu.address.model.event.Time;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Name;
-
-import java.util.stream.Stream;
 
 /**
  * Parses input arguments and creates a new ScheduleAddCommand object.
