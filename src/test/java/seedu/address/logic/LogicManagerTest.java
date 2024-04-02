@@ -98,11 +98,11 @@ public class LogicManagerTest {
                 LogicManager.HISTORY_SAVE_ERROR_FORMAT, DUMMY_HISTORY_EXCEPTION.getMessage()));
     }
     @Test
-    public void retrievePreviousCommand_noCommandsInputted_placeholderString() { //Should throw historyexception
+    public void retrievePreviousCommand_noCommandsInputted_placeholderString() throws HistoryException {
         assertEquals(logic.retrievePreviousCommand(), "PlaceHolder Text Up Arrow Pressed");
     }
     @Test
-    public void retrieveNextCommand_noCommandsInputted_placeholderString() { //Should throw historyexception
+    public void retrieveNextCommand_noCommandsInputted_placeholderString() throws HistoryException {
         assertEquals(logic.retrieveNextCommand(), "PlaceHolder Text Down Arrow Pressed");
     }
 

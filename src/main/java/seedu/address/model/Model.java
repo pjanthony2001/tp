@@ -97,7 +97,7 @@ public interface Model {
     void updateState(Command command) throws HistoryException;
     void updateFilteredPersonList(Predicate<? super Person> predicate);
 
-    String retrievePreviousCommand(); //Should throw historyexception
+    String retrievePreviousCommand() throws HistoryException;
 
-    String retrieveNextCommand(); //Should throw historyexception
+    String retrieveNextCommand() throws HistoryException;
 }

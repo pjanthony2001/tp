@@ -96,11 +96,11 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
     @Override
-    public String retrievePreviousCommand() { //Should throw historyexception
+    public String retrievePreviousCommand() throws HistoryException {
         return model.retrievePreviousCommand();
     }
     @Override
-    public String retrieveNextCommand() { //Should throw historyexception
+    public String retrieveNextCommand() throws HistoryException {
         return model.retrieveNextCommand();
     }
 }

@@ -158,9 +158,11 @@ public class ModelManager implements Model {
         }
         return filteredPersons.getPredicate();
     }
+
     //============== Model History ===============================================================================
+
     /**
-     * Gets current state
+     * Gets current model state
      */
     @Override
     public ModelState getCurrentState() {
@@ -247,4 +249,28 @@ public class ModelManager implements Model {
         return "PlaceHolder Text Down Arrow Pressed";
     }
 
+    //============== Command History ===============================================================================
+
+    @Override
+    public ModelState getCurrentState() {
+        return history.getCurrState();
+    }
+
+    @Override
+    public void updateState(Command command) throws HistoryException {
+        if (command.isReversible()) {
+            ModelState modelState = generateState(command);
+            history.addState(modelState);
+        }
+    }
+
+    @Override
+    public void rollBackState() throws HistoryException {
+        history.rollBackState();
+    }
+
+    @Override
+    public void rollForwardState() throws HistoryException {
+        history.rollForwardState();
+    }
 }
