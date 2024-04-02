@@ -33,7 +33,6 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     public FindCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        System.out.println(trimmedArgs);
         if (trimmedArgs.isEmpty() || trimmedArgs.length() <= 2) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
