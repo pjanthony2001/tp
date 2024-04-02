@@ -9,6 +9,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.Heading;
+import seedu.address.model.event.Time;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Email;
@@ -125,6 +127,34 @@ public class ParserUtil {
             throw new ParseException(NextOfKin.MESSAGE_CONSTRAINTS);
         }
         return new NextOfKin(trimmedNextOfKin);
+    }
+    /**
+     * Parses a {@code String time} into an {@code Time}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code time} is invalid.
+     */
+    public static Time parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!Time.isValidTime(trimmedTime)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+        }
+        return new Time(trimmedTime);
+    }
+    /**
+     * Parses a {@code String heading} into an {@code Heading}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code heading} is invalid.
+     */
+    public static Heading parseHeading(String heading) throws ParseException {
+        requireNonNull(heading);
+        String trimmedHeading = heading.trim();
+        if (!Time.isValidTime(trimmedHeading)) {
+            throw new ParseException(Heading.MESSAGE_CONSTRAINTS);
+        }
+        return new Heading(trimmedHeading);
     }
 
     /**
