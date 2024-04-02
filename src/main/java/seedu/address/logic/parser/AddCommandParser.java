@@ -52,15 +52,15 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         // Optional Fields
-        Optional<Address> address = Optional.ofNullable(null);
+        Optional<Address> address = Optional.empty();
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             address = Optional.of(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
-        Optional<Description> description = Optional.ofNullable(null);
+        Optional<Description> description = Optional.empty();
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             description = Optional.of(ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
-        Optional<NextOfKin> nextOfKin = Optional.ofNullable(null);
+        Optional<NextOfKin> nextOfKin = Optional.empty();
         if (argMultimap.getValue(PREFIX_NOK).isPresent()) {
             nextOfKin = Optional.of(ParserUtil.parseNextOfKin(argMultimap.getValue(PREFIX_NOK).get()));
         }
