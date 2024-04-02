@@ -19,7 +19,7 @@
                 <Insets top="5" right="15" bottom="5" left="15" />
             </padding>
             <HBox spacing="5" alignment="CENTER_LEFT">
-                <Label fx:id="title" styleClass="cell_big_label" wrapText="true"/>
+                <Label fx:id="heading" styleClass="cell_big_label" wrapText="true"/>
             </HBox>
             <Label fx:id="time" styleClass="cell_medium_label">
                 <minWidth>

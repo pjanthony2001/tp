@@ -11,8 +11,8 @@ import seedu.address.model.Calendar;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.Heading;
 import seedu.address.model.event.Time;
-import seedu.address.model.event.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Email;
@@ -65,23 +65,23 @@ public class SampleDataUtil {
 
     public static Event[] getSampleEvents() {
         return new Event[] {
-            new Event(new Title("Client Checkin"),
+            new Event(new Heading("Client Checkin"),
                     new Time(LocalDateTime.of(2024, Month.APRIL, 12, 10, 30)),
                     new Description("Discuss future plans and medical support"),
                     new Name("David Li")),
-            new Event(new Title("House Visit"),
+            new Event(new Heading("House Visit"),
                     new Time(LocalDateTime.of(2024, Month.APRIL, 15, 14, 30)),
                     new Description("Check if safety stipulations are met"),
                     new Name("Irfan Ibrahim")),
-            new Event(new Title("Financial Assistance Meeting"),
+            new Event(new Heading("Financial Assistance Meeting"),
                     new Time(LocalDateTime.of(2024, Month.APRIL, 20, 15, 30)),
                     new Description("Walk through government programmes"),
                     new Name("Charlotte Oliveiro")),
-            new Event(new Title("Monthly Appointment"),
+            new Event(new Heading("Monthly Appointment"),
                     new Time(LocalDateTime.of(2024, Month.MAY, 1, 10, 0)),
                     new Description("Discuss family therapy"),
                     new Name("Alex Yeoh")),
-            new Event(new Title("Discharge Planning Meeting"),
+            new Event(new Heading("Discharge Planning Meeting"),
                     new Time(LocalDateTime.of(2024, Month.MAY, 2, 17, 30)),
                     new Description("Discuss future outpatient care services and financial planning"),
                     new Name("Bernice Yu"))

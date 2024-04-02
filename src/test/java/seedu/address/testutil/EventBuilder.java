@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 import java.time.Month;
 
 import seedu.address.model.event.Event;
+import seedu.address.model.event.Heading;
 import seedu.address.model.event.Time;
-import seedu.address.model.event.Title;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Name;
 
@@ -17,13 +17,13 @@ import seedu.address.model.person.Name;
  */
 public class EventBuilder {
 
-    public static final String DEFAULT_TITLE = "Meeting with Alice";
+    public static final String DEFAULT_HEADING = "Meeting with Alice";
     public static final String DEFAULT_TIME = DATE_TIME_FORMATTER
             .format(LocalDateTime.of(2024, Month.APRIL, 12, 10, 0));
     public static final String DEFAULT_DESCRIPTION = "Discuss Financial Matters";
     public static final String DEFAULT_NAME = "Alice Pauline";
 
-    private Title title;
+    private Heading heading;
     private Time time;
     private Description description;
     private Name clientName;
@@ -32,7 +32,7 @@ public class EventBuilder {
      * Creates a {@code EventBuilder} with the default details.
      */
     public EventBuilder() {
-        title = new Title(DEFAULT_TITLE);
+        heading = new Heading(DEFAULT_HEADING);
         time = new Time(DEFAULT_TIME);
         description = new Description(DEFAULT_DESCRIPTION);
         clientName = new Name(DEFAULT_NAME);
@@ -42,17 +42,17 @@ public class EventBuilder {
      * Initializes the EventBuilder with the data of {@code eventToCopy}.
      */
     public EventBuilder(Event eventToCopy) {
-        title = eventToCopy.getTitle();
+        heading = eventToCopy.getHeading();
         time = eventToCopy.getTime();
         description = eventToCopy.getDescription();
         clientName = eventToCopy.getClientName();
     }
 
     /**
-     * Sets the {@code Title} of the {@code Event} that we are building.
+     * Sets the {@code Heading} of the {@code Event} that we are building.
      */
-    public EventBuilder withTitle(String title) {
-        this.title = new Title(title);
+    public EventBuilder withHeading(String heading) {
+        this.heading = new Heading(heading);
         return this;
     }
 
@@ -81,7 +81,7 @@ public class EventBuilder {
     }
 
     public Event build() {
-        return new Event(title, time, description, clientName);
+        return new Event(heading, time, description, clientName);
     }
 
 }

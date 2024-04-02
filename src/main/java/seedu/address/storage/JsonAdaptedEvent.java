@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.Heading;
 import seedu.address.model.event.Time;
-import seedu.address.model.event.Title;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Name;
 
@@ -19,7 +19,7 @@ class JsonAdaptedEvent {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
     private final String time;
-    private final String title;
+    private final String heading;
     private final String description;
     private final String clientName;
 
@@ -27,10 +27,10 @@ class JsonAdaptedEvent {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedEvent(@JsonProperty("title") String title, @JsonProperty("time") String time,
+    public JsonAdaptedEvent(@JsonProperty("heading") String heading, @JsonProperty("time") String time,
                              @JsonProperty("clientName") String clientName,
                             @JsonProperty("description") String description) {
-        this.title = title;
+        this.heading = heading;
         this.time = time;
         this.clientName = clientName;
         this.description = description;
@@ -40,7 +40,7 @@ class JsonAdaptedEvent {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedEvent(Event source) {
-        title = source.getTitleString();
+        heading = source.getHeadingString();
         time = source.getTimeString();
         clientName = source.getClientNameString();
         description = source.getDescriptionString();
@@ -52,13 +52,13 @@ class JsonAdaptedEvent {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Event toModelType() throws IllegalValueException {
-        if (title == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
+        if (heading == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Heading.class.getSimpleName()));
         }
-        if (!Title.isValidTitle(title)) {
-            throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
+        if (!Heading.isValidHeading(heading)) {
+            throw new IllegalValueException(Heading.MESSAGE_CONSTRAINTS);
         }
-        final Title modelTitle = new Title(title);
+        final Heading modelHeading = new Heading(heading);
 
         if (time == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -84,7 +84,7 @@ class JsonAdaptedEvent {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
         final Description modelDescription = new Description(description);
-        return new Event(modelTitle, modelTime, modelDescription, modelClientName);
+        return new Event(modelHeading, modelTime, modelDescription, modelClientName);
     }
 
 }

@@ -10,7 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HEADING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_UPDATE;
 import static seedu.address.model.event.Time.DATE_TIME_FORMATTER;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -50,13 +50,13 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
-    public static final String VALID_TITLE_MEETING_WITH_ALICE = "Meeting with Alice";
+    public static final String VALID_HEADING_MEETING_WITH_ALICE = "Meeting with Alice";
     public static final String VALID_DESCRIPTION_MEETING_WITH_ALICE = "Discuss Financial Matters";
     public static final String VALID_TIME_MEETING_WITH_ALICE = DATE_TIME_FORMATTER
             .format(LocalDateTime.of(2024, Month.APRIL, 12, 10, 0));
     public static final String VALID_CLIENT_NAME_MEETING_WITH_ALICE = "Alice Pauline";
 
-    public static final String VALID_TITLE_HOUSE_CHECKUP_BENSON = "House Checkup Benson";
+    public static final String VALID_HEADING_HOUSE_CHECKUP_BENSON = "House Checkup Benson";
     public static final String VALID_DESCRIPTION_HOUSE_CHECKUP_BENSON = "Discuss Medical Matters";
     public static final String VALID_TIME_HOUSE_CHECKUP_BENSON = DATE_TIME_FORMATTER
             .format(LocalDateTime.of(2024, Month.APRIL, 13, 11, 0));
@@ -81,14 +81,14 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
 
-    public static final String TITLE_DESC_MEETING_WITH_ALICE = " " + PREFIX_TITLE + VALID_TITLE_MEETING_WITH_ALICE;
+    public static final String HEADING_DESC_MEETING_WITH_ALICE = " " + PREFIX_HEADING + VALID_HEADING_MEETING_WITH_ALICE;
     public static final String DESCRIPTION_DESC_MEETING_WITH_ALICE = " " + PREFIX_DESCRIPTION
             + VALID_DESCRIPTION_MEETING_WITH_ALICE;
     public static final String TIME_DESC_MEETING_WITH_ALICE = " " + PREFIX_TIME + VALID_TIME_MEETING_WITH_ALICE;
     public static final String CLIENT_NAME_DESC_MEETING_WITH_ALICE = " " + PREFIX_NAME
             + VALID_CLIENT_NAME_MEETING_WITH_ALICE;
 
-    public static final String TITLE_DESC_HOUSE_CHECKUP_BENSON = " " + PREFIX_TITLE + VALID_TITLE_HOUSE_CHECKUP_BENSON;
+    public static final String HEADING_DESC_HOUSE_CHECKUP_BENSON = " " + PREFIX_HEADING + VALID_HEADING_HOUSE_CHECKUP_BENSON;
     public static final String DESCRIPTION_DESC_HOUSE_CHECKUP_BENSON = " " + PREFIX_DESCRIPTION
             + VALID_DESCRIPTION_HOUSE_CHECKUP_BENSON;
     public static final String TIME_DESC_HOUSE_CHECKUP_BENSON = " " + PREFIX_TIME + VALID_TIME_HOUSE_CHECKUP_BENSON;

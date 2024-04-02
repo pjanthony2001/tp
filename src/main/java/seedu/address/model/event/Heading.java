@@ -4,43 +4,43 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents the title of an Event object
+ * Represents the heading of an Event object
  */
-public class Title {
+public class Heading {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Title should only contain alphanumeric characters and spaces, cannot be more than 70 characters long "
+            "Heading should only contain alphanumeric characters and spaces, cannot be more than 70 characters long "
                     + "and it should not be blank";
 
     /*
-     * The first character of the title must not be a whitespace,
+     * The first character of the heading must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    private final String title;
+    private final String heading;
 
     /**
-     * Constructs a {@code Title}.
+     * Constructs a {@code Heading}.
      *
-     * @param title A valid name.
+     * @param heading A valid name.
      */
-    public Title(String title) {
-        requireNonNull(title);
-        checkArgument(isValidTitle(title), MESSAGE_CONSTRAINTS);
-        this.title = title;
+    public Heading(String heading) {
+        requireNonNull(heading);
+        checkArgument(isValidHeading(heading), MESSAGE_CONSTRAINTS);
+        this.heading = heading;
     }
 
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidTitle(String test) {
+    public static boolean isValidHeading(String test) {
         return (test.length() < 70) && (test.matches(VALIDATION_REGEX));
     }
 
     @Override
     public String toString() {
-        return title;
+        return heading;
     }
 
     @Override
@@ -50,16 +50,16 @@ public class Title {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof seedu.address.model.event.Title)) {
+        if (!(other instanceof Heading)) {
             return false;
         }
 
-        seedu.address.model.event.Title otherName = (seedu.address.model.event.Title) other;
-        return title.equals(otherName.title);
+        Heading otherName = (Heading) other;
+        return heading.equals(otherName.heading);
     }
 
     @Override
     public int hashCode() {
-        return title.hashCode();
+        return heading.hashCode();
     }
 }

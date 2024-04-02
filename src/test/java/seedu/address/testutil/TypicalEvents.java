@@ -13,8 +13,8 @@ import java.util.Arrays;
 
 import seedu.address.model.Calendar;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.Heading;
 import seedu.address.model.event.Time;
-import seedu.address.model.event.Title;
 import seedu.address.model.person.Description;
 
 
@@ -23,30 +23,30 @@ import seedu.address.model.person.Description;
  */
 public class TypicalEvents {
     public static final Event MEETING_WITH_ALICE = new Event(
-            new Title("Meeting with Alice"),
+            new Heading("Meeting with Alice"),
             new Time(LocalDateTime.of(2024, Month.APRIL, 12, 10, 0)),
             new Description("Discuss Financial Matters"),
             ALICE.getName());
     public static final Event HOUSE_CHECKUP_BENSON = new Event(
-            new Title("House Checkup Benson"),
+            new Heading("House Checkup Benson"),
             new Time(LocalDateTime.of(2024, Month.APRIL, 13, 11, 0)),
             new Description("Discuss Medical Matters"),
             BENSON.getName());
     public static final Event FINANCIAL_ASSISTANCE_CARL = new Event(
-            new Title("Finanical Assistance"),
+            new Heading("Finanical Assistance"),
             new Time(LocalDateTime.of(2024, Month.APRIL, 14, 12, 0)),
             new Description("Discuss more financial assistance"),
             CARL.getName());
 
     // MANUALLY ADDED
     public static final Event MEDICAL_REVIEW_HOON = new Event(
-            new Title("Medical Review Hoon"),
+            new Heading("Medical Review Hoon"),
             new Time(LocalDateTime.of(2024, Month.APRIL, 15, 19, 0)),
             new Description("Discuss outpatient plan"),
             HOON.getName());
 
     public static final Event UNEMPLOYMENT_TALK_IDA = new Event(
-            new Title("Unemployment Talk Ida"),
+            new Heading("Unemployment Talk Ida"),
             new Time(LocalDateTime.of(2024, Month.APRIL, 19, 12, 0)),
             new Description("Discuss unemployment benefits plan"),
             IDA.getName());
