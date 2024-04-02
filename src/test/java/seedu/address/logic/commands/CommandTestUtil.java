@@ -9,9 +9,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_UPDATE;
+import static seedu.address.model.event.Time.DATE_TIME_FORMATTER;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -46,9 +51,16 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
 
     public static final String VALID_TITLE_MEETING_WITH_ALICE = "Meeting with Alice";
-    public static final String VALID_DESCRIPTION_MEETING_WITH_ALICE = "";
-    public static final String VALID_TIME_MEETING_WITH_ALICE = "Meeting with Alice";
-    public static final String VALID_CLIENT_NAME_MEETING_WITH_ALICE = "Alice";
+    public static final String VALID_DESCRIPTION_MEETING_WITH_ALICE = "Discuss Financial Matters";
+    public static final String VALID_TIME_MEETING_WITH_ALICE = DATE_TIME_FORMATTER
+            .format(LocalDateTime.of(2024, Month.APRIL, 12, 10, 0));
+    public static final String VALID_CLIENT_NAME_MEETING_WITH_ALICE = "Alice Pauline";
+
+    public static final String VALID_TITLE_HOUSE_CHECKUP_BENSON = "House Checkup Benson";
+    public static final String VALID_DESCRIPTION_HOUSE_CHECKUP_BENSON = "Discuss Medical Matters";
+    public static final String VALID_TIME_HOUSE_CHECKUP_BENSON = DATE_TIME_FORMATTER
+            .format(LocalDateTime.of(2024, Month.APRIL, 13, 11, 0));
+    public static final String VALID_CLIENT_NAME_HOUSE_CHECKUP_BENSON = "Benson";
 
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
@@ -67,6 +79,21 @@ public class CommandTestUtil {
     public static final String UPDATE_DESC_BOB = " " + PREFIX_UPDATE + VALID_DESCRIPTION_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+
+
+    public static final String TITLE_DESC_MEETING_WITH_ALICE = " " + PREFIX_TITLE + VALID_TITLE_MEETING_WITH_ALICE;
+    public static final String DESCRIPTION_DESC_MEETING_WITH_ALICE = " " + PREFIX_DESCRIPTION
+            + VALID_DESCRIPTION_MEETING_WITH_ALICE;
+    public static final String TIME_DESC_MEETING_WITH_ALICE = " " + PREFIX_TIME + VALID_TIME_MEETING_WITH_ALICE;
+    public static final String CLIENT_NAME_DESC_MEETING_WITH_ALICE = " " + PREFIX_NAME
+            + VALID_CLIENT_NAME_MEETING_WITH_ALICE;
+
+    public static final String TITLE_DESC_HOUSE_CHECKUP_BENSON = " " + PREFIX_TITLE + VALID_TITLE_HOUSE_CHECKUP_BENSON;
+    public static final String DESCRIPTION_DESC_HOUSE_CHECKUP_BENSON = " " + PREFIX_DESCRIPTION
+            + VALID_DESCRIPTION_HOUSE_CHECKUP_BENSON;
+    public static final String TIME_DESC_HOUSE_CHECKUP_BENSON = " " + PREFIX_TIME + VALID_TIME_HOUSE_CHECKUP_BENSON;
+    public static final String CLIENT_NAME_DESC_HOUSE_CHECKUP_BENSON = " " + PREFIX_NAME
+            + VALID_CLIENT_NAME_HOUSE_CHECKUP_BENSON;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones

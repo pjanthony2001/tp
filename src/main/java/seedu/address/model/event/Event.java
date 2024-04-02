@@ -1,8 +1,5 @@
 package seedu.address.model.event;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Name;
 
@@ -10,9 +7,7 @@ import seedu.address.model.person.Name;
  * Event class to model the social workers events
  */
 public class Event {
-    public static final DateTimeFormatter DATE_TIME_FORMATTER =
-            DateTimeFormatter.ofPattern("EEEE, MMMM, dd, yyyy - hh:mm a");
-    private final LocalDateTime time;
+    private final Time time;
     private final Title title;
     private final Description description;
     private final Name clientName;
@@ -22,7 +17,7 @@ public class Event {
      * @param time The time of the event
      * @param description The description of the event
      */
-    public Event(Title title, LocalDateTime time, Description description, Name clientName) {
+    public Event(Title title, Time time, Description description, Name clientName) {
         this.title = title;
         this.time = time;
         this.description = description;
@@ -37,7 +32,7 @@ public class Event {
         return title;
     }
 
-    public LocalDateTime getLocalDateTime() {
+    public Time getTime() {
         return time;
     }
 
@@ -53,8 +48,7 @@ public class Event {
     }
 
     public String getTimeString() {
-        return time.format(DATE_TIME_FORMATTER);
-        // Friday, Mar 29, 2024 - 05:58 PM;
+        return time.toString();
     }
 
     public String getClientNameString() {
@@ -77,12 +71,5 @@ public class Event {
                 && clientName.equals(otherPerson.clientName)
                 && description.equals(otherPerson.description)
                 && time.equals(otherPerson.time);
-    }
-
-    public static void main(String[] args) {
-        Event event = new Event(null, LocalDateTime.now(), null, null);
-        String parsedTime = event.time.format(DATE_TIME_FORMATTER);
-        System.out.println(parsedTime);
-        LocalDateTime.parse(parsedTime, DATE_TIME_FORMATTER);
     }
 }

@@ -1,14 +1,11 @@
 package seedu.address.storage;
 
-import static seedu.address.model.event.Event.DATE_TIME_FORMATTER;
-
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.Time;
 import seedu.address.model.event.Title;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Name;
@@ -58,16 +55,24 @@ class JsonAdaptedEvent {
         if (title == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
         }
+        if (!Title.isValidTitle(title)) {
+            throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
+        }
         final Title modelTitle = new Title(title);
 
         if (time == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    LocalDateTime.class.getSimpleName()));
+                    Time.class.getSimpleName()));
         }
-        final LocalDateTime modelTime = LocalDateTime.parse(time, DATE_TIME_FORMATTER);
+
+        // @Rishit NEED TO ADD IS VALID TIME CHECK
+        final Time modelTime = new Time(time);
 
         if (clientName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+        }
+        if (!Name.isValidName(clientName)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelClientName = new Name(clientName);
 

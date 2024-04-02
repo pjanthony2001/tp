@@ -1,10 +1,12 @@
 package seedu.address.testutil;
 
-import static seedu.address.model.event.Event.DATE_TIME_FORMATTER;
+import static seedu.address.model.event.Time.DATE_TIME_FORMATTER;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 
 import seedu.address.model.event.Event;
+import seedu.address.model.event.Time;
 import seedu.address.model.event.Title;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Name;
@@ -15,14 +17,14 @@ import seedu.address.model.person.Name;
  */
 public class EventBuilder {
 
-    public static final String DEFAULT_TITLE = "Meeting with Benson";
+    public static final String DEFAULT_TITLE = "Meeting with Alice";
     public static final String DEFAULT_TIME = DATE_TIME_FORMATTER
-            .format(LocalDateTime.);
-    public static final String DEFAULT_DESCRIPTION = "Blood Disorder";
-    public static final String DEFAULT_NAME = "Ben Bee";
+            .format(LocalDateTime.of(2024, Month.APRIL, 12, 10, 0));
+    public static final String DEFAULT_DESCRIPTION = "Discuss Financial Matters";
+    public static final String DEFAULT_NAME = "Alice Pauline";
 
     private Title title;
-    private LocalDateTime time;
+    private Time time;
     private Description description;
     private Name clientName;
 
@@ -30,8 +32,8 @@ public class EventBuilder {
      * Creates a {@code EventBuilder} with the default details.
      */
     public EventBuilder() {
-        title = new Title(DEFAULT_NAME);
-        time = LocalDateTime.parse(DEFAULT_TIME, DATE_TIME_FORMATTER);
+        title = new Title(DEFAULT_TITLE);
+        time = new Time(DEFAULT_TIME);
         description = new Description(DEFAULT_DESCRIPTION);
         clientName = new Name(DEFAULT_NAME);
     }
@@ -41,7 +43,7 @@ public class EventBuilder {
      */
     public EventBuilder(Event eventToCopy) {
         title = eventToCopy.getTitle();
-        time = eventToCopy.getLocalDateTime();
+        time = eventToCopy.getTime();
         description = eventToCopy.getDescription();
         clientName = eventToCopy.getClientName();
     }
@@ -66,7 +68,7 @@ public class EventBuilder {
      * Sets the {@code LocalDateTime} of the {@code Event} that we are building.
      */
     public EventBuilder withLocalDateTime(String time) {
-        this.time = LocalDateTime.parse(time, DATE_TIME_FORMATTER);
+        this.time = new Time(time);
         return this;
     }
 

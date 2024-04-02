@@ -11,6 +11,7 @@ import seedu.address.model.Calendar;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.Time;
 import seedu.address.model.event.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Description;
@@ -65,23 +66,23 @@ public class SampleDataUtil {
     public static Event[] getSampleEvents() {
         return new Event[] {
             new Event(new Title("Client Checkin"),
-                    LocalDateTime.of(2024, Month.APRIL, 12, 10, 30),
+                    new Time(LocalDateTime.of(2024, Month.APRIL, 12, 10, 30)),
                     new Description("Discuss future plans and medical support"),
                     new Name("David Li")),
             new Event(new Title("House Visit"),
-                    LocalDateTime.of(2024, Month.APRIL, 15, 14, 30),
+                    new Time(LocalDateTime.of(2024, Month.APRIL, 15, 14, 30)),
                     new Description("Check if safety stipulations are met"),
                     new Name("Irfan Ibrahim")),
             new Event(new Title("Financial Assistance Meeting"),
-                    LocalDateTime.of(2024, Month.APRIL, 20, 15, 30),
+                    new Time(LocalDateTime.of(2024, Month.APRIL, 20, 15, 30)),
                     new Description("Walk through government programmes"),
                     new Name("Charlotte Oliveiro")),
             new Event(new Title("Monthly Appointment"),
-                    LocalDateTime.of(2024, Month.MAY, 1, 10, 0),
+                    new Time(LocalDateTime.of(2024, Month.MAY, 1, 10, 0)),
                     new Description("Discuss family therapy"),
                     new Name("Alex Yeoh")),
             new Event(new Title("Discharge Planning Meeting"),
-                    LocalDateTime.of(2024, Month.MAY, 2, 17, 30),
+                    new Time(LocalDateTime.of(2024, Month.MAY, 2, 17, 30)),
                     new Description("Discuss future outpatient care services and financial planning"),
                     new Name("Bernice Yu"))
         };

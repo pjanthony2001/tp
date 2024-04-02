@@ -11,6 +11,7 @@ import java.util.Arrays;
 
 import seedu.address.model.Calendar;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.Time;
 import seedu.address.model.event.Title;
 import seedu.address.model.person.Description;
 
@@ -22,18 +23,18 @@ import seedu.address.model.person.Description;
  */
 public class TypicalEvents {
     public static final Event MEETING_WITH_ALICE = new Event(
-            new Title("Client Meeting"),
-            LocalDateTime.of(2024, Month.APRIL, 12, 10, 0),
-            new Description("DUMMY DESCRIPTION"),
+            new Title("Meeting with Alice"),
+            new Time(LocalDateTime.of(2024, Month.APRIL, 12, 10, 0)),
+            new Description("Discuss Financial Matters"),
             ALICE.getName());
     public static final Event HOUSE_CHECKUP_BENSON = new Event(
-            new Title("House Checkup"),
-            LocalDateTime.of(2024, Month.APRIL, 13, 11, 0),
-            new Description("DUMMY DESCRIPTION"),
+            new Title("House Checkup Benson"),
+            new Time(LocalDateTime.of(2024, Month.APRIL, 13, 11, 0)),
+            new Description("Discuss Medical Matters"),
             BENSON.getName());
     public static final Event FINANCIAL_ASSISTANCE_CARL = new Event(
             new Title("Finanical Assistance"),
-            LocalDateTime.of(2024, Month.APRIL, 14, 12, 0),
+            new Time(LocalDateTime.of(2024, Month.APRIL, 14, 12, 0)),
             new Description("DUMMY DESCRIPTION"),
             CARL.getName());
 

@@ -1,19 +1,13 @@
 package seedu.address.model.event;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NOK_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalEvents.MEETING_WITH_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CLIENT_NAME_HOUSE_CHECKUP_BENSON;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOUSE_CHECKUP_BENSON;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_HOUSE_CHECKUP_BENSON;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_HOUSE_CHECKUP_BENSON;
 import static seedu.address.testutil.TypicalEvents.HOUSE_CHECKUP_BENSON;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalEvents.MEETING_WITH_ALICE;
 
 import org.junit.jupiter.api.Test;
 
@@ -39,28 +33,22 @@ public class EventTest {
         // different event -> returns false
         assertFalse(MEETING_WITH_ALICE.equals(HOUSE_CHECKUP_BENSON));
 
-        // different name -> returns false
-        Event updatedAlice = new EventBuilder(MEETING_WITH_ALICE).withTitle().build();
+        // different title -> returns false
+        Event updatedAlice = new EventBuilder(MEETING_WITH_ALICE).withTitle(VALID_TITLE_HOUSE_CHECKUP_BENSON).build();
         assertFalse(MEETING_WITH_ALICE.equals(updatedAlice));
 
-        // different phone -> returns false
-        updatedAlice = new EventBuilder(MEETING_WITH_ALICE).withLocalDateTime().build();
+        // different time -> returns false
+        updatedAlice = new EventBuilder(MEETING_WITH_ALICE).withLocalDateTime(VALID_TIME_HOUSE_CHECKUP_BENSON).build();
         assertFalse(MEETING_WITH_ALICE.equals(updatedAlice));
 
-        // different email -> returns false
-        updatedAlice = new EventBuilder(MEETING_WITH_ALICE).withClientName(VALID_NAME_BOB).build();
+        // different client name -> returns false
+        updatedAlice = new EventBuilder(MEETING_WITH_ALICE)
+                .withClientName(VALID_CLIENT_NAME_HOUSE_CHECKUP_BENSON).build();
         assertFalse(MEETING_WITH_ALICE.equals(updatedAlice));
 
         // different description -> returns false
-        updatedAlice = new EventBuilder(MEETING_WITH_ALICE).withDescription(VALID_DESCRIPTION_BOB).build();
+        updatedAlice = new EventBuilder(MEETING_WITH_ALICE)
+                .withDescription(VALID_DESCRIPTION_HOUSE_CHECKUP_BENSON).build();
         assertFalse(MEETING_WITH_ALICE.equals(updatedAlice));
-    }
-
-    @Test
-    public void toStringMethod() {
-        String expected = Event.class.getCanonicalName() + "{name=" + MEETING_WITH_ALICE.getName() + ", phone=" + MEETING_WITH_ALICE.getPhone()
-                + ", email=" + MEETING_WITH_ALICE.getEmail() + ", address=" + MEETING_WITH_ALICE.getAddress() + ", description="
-                + MEETING_WITH_ALICE.getDescription() + ", nextOfKin=" + MEETING_WITH_ALICE.getNextOfKin() + ", tags=" + MEETING_WITH_ALICE.getTags() + "}";
-        assertEquals(expected, MEETING_WITH_ALICE.toString());
     }
 }
