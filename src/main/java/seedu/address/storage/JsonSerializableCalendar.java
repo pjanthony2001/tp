@@ -48,7 +48,10 @@ class JsonSerializableCalendar {
     public Calendar toModelType() throws IllegalValueException {
         Calendar calendar = new Calendar();
         for (JsonAdaptedEvent jsonAdaptedEvent : events) {
-            Event event = jsonAdaptedEvent.toModelType(); //Handle Duplicate Events
+            Event event = jsonAdaptedEvent.toModelType();
+            if (calendar.hasEvent(event)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_EVENT);
+            }
             calendar.addEvent(event);
         }
         return calendar;

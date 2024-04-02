@@ -3,6 +3,8 @@ package seedu.address.testutil;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.HOON;
+import static seedu.address.testutil.TypicalPersons.IDA;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -14,8 +16,6 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.Time;
 import seedu.address.model.event.Title;
 import seedu.address.model.person.Description;
-
-
 
 
 /**
@@ -35,8 +35,21 @@ public class TypicalEvents {
     public static final Event FINANCIAL_ASSISTANCE_CARL = new Event(
             new Title("Finanical Assistance"),
             new Time(LocalDateTime.of(2024, Month.APRIL, 14, 12, 0)),
-            new Description("DUMMY DESCRIPTION"),
+            new Description("Discuss more financial assistance"),
             CARL.getName());
+
+    // MANUALLY ADDED
+    public static final Event MEDICAL_REVIEW_HOON = new Event(
+            new Title("Medical Review Hoon"),
+            new Time(LocalDateTime.of(2024, Month.APRIL, 15, 19, 0)),
+            new Description("Discuss outpatient plan"),
+            HOON.getName());
+
+    public static final Event UNEMPLOYMENT_TALK_IDA = new Event(
+            new Title("Unemployment Talk Ida"),
+            new Time(LocalDateTime.of(2024, Month.APRIL, 19, 12, 0)),
+            new Description("Discuss unemployment benefits plan"),
+            IDA.getName());
 
     public static Calendar getTypicalCalendar() {
         Calendar calendar = new Calendar();

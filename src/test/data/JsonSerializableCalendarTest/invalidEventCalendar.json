@@ -1,0 +1,8 @@
+{
+  "events": [{
+      "title" : "Client Checkin with invalid name field",
+      "time" : "Friday, April, 12, 2024 - 10:30 AM",
+      "clientName" : "David ^&*()",
+      "description" : "Discuss future plans and medical support"
+    }]
+}
