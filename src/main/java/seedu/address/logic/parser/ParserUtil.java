@@ -151,7 +151,7 @@ public class ParserUtil {
     public static Heading parseHeading(String heading) throws ParseException {
         requireNonNull(heading);
         String trimmedHeading = heading.trim();
-        if (!Time.isValidTime(trimmedHeading)) {
+        if (!Heading.isValidHeading(trimmedHeading)) {
             throw new ParseException(Heading.MESSAGE_CONSTRAINTS);
         }
         return new Heading(trimmedHeading);

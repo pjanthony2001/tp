@@ -1,28 +1,27 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_HEADING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
-import java.util.stream.Stream;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ScheduleAddCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.ScheduleDeleteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.event.Event;
-import seedu.address.model.event.Heading;
-import seedu.address.model.event.Time;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Name;
 
 /**
  * Parses input arguments and creates a new AddCommand object.
  */
 public class ScheduleCommandParser implements Parser<ScheduleCommand> {
-
+    /**
+     * Used for initial separation of command word and args.
+     */
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Logger logger = LogsCenter.getLogger(CommandParser.class);
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -30,43 +29,26 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ScheduleCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_HEADING, PREFIX_TIME, PREFIX_DESCRIPTION);
-        // add
-        if (arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_HEADING, PREFIX_TIME, PREFIX_DESCRIPTION)) {
-            if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_HEADING, PREFIX_TIME, PREFIX_DESCRIPTION)
-                    || !argMultimap.getPreamble().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        ScheduleAddCommand.MESSAGE_USAGE));
-            }
-            argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_HEADING, PREFIX_TIME, PREFIX_DESCRIPTION);
-
-            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-            Heading heading = ParserUtil.parseHeading(argMultimap.getValue(PREFIX_HEADING).get());
-            Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
-            Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-
-            Event event = new Event(heading, time, description, name);
-            return new ScheduleAddCommand(event);
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
-        // delete
-        if (!arePrefixesPresent(argMultimap, PREFIX_HEADING) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ScheduleDeleteCommand.MESSAGE_USAGE));
+        final String commandWord = matcher.group("commandWord");
+        final String arguments = matcher.group("arguments");
+
+        // Note to developers: Change the log level in config.json to enable lower level (i.e., FINE, FINER and lower)
+        // log messages such as the one below.
+        // Lower level log messages are used sparingly to minimize noise in the code.
+        logger.fine("Command word: " + commandWord + "; Arguments: " + arguments);
+
+        switch (commandWord) {
+        case ScheduleAddCommand.COMMAND_WORD:
+            return new ScheduleAddCommandParser().parse(arguments);
+        case ScheduleDeleteCommand.COMMAND_WORD:
+            return new ScheduleDeleteCommandParser().parse(arguments);
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
         }
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_HEADING);
-
-        Heading heading = ParserUtil.parseHeading(argMultimap.getValue(PREFIX_HEADING).get());
-        return new ScheduleDeleteCommand(heading);
-
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

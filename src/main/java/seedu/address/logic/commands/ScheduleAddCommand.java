@@ -17,21 +17,18 @@ import seedu.address.model.event.Event;
  */
 public class ScheduleAddCommand extends ScheduleCommand {
 
-    public static final String COMMAND_WORD = "schedule add";
-
+    public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the schedule.\n"
             + "Parameters: "
             + PREFIX_HEADING + "HEADING "
             + PREFIX_TIME + "TIME "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_NAME + "CLIENT NAME\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example: schedule " + COMMAND_WORD + " "
             + PREFIX_HEADING + "Meeting with Client "
             + PREFIX_TIME + "Monday, January 24, 2024 - 09:00 AM "
             + PREFIX_DESCRIPTION + "Discuss project details "
             + PREFIX_NAME + "John Doe";
-
-
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the address book";
 

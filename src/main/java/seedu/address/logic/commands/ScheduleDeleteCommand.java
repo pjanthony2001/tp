@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HEADING;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,12 +18,12 @@ import seedu.address.model.event.Heading;
  */
 public class ScheduleDeleteCommand extends ScheduleCommand {
 
-    public static final String COMMAND_WORD = "schedule delete";
+    public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the event identified by its heading from the schedule.\n"
             + "Parameters: HEADING\n"
-            + "Example: " + COMMAND_WORD + " Meeting with Client";
+            + "Example: schedule " + COMMAND_WORD + PREFIX_HEADING + " Meeting with Client";
 
     private static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
 
@@ -52,7 +53,6 @@ public class ScheduleDeleteCommand extends ScheduleCommand {
         List<Event> sameHeadings = eventsList.stream()
                 .filter(event -> event.getHeading().equals(heading))
                 .collect(Collectors.toList());
-
         // No matching headings
         if (sameHeadings.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_HEADING);
