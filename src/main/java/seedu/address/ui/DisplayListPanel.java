@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -48,6 +49,11 @@ public class DisplayListPanel extends UiPart<Region> {
         descriptionTextArea.setText(person.getDescription().value);
         descriptionTextArea.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         descriptionTextArea.setOnKeyPressed(event -> handleDescriptionEntered(event.getCode()));
+
+        Platform.runLater(() -> {
+            descriptionTextArea.requestFocus();
+            descriptionTextArea.end();
+        });
 
     }
 
