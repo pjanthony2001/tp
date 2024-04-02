@@ -31,10 +31,8 @@ public class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-
     private final String address;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-
     private final String description;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String nextOfKin;
