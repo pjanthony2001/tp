@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HEADING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_HEADING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_UPDATE;
 import static seedu.address.model.event.Time.DATE_TIME_FORMATTER;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -81,14 +81,16 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
 
-    public static final String HEADING_DESC_MEETING_WITH_ALICE = " " + PREFIX_HEADING + VALID_HEADING_MEETING_WITH_ALICE;
+    public static final String HEADING_DESC_MEETING_WITH_ALICE = " " + PREFIX_HEADING
+            + VALID_HEADING_MEETING_WITH_ALICE;
     public static final String DESCRIPTION_DESC_MEETING_WITH_ALICE = " " + PREFIX_DESCRIPTION
             + VALID_DESCRIPTION_MEETING_WITH_ALICE;
     public static final String TIME_DESC_MEETING_WITH_ALICE = " " + PREFIX_TIME + VALID_TIME_MEETING_WITH_ALICE;
     public static final String CLIENT_NAME_DESC_MEETING_WITH_ALICE = " " + PREFIX_NAME
             + VALID_CLIENT_NAME_MEETING_WITH_ALICE;
 
-    public static final String HEADING_DESC_HOUSE_CHECKUP_BENSON = " " + PREFIX_HEADING + VALID_HEADING_HOUSE_CHECKUP_BENSON;
+    public static final String HEADING_DESC_HOUSE_CHECKUP_BENSON = " " + PREFIX_HEADING
+            + VALID_HEADING_HOUSE_CHECKUP_BENSON;
     public static final String DESCRIPTION_DESC_HOUSE_CHECKUP_BENSON = " " + PREFIX_DESCRIPTION
             + VALID_DESCRIPTION_HOUSE_CHECKUP_BENSON;
     public static final String TIME_DESC_HOUSE_CHECKUP_BENSON = " " + PREFIX_TIME + VALID_TIME_HOUSE_CHECKUP_BENSON;

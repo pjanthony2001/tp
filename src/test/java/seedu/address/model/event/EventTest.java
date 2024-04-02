@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLIENT_NAME_HOUSE_CHECKUP_BENSON;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOUSE_CHECKUP_BENSON;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_HEADING_HOUSE_CHECKUP_BENSON;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_HOUSE_CHECKUP_BENSON;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_HOUSE_CHECKUP_BENSON;
 import static seedu.address.testutil.TypicalEvents.HOUSE_CHECKUP_BENSON;
 import static seedu.address.testutil.TypicalEvents.MEETING_WITH_ALICE;
 
@@ -34,7 +34,8 @@ public class EventTest {
         assertFalse(MEETING_WITH_ALICE.equals(HOUSE_CHECKUP_BENSON));
 
         // different title -> returns false
-        Event updatedAlice = new EventBuilder(MEETING_WITH_ALICE).withTitle(VALID_TITLE_HOUSE_CHECKUP_BENSON).build();
+        Event updatedAlice = new EventBuilder(MEETING_WITH_ALICE)
+                .withHeading(VALID_HEADING_HOUSE_CHECKUP_BENSON).build();
         assertFalse(MEETING_WITH_ALICE.equals(updatedAlice));
 
         // different time -> returns false
