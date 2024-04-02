@@ -4,7 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalEvents.HOUSE_CHECKUP_BENSON;
 import static seedu.address.testutil.TypicalEvents.MEETING_WITH_ALICE;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -58,6 +63,42 @@ public class UniqueEventListTest {
         UniqueEventList expectedUniqueEventList = new UniqueEventList();
         assertEquals(expectedUniqueEventList, uniqueEventList);
     }
+
+    @Test
+    public void setEvents_nullUniqueEventList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueEventList.setEvents((UniqueEventList) null));
+    }
+
+    @Test
+    public void setEvents_uniqueEventList_replacesOwnListWithProvidedUniqueEventList() {
+        uniqueEventList.add(MEETING_WITH_ALICE);
+        UniqueEventList expectedUniqueEventList = new UniqueEventList();
+        expectedUniqueEventList.add(HOUSE_CHECKUP_BENSON);
+        uniqueEventList.setEvents(expectedUniqueEventList);
+        assertEquals(expectedUniqueEventList, uniqueEventList);
+    }
+
+    @Test
+    public void setEvents_nullList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueEventList.setEvents((List<Event>) null));
+    }
+
+    @Test
+    public void setEvents_list_replacesOwnListWithProvidedList() {
+        uniqueEventList.add(MEETING_WITH_ALICE);
+        List<Event> personList = Collections.singletonList(HOUSE_CHECKUP_BENSON);
+        uniqueEventList.setEvents(personList);
+        UniqueEventList expectedUniqueEventList = new UniqueEventList();
+        expectedUniqueEventList.add(HOUSE_CHECKUP_BENSON);
+        assertEquals(expectedUniqueEventList, uniqueEventList);
+    }
+
+    @Test
+    public void setEvents_listWithDuplicateEvents_throwsDuplicateEventException() {
+        List<Event> listWithDuplicateEvents = Arrays.asList(MEETING_WITH_ALICE, MEETING_WITH_ALICE);
+        assertThrows(DuplicateEventException.class, () -> uniqueEventList.setEvents(listWithDuplicateEvents));
+    }
+
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
