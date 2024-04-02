@@ -14,6 +14,10 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all persons";
 
+    public ListCommand() {
+        super.setReversible(true);
+    }
+
 
     @Override
     public CommandResult execute(Model model) {
@@ -21,4 +25,10 @@ public class ListCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public String getCommandString() {
+        return COMMAND_WORD;
+    }
+
 }

@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -26,7 +27,8 @@ public class LogicManager implements Logic {
 
     public static final String FILE_OPS_PERMISSION_ERROR_FORMAT =
             "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
-
+    public static final String HISTORY_SAVE_ERROR_FORMAT =
+            "Could not save state to history due to encoding errors. %s";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -58,6 +60,14 @@ public class LogicManager implements Logic {
             throw new CommandException(String.format(FILE_OPS_ERROR_FORMAT, ioe.getMessage()), ioe);
         }
 
+        try {
+            model.updateState(command);
+        } catch (HistoryException e) {
+            model.restoreState(model.getCurrentState()); //Revert the command if there are issues updating state
+            throw new CommandException(String.format(HISTORY_SAVE_ERROR_FORMAT, e.getMessage()), e);
+        }
+
+
         return commandResult;
     }
 
@@ -84,5 +94,13 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+    @Override
+    public String retrievePreviousCommand() { //Should throw historyexception
+        return model.retrievePreviousCommand();
+    }
+    @Override
+    public String retrieveNextCommand() { //Should throw historyexception
+        return model.retrieveNextCommand();
     }
 }
