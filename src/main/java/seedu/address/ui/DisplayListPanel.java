@@ -33,15 +33,18 @@ public class DisplayListPanel extends UiPart<Region> {
 
     private Person person;
 
+    private Runnable swapPanelList;
+
     private CommandBox.CommandExecutor commandExecutor;
 
     /**
      * Creates a {@code DisplayListPanel} with the given {@code ObservableList}.
      */
-    public DisplayListPanel(Person person, CommandBox.CommandExecutor commandExecutor) {
+    public DisplayListPanel(Person person, CommandBox.CommandExecutor commandExecutor, Runnable swapPanelList) {
         super(FXML);
         this.person = person;
         this.commandExecutor = commandExecutor;
+        this.swapPanelList = swapPanelList;
 
         DisplayPerson displayPerson = new DisplayPerson(person);
         displayListView.setCellFactory(listView -> new DisplayListPanel.PersonListViewCell());
@@ -54,6 +57,8 @@ public class DisplayListPanel extends UiPart<Region> {
             descriptionTextArea.requestFocus();
             descriptionTextArea.end();
         });
+
+
 
     }
 
@@ -71,6 +76,7 @@ public class DisplayListPanel extends UiPart<Region> {
 
         try {
             commandExecutor.execute(String.format("update u/%s d/%s", person.getName().fullName, descriptionText));
+            swapPanelList.run();
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }

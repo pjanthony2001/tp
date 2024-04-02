@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -20,6 +21,8 @@ public class CommandBox extends UiPart<Region> {
     private final CommandExecutor commandExecutor;
     private final NextCommandRetriever nextCommandRetriever;
     private final PreviousCommandRetriever previousCommandRetriever;
+    private boolean isDisplay;
+    Runnable displayMessage;
 
     @FXML
     private TextField commandTextField;
@@ -28,7 +31,7 @@ public class CommandBox extends UiPart<Region> {
      * Creates a {@code CommandBox} with the given {@code CommandExecutor}.
      */
     public CommandBox(CommandExecutor commandExecutor, NextCommandRetriever nextCommandRetriever,
-                      PreviousCommandRetriever previousCommandRetriever) {
+                      PreviousCommandRetriever previousCommandRetriever, Runnable displayMessage) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.nextCommandRetriever = nextCommandRetriever;
@@ -36,6 +39,7 @@ public class CommandBox extends UiPart<Region> {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         commandTextField.setOnKeyPressed(this::handleKeyPress);
+        this.displayMessage = displayMessage;
     }
 
     /**
@@ -60,11 +64,20 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
+    public void setIsDisplay(boolean bool) {
+        isDisplay = bool;
+    }
+
     /**
      * Handles the Enter button pressed event.
      */
     @FXML
-    private void handleCommandEntered() {
+    private void handleCommandEntered(){
+        if (isDisplay && !(commandTextField.getText().matches("list*"))) {
+            setStyleToIndicateCommandFailure();
+            displayMessage.run();
+            return;
+        }
         String commandText = commandTextField.getText();
         if (commandText.equals("")) {
             return;
@@ -134,4 +147,10 @@ public class CommandBox extends UiPart<Region> {
          */
         String retrieveNext();
     }
+
+
+    public void requestFocus() {
+        Platform.runLater(() -> commandTextField.requestFocus());
+    }
+
 }

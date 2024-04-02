@@ -43,6 +43,9 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
+    private Person displayPerson;
+    private CommandBox commandBox;
+
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -130,7 +133,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, this::retrieveNext, this::retrievePreviousCommand);
+        commandBox = new CommandBox(this::executeCommand, this::retrieveNext, this::retrievePreviousCommand, () -> resultDisplay.setFeedbackToUser("Invalid command in display mode"));
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -159,15 +162,13 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public void handleDisplay(CommandResult commandResult) {
+        commandBox.setIsDisplay(true);
         personListPanelPlaceholder.getChildren().clear();
-        displayListPanel = new DisplayListPanel(commandResult.getPerson(), this::executeCommand);
+        displayPerson = commandResult.getPerson();
+        displayListPanel = new DisplayListPanel(displayPerson, this::executeCommand, this::swapPanelList);
         personListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
     }
 
-    public void handleList() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-    }
 
     void show() {
         primaryStage.show();
@@ -199,8 +200,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            handleList();
-
+            swapPanelList();
             if (commandResult.isDisplayCommand()) {
                 handleDisplay(commandResult);
             }
@@ -235,6 +235,12 @@ public class MainWindow extends UiPart<Stage> {
         // Should catch HistoryException, log and throw
         // After catching HistoryException, should update UI element to indicate that there are no more commands
         // to revert to.
+    }
+
+    public void swapPanelList() {
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        commandBox.setIsDisplay(false);
     }
 
 }
