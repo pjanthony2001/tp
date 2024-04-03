@@ -22,7 +22,8 @@ public class KinContainsKeywordsPredicate implements Predicate<Person> {
             return false;
         }
         boolean personmatches = keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getNextOfKin().toString(), keyword));
+                .anyMatch(
+                    keyword -> StringUtil.containsWordIgnoreCase(person.getNextOfKin().get().toString(), keyword));
         return personmatches;
     }
 

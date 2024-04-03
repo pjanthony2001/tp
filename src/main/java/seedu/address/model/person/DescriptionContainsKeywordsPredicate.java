@@ -23,7 +23,8 @@ public class DescriptionContainsKeywordsPredicate implements Predicate<Person> {
             return false;
         }
         boolean personmatches = keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getDescription().toString(), keyword));
+                .anyMatch(
+                    keyword -> StringUtil.containsWordIgnoreCase(person.getDescription().get().toString(), keyword));
         return personmatches;
     }
 
