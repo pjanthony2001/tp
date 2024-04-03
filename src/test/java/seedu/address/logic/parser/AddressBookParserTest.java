@@ -116,7 +116,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_display() throws Exception {
+    public void parseCommand_display() throws ParseException {
         List<String> keywords = Arrays.asList("foo");
         DisplayCommand command = (DisplayCommand) parser.parseCommand(
                 DisplayCommand.COMMAND_WORD + " " + String.join(" ", keywords));
