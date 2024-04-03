@@ -54,6 +54,13 @@ public class FindCommand extends Command {
             AddressContainsKeywordsPredicate addressPredicate, EmailContainsKeywordsPredicate emailPredicate,
             TagContainsKeywordsPredicate tagPredicate, KinContainsKeywordsPredicate kinPredicate,
             DescriptionContainsKeywordsPredicate descriptionPredicate) {
+        assert namePredicate != null;
+        assert phonePredicate != null;
+        assert addressPredicate != null;
+        assert emailPredicate != null;
+        assert tagPredicate != null;
+        assert kinPredicate != null;
+        assert descriptionPredicate != null;
         predicates = Arrays.asList(namePredicate, phonePredicate, addressPredicate,
                 emailPredicate, tagPredicate, kinPredicate, descriptionPredicate);
     }
