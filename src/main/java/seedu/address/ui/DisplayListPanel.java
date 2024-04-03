@@ -57,9 +57,6 @@ public class DisplayListPanel extends UiPart<Region> {
             descriptionTextArea.requestFocus();
             descriptionTextArea.end();
         });
-
-
-
     }
 
     @FXML
@@ -167,5 +164,3 @@ public class DisplayListPanel extends UiPart<Region> {
         }
     }
 }
-
-
