@@ -20,7 +20,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -31,6 +33,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonCalendarStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
@@ -38,6 +41,7 @@ import seedu.address.testutil.PersonBuilder;
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy IO exception");
     private static final IOException DUMMY_AD_EXCEPTION = new AccessDeniedException("dummy access denied exception");
+    private static final HistoryException DUMMY_HISTORY_EXCEPTION = new HistoryException("dummy history exception");
 
     @TempDir
     public Path temporaryFolder;
@@ -50,7 +54,8 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonCalendarStorage calendarStorage = new JsonCalendarStorage(temporaryFolder.resolve("calendar.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, calendarStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -89,6 +94,20 @@ public class LogicManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
     }
 
+    @Test
+    public void execute_modelThrowsHistoryException_throwsCommandException() {
+        assertCommandFailureForExceptionFromModel(DUMMY_HISTORY_EXCEPTION, String.format(
+                LogicManager.HISTORY_SAVE_ERROR_FORMAT, DUMMY_HISTORY_EXCEPTION.getMessage()));
+    }
+    @Test
+    public void retrievePreviousCommand_noCommandsInputted_placeholderString() { //Should throw historyexception
+        assertEquals(logic.retrievePreviousCommand(), "PlaceHolder Text Up Arrow Pressed");
+    }
+    @Test
+    public void retrieveNextCommand_noCommandsInputted_placeholderString() { //Should throw historyexception
+        assertEquals(logic.retrieveNextCommand(), "PlaceHolder Text Down Arrow Pressed");
+    }
+
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>
@@ -125,7 +144,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), model.getCalendar());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -162,7 +181,8 @@ public class LogicManagerTest {
 
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonCalendarStorage calendarStorage = new JsonCalendarStorage(temporaryFolder.resolve("calendar.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, calendarStorage);
 
         logic = new LogicManager(model, storage);
 
@@ -172,6 +192,37 @@ public class LogicManagerTest {
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
+        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+    }
+
+    /**
+     * Tests the Logic component's handling of an {@code HistoryException} thrown by the Model component.
+     *
+     * @param expectedMessage the message expected inside exception thrown by the Logic component
+     */
+    private void assertCommandFailureForExceptionFromModel(HistoryException e, String expectedMessage) {
+
+        // Inject LogicManager with a Model that throws the HistoryException e when updating state
+        model = new ModelManager() {
+            @Override
+            public void updateState(Command command) throws HistoryException {
+                throw e;
+            }
+        };
+
+        JsonAddressBookStorage addressBookStorage =
+                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        JsonCalendarStorage calendarStorage = new JsonCalendarStorage(temporaryFolder.resolve("calendar.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, calendarStorage);
+
+        logic = new LogicManager(model, storage);
+
+        // Triggers the updateState method by executing an add command
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NOK_DESC_AMY + DESCRIPTION_DESC_AMY;
+        ModelManager expectedModel = new ModelManager(); //Logic Manager will revert state when updateState fails.
+
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 }

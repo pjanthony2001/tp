@@ -5,6 +5,10 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.history.ModelState;
+import seedu.address.history.exceptions.HistoryException;
+import seedu.address.logic.commands.Command;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
 /**
@@ -70,11 +74,11 @@ public interface Model {
     void addPerson(Person person);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given person {@code target} with {@code updatedPerson}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The person identity of {@code updatedPerson} must not be the same as another existing person in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setPerson(Person target, Person updatedPerson);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
@@ -85,5 +89,22 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    ModelState getCurrentState();
 
+    void restoreState(ModelState modelState);
+
+    void rollBackState() throws HistoryException;
+
+    void rollForwardState() throws HistoryException;
+
+    void updateState(Command command) throws HistoryException;
+    void updateFilteredPersonList(Predicate<? super Person> predicate);
+
+    ObservableList<Event> getEventList();
+
+    String retrievePreviousCommand(); //Should throw historyexception
+
+    String retrieveNextCommand(); //Should throw historyexception
+
+    ReadOnlyCalendar getCalendar();
 }

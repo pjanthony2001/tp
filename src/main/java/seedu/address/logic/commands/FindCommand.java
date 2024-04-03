@@ -24,6 +24,8 @@ import seedu.address.model.person.TagContainsKeywordsPredicate;
  * argument keywords.
  * Keyword matching is case insensitive.
  * Optionally can use parameters to search for specific fields as well.
+ * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Keyword matching is case in-sensitive.
  */
 public class FindCommand extends Command {
 
@@ -88,5 +90,9 @@ public class FindCommand extends Command {
         return new ToStringBuilder(this)
                 .add("predicates", predicates)
                 .toString();
+    }
+    @Override
+    public String getCommandString() {
+        return COMMAND_WORD;
     }
 }

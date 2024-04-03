@@ -16,12 +16,16 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.history.ModelState;
+import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -84,6 +88,13 @@ public class AddCommandTest {
         assertEquals(expected, addCommand.toString());
     }
 
+    @Test
+    public void getCommandStringTest() {
+        AddCommand addCommand = new AddCommand(ALICE);
+        String expected = AddCommand.COMMAND_WORD;
+        assertEquals(expected, addCommand.getCommandString());
+    }
+
     /**
      * A default model stub that have all of the methods failing.
      */
@@ -144,7 +155,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
+        public void setPerson(Person target, Person updatedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -154,7 +165,52 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredPersonList(Predicate<? super Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ModelState getCurrentState() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void restoreState(ModelState modelState) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void rollBackState() throws HistoryException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void rollForwardState() throws HistoryException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateState(Command command) throws HistoryException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Event> getEventList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String retrievePreviousCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String retrieveNextCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyCalendar getCalendar() {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -27,7 +27,11 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
 
+    /**
+     * @param targetIndex Index to be deleted
+     */
     public DeleteCommand(Index targetIndex) {
+        super.setReversible(true);
         this.targetIndex = targetIndex;
     }
 
@@ -65,5 +69,9 @@ public class DeleteCommand extends Command {
         return new ToStringBuilder(this)
                 .add("targetIndex", targetIndex)
                 .toString();
+    }
+    @Override
+    public String getCommandString() {
+        return COMMAND_WORD;
     }
 }

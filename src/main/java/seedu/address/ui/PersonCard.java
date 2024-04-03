@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -54,12 +55,34 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        description.setText(person.getDescription().value);
-        nextOfKin.setText(person.getNextOfKin().value);
+        // Optional fields
+        person.getAddress().ifPresentOrElse(address1 -> displayLabel(address, address1.value), () -> hideNode(address));
+        person.getDescription()
+                .ifPresentOrElse(descr -> displayLabel(description, descr.value), () -> hideNode(description));
+        person.getNextOfKin().ifPresentOrElse(nok -> displayLabel(nextOfKin, nok.value), () -> hideNode(nextOfKin));
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+    /**
+     * Hides the specified node if no value is present.
+     *
+     * @param node The label to hide if no value is present.
+     */
+    private void hideNode(Node node) {
+        node.setVisible(false);
+        node.setManaged(false);
+    }
+    /**
+     * Displays the specified value in the provided label.
+     *
+     * @param label The label to display the value in.
+     * @param value The value to display in the label.
+     */
+    private void displayLabel(Label label, String value) {
+        label.setText(value);
+        label.setVisible(true);
+        label.setManaged(true);
     }
 }
