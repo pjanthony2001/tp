@@ -57,7 +57,8 @@ public class UniqueEventListTest {
 
     @Test
     public void setEvent_targetEventNotInList_throwsEventNotFoundException() {
-        assertThrows(EventNotFoundException.class, () -> uniqueEventList.setEvent(MEETING_WITH_ALICE, MEETING_WITH_ALICE));
+        assertThrows(EventNotFoundException.class, () -> uniqueEventList
+                .setEvent(MEETING_WITH_ALICE, MEETING_WITH_ALICE));
     }
 
     @Test
@@ -112,7 +113,21 @@ public class UniqueEventListTest {
         List<Event> listWithDuplicateEvents = Arrays.asList(MEETING_WITH_ALICE, MEETING_WITH_ALICE);
         assertThrows(DuplicateEventException.class, () -> uniqueEventList.setEvents(listWithDuplicateEvents));
     }
-
+    @Test
+    public void setEvent_validTargetAndUpdatedEvent_success() {
+        uniqueEventList.add(HOUSE_CHECKUP_BENSON);
+        uniqueEventList.setEvent(HOUSE_CHECKUP_BENSON, MEETING_WITH_ALICE);
+        assertEquals(MEETING_WITH_ALICE, uniqueEventList.asUnmodifiableObservableList().get(0));
+    }
+    @Test
+    public void setEvent_nullTarget_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueEventList.setEvent(null, HOUSE_CHECKUP_BENSON));
+    }
+    @Test
+    public void setEvent_targetNotInList_throwsEventNotFoundException() {
+        assertThrows(EventNotFoundException.class, () -> uniqueEventList
+                .setEvent(MEETING_WITH_ALICE, HOUSE_CHECKUP_BENSON));
+    }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
