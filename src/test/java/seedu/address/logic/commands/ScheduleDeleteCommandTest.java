@@ -1,7 +1,10 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_HEADING_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_HEADING_MEETING_WITH_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.MEETING_WITH_ALICE;
@@ -40,8 +43,7 @@ public class ScheduleDeleteCommandTest {
 
     @Test
     public void execute_invalidHeadingUnfilteredList_throwsCommandException() {
-        Heading heading = new Heading("Invalid Heading");
-        ScheduleDeleteCommand deleteCommand = new ScheduleDeleteCommand(heading);
+        ScheduleDeleteCommand deleteCommand = new ScheduleDeleteCommand(new Heading(INVALID_HEADING_DESC));
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_EVENT_DISPLAYED_HEADING);
     }
@@ -68,6 +70,13 @@ public class ScheduleDeleteCommandTest {
 
         // different event -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+    }
+
+    @Test
+    public void getCommandStringTest() {
+        ScheduleDeleteCommand deleteCommand = new ScheduleDeleteCommand(new Heading(VALID_HEADING_MEETING_WITH_ALICE));
+        String expected = ScheduleDeleteCommand.COMMAND_WORD;
+        assertEquals(expected, deleteCommand.getCommandString());
     }
 
 }
