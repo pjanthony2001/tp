@@ -30,7 +30,6 @@ public class ScheduleAddCommandParser implements Parser<ScheduleCommand> {
      * @throws ParseException If the user input does not conform to the expected format.
      */
     public ScheduleAddCommand parse(String args) throws ParseException {
-        System.out.println(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_HEADING, PREFIX_TIME, PREFIX_DESCRIPTION);
 

@@ -1,13 +1,13 @@
 package seedu.address.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.ScheduleAddCommand;
-import seedu.address.logic.commands.ScheduleDeleteCommand;
+
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ScheduleCommandParserTest {
 

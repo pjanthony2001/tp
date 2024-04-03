@@ -1,10 +1,11 @@
 package seedu.address.model.event;
 
+import java.util.Objects;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Name;
 
-import java.util.Objects;
 
 /**
  * Represents an event related to social work, such as meetings, appointments, or tasks.

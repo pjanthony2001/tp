@@ -1,26 +1,15 @@
 package seedu.address.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.CLIENT_NAME_DESC_MEETING_WITH_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_MEETING_WITH_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.HEADING_DESC_MEETING_WITH_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_HEADING_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TIME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.NOK_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_MEETING_WITH_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_HEADING_MEETING_WITH_ALICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HEADING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -28,20 +17,17 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalEvents.MEETING_WITH_ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ScheduleAddCommand;
-import seedu.address.logic.parser.ScheduleAddCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Heading;
+import seedu.address.model.event.Time;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Name;
-import seedu.address.model.event.Time;
 import seedu.address.testutil.EventBuilder;
 
 public class ScheduleAddCommandParserTest {

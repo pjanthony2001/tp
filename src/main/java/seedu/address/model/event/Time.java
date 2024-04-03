@@ -50,7 +50,6 @@ public class Time {
             LocalDateTime.parse(test, DATE_TIME_FORMATTER);
             return true;
         } catch (DateTimeParseException e) {
-            System.out.println(e.getMessage());
             return false;
         }
     }

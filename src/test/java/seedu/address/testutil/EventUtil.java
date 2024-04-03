@@ -29,4 +29,5 @@ public class EventUtil {
         sb.append(PREFIX_TIME + event.getTime().time + " ");
         return sb.toString();
     }
+
 }
