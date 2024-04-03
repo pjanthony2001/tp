@@ -21,7 +21,7 @@ public class Time {
     private final LocalDateTime localDateTime;
 
     /**
-     * Constructs a Time object from a string representation of time.
+     * Constructs a Time object from a string representation of the time.
      *
      * @param timeString The string representation of time.
      */
