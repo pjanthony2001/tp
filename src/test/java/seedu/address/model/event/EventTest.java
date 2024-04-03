@@ -2,6 +2,7 @@ package seedu.address.model.event;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLIENT_NAME_HOUSE_CHECKUP_BENSON;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_HOUSE_CHECKUP_BENSON;
@@ -70,4 +71,12 @@ public class EventTest {
                 + ", time=" + MEETING_WITH_ALICE.getTime() + "}";
         assertEquals(expected, MEETING_WITH_ALICE.toString());
     }
+
+    @Test
+    public void hashCode_differentValues_differentHashCode() {
+        Event event1 = new EventBuilder().build();
+        Event event2 = new EventBuilder().withHeading("Different Heading").build();
+        assertNotEquals(event1.hashCode(), event2.hashCode());
+    }
+
 }
