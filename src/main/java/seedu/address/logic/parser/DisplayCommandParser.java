@@ -22,6 +22,7 @@ public class DisplayCommandParser implements Parser<DisplayCommand> {
      * @throws ParseException If the input arguments cannot be parsed.
      */
     public DisplayCommand parse(String args) throws ParseException {
+        assert args != null : "Input arguments cannot be null"; // Assertion added
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
