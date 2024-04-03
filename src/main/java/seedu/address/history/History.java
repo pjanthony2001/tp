@@ -33,4 +33,6 @@ public interface History<T> {
      * @return The current state.
      */
     T getCurrState();
+
+    T getCurrStateHasBuffer() throws HistoryException;
 }

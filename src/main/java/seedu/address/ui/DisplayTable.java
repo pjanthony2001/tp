@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -19,7 +20,6 @@ import seedu.address.model.person.NextOfKin;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-
 
 /**
  * Display Table class that is to be swapped out from the Person list.
@@ -50,7 +50,7 @@ public class DisplayTable extends UiPart<Region> {
         //Constructor should take in a person class in the future
         super(FXML);
         Person dummyDataForNow = new Person(DEFAULT_NAME, DEFAULT_PHONE, DEFAULT_EMAIL,
-                DEFAULT_ADDRESS, DEFAULT_DESCRIPTION, DEFAULT_NOK, DEFAULT_TAGS);
+                Optional.of(DEFAULT_ADDRESS), Optional.of(DEFAULT_DESCRIPTION), Optional.of(DEFAULT_NOK), DEFAULT_TAGS);
         displayPerson = new DisplayPerson(dummyDataForNow);
         data = displayPerson.getFieldDescriptions();
 

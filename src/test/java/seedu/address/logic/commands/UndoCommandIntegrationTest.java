@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
 import static seedu.address.logic.commands.UndoCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalEvents.getTypicalCalendar;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class UndoCommandIntegrationTest {
     @Test
     void executeClearCommandSuccess() {
         try {
-            model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+            model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalCalendar());
             ClearCommand clearCommand = new ClearCommand();
             clearCommand.execute(model);
             assertEquals(new ArrayList<Person>(), model.getFilteredPersonList());
@@ -74,7 +75,7 @@ public class UndoCommandIntegrationTest {
 
             CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_SUCCESS,
                     clearCommand.getCommandString()));
-            Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+            Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalCalendar());
 
             assertCommandSuccess(new UndoCommand(), model, expectedCommandResult, expectedModel);
         } catch (HistoryException e) {
@@ -85,7 +86,7 @@ public class UndoCommandIntegrationTest {
     @Test
     void executeHelpCommandFailure() {
         try {
-            model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+            model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalCalendar());
             HelpCommand helpCommand = new HelpCommand();
             CommandResult commandResult = helpCommand.execute(model);
             CommandResult expectedHelpCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false);

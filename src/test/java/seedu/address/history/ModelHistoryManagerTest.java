@@ -11,12 +11,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.history.exceptions.HistoryException;
 
-class ModelHistoryManagerTest {
-    private ModelHistoryManager history;
+class HistoryManagerTest {
+    private HistoryManager<ModelState> history;
 
     @BeforeEach
     void setup() {
-        history = new ModelHistoryManager(TYPICAL_START_MODEL_STATE);
+        history = new HistoryManager<ModelState>(TYPICAL_START_MODEL_STATE, false);
     }
 
     @Test

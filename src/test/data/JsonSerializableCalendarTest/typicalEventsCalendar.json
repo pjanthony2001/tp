@@ -1,0 +1,18 @@
+{
+  "events" : [ {
+    "heading" : "Meeting with Alice",
+    "time" : "Friday, April, 12, 2024 - 10:00 AM",
+    "clientName" : "Alice Pauline",
+    "description" : "Discuss Financial Matters"
+  }, {
+    "heading" : "House Checkup Benson",
+    "time" : "Saturday, April, 13, 2024 - 11:00 AM",
+    "clientName" : "Benson Meier",
+    "description" : "Discuss Medical Matters"
+  }, {
+    "heading" : "Finanical Assistance",
+    "time" : "Sunday, April, 14, 2024 - 12:00 PM",
+    "clientName" : "Carl Kurz",
+    "description" : "Discuss more financial assistance"
+  } ]
+}

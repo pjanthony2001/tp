@@ -9,6 +9,7 @@ import seedu.address.history.CommandState;
 import seedu.address.history.ModelState;
 import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.commands.Command;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
 /**
@@ -106,4 +107,7 @@ public interface Model {
     String retrievePreviousCommand() throws HistoryException;
 
     String retrieveNextCommand() throws HistoryException;
+    ObservableList<Event> getEventList();
+
+    ReadOnlyCalendar getCalendar();
 }

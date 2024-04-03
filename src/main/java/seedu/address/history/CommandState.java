@@ -1,5 +1,8 @@
 package seedu.address.history;
 
+/**
+ * placeholder
+ */
 public class CommandState {
     private final String commandText;
 

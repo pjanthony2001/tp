@@ -13,9 +13,13 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.history.*;
+import seedu.address.history.CommandState;
+import seedu.address.history.History;
+import seedu.address.history.HistoryManager;
+import seedu.address.history.ModelState;
 import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.commands.Command;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -24,6 +28,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private final Calendar calendar;
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
@@ -35,13 +40,15 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyCalendar calendar) {
         requireAllNonNull(addressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs
+            + "and calendar " + calendar);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.calendar = new Calendar(calendar);
         this.source = this.addressBook.getPersonList();
         this.filteredPersons = new FilteredList<>(source);
 
@@ -56,12 +63,12 @@ public class ModelManager implements Model {
                     PREDICATE_SHOW_ALL_PERSONS);
         }
         startCommandState = generateCommandState(getStartCommand().getCommandString());
-        this.modelHistory = new HistoryManager<>(startModelState);
-        this.commandHistory = new HistoryManager<>(startCommandState);
+        this.modelHistory = new HistoryManager<>(startModelState, false);
+        this.commandHistory = new HistoryManager<>(startCommandState, true);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new Calendar());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -225,6 +232,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Event> getEventList() {
+        return calendar.getEventList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -247,6 +259,11 @@ public class ModelManager implements Model {
     public CommandState getCurrentCommandState() {
         return commandHistory.getCurrState();
     }
+    //=========== Calendar Accessors =============================================================
+    @Override
+    public ReadOnlyCalendar getCalendar() {
+        return calendar;
+    }
 
     @Override
     public void updateCommandState(String commandText) {
@@ -260,8 +277,8 @@ public class ModelManager implements Model {
 
     @Override
     public String retrievePreviousCommand() throws HistoryException {
-        CommandState previousCommand = commandHistory.getCurrState();
         commandHistory.rollBackState();
+        CommandState previousCommand = commandHistory.getCurrStateHasBuffer();
         String previousCommandText = previousCommand.getCommandText();
         return previousCommandText;
     }
@@ -269,7 +286,7 @@ public class ModelManager implements Model {
     @Override
     public String retrieveNextCommand() throws HistoryException {
         commandHistory.rollForwardState();
-        CommandState nextCommand = commandHistory.getCurrState();
+        CommandState nextCommand = commandHistory.getCurrStateHasBuffer();
         String nextCommandText = nextCommand.getCommandText();
         return nextCommandText;
     }

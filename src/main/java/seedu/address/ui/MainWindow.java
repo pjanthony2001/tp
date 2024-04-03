@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -44,6 +45,8 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+    @FXML
+    private StackPane eventListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -114,13 +117,17 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        eventListPanel = new EventListPanel(logic.getEventList());
+        eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, this::retrieveNextCommand, this::retrievePreviousCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand,
+                this::retrieveNextCommand, this::retrievePreviousCommand, () -> {});
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -198,10 +205,11 @@ public class MainWindow extends UiPart<Stage> {
         try {
             String nextCommand = logic.retrieveNextCommand();
             logger.info("ShortCut DownArrow: " + nextCommand);
+            resultDisplay.setFeedbackToUser("");
             return nextCommand;
         } catch (HistoryException e) {
             logger.info("An error occurred while executing shortcut: Up");
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            resultDisplay.setFeedbackToUser("You can't roll forward the state anymore!");
             throw e;
         }
         // Should catch HistoryException, log and throw
@@ -213,6 +221,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
             String previousCommand = logic.retrievePreviousCommand();
             logger.info("ShortCut UpArrow: " + previousCommand);
+            resultDisplay.setFeedbackToUser("");
             return previousCommand;
         } catch (HistoryException e) {
             logger.info("An error occurred while executing shortcut: Down");

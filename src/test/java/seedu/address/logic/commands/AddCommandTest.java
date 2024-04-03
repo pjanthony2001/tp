@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.history.CommandState;
 import seedu.address.history.ModelState;
 import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.Messages;
@@ -23,7 +24,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -168,6 +171,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public CommandState getCurrentCommandState() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateCommandState(String command) throws HistoryException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ModelState getCurrentModelState() {
             throw new AssertionError("This method should not be called.");
         }
@@ -193,12 +206,22 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Event> getEventList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public String retrievePreviousCommand() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public String retrieveNextCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyCalendar getCalendar() {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -118,10 +118,13 @@ public class UpdateCommand extends Command {
         Name updatedName = updatePersonDescriptor.getName().orElse(personToUpdate.getName());
         Phone updatedPhone = updatePersonDescriptor.getPhone().orElse(personToUpdate.getPhone());
         Email updatedEmail = updatePersonDescriptor.getEmail().orElse(personToUpdate.getEmail());
-        Address updatedAddress = updatePersonDescriptor.getAddress().orElse(personToUpdate.getAddress());
-        Description updatedDescription = updatePersonDescriptor.getDescription().orElse(personToUpdate
-                .getDescription());
-        NextOfKin updatedNextOfKin = updatePersonDescriptor.getNextOfKin().orElse(personToUpdate.getNextOfKin());
+
+        // Optional field
+        Optional<Address> updatedAddress = updatePersonDescriptor.getAddress().or(personToUpdate::getAddress);
+        Optional<Description> updatedDescription = updatePersonDescriptor.getDescription()
+                .or(personToUpdate::getDescription);
+        Optional<NextOfKin> updatedNextOfKin = updatePersonDescriptor.getNextOfKin()
+                .or(personToUpdate::getNextOfKin);
         Set<Tag> updatedTags = updatePersonDescriptor.getTags().orElse(personToUpdate.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,

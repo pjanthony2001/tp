@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.RedoCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalEvents.getTypicalCalendar;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class RedoCommandIntegrationTest {
     @Test
     void executeClearCommandSuccess() {
         try {
-            model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+            model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalCalendar());
             ClearCommand clearCommand = new ClearCommand();
             clearCommand.execute(model);
             assertEquals(new ArrayList<Person>(), model.getFilteredPersonList());
@@ -76,7 +77,7 @@ public class RedoCommandIntegrationTest {
 
             CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_SUCCESS,
                     clearCommand.getCommandString()));
-            Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+            Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalCalendar());
             clearCommand.execute(expectedModel);
 
             assertCommandSuccess(new RedoCommand(), model, expectedCommandResult, expectedModel);
