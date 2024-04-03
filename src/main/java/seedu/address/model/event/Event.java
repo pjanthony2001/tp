@@ -1,7 +1,11 @@
 package seedu.address.model.event;
 
+import java.util.Objects;
+
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Description;
 import seedu.address.model.person.Name;
+
 
 /**
  * Represents an event related to social work, such as meetings, appointments, or tasks.
@@ -99,6 +103,17 @@ public class Event {
         return clientName.toString();
     }
 
+    /**
+     * Returns true if both events have the same heading.
+     * This defines a weaker notion of equality between two events.
+     */
+    public boolean isSameEvent(Event otherEvent) {
+        if (otherEvent == this) {
+            return true;
+        }
+        return otherEvent != null
+                && otherEvent.getHeading().equals(getHeading());
+    }
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -115,5 +130,19 @@ public class Event {
                 && clientName.equals(otherPerson.clientName)
                 && description.equals(otherPerson.description)
                 && time.equals(otherPerson.time);
+    }
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(clientName, heading, description, time);
+    }
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("name", clientName)
+                .add("heading", heading)
+                .add("description", description)
+                .add("time", time)
+                .toString();
     }
 }

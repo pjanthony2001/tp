@@ -17,6 +17,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Person;
+
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -33,9 +35,13 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private DisplayListPanel displayListPanel;
     private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    private Person displayPerson;
+    private CommandBox commandBox;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -47,6 +53,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
     @FXML
     private StackPane eventListPanelPlaceholder;
+
+    @FXML
+    private StackPane displayListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -126,8 +135,9 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand,
-                this::retrieveNextCommand, this::retrievePreviousCommand, () -> {});
+        commandBox = new CommandBox(this::executeCommand, this::retrieveNext, this::retrievePreviousCommand, (
+        ) -> resultDisplay.setFeedbackToUser("Invalid command in display mode"));
+
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -154,6 +164,21 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.focus();
         }
     }
+    /**
+     * Handles the display command result by updating the UI to show the list of persons or a single person.
+     * If the command result indicates a single person display,
+     * the UI is updated to display details of the specified person.
+     *
+     * @param commandResult The command result containing the feedback message and possibly the first matched person.
+     */
+    public void handleDisplay(CommandResult commandResult) {
+        commandBox.setIsDisplay(true);
+        personListPanelPlaceholder.getChildren().clear();
+        displayPerson = commandResult.getPerson();
+        displayListPanel = new DisplayListPanel(displayPerson, this::executeCommand, this::swapPanelList);
+        personListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
+    }
+
 
     void show() {
         primaryStage.show();
@@ -185,7 +210,10 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
+            swapPanelList();
+            if (commandResult.isDisplayCommand()) {
+                handleDisplay(commandResult);
+            }
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -231,6 +259,16 @@ public class MainWindow extends UiPart<Stage> {
         // Should catch HistoryException, log and throw
         // After catching HistoryException, should update UI element to indicate that there are no more commands
         // to revert to.
+    }
+    /**
+     * Swaps the display panel back to the list of persons panel.
+     * Clears the current display panel and adds back the person list panel.
+     * Sets the commandBox's display flag to false to handle subsequent command input for listing persons.
+     */
+    public void swapPanelList() {
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        commandBox.setIsDisplay(false);
     }
 
 }

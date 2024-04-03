@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -110,4 +111,23 @@ public interface Model {
     ObservableList<Event> getEventList();
 
     ReadOnlyCalendar getCalendar();
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the calendar.
+     */
+    boolean hasEvent(Event event);
+    /**
+     * Adds a person to the address book.
+     * The person must not already exist in the calendar.
+     */
+    void addEvent(Event event);
+    /**
+     * Deletes the given event.
+     * The event must exist in the calendar.
+     */
+    void deleteEvent(Event key);
+    /**
+     * Replaces the contents of the events list with {@code events}.
+     * {@code events} must not contain duplicate persons.
+     */
+    void setEvents(List<Event> events);
 }

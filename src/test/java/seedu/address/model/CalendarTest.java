@@ -78,11 +78,61 @@ public class CalendarTest {
     public void getEventList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> calendar.getEventList().remove(0));
     }
+    @Test
+    public void setEvent_validTargetAndUpdatedEvent_success() {
+        Event targetEvent = new EventBuilder().withHeading("Meeting").build();
+        Event updatedEvent = new EventBuilder().withHeading("Updated Meeting").build();
 
+        calendar.addEvent(targetEvent);
+        calendar.setEvent(targetEvent, updatedEvent);
+
+        assertEquals(updatedEvent, calendar.getEventList().get(0));
+    }
     @Test
     public void toStringMethod() {
         String expected = Calendar.class.getCanonicalName() + "{events=" + calendar.getEventList() + "}";
         assertEquals(expected, calendar.toString());
+    }
+    @Test
+    public void equals_sameObject_returnsTrue() {
+        assertTrue(calendar.equals(calendar));
+    }
+
+    @Test
+    public void equals_differentClass_returnsFalse() {
+        Calendar calendar = new Calendar();
+        assertFalse(calendar.equals(new AddressBook()));
+    }
+
+    @Test
+    public void equals_differentEventsList_returnsFalse() {
+        Calendar calendar1 = new Calendar();
+        Calendar calendar2 = new Calendar();
+        Event event1 = new EventBuilder().withHeading("Meeting").build();
+        Event event2 = new EventBuilder().withHeading("Interview").build();
+
+        calendar1.addEvent(event1);
+        calendar2.addEvent(event2);
+
+        assertFalse(calendar1.equals(calendar2));
+    }
+
+    @Test
+    public void equals_sameEventsList_returnsTrue() {
+        Calendar calendar1 = new Calendar();
+        Calendar calendar2 = new Calendar();
+        Event event1 = new EventBuilder().withHeading("Meeting").build();
+        Event event2 = new EventBuilder().withHeading("Meeting").build();
+
+        calendar1.addEvent(event1);
+        calendar2.addEvent(event2);
+
+        assertTrue(calendar1.equals(calendar2));
+    }
+
+    @Test
+    public void equals_null_returnsFalse() {
+        assertFalse(calendar.equals(null));
     }
 
     /**
@@ -99,5 +149,6 @@ public class CalendarTest {
         public ObservableList<Event> getEventList() {
             return events;
         }
+
     }
 }
