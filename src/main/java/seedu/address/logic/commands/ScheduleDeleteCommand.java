@@ -24,8 +24,7 @@ public class ScheduleDeleteCommand extends ScheduleCommand {
             + ": Deletes the event identified by its heading from the schedule.\n"
             + "Parameters: HEADING\n"
             + "Example: schedule " + COMMAND_WORD + PREFIX_HEADING + " Meeting with Client";
-
-    private static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
+    public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
 
     private final Heading heading;
 

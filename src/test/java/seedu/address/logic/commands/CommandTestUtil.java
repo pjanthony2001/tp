@@ -106,6 +106,8 @@ public class CommandTestUtil {
     public static final String INVALID_NOK_DESC = " " + PREFIX_NOK; // empty string not allowed for next of kin
     public static final String INVALID_UPDATE_DESC = " " + PREFIX_UPDATE + "James&"; // '&' not allowed in names
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_TIME_DESC = " " + PREFIX_TIME + "Monday"; // Time must be in a spcecific format
+    public static final String INVALID_HEADING_DESC = " " + PREFIX_HEADING + " "; // Time must be in a spcecific format
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

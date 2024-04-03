@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.HOON;
@@ -26,7 +27,7 @@ public class TypicalEvents {
             new Heading("Meeting with Alice"),
             new Time(LocalDateTime.of(2024, Month.APRIL, 12, 10, 0)),
             new Description("Discuss Financial Matters"),
-            ALICE.getName());
+            AMY.getName());
     public static final Event HOUSE_CHECKUP_BENSON = new Event(
             new Heading("House Checkup Benson"),
             new Time(LocalDateTime.of(2024, Month.APRIL, 13, 11, 0)),
