@@ -98,6 +98,7 @@ public class FindCommand extends Command {
                 .add("predicates", predicates)
                 .toString();
     }
+
     @Override
     public String getCommandString() {
         return COMMAND_WORD;
