@@ -3,9 +3,10 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalEvents.MEETING_WITH_ALICE;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -17,88 +18,85 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.history.CommandState;
 import seedu.address.history.ModelState;
 import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.Calendar;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.EventBuilder;
 
-public class AddCommandTest {
 
+class ScheduleAddCommandTest {
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+    void constructor_nullEvent_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new ScheduleAddCommand(null));
     }
-
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    void execute_eventAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
+        Event validEvent = new EventBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
+        CommandResult commandResult = new ScheduleAddCommand(validEvent).execute(modelStub);
+
+        assertEquals(String.format(ScheduleAddCommand.MESSAGE_SUCCESS, Messages.format(validEvent)),
                 commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validEvent), modelStub.eventsAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    void execute_duplicateEvent_throwsCommandException() {
+        Event validEvent = new EventBuilder().build();
+        ScheduleAddCommand scheduleAddCommand = new ScheduleAddCommand(validEvent);
+        ModelStub modelStub = new ModelStubWithEvent(validEvent);
 
         assertThrows(CommandException.class,
-                AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+                ScheduleAddCommand.MESSAGE_DUPLICATE_EVENT, () -> scheduleAddCommand.execute(modelStub));
     }
 
     @Test
-    public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
-
+    void equals() {
+        ScheduleAddCommand scheduleAddCommandAlice = new ScheduleAddCommand(MEETING_WITH_ALICE);
+        ScheduleAddCommand scheduleAddCommandDifferentHeading = new ScheduleAddCommand(new EventBuilder()
+                .withHeading("different")
+                .build());
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(scheduleAddCommandAlice.equals(scheduleAddCommandAlice));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        ScheduleAddCommand scheduleAddCommandAliceCopy = new ScheduleAddCommand(MEETING_WITH_ALICE);
+        assertTrue(scheduleAddCommandAlice.equals(scheduleAddCommandAliceCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(scheduleAddCommandAlice.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(scheduleAddCommandAlice.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different event -> returns false
+        assertFalse(scheduleAddCommandAlice.equals(scheduleAddCommandDifferentHeading));
     }
 
     @Test
     public void toStringMethod() {
-        AddCommand addCommand = new AddCommand(ALICE);
-        String expected = AddCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
-        assertEquals(expected, addCommand.toString());
+        ScheduleAddCommand scheduleAddCommand = new ScheduleAddCommand(MEETING_WITH_ALICE);
+        String expected = ScheduleAddCommand.class.getCanonicalName() + "{toAdd=" + MEETING_WITH_ALICE + "}";
+        assertEquals(expected, scheduleAddCommand.toString());
     }
 
     @Test
     public void getCommandStringTest() {
-        AddCommand addCommand = new AddCommand(ALICE);
-        String expected = AddCommand.COMMAND_WORD;
-        assertEquals(expected, addCommand.getCommandString());
+        ScheduleAddCommand scheduleAddCommand = new ScheduleAddCommand(MEETING_WITH_ALICE);
+        String expected = ScheduleAddCommand.COMMAND_WORD;
+        assertEquals(expected, scheduleAddCommand.getCommandString());
     }
-
     /**
-     * A default model stub that have all of the methods failing.
+     * A default model stub that has all the methods failing.
      */
     private class ModelStub implements Model {
         @Override
@@ -172,22 +170,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public CommandState getCurrentCommandState() {
+        public ModelState getCurrentState() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateCommandState(String command) throws HistoryException {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ModelState getCurrentModelState() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void restoreModelState(ModelState modelState) {
+        public void restoreState(ModelState modelState) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -202,7 +190,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateModelState(Command command) throws HistoryException {
+        public void updateState(Command command) throws HistoryException {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -246,47 +234,45 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
     }
-
     /**
      * A Model stub that contains a single person.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithEvent extends ScheduleAddCommandTest.ModelStub {
+        private final Event event;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithEvent(Event event) {
+            requireNonNull(event);
+            this.event = event;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasEvent(Event event) {
+            requireNonNull(event);
+            return this.event.isSameEvent(event);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accepts the event being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingEventAdded extends ModelStub {
+        final ArrayList<Event> eventsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasEvent(Event event) {
+            requireNonNull(event);
+            return eventsAdded.stream().anyMatch(event::isSameEvent);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addEvent(Event event) {
+            requireNonNull(event);
+            eventsAdded.add(event);
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyCalendar getCalendar() {
+            return new Calendar();
         }
     }
-
 }

@@ -41,7 +41,6 @@ public class Description {
     public String toString() {
         return value;
     }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {

@@ -18,7 +18,7 @@ public class Heading {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    private final String heading;
+    public final String heading;
 
     /**
      * Constructs a {@code Heading}.

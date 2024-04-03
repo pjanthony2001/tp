@@ -28,6 +28,23 @@
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
 }
+.text-area {
+    -fx-background-color: transparent;
+}
+
+.text-area {
+    -fx-background-color: white;
+}
+
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
 
 .tab-pane {
     -fx-padding: 0 0 0 1;
@@ -329,8 +346,12 @@
     -fx-text-fill: #F70D1A;
 }
 
+
 #commandTextField {
     -fx-background-color: transparent #293a66 transparent #293a66;
+
+#commandTextField, #descriptionTextArea {
+    -fx-background-color: transparent #383838 transparent #383838;
     -fx-background-insets: 0;
     -fx-border-color: #293a66 #293a66 #ffffff #293a66;
     -fx-border-insets: 0;
