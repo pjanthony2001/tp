@@ -1,5 +1,5 @@
 package seedu.address.logic.parser;
-/*
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -36,10 +36,9 @@ import seedu.address.model.person.TagContainsKeywordsPredicate;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.UpdatePersonDescriptorBuilder;
-*/
+
 
 public class AddressBookParserTest {
-    /*
     private final AddressBookParser parser = new AddressBookParser();
 
     @Test
@@ -127,5 +126,4 @@ public class AddressBookParserTest {
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " 3") instanceof RedoCommand);
     }
-    */
 }
