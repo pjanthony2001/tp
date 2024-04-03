@@ -135,7 +135,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        commandBox = new CommandBox(this::executeCommand, this::retrieveNext, this::retrievePreviousCommand, (
+        commandBox = new CommandBox(this::executeCommand, this::retrieveNextCommand, this::retrievePreviousCommand, (
         ) -> resultDisplay.setFeedbackToUser("Invalid command in display mode"));
 
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
