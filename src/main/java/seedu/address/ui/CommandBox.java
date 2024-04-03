@@ -47,11 +47,11 @@ public class CommandBox extends UiPart<Region> {
             switch (event.getCode()) {
                 case UP:
                     System.out.println("Up key pressed");
-                    commandTextField.setText(previousCommandRetriever.retrievePrevious());
+                    commandTextField.setText(previousCommandRetriever.retrievePreviousCommand());
                     break;
                 case DOWN:
                     System.out.println("Down key pressed");
-                    commandTextField.setText(nextCommandRetriever.retrieveNext());
+                    commandTextField.setText(nextCommandRetriever.retrieveNextCommand());
                     break;
                 case TAB:
                     System.out.println("Tab key pressed");
@@ -125,7 +125,7 @@ public class CommandBox extends UiPart<Region> {
          * Retrieves the previous command. Should throw History Exception
          *
          */
-        String retrievePrevious() throws HistoryException;
+        String retrievePreviousCommand() throws HistoryException;
     }
 
     /**
@@ -137,6 +137,6 @@ public class CommandBox extends UiPart<Region> {
          * Retrieves the previous command. Should throw History Exception
          *
          */
-        String retrieveNext() throws HistoryException;
+        String retrieveNextCommand() throws HistoryException;
     }
 }

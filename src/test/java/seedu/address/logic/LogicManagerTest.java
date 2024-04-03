@@ -202,7 +202,7 @@ public class LogicManagerTest {
         // Inject LogicManager with a Model that throws the HistoryException e when updating state
         model = new ModelManager() {
             @Override
-            public void updateState(Command command) throws HistoryException {
+            public void updateModelState(Command command) throws HistoryException {
                 throw e;
             }
         };

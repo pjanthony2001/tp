@@ -1,5 +1,7 @@
 package seedu.address.history;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import seedu.address.history.exceptions.HistoryException;
@@ -7,27 +9,27 @@ import seedu.address.history.exceptions.HistoryException;
 /**
  * @param <T> The type of state that the abstract class keeps track of
  */
-public abstract class HistoryManager<T> implements History<T> {
+public class HistoryManager<T> implements History<T> {
     private int currStateIdx;
-    private final ArrayList<T> modelStates;
+    private final ArrayList<T> states;
 
     /**
-     * Constructs a new ModelHistoryManager with a starting state.
+     * Constructs a new HistoryManager with a starting state.
      *
      * @param startState The initial state of the history.
      */
     public HistoryManager(T startState) {
-        modelStates = new ArrayList<>();
-        modelStates.add(startState);
+        states = new ArrayList<>();
         currStateIdx = 0;
+        states.add(startState);
     }
 
     /**
      * Removes modelStates after the current state, effectively truncating the history.
      */
     private void truncate() {
-        assert (currStateIdx >= 0 && currStateIdx < modelStates.size());
-        modelStates.subList(currStateIdx + 1, modelStates.size()).clear();
+        assert (currStateIdx >= 0 && currStateIdx < states.size());
+        states.subList(currStateIdx + 1, states.size()).clear();
     }
 
     /**
@@ -48,7 +50,7 @@ public abstract class HistoryManager<T> implements History<T> {
      */
     @Override
     public void rollForwardState() throws HistoryException {
-        if (currStateIdx == modelStates.size() - 1) {
+        if (currStateIdx == states.size() - 1) {
             throw new HistoryException("You can't roll forward the state anymore!");
         }
         currStateIdx += 1;
@@ -62,7 +64,7 @@ public abstract class HistoryManager<T> implements History<T> {
     @Override
     public void addState(T state) {
         truncate();
-        modelStates.add(state);
+        states.add(state);
         currStateIdx += 1;
     }
 
@@ -73,6 +75,6 @@ public abstract class HistoryManager<T> implements History<T> {
      */
     @Override
     public T getCurrState() {
-        return modelStates.get(currStateIdx);
+        return states.get(currStateIdx);
     }
 }

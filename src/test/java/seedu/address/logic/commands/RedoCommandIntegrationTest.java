@@ -46,7 +46,7 @@ public class RedoCommandIntegrationTest {
             assertEquals(Arrays.asList(validPerson), model.getFilteredPersonList());
             // Assert that add command succeeded
 
-            model.updateState(addCommand); // Update state
+            model.updateModelState(addCommand); // Update state
             model.rollBackState(); //Roll back the state
 
             CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_SUCCESS,
@@ -71,7 +71,7 @@ public class RedoCommandIntegrationTest {
             assertEquals(new ArrayList<Person>(), model.getFilteredPersonList());
             // Assert that clear command succeeded
 
-            model.updateState(clearCommand); // Update state
+            model.updateModelState(clearCommand); // Update state
             model.rollBackState(); //Roll back the state
 
             CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_SUCCESS,
@@ -94,7 +94,7 @@ public class RedoCommandIntegrationTest {
             assertEquals(Arrays.asList(validPerson), model.getFilteredPersonList());
             // Assert that add command succeeded
 
-            model.updateState(addCommand); // Update state
+            model.updateModelState(addCommand); // Update state
             model.rollBackState();
 
             CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_SUCCESS,

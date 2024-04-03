@@ -159,13 +159,13 @@ public class ModelManagerTest {
     public void initialization_historyFailureStub_doesNotThrowHistoryException() {
         assertDoesNotThrow(ModelHistoryFailureStub::new);
         Model modelInitFailure = new ModelHistoryFailureStub();
-        ModelState modelState = modelInitFailure.getCurrentState();
+        ModelState modelState = modelInitFailure.getCurrentModelState();
         assertEquals(modelState.getAddressBook(), SampleDataUtil.getSampleAddressBook());
     }
 
     @Test
     public void getCurrentState_startState_successfullyReturnsStartState() {
-        ModelState currModelState = modelManager.getCurrentState();
+        ModelState currModelState = modelManager.getCurrentModelState();
         assertEquals(currModelState, new ModelState(getStartCommand(),
                 modelManager.getAddressBook(),
                 modelManager.getFilteredPersonsListPredicate()
@@ -174,7 +174,7 @@ public class ModelManagerTest {
 
     @Test
     public void restoreState_typicalSecondState_successfullyRestoresSecondState() {
-        modelManager.restoreState(TYPICAL_SECOND_MODEL_STATE);
+        modelManager.restoreModelState(TYPICAL_SECOND_MODEL_STATE);
         FilteredList<Person> filteredList = new FilteredList<>(TYPICAL_SECOND_MODEL_STATE
                 .getAddressBook().getPersonList());
         filteredList.setPredicate(TYPICAL_SECOND_MODEL_STATE.getFilteredPersonsListPredicate());
@@ -184,9 +184,9 @@ public class ModelManagerTest {
 
     @Test
     public void updateState_commandStub_successfullyUpdatesCurrentState() throws HistoryException {
-        assertDoesNotThrow(() -> modelManager.updateState(getCommandStub()));
-        modelManager.updateState(getCommandStub());
-        assertEquals(modelManager.getCurrentState(),
+        assertDoesNotThrow(() -> modelManager.updateModelState(getCommandStub()));
+        modelManager.updateModelState(getCommandStub());
+        assertEquals(modelManager.getCurrentModelState(),
                 new ModelState(getCommandStub(),
                         modelManager.getAddressBook(),
                         modelManager.getFilteredPersonsListPredicate()
@@ -195,12 +195,12 @@ public class ModelManagerTest {
 
     @Test
     public void rollBackState_successfullyRollbacksCurrentState() {
-        assertDoesNotThrow(() -> modelManager.updateState(getCommandStub()));
+        assertDoesNotThrow(() -> modelManager.updateModelState(getCommandStub()));
         assertDoesNotThrow(() -> modelManager.rollBackState());
         assertEquals(new ModelState(getStartCommand(),
                 modelManager.getAddressBook(),
                 modelManager.getFilteredPersonsListPredicate()),
-                modelManager.getCurrentState()
+                modelManager.getCurrentModelState()
         );
     }
 
@@ -211,13 +211,13 @@ public class ModelManagerTest {
 
     @Test
     public void rollForwardState_successfullyRollForwardToCurrentState() {
-        assertDoesNotThrow(() -> modelManager.updateState(getCommandStub()));
+        assertDoesNotThrow(() -> modelManager.updateModelState(getCommandStub()));
         assertDoesNotThrow(() -> modelManager.rollBackState());
         assertDoesNotThrow(() -> modelManager.rollForwardState());
         assertEquals(new ModelState(getCommandStub(),
                         modelManager.getAddressBook(),
                         modelManager.getFilteredPersonsListPredicate()),
-                modelManager.getCurrentState()
+                modelManager.getCurrentModelState()
         );
     }
 

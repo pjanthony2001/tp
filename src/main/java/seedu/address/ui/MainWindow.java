@@ -210,9 +210,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private String retrievePreviousCommand() throws HistoryException { //Should throw HistoryException
-        String previousCommand = logic.retrievePreviousCommand();
-        logger.info("ShortCut UpArrow: " + previousCommand);
-        return previousCommand;
+        try {
+            String previousCommand = logic.retrievePreviousCommand();
+            logger.info("ShortCut UpArrow: " + previousCommand);
+            return previousCommand;
+        } catch (HistoryException e) {
+            logger.info("An error occurred while executing shortcut: Down");
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        }
         // Should catch HistoryException, log and throw
         // After catching HistoryException, should update UI element to indicate that there are no more commands
         // to revert to.

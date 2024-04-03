@@ -168,12 +168,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ModelState getCurrentState() {
+        public ModelState getCurrentModelState() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void restoreState(ModelState modelState) {
+        public void restoreModelState(ModelState modelState) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -188,7 +188,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateState(Command command) throws HistoryException {
+        public void updateModelState(Command command) throws HistoryException {
             throw new AssertionError("This method should not be called.");
         }
 

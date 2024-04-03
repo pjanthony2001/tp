@@ -13,9 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.history.History;
-import seedu.address.history.ModelHistoryManager;
-import seedu.address.history.ModelState;
+import seedu.address.history.*;
 import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.person.Person;
@@ -31,7 +29,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private FilteredList<Person> filteredPersons;
     private ObservableList<Person> source;
-    private final History<ModelState> history;
+    private final History<ModelState> modelHistory;
+    private final History<CommandState> commandHistory;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -47,16 +46,18 @@ public class ModelManager implements Model {
         this.filteredPersons = new FilteredList<>(source);
 
         ModelState startModelState;
+        CommandState startCommandState;
         try {
-            startModelState = generateState(getStartCommand());
+            startModelState = generateModelState(getStartCommand());
         } catch (HistoryException e) {
             ReadOnlyAddressBook sampleAddressBook = SampleDataUtil.getSampleAddressBook();
             startModelState = new ModelState(getStartCommand(),
                     sampleAddressBook,
                     PREDICATE_SHOW_ALL_PERSONS);
         }
-        history = new ModelHistoryManager(startModelState);
-
+        startCommandState = generateCommandState(getStartCommand().getCommandString());
+        this.modelHistory = new HistoryManager<>(startModelState);
+        this.commandHistory = new HistoryManager<>(startCommandState);
     }
 
     public ModelManager() {
@@ -165,18 +166,18 @@ public class ModelManager implements Model {
      * Gets current model state
      */
     @Override
-    public ModelState getCurrentState() {
-        return history.getCurrState();
+    public ModelState getCurrentModelState() {
+        return modelHistory.getCurrState();
     }
 
     /**
      * @param command Last command executed to reach this state
      */
     @Override
-    public void updateState(Command command) throws HistoryException {
+    public void updateModelState(Command command) throws HistoryException {
         if (command.isReversible()) {
-            ModelState modelState = generateState(command);
-            history.addState(modelState);
+            ModelState modelState = generateModelState(command);
+            modelHistory.addState(modelState);
         }
     }
 
@@ -185,7 +186,7 @@ public class ModelManager implements Model {
      * @return Generated state
      * @throws HistoryException if error while making deep copy
      */
-    public ModelState generateState(Command command) throws HistoryException {
+    public ModelState generateModelState(Command command) throws HistoryException {
         try {
             return new ModelState(command,
                     getAddressBook().deepCopy(),
@@ -199,7 +200,7 @@ public class ModelManager implements Model {
      * @param modelState ModelState to be restored
      */
     @Override
-    public void restoreState(ModelState modelState) {
+    public void restoreModelState(ModelState modelState) {
         ReadOnlyAddressBook newAddressBook = modelState.getAddressBook();
         setAddressBook(newAddressBook);
 
@@ -212,7 +213,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void rollBackState() throws HistoryException {
-        history.rollBackState();
+        modelHistory.rollBackState();
     }
 
     /**
@@ -220,7 +221,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void rollForwardState() throws HistoryException {
-        history.rollForwardState();
+        modelHistory.rollForwardState();
     }
 
     @Override
@@ -240,37 +241,36 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }
 
-    @Override
-    public String retrievePreviousCommand() { //Should throw historyexception
-        return "PlaceHolder Text Up Arrow Pressed";
-    }
-    @Override
-    public String retrieveNextCommand() { //Should throw historyexception
-        return "PlaceHolder Text Down Arrow Pressed";
-    }
-
     //============== Command History ===============================================================================
 
     @Override
-    public ModelState getCurrentState() {
-        return history.getCurrState();
+    public CommandState getCurrentCommandState() {
+        return commandHistory.getCurrState();
     }
 
     @Override
-    public void updateState(Command command) throws HistoryException {
-        if (command.isReversible()) {
-            ModelState modelState = generateState(command);
-            history.addState(modelState);
-        }
+    public void updateCommandState(String commandText) {
+        CommandState commandState = generateCommandState(commandText);
+        commandHistory.addState(commandState);
+    }
+
+    public CommandState generateCommandState(String commandText) {
+        return new CommandState(commandText);
     }
 
     @Override
-    public void rollBackState() throws HistoryException {
-        history.rollBackState();
+    public String retrievePreviousCommand() throws HistoryException {
+        CommandState previousCommand = commandHistory.getCurrState();
+        commandHistory.rollBackState();
+        String previousCommandText = previousCommand.getCommandText();
+        return previousCommandText;
     }
 
     @Override
-    public void rollForwardState() throws HistoryException {
-        history.rollForwardState();
+    public String retrieveNextCommand() throws HistoryException {
+        commandHistory.rollForwardState();
+        CommandState nextCommand = commandHistory.getCurrState();
+        String nextCommandText = nextCommand.getCommandText();
+        return nextCommandText;
     }
 }

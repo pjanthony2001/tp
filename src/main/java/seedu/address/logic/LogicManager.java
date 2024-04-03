@@ -61,12 +61,17 @@ public class LogicManager implements Logic {
         }
 
         try {
-            model.updateState(command);
+            model.updateModelState(command);
         } catch (HistoryException e) {
-            model.restoreState(model.getCurrentState()); //Revert the command if there are issues updating state
+            model.restoreModelState(model.getCurrentModelState()); //Revert the command if there are issues updating state
             throw new CommandException(String.format(HISTORY_SAVE_ERROR_FORMAT, e.getMessage()), e);
         }
 
+        try {
+            model.updateCommandState(commandText);
+        } catch (HistoryException e) {
+            throw new CommandException(String.format(HISTORY_SAVE_ERROR_FORMAT, e.getMessage()), e);
+        }
 
         return commandResult;
     }
