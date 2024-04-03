@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -28,9 +29,9 @@ public class PersonBuilder {
     private Name name;
     private Phone phone;
     private Email email;
-    private Address address;
-    private Description description;
-    private NextOfKin nextOfKin;
+    private Optional<Address> address;
+    private Optional<Description> description;
+    private Optional<NextOfKin> nextOfKin;
     private Set<Tag> tags;
 
     /**
@@ -40,9 +41,9 @@ public class PersonBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
-        description = new Description(DEFAULT_DESCRIPTION);
-        nextOfKin = new NextOfKin(DEFAULT_NOK);
+        address = Optional.of(new Address(DEFAULT_ADDRESS));
+        description = Optional.of(new Description(DEFAULT_DESCRIPTION));
+        nextOfKin = Optional.of(new NextOfKin(DEFAULT_NOK));
         tags = new HashSet<>();
     }
 
@@ -67,21 +68,6 @@ public class PersonBuilder {
         return this;
     }
 
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
-     */
-    public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withAddress(String address) {
-        this.address = new Address(address);
-        return this;
-    }
 
     /**
      * Sets the {@code Phone} of the {@code Person} that we are building.
@@ -100,10 +86,24 @@ public class PersonBuilder {
     }
 
     /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withTags(String ... tags) {
+        this.tags = SampleDataUtil.getTagSet(tags);
+        return this;
+    }
+    /**
+     * Sets the {@code Address} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withAddress(String address) {
+        this.address = Optional.of(new Address(address));
+        return this;
+    }
+    /**
      * Sets the {@code Description} of the {@code Person} that we are building.
      */
     public PersonBuilder withDescription(String description) {
-        this.description = new Description(description);
+        this.description = Optional.of(new Description(description));
         return this;
     }
 
@@ -111,7 +111,7 @@ public class PersonBuilder {
      * Sets the {@code NextOfKin} of the {@code Person} that we are building.
      */
     public PersonBuilder withNextOfKin(String nextOfKin) {
-        this.nextOfKin = new NextOfKin(nextOfKin);
+        this.nextOfKin = Optional.of(new NextOfKin(nextOfKin));
         return this;
     }
 

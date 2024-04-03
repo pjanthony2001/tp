@@ -3,10 +3,12 @@ package seedu.address.storage;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -25,12 +27,14 @@ import seedu.address.model.tag.Tag;
 public class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
-
     private final String name;
     private final String phone;
     private final String email;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String address;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String description;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private final String nextOfKin;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
@@ -42,6 +46,7 @@ public class JsonAdaptedPerson {
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("description") String description, @JsonProperty("nextOfKin") String nextOfKin,
             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -60,9 +65,10 @@ public class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        address = source.getAddress().value;
-        description = source.getDescription().value;
-        nextOfKin = source.getNextOfKin().value;
+        // Optional field
+        address = source.getAddress().map(address1 -> address1.value).orElse(null);
+        description = source.getDescription().map(descr -> descr.value).orElse(null);
+        nextOfKin = source.getNextOfKin().map(nextOfKin -> nextOfKin.value).orElse(null);
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -103,31 +109,25 @@ public class JsonAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
+        // Optional fields
+        // Address
+        if (address != null && !Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Optional<Address> modelAddress = Optional.ofNullable(address).map(Address::new);
 
-        if (description == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
-        }
-        if (!Description.isValidDescription(description)) {
+        // Description
+        if (description != null && !Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final Description modelDescription = new Description(description);
+        final Optional<Description> modelDescription = Optional.ofNullable(description).map(Description::new);
 
-        if (nextOfKin == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    NextOfKin.class.getSimpleName()));
-        }
-        if (!NextOfKin.isValidNextOfKin(nextOfKin)) {
+        // Next of Kin
+        if (nextOfKin != null && !NextOfKin.isValidNextOfKin(nextOfKin)) {
             throw new IllegalValueException(NextOfKin.MESSAGE_CONSTRAINTS);
         }
-        final NextOfKin modelNextOfKin = new NextOfKin(nextOfKin);
+        final Optional<NextOfKin> modelNextOfKin = Optional.ofNullable(nextOfKin).map(NextOfKin::new);
+
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelDescription, modelNextOfKin, modelTags);

@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -19,7 +20,6 @@ import seedu.address.model.person.NextOfKin;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-
 
 /**
  * Display Table class that is to be swapped out from the Person list.
