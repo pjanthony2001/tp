@@ -257,5 +257,10 @@ public class ModelManagerTest {
         modelManager.addEvent(MEETING_WITH_ALICE);
         assertTrue(modelManager.hasEvent(MEETING_WITH_ALICE));
     }
+    @Test
+    public void getFilteredEventList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(
+                UnsupportedOperationException.class, () -> modelManager.getEventList().remove(0));
+    }
 
 }
