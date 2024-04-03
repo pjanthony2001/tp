@@ -81,6 +81,17 @@ public class DisplayCommandTest {
             assertEquals(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_NAME, e.getMessage());
         }
     }
+    @Test
+    public void isDisplayCommand_true() {
+        CommandResult commandResult = new CommandResult("Test feedback", false, false, true, null);
+        assertTrue(commandResult.isDisplayCommand());
+    }
+    @Test
+    public void getPerson_success() {
+        Person person = new PersonBuilder().build();
+        CommandResult commandResult = new CommandResult("Test feedback", person);
+        assertEquals(person, commandResult.getPerson());
+    }
 
     @Test
     public void getCommandStringTest() {
@@ -93,6 +104,8 @@ public class DisplayCommandTest {
     private NameContainsKeywordsPredicate preparePredicate(String userInput) {
         return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
+
+
 
     @Test
     public void equals() {
