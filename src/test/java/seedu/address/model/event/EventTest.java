@@ -14,6 +14,14 @@ import org.junit.jupiter.api.Test;
 import seedu.address.testutil.EventBuilder;
 
 public class EventTest {
+    @Test
+    public void isSameEvent() {
+        // same object -> returns true
+        assertTrue(MEETING_WITH_ALICE.isSameEvent(MEETING_WITH_ALICE));
+
+        // null -> returns false
+        assertFalse(MEETING_WITH_ALICE.isSameEvent(null));
+    }
 
     @Test
     public void equals() {
