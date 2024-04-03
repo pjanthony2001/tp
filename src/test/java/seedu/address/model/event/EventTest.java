@@ -22,6 +22,10 @@ public class EventTest {
 
         // null -> returns false
         assertFalse(MEETING_WITH_ALICE.isSameEvent(null));
+
+        // same heading -> returns true
+        Event eventWithSameHeading = new EventBuilder().withHeading(MEETING_WITH_ALICE.getHeadingString()).build();
+        assertTrue(MEETING_WITH_ALICE.isSameEvent(eventWithSameHeading));
     }
 
     @Test
