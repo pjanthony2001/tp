@@ -24,6 +24,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_EVENT_DISPLAYED_HEADING = "The event heading provided is invalid";
     public static final String MESSAGE_DUPLICATE_HEADINGS = "There are events with the same headings in the list";
 
+
+
     /**
      * Returns an error message indicating the duplicate prefixes.
      */
