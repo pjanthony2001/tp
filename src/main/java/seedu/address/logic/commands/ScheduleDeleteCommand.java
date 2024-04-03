@@ -56,10 +56,6 @@ public class ScheduleDeleteCommand extends ScheduleCommand {
         if (sameHeadings.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_HEADING);
         }
-        // Duplicate headings found
-        if (sameHeadings.size() > 1) {
-            throw new CommandException(Messages.MESSAGE_DUPLICATE_HEADINGS);
-        }
         Event eventToDelete = sameHeadings.get(0);
         model.deleteEvent(eventToDelete); // delete event
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, Messages.format(eventToDelete)));
