@@ -2,11 +2,14 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.testutil.Assert;
 
 
 public class ScheduleCommandParserTest {
@@ -36,4 +39,11 @@ public class ScheduleCommandParserTest {
         String invalidArgs = "invalid command";
         assertThrows(ParseException.class, () -> parser.parse(invalidArgs));
     }
+
+    @Test
+    public void parse_invalidFormat_throwsParseException() {
+        Assert.assertThrows(ParseException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), () -> parser.parse(""));
+    }
+
 }
