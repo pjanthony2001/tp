@@ -1,0 +1,24 @@
+/* Table view settings with default color scheme */
+.table-view {
+    -fx-font-size: 12px; /* Adjust font size if needed */
+}
+
+/* Table row settings with default color scheme */
+.table-row-cell {
+    -fx-padding: 5px; /* Slight padding for rows */
+}
+
+/* Column header settings with default color scheme */
+.column-header {
+    -fx-font-weight: bold; /* Bold font for header */
+}
+
+/* Table cell settings with default color scheme */
+.table-cell {
+    -fx-padding: 0px 5px; /* Padding inside cells */
+}
+
+/* Table columns settings with default color scheme */
+.table-column {
+    -fx-alignment: CENTER-LEFT; /* Align text to the left in each column */
+}

@@ -10,11 +10,10 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the calendar level
+ * Duplicates are not allowed (by .isSameEvent comparison)
  */
 public class Calendar implements ReadOnlyCalendar {
-
     private final UniqueEventList events;
 
     /*
@@ -31,7 +30,7 @@ public class Calendar implements ReadOnlyCalendar {
     public Calendar() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates a Calendar using the Events in the {@code toBeCopied}
      */
     public Calendar(ReadOnlyCalendar toBeCopied) {
         this();
@@ -41,15 +40,25 @@ public class Calendar implements ReadOnlyCalendar {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the eventss list with {@code persons}.
+     * {@code events} must not contain duplicate persons.
      */
     public void setEvents(List<Event> events) {
         this.events.setEvents(events);
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Replaces the given event {@code target} in the list with {@code updatedEvent}.
+     * {@code target} must exist in the calendar.
+     * The calendar identity of {@code updatedEvent} must not be the same as another existing event in the calendar.
+     */
+    public void setEvent(Event target, Event updatedEvent) {
+        requireNonNull(updatedEvent);
+
+        events.setEvent(target, updatedEvent);
+    }
+    /**
+     * Resets the existing data of this {@code ReadOnlyCalendar} with {@code newData}.
      */
     public void resetData(ReadOnlyCalendar newData) {
         requireNonNull(newData);
@@ -60,7 +69,7 @@ public class Calendar implements ReadOnlyCalendar {
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if an event with the same identity as {@code even} exists in the calendar.
      */
     public boolean hasEvent(Event event) {
         requireNonNull(event);
@@ -68,8 +77,8 @@ public class Calendar implements ReadOnlyCalendar {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds an event to the calendar.
+     * The event must not already exist in the calendar.
      */
     public void addEvent(Event event) {
         events.add(event);
@@ -77,7 +86,7 @@ public class Calendar implements ReadOnlyCalendar {
 
     /**
      * Removes {@code key} from this {@code Calendar}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the calendar.
      */
     public void removeEvent(Event key) {
         events.remove(key);

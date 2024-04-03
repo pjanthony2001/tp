@@ -190,6 +190,7 @@ public class UpdateCommand extends Command {
          */
         public boolean isAnyFieldUpdated() {
             return CollectionUtil.isAnyNonNull(name, phone, email, nextOfKin, description, address, tags);
+
         }
 
         public void setName(Name name) {
