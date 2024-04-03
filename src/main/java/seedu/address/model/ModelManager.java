@@ -253,16 +253,17 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }
 
+    //=========== Calendar Accessors =============================================================
+    @Override
+    public ReadOnlyCalendar getCalendar() {
+        return calendar;
+    }
+
     //============== Command History ===============================================================================
 
     @Override
     public CommandState getCurrentCommandState() {
         return commandHistory.getCurrState();
-    }
-    //=========== Calendar Accessors =============================================================
-    @Override
-    public ReadOnlyCalendar getCalendar() {
-        return calendar;
     }
 
     @Override

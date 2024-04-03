@@ -43,4 +43,9 @@ class HistoryManagerTest {
         assertDoesNotThrow(() -> history.rollBackState());
     }
 
+    @Test
+    void getCurrStateHasBuffer_typicalStartState_successfullyReturnsStartState() throws HistoryException {
+        ModelState modelState = history.getCurrStateHasBuffer();
+        assertEquals(modelState, TYPICAL_START_MODEL_STATE);
+    }
 }
