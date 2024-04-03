@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.commands.StartCommand.getStartCommand;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -28,7 +29,6 @@ import seedu.address.model.util.SampleDataUtil;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private final Calendar calendar;
-
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private FilteredList<Person> filteredPersons;
@@ -258,6 +258,23 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyCalendar getCalendar() {
         return calendar;
+    }
+    @Override
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return calendar.hasEvent(event);
+    }
+    @Override
+    public void addEvent(Event event) {
+        calendar.addEvent(event);
+    }
+    @Override
+    public void deleteEvent(Event key) {
+        calendar.removeEvent(key);
+    }
+    @Override
+    public void setEvents(List<Event> events) {
+        calendar.setEvents(events);
     }
 
 }
