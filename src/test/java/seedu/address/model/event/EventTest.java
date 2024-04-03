@@ -1,5 +1,6 @@
 package seedu.address.model.event;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLIENT_NAME_HOUSE_CHECKUP_BENSON;
@@ -55,5 +56,14 @@ public class EventTest {
         updatedAlice = new EventBuilder(MEETING_WITH_ALICE)
                 .withDescription(VALID_DESCRIPTION_HOUSE_CHECKUP_BENSON).build();
         assertFalse(MEETING_WITH_ALICE.equals(updatedAlice));
+    }
+
+    @Test
+    public void toStringMethod() {
+        String expected = Event.class.getCanonicalName() + "{name=" + MEETING_WITH_ALICE.getClientName()
+                + ", heading=" + MEETING_WITH_ALICE.getHeading()
+                + ", description=" + MEETING_WITH_ALICE.getDescription()
+                + ", time=" + MEETING_WITH_ALICE.getTime() + "}";
+        assertEquals(expected, MEETING_WITH_ALICE.toString());
     }
 }
