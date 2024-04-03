@@ -9,6 +9,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.CommandUtil.getCommandStub;
 import static seedu.address.testutil.HistoryUtil.TYPICAL_SECOND_MODEL_STATE;
+import static seedu.address.testutil.TypicalEvents.MEETING_WITH_ALICE;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
@@ -241,4 +242,20 @@ public class ModelManagerTest {
         }
 
     }
+
+    @Test
+    public void hasEvent_nullEvent_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasEvent(null));
+    }
+
+    @Test
+    public void hasEvent_eventNotInCalendar_returnsFalse() {
+        assertFalse(modelManager.hasEvent(MEETING_WITH_ALICE));
+    }
+    @Test
+    public void hasEvent_eventInCalendar_returnsTrue() {
+        modelManager.addEvent(MEETING_WITH_ALICE);
+        assertTrue(modelManager.hasEvent(MEETING_WITH_ALICE));
+    }
+
 }
