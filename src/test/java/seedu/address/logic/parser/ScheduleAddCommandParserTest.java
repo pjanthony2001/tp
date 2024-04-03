@@ -52,7 +52,7 @@ public class ScheduleAddCommandParserTest {
     public void parse_allFieldsPresent_success() throws ParseException {
         Event expectedEvent = new EventBuilder(MEETING_WITH_ALICE).build();
 
-        assertParseSuccess(parser, NAME_DESC_AMY + HEADING_DESC_MEETING_WITH_ALICE
+        assertParseSuccess(parser, CLIENT_NAME_DESC_MEETING_WITH_ALICE + HEADING_DESC_MEETING_WITH_ALICE
                 + TIME_DESC_MEETING_WITH_ALICE + DESCRIPTION_DESC_MEETING_WITH_ALICE,
                 new ScheduleAddCommand(expectedEvent));
     }

@@ -40,7 +40,6 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
         // log messages such as the one below.
         // Lower level log messages are used sparingly to minimize noise in the code.
         logger.fine("Command word: " + commandWord + "; Arguments: " + arguments);
-
         switch (commandWord) {
         case ScheduleAddCommand.COMMAND_WORD:
             return new ScheduleAddCommandParser().parse(arguments);

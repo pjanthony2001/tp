@@ -17,6 +17,7 @@ public class Time {
             + "time in 12-hour format (hh:mm), and am/pm indicator (a).";
     public static final DateTimeFormatter DATE_TIME_FORMATTER =
             DateTimeFormatter.ofPattern("EEEE, MMMM, dd, yyyy - hh:mm a");
+    public final String time;
     private final LocalDateTime localDateTime;
 
     /**
@@ -28,6 +29,7 @@ public class Time {
         requireNonNull(timeString);
         checkArgument(isValidTime(timeString), MESSAGE_CONSTRAINTS);
         localDateTime = LocalDateTime.parse(timeString, DATE_TIME_FORMATTER);
+        time = localDateTime.toString();
     }
     /**
      * Constructs a Time object from a LocalDateTime object.
@@ -37,6 +39,7 @@ public class Time {
     public Time(LocalDateTime timeObject) {
         requireNonNull(timeObject);
         localDateTime = timeObject;
+        time = localDateTime.toString();
     }
 
     /**
@@ -47,6 +50,7 @@ public class Time {
             LocalDateTime.parse(test, DATE_TIME_FORMATTER);
             return true;
         } catch (DateTimeParseException e) {
+            System.out.println(e.getMessage());
             return false;
         }
     }

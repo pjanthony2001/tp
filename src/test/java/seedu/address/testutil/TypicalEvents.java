@@ -27,7 +27,7 @@ public class TypicalEvents {
             new Heading("Meeting with Alice"),
             new Time(LocalDateTime.of(2024, Month.APRIL, 12, 10, 0)),
             new Description("Discuss Financial Matters"),
-            AMY.getName());
+            ALICE.getName());
     public static final Event HOUSE_CHECKUP_BENSON = new Event(
             new Heading("House Checkup Benson"),
             new Time(LocalDateTime.of(2024, Month.APRIL, 13, 11, 0)),
