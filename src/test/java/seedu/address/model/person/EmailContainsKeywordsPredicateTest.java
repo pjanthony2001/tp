@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -69,6 +70,15 @@ public class EmailContainsKeywordsPredicateTest {
         predicate = new EmailContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new PersonBuilder().withEmail("AliceBob@gmail.com").build()));
 
+    }
+
+    @Test
+    public void toStringMethod() {
+        List<String> keywords = List.of("keyword1", "keyword2");
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(keywords);
+
+        String expected = NameContainsKeywordsPredicate.class.getCanonicalName() + "{keywords=" + keywords + "}";
+        assertEquals(expected, predicate.toString());
     }
 
 }
