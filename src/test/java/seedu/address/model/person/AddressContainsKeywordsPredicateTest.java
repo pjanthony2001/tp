@@ -77,9 +77,9 @@ public class AddressContainsKeywordsPredicateTest {
     @Test
     public void toStringMethod() {
         List<String> keywords = List.of("keyword1", "keyword2");
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(keywords);
+        AddressContainsKeywordsPredicate predicate = new AddressContainsKeywordsPredicate(keywords);
 
-        String expected = NameContainsKeywordsPredicate.class.getCanonicalName() + "{keywords=" + keywords + "}";
+        String expected = AddressContainsKeywordsPredicate.class.getCanonicalName() + "{keywords=" + keywords + "}";
         assertEquals(expected, predicate.toString());
     }
 

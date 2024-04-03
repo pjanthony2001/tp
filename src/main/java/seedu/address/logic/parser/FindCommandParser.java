@@ -49,13 +49,6 @@ public class FindCommandParser implements Parser<FindCommand> {
         List<String> tagKeywords = argMultimap.getAllValues(PREFIX_TAG);
         List<String> descriptionKeywords = argMultimap.getAllValues(PREFIX_DESCRIPTION);
 
-        if (nameKeywords.isEmpty() && phoneKeywords.isEmpty() && emailKeywords.isEmpty()
-            && addressKeywords.isEmpty() && kinKeywords.isEmpty() && tagKeywords.isEmpty()
-            && descriptionKeywords.isEmpty()) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        }
-
         return new FindCommand(new NameContainsKeywordsPredicate(nameKeywords),
                 new PhoneContainsKeywordsPredicate(phoneKeywords),
                 new AddressContainsKeywordsPredicate(addressKeywords),
