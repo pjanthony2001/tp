@@ -37,7 +37,6 @@ class ScheduleAddCommandTest {
     void constructor_nullEvent_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new ScheduleAddCommand(null));
     }
-
     @Test
     void execute_eventAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
