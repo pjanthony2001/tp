@@ -79,4 +79,12 @@ public class ScheduleDeleteCommandTest {
         assertEquals(expected, deleteCommand.getCommandString());
     }
 
+    @Test
+    void toString_validHeading_returnsStringRepresentation() {
+        ScheduleDeleteCommand deleteCommand = new ScheduleDeleteCommand(new Heading(VALID_HEADING_MEETING_WITH_ALICE));
+        String expected = ScheduleDeleteCommand.class.getCanonicalName() + "{heading="
+                + VALID_HEADING_MEETING_WITH_ALICE + "}";
+        assertEquals(expected, deleteCommand.toString());
+    }
+
 }
