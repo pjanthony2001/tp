@@ -19,18 +19,13 @@ public class EventTest {
     public void equals() {
         // same values -> returns true
         Event meetingWithAliceCopy = new EventBuilder().build();
-        System.out.println(meetingWithAliceCopy);
         assertTrue(MEETING_WITH_ALICE.equals(meetingWithAliceCopy));
-        System.out.println(2);
         // same object -> returns true
         assertTrue(MEETING_WITH_ALICE.equals(MEETING_WITH_ALICE));
-        System.out.println(3);
         // null -> returns false
         assertFalse(MEETING_WITH_ALICE.equals(null));
-        System.out.println(4);
         // different type -> returns false
         assertFalse(MEETING_WITH_ALICE.equals(5));
-        System.out.println(5);
         // different event -> returns false
         assertFalse(MEETING_WITH_ALICE.equals(HOUSE_CHECKUP_BENSON));
 
