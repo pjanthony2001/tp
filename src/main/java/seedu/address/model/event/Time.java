@@ -29,7 +29,7 @@ public class Time {
         requireNonNull(timeString);
         checkArgument(isValidTime(timeString), MESSAGE_CONSTRAINTS);
         localDateTime = LocalDateTime.parse(timeString, DATE_TIME_FORMATTER);
-        time = localDateTime.toString();
+        time = DATE_TIME_FORMATTER.format(localDateTime);
     }
     /**
      * Constructs a Time object from a LocalDateTime object.
@@ -39,7 +39,7 @@ public class Time {
     public Time(LocalDateTime timeObject) {
         requireNonNull(timeObject);
         localDateTime = timeObject;
-        time = localDateTime.toString();
+        time = DATE_TIME_FORMATTER.format(localDateTime);
     }
 
     /**

@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HEADING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
@@ -27,6 +28,7 @@ public class EventUtil {
         sb.append(PREFIX_NAME + event.getClientName().fullName + " ");
         sb.append(PREFIX_HEADING + event.getHeading().heading + " ");
         sb.append(PREFIX_TIME + event.getTime().time + " ");
+        sb.append(PREFIX_DESCRIPTION + event.getDescription().value + " ");
         return sb.toString();
     }
 

@@ -17,11 +17,9 @@ public class EventTest {
 
     @Test
     public void equals() {
-        System.out.println(1);
         // same values -> returns true
         Event meetingWithAliceCopy = new EventBuilder().build();
         System.out.println(meetingWithAliceCopy);
-        System.out.println(MEETING_WITH_ALICE);
         assertTrue(MEETING_WITH_ALICE.equals(meetingWithAliceCopy));
         System.out.println(2);
         // same object -> returns true
