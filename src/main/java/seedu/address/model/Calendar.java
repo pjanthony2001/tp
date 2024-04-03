@@ -14,7 +14,6 @@ import seedu.address.model.event.UniqueEventList;
  * Duplicates are not allowed (by .isSameEvent comparison)
  */
 public class Calendar implements ReadOnlyCalendar {
-
     private final UniqueEventList events;
 
     /*
@@ -48,6 +47,16 @@ public class Calendar implements ReadOnlyCalendar {
         this.events.setEvents(events);
     }
 
+    /**
+     * Replaces the given event {@code target} in the list with {@code updatedEvent}.
+     * {@code target} must exist in the calendar.
+     * The calendar identity of {@code updatedEvent} must not be the same as another existing event in the calendar.
+     */
+    public void setEvent(Event target, Event updatedEvent) {
+        requireNonNull(updatedEvent);
+
+        events.setEvent(target, updatedEvent);
+    }
     /**
      * Resets the existing data of this {@code ReadOnlyCalendar} with {@code newData}.
      */

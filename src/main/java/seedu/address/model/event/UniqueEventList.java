@@ -10,6 +10,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.EventNotFoundException;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * A list of events that enforces uniqueness between its elements and does not allow nulls.
@@ -126,4 +129,25 @@ public class UniqueEventList implements Iterable<Event> {
         }
         return true;
     }
+
+    /**
+     * Replaces the event {@code target} in the list with {@code updatedEvent}.
+     * {@code target} must exist in the list.
+     * The event identity of {@code updatedEvent} must not be the same as another existing event in the list.
+     */
+    public void setEvent(Event target, Event updatedEvent) {
+        requireAllNonNull(target, updatedEvent);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new EventNotFoundException();
+        }
+
+        if (!target.isSameEvent(updatedEvent) && contains(updatedEvent)) {
+            throw new DuplicateEventException();
+        }
+
+        internalList.set(index, updatedEvent);
+    }
+
 }
