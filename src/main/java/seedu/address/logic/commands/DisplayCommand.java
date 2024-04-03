@@ -18,7 +18,7 @@ public class DisplayCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays person whose name contains "
             + " the specified keyword.\n"
-            + "Parameters: KEYWORD\n"
+            + "Parameters: NAME\n"
             + "Example: " + COMMAND_WORD + " alice";
 
     private final NameContainsKeywordsPredicate predicate;
@@ -33,7 +33,7 @@ public class DisplayCommand extends Command {
 
         model.updateFilteredPersonList(predicate);
 
-        if (model.getFilteredPersonList().size() == 0) {
+        if (model.getFilteredPersonList().isEmpty()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_NAME);
         }
 
