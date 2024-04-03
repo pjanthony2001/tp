@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -17,9 +16,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import javafx.scene.layout.VBox;
-import javafx.scene.control.Label;
-import javafx.geometry.Insets;
 import seedu.address.model.person.Person;
 
 
@@ -138,7 +134,8 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        commandBox = new CommandBox(this::executeCommand, this::retrieveNext, this::retrievePreviousCommand, () -> resultDisplay.setFeedbackToUser("Invalid command in display mode"));
+        commandBox = new CommandBox(this::executeCommand, this::retrieveNext, this::retrievePreviousCommand, (
+        ) -> resultDisplay.setFeedbackToUser("Invalid command in display mode"));
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -165,7 +162,13 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.focus();
         }
     }
-
+    /**
+     * Handles the display command result by updating the UI to show the list of persons or a single person.
+     * If the command result indicates a single person display,
+     * the UI is updated to display details of the specified person.
+     *
+     * @param commandResult The command result containing the feedback message and possibly the first matched person.
+     */
     public void handleDisplay(CommandResult commandResult) {
         commandBox.setIsDisplay(true);
         personListPanelPlaceholder.getChildren().clear();
@@ -241,7 +244,11 @@ public class MainWindow extends UiPart<Stage> {
         // After catching HistoryException, should update UI element to indicate that there are no more commands
         // to revert to.
     }
-
+    /**
+     * Swaps the display panel back to the list of persons panel.
+     * Clears the current display panel and adds back the person list panel.
+     * Sets the commandBox's display flag to false to handle subsequent command input for listing persons.
+     */
     public void swapPanelList() {
         personListPanelPlaceholder.getChildren().clear();
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());

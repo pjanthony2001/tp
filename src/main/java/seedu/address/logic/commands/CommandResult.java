@@ -25,21 +25,25 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean isDisplayCommand, Person firstMatchedPerson) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                         boolean isDisplayCommand, Person firstMatchedPerson) {
 
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.isDisplayCommand = isDisplayCommand;
         this.firstMatchedPerson = firstMatchedPerson;
-
-
     }
-
+    /**
+     * Constructs a CommandResult object with the specified feedback to the user and the first matched person.
+     *
+     * @param feedbackToUser The feedback message to be displayed to the user.
+     * @param firstMatchedPerson The first matched person associated with the command result.
+     * @throws NullPointerException If {@code firstMatchedPerson} is null.
+     */
     public CommandResult(String feedbackToUser, Person firstMatchedPerson) {
-        this(feedbackToUser, false,false,  true,  firstMatchedPerson);
+        this(feedbackToUser, false, false, true, firstMatchedPerson);
         requireNonNull(firstMatchedPerson);
-
     }
 
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {

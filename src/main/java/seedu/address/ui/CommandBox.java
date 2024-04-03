@@ -22,7 +22,7 @@ public class CommandBox extends UiPart<Region> {
     private final NextCommandRetriever nextCommandRetriever;
     private final PreviousCommandRetriever previousCommandRetriever;
     private boolean isDisplay;
-    Runnable displayMessage;
+    private Runnable displayMessage;
 
     @FXML
     private TextField commandTextField;
@@ -72,7 +72,7 @@ public class CommandBox extends UiPart<Region> {
      * Handles the Enter button pressed event.
      */
     @FXML
-    private void handleCommandEntered(){
+    private void handleCommandEntered() {
         if (isDisplay && !(commandTextField.getText().matches("list*"))) {
             setStyleToIndicateCommandFailure();
             displayMessage.run();

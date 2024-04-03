@@ -123,13 +123,19 @@ public class DisplayListPanel extends UiPart<Region> {
         private ObservableList<FieldDescription> getFieldDescriptions() {
             return FXCollections.observableArrayList(name, email, phone, address, nok);
         }
-
-        
     }
+    /**
+     * Represents a field description containing a field property and a description property.
+     */
     public class FieldDescription {
         private final String fieldProperty;
         private final String descriptionProperty;
-
+        /**
+         * Constructs a FieldDescription with the given field and description.
+         *
+         * @param field       The field property of the description.
+         * @param description The description property of the field.
+         */
         public FieldDescription(String field, String description) {
             fieldProperty = field;
             descriptionProperty = description;

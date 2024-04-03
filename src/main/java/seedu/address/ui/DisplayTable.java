@@ -1,9 +1,5 @@
 package seedu.address.ui;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,14 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.NextOfKin;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 
 /**
  * Display Table class that is to be swapped out from the Person list.

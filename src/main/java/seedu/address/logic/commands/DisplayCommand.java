@@ -2,17 +2,17 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-
-import java.util.Objects;
-
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 
-
-public class DisplayCommand extends Command{
+/**
+ * Represents a command to display persons whose names contain specified keywords.
+ * A DisplayCommand object corresponds to a user command to display persons based on name keywords.
+ */
+public class DisplayCommand extends Command {
 
     public static final String COMMAND_WORD = "display";
 
@@ -28,7 +28,7 @@ public class DisplayCommand extends Command{
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException{
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         model.updateFilteredPersonList(predicate);
@@ -42,13 +42,18 @@ public class DisplayCommand extends Command{
 
 
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()), firstMatchedPerson);
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW,
+                        model.getFilteredPersonList().size()), firstMatchedPerson);
 
     }
     @Override
     public boolean equals(Object other) {
-        if (this == other) return true;
-        if (!(other instanceof DisplayCommand)) return false;
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof DisplayCommand)) {
+            return false;
+        }
         DisplayCommand that = (DisplayCommand) other;
         return predicate.equals(that.predicate);
     }
