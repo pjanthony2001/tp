@@ -4,6 +4,7 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -49,8 +50,8 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    String retrievePreviousCommand() throws HistoryException;
     ObservableList<Event> getEventList();
-    String retrievePreviousCommand(); //Should throw historyexception
 
-    String retrieveNextCommand(); //Should throw historyexception
+    String retrieveNextCommand() throws HistoryException;
 }

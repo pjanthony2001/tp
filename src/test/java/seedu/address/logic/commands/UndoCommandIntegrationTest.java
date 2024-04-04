@@ -48,7 +48,7 @@ public class UndoCommandIntegrationTest {
             assertEquals(Arrays.asList(validPerson), model.getFilteredPersonList());
             // Assert that add command succeeded
 
-            model.updateState(addCommand); // Update state
+            model.updateModelState(addCommand); // Update state
 
             CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_SUCCESS,
                     addCommand.getCommandString()));
@@ -71,7 +71,7 @@ public class UndoCommandIntegrationTest {
             assertEquals(new ArrayList<Person>(), model.getFilteredPersonList());
             // Assert that clear command succeeded
 
-            model.updateState(clearCommand); // Update state
+            model.updateModelState(clearCommand); // Update state
 
             CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_SUCCESS,
                     clearCommand.getCommandString()));
@@ -93,7 +93,7 @@ public class UndoCommandIntegrationTest {
             assertEquals(expectedHelpCommandResult, commandResult);
             // Assert that help command succeeded
 
-            model.updateState(helpCommand); // Update state (should not be tracked)
+            model.updateModelState(helpCommand); // Update state (should not be tracked)
 
             assertCommandFailure(new UndoCommand(), model, UndoCommand.MESSAGE_NO_ROLLBACK);
         } catch (HistoryException e) {
@@ -111,7 +111,7 @@ public class UndoCommandIntegrationTest {
             assertEquals(Arrays.asList(validPerson), model.getFilteredPersonList());
             // Assert that add command succeeded
 
-            model.updateState(addCommand); // Update state
+            model.updateModelState(addCommand); // Update state
 
             CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_SUCCESS,
                     addCommand.getCommandString()));

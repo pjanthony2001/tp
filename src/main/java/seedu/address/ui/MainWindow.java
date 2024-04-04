@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -134,8 +135,9 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        commandBox = new CommandBox(this::executeCommand, this::retrieveNext, this::retrievePreviousCommand, (
+        commandBox = new CommandBox(this::executeCommand, this::retrieveNextCommand, this::retrievePreviousCommand, (
         ) -> resultDisplay.setFeedbackToUser("Invalid command in display mode"));
+
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -227,19 +229,33 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
-    private String retrieveNext() { //Should throw HistoryException
-        String nextCommand = logic.retrieveNextCommand();
-        logger.info("ShortCut DownArrow: " + nextCommand);
-        return nextCommand;
+    private String retrieveNextCommand() throws HistoryException {
+        try {
+            String nextCommand = logic.retrieveNextCommand();
+            logger.info("ShortCut DownArrow: " + nextCommand);
+            resultDisplay.setFeedbackToUser("");
+            return nextCommand;
+        } catch (HistoryException e) {
+            logger.info("An error occurred while executing shortcut: Up");
+            resultDisplay.setFeedbackToUser("You can't roll forward the state anymore!");
+            throw e;
+        }
         // Should catch HistoryException, log and throw
         // After catching HistoryException, should update UI element to indicate that there are no more commands
         // to revert to.
     }
 
-    private String retrievePreviousCommand() { //Should throw HistoryException
-        String previousCommand = logic.retrievePreviousCommand();
-        logger.info("ShortCut UpArrow: " + previousCommand);
-        return previousCommand;
+    private String retrievePreviousCommand() throws HistoryException { //Should throw HistoryException
+        try {
+            String previousCommand = logic.retrievePreviousCommand();
+            logger.info("ShortCut UpArrow: " + previousCommand);
+            resultDisplay.setFeedbackToUser("");
+            return previousCommand;
+        } catch (HistoryException e) {
+            logger.info("An error occurred while executing shortcut: Down");
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        }
         // Should catch HistoryException, log and throw
         // After catching HistoryException, should update UI element to indicate that there are no more commands
         // to revert to.
