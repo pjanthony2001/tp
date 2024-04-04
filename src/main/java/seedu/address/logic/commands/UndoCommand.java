@@ -31,15 +31,15 @@ public class UndoCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        ModelState prevModelState = model.getCurrentState();
+        ModelState prevModelState = model.getCurrentModelState();
         try {
             model.rollBackState();
         } catch (HistoryException e) {
             throw new CommandException(MESSAGE_NO_ROLLBACK);
         }
 
-        ModelState currModelState = model.getCurrentState();
-        model.restoreState(currModelState);
+        ModelState currModelState = model.getCurrentModelState();
+        model.restoreModelState(currModelState);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, prevModelState.getCommand().getCommandString()));
     }

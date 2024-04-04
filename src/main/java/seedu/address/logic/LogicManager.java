@@ -63,11 +63,13 @@ public class LogicManager implements Logic {
         }
 
         try {
-            model.updateState(command);
+            model.updateModelState(command);
         } catch (HistoryException e) {
-            model.restoreState(model.getCurrentState()); // Revert the command if there are issues updating state
+            model.restoreModelState(model.getCurrentModelState());
             throw new CommandException(String.format(HISTORY_SAVE_ERROR_FORMAT, e.getMessage()), e);
         }
+
+        model.updateCommandState(commandText);
 
 
         return commandResult;
@@ -97,16 +99,15 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
-    @Override
     public ObservableList<Event> getEventList() {
         return model.getEventList();
     }
     @Override
-    public String retrievePreviousCommand() { //Should throw historyexception
+    public String retrievePreviousCommand() throws HistoryException {
         return model.retrievePreviousCommand();
     }
     @Override
-    public String retrieveNextCommand() { //Should throw historyexception
+    public String retrieveNextCommand() throws HistoryException {
         return model.retrieveNextCommand();
     }
 }

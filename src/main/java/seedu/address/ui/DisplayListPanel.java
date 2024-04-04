@@ -116,8 +116,8 @@ public class DisplayListPanel extends UiPart<Region> {
             this.name = new FieldDescription(NAME_FIELD, person.getName().toString());
             this.email = new FieldDescription(EMAIL_FIELD, person.getEmail().toString());
             this.phone = new FieldDescription(PHONE_FIELD, person.getPhone().toString());
-            this.address = new FieldDescription(ADDRESS_FIELD, person.getAddress().toString());
-            this.nok = new FieldDescription(NOK_FIELD, person.getNextOfKin().toString());
+            this.address = new FieldDescription(ADDRESS_FIELD, person.getAddress().map(Object::toString).orElse(""));
+            this.nok = new FieldDescription(NOK_FIELD, person.getNextOfKin().map(Object::toString).orElse(""));
         }
 
         private ObservableList<FieldDescription> getFieldDescriptions() {

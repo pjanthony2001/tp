@@ -125,7 +125,7 @@ It will help you [install](#installation-instructions) and [start](#startup-inst
    - **MacOS** users should use [this guide](https://docs.oracle.com/en/java/javase/11/install/installation-jdk-macos.html#GUID-2FE451B0-9572-4E38-A1A5-568B77B146DE).
    - **Linux** users should use [this guide](https://docs.oracle.com/en/java/javase/11/install/installation-jdk-linux-platforms.html#GUID-737A84E4-2EFF-4D38-8E60-3E29D1B884B8).
 
-4. Download the latest release of `addressbook.jar` [here](https://github.com/AY2324S2-CS2103T-W12-4/tp/releases).
+4. Download the latest release of `connectcare.jar` [here](https://github.com/AY2324S2-CS2103T-W12-4/tp/releases).
 
 <div class="image-container" align="middle" style="display:flex">
     <pic src="images/quickstart/latest-release.png" alt="jar_file">
@@ -140,7 +140,7 @@ It will help you [install](#installation-instructions) and [start](#startup-inst
 
 ### Startup instructions
 
-6. Double-click on the `addressbook.jar` file to start the application. 
+6. Double-click on the `connectcare.jar` file to start the application. 
    - If you are facing issues, you can consult [this guide](https://www.wikihow.com/Run-a-.Jar-Java-File).
 
 **Your first command**
@@ -173,20 +173,20 @@ ___
 
 _This command adds a new client to your client list._
 
-**Format:** `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS k/NEXT_OF_KIN d/DESCRIPTION [t/TAG]…`
+**Format:** `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [k/NEXT_OF_KIN] [d/DESCRIPTION] [t/TAG]…`
 
 <panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
 <markdown>
 
-| Parameter      | Description                                        | Remarks                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-|----------------|----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| n/NAME         | Name of client that you want to add                | Name must be unique, alphanumeric and is compulsory                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| p/PHONE_NUMBER | Phone Number of client that you want to add        | Phone number should only contain numbers and is compulsory                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| e/EMAIL        | Email of client that you want to add               | Emails is compulsory and should be of the format local-part@domain and adhere to the following constraints:<br/>1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.<br/>2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.<br/>The domain name must:<br/>  - end with a domain label at least 2 characters long<br/>  - have each domain label start and end with alphanumeric characters<br/>  - have each domain label consist of alphanumeric characters, separated only by hyphens, if any. |
-| a/ADDRESS      | Address of client that you want to add             | Compulsory                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| k/NEXT_OF_KIN  | Next of Kin details of client that you want to add | Name must be alphanumeric and is compulsory                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| d/DESCRIPTION  | Description of client that you want to add         | Description should not be blank and is compulsory                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| t/TAG          | Tag to identify the client                         | A person can have any number of tags (or even 0)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Parameter      | Description                                        | Remarks                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+|----------------|----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| n/NAME         | Name of client that you want to add                | Name must be unique, alphanumeric and is compulsory                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| p/PHONE_NUMBER | Phone Number of client that you want to add        | Phone number should only contain numbers and is compulsory                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| e/EMAIL        | Email of client that you want to add               | Emails should be of the format local-part@domain and adhere to the following constraints:<br/>1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.<br/>2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.<br/>The domain name must:<br/>  - end with a domain label at least 2 characters long<br/>  - have each domain label start and end with alphanumeric characters<br/>  - have each domain label consist of alphanumeric characters, separated only by hyphens, if any. |
+| a/ADDRESS      | Address of client that you want to add             | -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| k/NEXT_OF_KIN  | Next of Kin details of client that you want to add | Name must be alphanumeric                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| d/DESCRIPTION  | Description of client that you want to add         | Description should not be blank                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| t/TAG          | Tag to identify the client                         | A person can have any number of tags (or even 0)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 
 <box type="tip" seamless>
@@ -206,9 +206,9 @@ _This command adds a new client to your client list._
 
 **Walkthrough:**
 
-The screenshots below are what you would expect when using the `add` command. In this example, after using the [`list`](https://ay2324s2-cs2103t-w12-4.github.io/tp/UserGuide.html#listing-all-persons-list) command,
-the full clients list is displayed. Thereafter, the `add` command was used, using the parameters `n/Aaron James p/84362143 e/billj@example.com a/400 Balestier Road #02-27 Balestier Plaza t/highPriority k/John Doe d/Has low blood pressure`.
-After execution, the client `Aaron James` is added successfully with the corresponding parameters!
+The screenshots below are what you would expect when using the `add` command. In this example, after using the [`list`](#listing-all-persons-list) command,
+the full clients list is displayed. Thereafter, the `add` command was used, using the parameters `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 k/Joe Doe d/Has a history of memory loss t/mentalIllness t/owesMoney`.
+After execution, the client `John Doe` is added successfully with the corresponding parameters!
 
 <div class="image-container" align="middle" style="display:flex">
     <pic src="images/user-guide/add_command/add_command_before.png" alt="add">
@@ -221,9 +221,9 @@ After execution, the client `Aaron James` is added successfully with the corresp
 
 &nbsp;
 
-What if the command was used with invalid parameters? In the example on the left, the command `add n/Robert Lee p/92374832` was used, which does not contain all the compulsory parameters.
+What if the command was used with invalid parameters? In the example on the left, the command `add n/Matthew Kit` was used, which does not contain all the compulsory parameters.
 Here the error message shown tells us that our command format is invalid and shows an example command, which lets you know the correct parameters to use for the command.
-In the example on the right, the command `add n/Robert Lee p/abc123 e/rlee@connectmail.com a/65 SIMS AVENUE #06-03 k/Regina Lee d/Short of hearing` is used, which again is invalid. Here the error message shown is `Phone numbers should only contain numbers, and it should be at least 3 digits long` which lets you know specifically that the phone number given was invalid.
+In the example on the right, the command `add n/Matthew Kit p/abc65432 e/matk@example.com a/123, Queenstown Ave 2, #03-25 k/Sofie Poe d/Short of hearing` is used, which again is invalid. Here the error message shown is `Phone numbers should only contain numbers, and it should be at least 3 digits long` which lets you know specifically that the phone number given was invalid.
 As the commands given were invalid, there would be no changes to the client list.
 
 &nbsp;
@@ -246,8 +246,8 @@ _This command shows a list of all persons._
 
 **Examples:**
 
-The screenshots below are what you would expect when using the [`list`](https://ay2324s2-cs2103t-w12-4.github.io/tp/UserGuide.html#listing-all-persons-list) command. In this example, after using the [`find`](https://ay2324s2-cs2103t-w12-4.github.io/tp/UserGuide.html#locating-clients-by-name-find) command,
-only `Bernice Yeo` was shown in the list. Thereafter, the `list` command was used, displaying the entire list of client contacts.
+The screenshots below are what you would expect when using the [`list`](#listing-all-persons-list) command. In this example, after using the [`find`](#locating-clients-by-name-find) command,
+only `Peter Crow` was shown in the list. Thereafter, the `list` command was used, displaying the entire list of client contacts.
 &nbsp;  
 
 <div class="image-container" align="middle" style="display:flex">
@@ -295,8 +295,8 @@ _This command helps update existing client's information in the client list in t
 **Walkthrough:**
 
 The screenshots below are what you would expect when using the `update` command. In this example, after using the `list` command,
-the full clients list is displayed. Thereafter, the `update` command was used, using the parameters `u/Alex Yeoh n/Alex Yeo p/92472563`.
-After execution, the client `Alex Yeoh` is updated successfully with the corresponding parameters!
+the full clients list is displayed. Thereafter, the `update` command was used, using the parameters `u/Peter Crow p/94325412 e/petercrow@example.com`.
+After execution, the client `Peter Crow` is updated successfully with the corresponding parameters!
 
 <div class="image-container" align="middle" style="display:flex">
     <pic src="images/user-guide/update_command/update_command_before.png" alt="update">
@@ -311,7 +311,7 @@ After execution, the client `Alex Yeoh` is updated successfully with the corresp
 
 What if the command was used with invalid parameters? In the example on the left, the command `update u/Unknown Person p/92374832` was used, which specifies a name not in the name list.
 Here the error message shown is `The person name provided is invalid` which lets you know that you are trying to update a client that does not exist.
-In the example on the right, the command `update u/Alex Yeo p/abc123` is used, which again is invalid. Here the error message shown is `Phone numbers should only contain numbers, and it should be at least 3 digits long` which lets you know specifically that the phone number given was invalid.
+In the example on the right, the command `update u/Peter Crow p/abc123` is used, which again is invalid. Here the error message shown is `Phone numbers should only contain numbers, and it should be at least 3 digits long` which lets you know specifically that the phone number given was invalid.
 As the commands given were invalid, there would be no changes to the client list.
 
 &nbsp;
@@ -399,8 +399,8 @@ Format: `undo`
 
 The screenshots below are what you would expect when using the `undo` command.
 
-In this example, after using the `add` command to add a new client `bertrand`, I wish to undo this addition as bertrand will not be assigned to me.
-As seen in the second image, after using the `undo` command, betrand is no longer present in the client list as his addition has been undone.
+In this example, after using the `add` command to add a new client `Charlie`, I wish to undo this addition as bertrand will not be assigned to me.
+As seen in the second image, after using the `undo` command, Charlie is no longer present in the client list as his addition has been undone.
 &nbsp;
 
 <div class="image-container" align="middle" style="display:flex">
@@ -417,6 +417,7 @@ As seen in the second image, after using the `undo` command, betrand is no longe
 
 **Tip:**
 The undo command does not undo every single command, only those that change the address-book in a significant way.
+If you are at the earliest state (i.e. you can't undo any command) an appropriate error message will be displayed: "You cannot rollback the state anymore!"
 For a comprehensive deep-dive into the undo command, please refer to the [Implementation section of our Developer Guide](https://ay2324s2-cs2103t-w12-4.github.io/tp/DeveloperGuide.html)
 
 </box>
@@ -431,8 +432,8 @@ Format: `redo`
 
 The screenshots below are what you would expect when using the `redo` command.
 
-In this example, after undoing an update of my client's name from `Alex Yeoh` to `alex yee`, we can see that the current client list has his name as `Alex Yeoh`
-As seen in the second image, after using the `redo` command, the change is redone, and the client list shows the client's name as `alex yee`
+In this example, after undoing an update of my client's name from `Peter Crow` to `Peter Crouch`, we can see that the current client list has his name as `Peter Crow`
+As seen in the second image, after using the `redo` command, the change is redone, and the client list shows the client's name as `Peter Crouch`
 &nbsp;
 
 <div class="image-container" align="middle" style="display:flex">
@@ -448,7 +449,8 @@ As seen in the second image, after using the `redo` command, the change is redon
 <box type="tip">
 
 **Tip:**
-The redo command does not redo every single command, only those that change the address-book in a significant way.
+The redo command does not redo every single command, only those that change the address-book in a significant way. 
+If you are at the most recent state (i.e. you can't redo this command) an appropriate error message will be displayed: "You cannot roll forward the state anymore!"
 For a comprehensive deep-dive into the redo command, please refer to the [Implementation section of our Developer Guide](https://ay2324s2-cs2103t-w12-4.github.io/tp/DeveloperGuide.html)
 
 </box>
@@ -457,7 +459,7 @@ For a comprehensive deep-dive into the redo command, please refer to the [Implem
 
 _This command allows you to view a client's information in a more detailed manner_
 
-**Format:** `display n/NAME`
+**Format:** `display NAME`
 
 <panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
 <markdown>
@@ -470,7 +472,7 @@ _This command allows you to view a client's information in a more detailed manne
 
 **Examples:**
 
-`display John` would display all of John's information as a contact card on the application.
+`display Peter` would display all of Peter's information as a contact card on the application.
 
 <panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
 <markdown>
@@ -482,14 +484,32 @@ _This command allows you to view a client's information in a more detailed manne
 </panel>
 
 **Examples:**
-- `display John` would display all of John's information as a contact card on the application.
+- `display Peter` would display all of Peter's information as a contact card on the application.
 
 **Walkthrough:**
 
 The screenshots below are what you would expect when using the `display` command. In this example, after using the `list` command,
-the full clients list is displayed. Thereafter, the `display John` command was used, displaying John.
+the full clients list is displayed. Thereafter, the `display Peter` command was used, displaying Peter. The cursor automatically moves
+to the description box, allowing you to make changes to Peter's details. After making the necessary changes, hit enter. The details will be updated
+and you will be redirected back to the home page with the clients list. At no stage do you need to reach for the mouse!
 
-_IMAGE_BEFORE and IMAGE_AFTER TBA_
+<div class="image-container" align="middle" style="display:flex">
+    <pic src="images/user-guide/display_command_before.png" alt="list">
+        Figure 1.1: Before the display command is executed
+    </pic>
+    <pic src="images/user-guide/display_command_after.png" alt="list">
+        Figure 1.2: After the display command is executed
+    </pic>
+</div>
+
+<box type="warning">
+
+**Caution:**
+While you are in the display view, you cannot enter any commands in the command box other than the [list command](#listing-all-persons-list) which will swap you back into the list view. 
+Any changes you make to description by reverting to the list view using this method would not be saved. Alternatively, you can the press ENTER key and the [undo command](#undoing-a-command-undo) to revert the changes.
+If you would like to resume entering commands, press the ENTER key in the description box (which will save your changes) to return to the list view.
+</box>
+
 
 ### Deleting a client: `delete`
 
@@ -515,14 +535,14 @@ _This command allows you to delete a client at a specified `INDEX` from your cli
 **Walkthrough**:
 
 The screenshots below are what you would expect when using the `delete` command. In this example, after using the `list` command,
-the full clients list is displayed. Thereafter, the `delete 1` command was used, removing `David Li`, the first person in the list, from the list of client contacts.
+the full clients list is displayed. Thereafter, the `delete 3` command was used, removing `John Doe`, the first person in the list, from the list of client contacts.
 
 <div class="image-container" align="middle" style="display:flex">
     <pic src="images/user-guide/delete_command_before.png" alt="delete">
-        <markdown> Figure 1.2: Before the `delete 1` command is executed </markdown>
+        <markdown> Figure 1.2: Before the `delete 3` command is executed </markdown>
     </pic>
     <pic src="images/user-guide/delete_command_after.png" alt="delete">
-        <markdown> Figure 1.2: After the `delete 1` command is executed </markdown>
+        <markdown> Figure 1.2: After the `delete 3` command is executed </markdown>
     </pic>
 </div>
 
@@ -530,7 +550,7 @@ the full clients list is displayed. Thereafter, the `delete 1` command was used,
 
 What if the command was used with an incorrect index? In the example on the left, `delete 0` command was used, which is an invalid index.
 Here the error message shown is `Invalid command format! ... Parameters: INDEX (must be a positive integer)` which lets you know to retype the command with a larger index value.
-In the example on the right, `delete 5` is used, which again is invalid. Here the error message shown is `The person index provided is invalid` which lets you know to retype the command with a lower index.
+In the example on the right, `delete 4` is used, which again is invalid. Here the error message shown is `The person index provided is invalid` which lets you know to retype the command with a lower index.
 As the commands given were invalid, there would be no changes to the client list.
 
 &nbsp;  
@@ -540,7 +560,7 @@ As the commands given were invalid, there would be no changes to the client list
         <markdown> Figure 1.2: After the invalid `delete 0` command is executed </markdown>
     </pic>
     <pic src="images/user-guide/delete_command_after_invalid_5.png" alt="delete">
-        <markdown> Figure 1.3: After the invalid  `delete 5` command is executed </markdown> 
+        <markdown> Figure 1.3: After the invalid  `delete 4` command is executed </markdown> 
     </pic>
 </div>
 
@@ -552,18 +572,50 @@ _This command allows you to purge your client list, removing **ALL** clients in 
 
 Format: `clear`
 
-<box type="important">
-
-**Caution:**
-Only use this command if you are **absolutely** sure that you are willing to clear **all** of your clients from the list, as after running this command, any existing clients will be **unrecoverable**.
-</box>
-
 <box type="tip">
 
 **Tip:**
-Accidently cleared your client list? Worry not, the `undo` feature might be able to help you get it back!
-
+Accidentally cleared your client list? Worry not, the `undo` feature might be able to help you get it back!
 </box>
+
+### Scheduling Appointments : `schedule`
+
+#### Adding Appointments : `schedule add`
+
+_This command allows you to add an appointment with the specified parameters._
+
+**Format:** `schedule add h/HEADING t/TIME d/DESCRIPTION n/CLIENT_NAME `
+
+<panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
+<markdown>
+
+| Parameter   | Description                               | Remarks                                                                                                                                                                                                                                                                                                                                                           |
+|-------------|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| HEADING     | The heading of the appointment            | The heading must contain only alpha-numeric characters and should not be more than 70 characters                                                                                                                                                                                                                                                                  |
+| TIME        | The time of the appointment               | The time of the appointment must conform to one of these formats: "M/d/yyyy HHmm", "M/d/yyyy", "yyyy-MM-dd", "yyyy-MM-dd HHmm", "MMM d yyyy", "EEEE, MMMM, dd, yyyy - hh:mm a". Refer to [this Java Documentation article](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html) for more information about what these formats mean. |
+| DESCRIPTION | The description of the appointment        | Description should not be blank                                                                                                                                                                                                                                                                                                                                   |
+| CLIENT_NAME | The name of the client in the appointment | The name should contain only alpha-numeric characters and spaces and shouldn't be blank                                                                                                                                                                                                                                                                           |
+</markdown>
+</panel>
+
+Once the command is entered, the event should be added to the events panel on the right of the application.
+
+#### Adding Appointments : `schedule delete`
+
+_This command allows you to remove an appointment with the specified parameters._
+
+**Format:** `schedule delete h/HEADING`
+
+<panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
+<markdown>
+
+| Parameter   | Description                               | Remarks                                                                                                                                                                                                                                                                                                                                                           |
+|-------------|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| HEADING     | The heading of the appointment            | The heading must contain only alpha-numeric characters and should not be more than 70 characters                                                                                                                                                                                                                                                                  |
+</markdown>
+</panel>
+
+Once the command is entered, the event should be removed from the events panel on the right of the application.
 
 ### Exiting the program : `exit`
 
@@ -588,11 +640,15 @@ _These are a list of helpful actions to facilitate the ease of use of our applic
 </box>
 
 
-| Action | Description                                       |
-|--------|---------------------------------------------------|
-| `Up`   | Displays to the previous command entered, if any. |
-| `Down` | Displays the next command entered, if any.        |
-| `Tab`  | Automatically completes commands, if available.   |
+| Action | Description                                    |
+|--------|------------------------------------------------|
+| `Up`   | Displays the previous command entered, if any. |
+| `Down` | Displays the next command entered, if any.     |
+
+<box type="info">
+
+**Note**: A message will be displayed in the dialog "Keyboard Shortcuts: There are no more commands to display!" to notify users when there are no previous/next command available.
+</box>
 
 ### Saving the data
 

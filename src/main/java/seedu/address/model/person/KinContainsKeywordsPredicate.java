@@ -7,12 +7,12 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Person}'s {@code Next of Kin} matches any of the keywords given.
  */
-public class NameContainsKeywordsPredicate implements Predicate<Person> {
+public class KinContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
 
-    public NameContainsKeywordsPredicate(List<String> keywords) {
+    public KinContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
@@ -22,8 +22,8 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
             return false;
         }
         boolean personmatches = keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
-
+                .anyMatch(
+                    keyword -> StringUtil.containsWordIgnoreCase(person.getNextOfKin().get().toString(), keyword));
         return personmatches;
     }
 
@@ -34,12 +34,12 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof NameContainsKeywordsPredicate)) {
+        if (!(other instanceof KinContainsKeywordsPredicate)) {
             return false;
         }
 
-        NameContainsKeywordsPredicate otherNameContainsKeywordsPredicate = (NameContainsKeywordsPredicate) other;
-        return keywords.equals(otherNameContainsKeywordsPredicate.keywords);
+        KinContainsKeywordsPredicate otherKinContainsKeywordsPredicate = (KinContainsKeywordsPredicate) other;
+        return keywords.equals(otherKinContainsKeywordsPredicate.keywords);
     }
 
     @Override
@@ -47,3 +47,4 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         return new ToStringBuilder(this).add("keywords", keywords).toString();
     }
 }
+
