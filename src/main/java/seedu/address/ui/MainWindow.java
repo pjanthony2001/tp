@@ -237,7 +237,7 @@ public class MainWindow extends UiPart<Stage> {
             return nextCommand;
         } catch (HistoryException e) {
             logger.info("An error occurred while executing shortcut: Up");
-            resultDisplay.setFeedbackToUser("You can't roll forward the state anymore!");
+            resultDisplay.setFeedbackToUser("Keyboard Shortcuts: There are no more commands to display!");
             throw e;
         }
         // Should catch HistoryException, log and throw
@@ -253,7 +253,7 @@ public class MainWindow extends UiPart<Stage> {
             return previousCommand;
         } catch (HistoryException e) {
             logger.info("An error occurred while executing shortcut: Down");
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            resultDisplay.setFeedbackToUser("Keyboard Shortcuts: There are no more commands to display!");
             throw e;
         }
         // Should catch HistoryException, log and throw
