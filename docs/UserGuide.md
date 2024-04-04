@@ -266,6 +266,10 @@ _This command helps update existing client's information in the client list in t
 
 **Format:** `update u/EXISTING_USER [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [d/DESCRIPTION] [k/NEXTOFKIN] [t/TAG]…`
 
+<box type="info">
+
+**Note**: At least one optional parameter has to be given.
+</box>
 
 <panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
 <markdown>
@@ -650,6 +654,11 @@ _These are a list of helpful actions to facilitate the ease of use of our applic
 **Note**: A message will be displayed in the dialog "Keyboard Shortcuts: There are no more commands to display!" to notify users when there are no previous/next command available.
 </box>
 
+<box type="info">
+
+**Note**: Only commands that have been executed successfully will be saved.
+</box>
+
 ### Saving the data
 
 Your locally saved client list will be updated after any change is made, so no further action needs to be taken when operating the application! On start-up, your existing client list (if it exists) will also be automatically loaded, so don't worry about that!
@@ -670,17 +679,17 @@ ___
 
 ## Command summary
 
-| Action      | Format                                                                            | Examples                                                                                                                           |
-|-------------|-----------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**     | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… [k/NEXTOFKIN]`              | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/Suffers from anxiety k/Jon Ho t/friend t/colleague` |
-| **Update**  | `update u/existing user [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…` | `Update u/Jane Doe n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-011`                                    |
-| **Find**    | `find [n/NAME]… [a/ADD]… [e/EMAIL]… [t/TAG]… [k/KIN]… [d/DESC]… [p/PHONE]…`         | `find n/James a/clementi e/gmail t/important k/charles d/tall p/123`                                                               |
-| **Undo**    | `undo`                                                                            |                                                                                                                                    |
-| **Redo**    | `redo`                                                                            |                                                                                                                                    |
-| **Display** | `display n/NAME`                                                                  |                                                                                                                                    |
-| **Clear**   | `clear`                                                                           |                                                                                                                                    |
-| **Exit**    | `exit`                                                                            |                                                                                                                                    |
-
+| Action      | Format                                                                                  | Examples                                                                                                                           |
+|-------------|-----------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**     | `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [k/NEXTOFKIN] [d/DESCRIPTION] [t/TAG]… ` | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/Suffers from anxiety k/Jon Ho t/friend t/colleague` |
+| **Update**  | `update u/existing user [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…`       | `Update u/Jane Doe n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-011`                                    |
+| **Find**    | `find n/NAME… [a/ADD]… [e/EMAIL]… [t/TAG]… [k/KIN]… [d/DESC]… [p/PHONE]…`               | `find n/James a/clementi e/gmail t/important k/charles d/tall p/123`                                                               |
+| **Undo**    | `undo`                                                                                  |                                                                                                                                    |
+| **Redo**    | `redo`                                                                                  |                                                                                                                                    |
+| **Display** | `display NAME`                                                                          |                                                                                                                                    |
+| **Clear**   | `clear`                                                                                 |                                                                                                                                    |
+| **Exit**    | `exit`                                                                                  |                                                                                                                                    |
+  
 ___
 
 ## Glossary
