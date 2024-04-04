@@ -125,7 +125,7 @@ It will help you [install](#installation-instructions) and [start](#startup-inst
    - **MacOS** users should use [this guide](https://docs.oracle.com/en/java/javase/11/install/installation-jdk-macos.html#GUID-2FE451B0-9572-4E38-A1A5-568B77B146DE).
    - **Linux** users should use [this guide](https://docs.oracle.com/en/java/javase/11/install/installation-jdk-linux-platforms.html#GUID-737A84E4-2EFF-4D38-8E60-3E29D1B884B8).
 
-4. Download the latest release of `addressbook.jar` [here](https://github.com/AY2324S2-CS2103T-W12-4/tp/releases).
+4. Download the latest release of `connectcare.jar` [here](https://github.com/AY2324S2-CS2103T-W12-4/tp/releases).
 
 <div class="image-container" align="middle" style="display:flex">
     <pic src="images/quickstart/latest-release.png" alt="jar_file">
@@ -140,7 +140,7 @@ It will help you [install](#installation-instructions) and [start](#startup-inst
 
 ### Startup instructions
 
-6. Double-click on the `addressbook.jar` file to start the application. 
+6. Double-click on the `connectcare.jar` file to start the application. 
    - If you are facing issues, you can consult [this guide](https://www.wikihow.com/Run-a-.Jar-Java-File).
 
 **Your first command**
@@ -556,18 +556,51 @@ _This command allows you to purge your client list, removing **ALL** clients in 
 
 Format: `clear`
 
-<box type="important">
-
-**Caution:**
-Only use this command if you are **absolutely** sure that you are willing to clear **all** of your clients from the list, as after running this command, any existing clients will be **unrecoverable**.
-</box>
-
 <box type="tip">
 
 **Tip:**
-Accidently cleared your client list? Worry not, the `undo` feature might be able to help you get it back!
+Accidentally cleared your client list? Worry not, the `undo` feature might be able to help you get it back!
 
 </box>
+
+### Scheduling Appointments : `schedule`
+
+#### Adding Appointments : `schedule add`
+
+_This command allows you to add an appointment with the specified parameters._
+
+**Format:** `schedule add h/HEADING t/TIME d/DESCRIPTION n/CLIENT_NAME `
+
+<panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
+<markdown>
+
+| Parameter   | Description                               | Remarks                                                                                                                                                                                                                                                                                                                                                           |
+|-------------|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| HEADING     | The heading of the appointment            | The heading must contain only alpha-numeric characters and should not be more than 70 characters                                                                                                                                                                                                                                                                  |
+| TIME        | The time of the appointment               | The time of the appointment must conform to one of these formats: "M/d/yyyy HHmm", "M/d/yyyy", "yyyy-MM-dd", "yyyy-MM-dd HHmm", "MMM d yyyy", "EEEE, MMMM, dd, yyyy - hh:mm a". Refer to [this Java Documentation article](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html) for more information about what these formats mean. |
+| DESCRIPTION | The description of the appointment        | Description should not be blank                                                                                                                                                                                                                                                                                                                                   |
+| CLIENT_NAME | The name of the client in the appointment | The name should contain only alpha-numeric characters and spaces and shouldn't be blank                                                                                                                                                                                                                                                                           |
+</markdown>
+</panel>
+
+Once the command is entered, the event should be added to the events panel on the right of the application.
+
+#### Adding Appointments : `schedule delete`
+
+_This command allows you to remove an appointment with the specified parameters._
+
+**Format:** `schedule delete h/HEADING`
+
+<panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
+<markdown>
+
+| Parameter   | Description                               | Remarks                                                                                                                                                                                                                                                                                                                                                           |
+|-------------|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| HEADING     | The heading of the appointment            | The heading must contain only alpha-numeric characters and should not be more than 70 characters                                                                                                                                                                                                                                                                  |
+</markdown>
+</panel>
+
+Once the command is entered, the event should be removed from the events panel on the right of the application.
 
 ### Exiting the program : `exit`
 
