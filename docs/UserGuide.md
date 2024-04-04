@@ -426,8 +426,8 @@ Format: `redo`
 
 The screenshots below are what you would expect when using the `redo` command.
 
-In this example, after undoing an update of my client's name from `Alex Yeoh` to `alex yee`, we can see that the current client list has his name as `Alex Yeoh`
-As seen in the second image, after using the `redo` command, the change is redone, and the client list shows the client's name as `alex yee`
+In this example, after undoing an update of my client's name from `Peter Crow` to `Peter Crouch`, we can see that the current client list has his name as `Peter Crow`
+As seen in the second image, after using the `redo` command, the change is redone, and the client list shows the client's name as `Peter Crouch`
 &nbsp;
 
 <div class="image-container" align="middle" style="display:flex">
@@ -484,7 +484,14 @@ _This command allows you to view a client's information in a more detailed manne
 The screenshots below are what you would expect when using the `display` command. In this example, after using the `list` command,
 the full clients list is displayed. Thereafter, the `display John` command was used, displaying John.
 
-_IMAGE_BEFORE and IMAGE_AFTER TBA_
+<div class="image-container" align="middle" style="display:flex">
+    <pic src="images/user-guide/display_command_before.png" alt="list">
+        Figure 1.1: Before the display command is executed
+    </pic>
+    <pic src="images/user-guide/display_command_after.png" alt="list">
+        Figure 1.2: After the display command is executed
+    </pic>
+</div>
 
 ### Deleting a client: `delete`
 
