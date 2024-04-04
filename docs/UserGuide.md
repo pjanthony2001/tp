@@ -206,7 +206,7 @@ _This command adds a new client to your client list._
 
 **Walkthrough:**
 
-The screenshots below are what you would expect when using the `add` command. In this example, after using the [`list`](https://ay2324s2-cs2103t-w12-4.github.io/tp/UserGuide.html#listing-all-persons-list) command,
+The screenshots below are what you would expect when using the `add` command. In this example, after using the [`list`](#listing-all-persons-list) command,
 the full clients list is displayed. Thereafter, the `add` command was used, using the parameters `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 k/Joe Doe d/Has a history of memory loss t/mentalIllness t/owesMoney`.
 After execution, the client `John Doe` is added successfully with the corresponding parameters!
 
@@ -246,7 +246,7 @@ _This command shows a list of all persons._
 
 **Examples:**
 
-The screenshots below are what you would expect when using the [`list`](https://ay2324s2-cs2103t-w12-4.github.io/tp/UserGuide.html#listing-all-persons-list) command. In this example, after using the [`find`](https://ay2324s2-cs2103t-w12-4.github.io/tp/UserGuide.html#locating-clients-by-name-find) command,
+The screenshots below are what you would expect when using the [`list`](#listing-all-persons-list) command. In this example, after using the [`find`](#locating-clients-by-name-find) command,
 only `Peter Crow` was shown in the list. Thereafter, the `list` command was used, displaying the entire list of client contacts.
 &nbsp;  
 
@@ -412,6 +412,7 @@ As seen in the second image, after using the `undo` command, Charlie is no longe
 
 **Tip:**
 The undo command does not undo every single command, only those that change the address-book in a significant way.
+If you are at the earliest state (i.e. you can't undo any command) an appropriate error message will be displayed: "You cannot rollback the state anymore!"
 For a comprehensive deep-dive into the undo command, please refer to the [Implementation section of our Developer Guide](https://ay2324s2-cs2103t-w12-4.github.io/tp/DeveloperGuide.html)
 
 </box>
@@ -443,7 +444,8 @@ As seen in the second image, after using the `redo` command, the change is redon
 <box type="tip">
 
 **Tip:**
-The redo command does not redo every single command, only those that change the address-book in a significant way.
+The redo command does not redo every single command, only those that change the address-book in a significant way. 
+If you are at the most recent state (i.e. you can't redo this command) an appropriate error message will be displayed: "You cannot roll forward the state anymore!"
 For a comprehensive deep-dive into the redo command, please refer to the [Implementation section of our Developer Guide](https://ay2324s2-cs2103t-w12-4.github.io/tp/DeveloperGuide.html)
 
 </box>
@@ -494,6 +496,15 @@ and you will be redirected back to the home page with the clients list. At no st
         Figure 1.2: After the display command is executed
     </pic>
 </div>
+
+<box type="warning">
+
+**Caution:**
+While you are in the display view, you cannot enter any commands in the command box other than the [list command](#listing-all-persons-list) which will swap you back into the list view. 
+Any changes you make to description by reverting to the list view using this method would not be saved. Alternatively, you can the press ENTER key and the [undo command](#undoing-a-command-undo) to revert the changes.
+If you would like to resume entering commands, press the ENTER key in the description box (which will save your changes) to return to the list view.
+</box>
+
 
 ### Deleting a client: `delete`
 
@@ -560,7 +571,6 @@ Format: `clear`
 
 **Tip:**
 Accidentally cleared your client list? Worry not, the `undo` feature might be able to help you get it back!
-
 </box>
 
 ### Scheduling Appointments : `schedule`
@@ -625,14 +635,14 @@ _These are a list of helpful actions to facilitate the ease of use of our applic
 </box>
 
 
-| Action | Description                                       |
-|--------|---------------------------------------------------|
-| `Up`   | Displays to the previous command entered, if any. |
-| `Down` | Displays the next command entered, if any.        |
+| Action | Description                                    |
+|--------|------------------------------------------------|
+| `Up`   | Displays the previous command entered, if any. |
+| `Down` | Displays the next command entered, if any.     |
 
 <box type="info">
 
-**Note**: A message will be displayed in the dialog to notify users when there are no previous/next command available.
+**Note**: A message will be displayed in the dialog "Keyboard Shortcuts: There are no more commands to display!" to notify users when there are no previous/next command available.
 </box>
 
 ### Saving the data
