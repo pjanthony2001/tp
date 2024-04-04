@@ -311,7 +311,7 @@ After execution, the client `Peter Crow` is updated successfully with the corres
 
 What if the command was used with invalid parameters? In the example on the left, the command `update u/Unknown Person p/92374832` was used, which specifies a name not in the name list.
 Here the error message shown is `The person name provided is invalid` which lets you know that you are trying to update a client that does not exist.
-In the example on the right, the command `update u/Alex Yeo p/abc123` is used, which again is invalid. Here the error message shown is `Phone numbers should only contain numbers, and it should be at least 3 digits long` which lets you know specifically that the phone number given was invalid.
+In the example on the right, the command `update u/Peter Crow p/abc123` is used, which again is invalid. Here the error message shown is `Phone numbers should only contain numbers, and it should be at least 3 digits long` which lets you know specifically that the phone number given was invalid.
 As the commands given were invalid, there would be no changes to the client list.
 
 &nbsp;
@@ -452,7 +452,7 @@ For a comprehensive deep-dive into the redo command, please refer to the [Implem
 
 _This command allows you to view a client's information in a more detailed manner_
 
-**Format:** `display n/NAME`
+**Format:** `display NAME`
 
 <panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
 <markdown>
@@ -465,7 +465,7 @@ _This command allows you to view a client's information in a more detailed manne
 
 **Examples:**
 
-`display Peter` would display all of John's information as a contact card on the application.
+`display Peter` would display all of Peter's information as a contact card on the application.
 
 <panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
 <markdown>
@@ -477,12 +477,14 @@ _This command allows you to view a client's information in a more detailed manne
 </panel>
 
 **Examples:**
-- `display Peter` would display all of John's information as a contact card on the application.
+- `display Peter` would display all of Peter's information as a contact card on the application.
 
 **Walkthrough:**
 
 The screenshots below are what you would expect when using the `display` command. In this example, after using the `list` command,
-the full clients list is displayed. Thereafter, the `display Peter` command was used, displaying John.
+the full clients list is displayed. Thereafter, the `display Peter` command was used, displaying Peter. The cursor automatically moves
+to the description box, allowing you to make changes to Peter's details. After making the necessary changes, hit enter. The details will be updated
+and you will be redirected back to the home page with the clients list. At no stage do you need to reach for the mouse!
 
 <div class="image-container" align="middle" style="display:flex">
     <pic src="images/user-guide/display_command_before.png" alt="list">
@@ -521,10 +523,10 @@ the full clients list is displayed. Thereafter, the `delete 3` command was used,
 
 <div class="image-container" align="middle" style="display:flex">
     <pic src="images/user-guide/delete_command_before.png" alt="delete">
-        <markdown> Figure 1.2: Before the `delete 1` command is executed </markdown>
+        <markdown> Figure 1.2: Before the `delete 3` command is executed </markdown>
     </pic>
     <pic src="images/user-guide/delete_command_after.png" alt="delete">
-        <markdown> Figure 1.2: After the `delete 1` command is executed </markdown>
+        <markdown> Figure 1.2: After the `delete 3` command is executed </markdown>
     </pic>
 </div>
 
@@ -542,7 +544,7 @@ As the commands given were invalid, there would be no changes to the client list
         <markdown> Figure 1.2: After the invalid `delete 0` command is executed </markdown>
     </pic>
     <pic src="images/user-guide/delete_command_after_invalid_5.png" alt="delete">
-        <markdown> Figure 1.3: After the invalid  `delete 5` command is executed </markdown> 
+        <markdown> Figure 1.3: After the invalid  `delete 4` command is executed </markdown> 
     </pic>
 </div>
 

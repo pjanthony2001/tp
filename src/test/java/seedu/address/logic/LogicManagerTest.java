@@ -99,13 +99,15 @@ public class LogicManagerTest {
         assertCommandFailureForExceptionFromModel(DUMMY_HISTORY_EXCEPTION, String.format(
                 LogicManager.HISTORY_SAVE_ERROR_FORMAT, DUMMY_HISTORY_EXCEPTION.getMessage()));
     }
+
     @Test
-    public void retrievePreviousCommand_noCommandsInputted_placeholderString() { //Should throw historyexception
-        assertEquals(logic.retrievePreviousCommand(), "PlaceHolder Text Up Arrow Pressed");
+    public void retrievePreviousCommand_noCommandsInputted_placeholderString() throws HistoryException {
+        assertThrows(HistoryException.class, () -> logic.retrievePreviousCommand());
     }
+
     @Test
-    public void retrieveNextCommand_noCommandsInputted_placeholderString() { //Should throw historyexception
-        assertEquals(logic.retrieveNextCommand(), "PlaceHolder Text Down Arrow Pressed");
+    public void retrieveNextCommand_noCommandsInputted_placeholderString() throws HistoryException {
+        assertThrows(HistoryException.class, () -> logic.retrieveNextCommand());
     }
 
     /**
@@ -205,7 +207,7 @@ public class LogicManagerTest {
         // Inject LogicManager with a Model that throws the HistoryException e when updating state
         model = new ModelManager() {
             @Override
-            public void updateState(Command command) throws HistoryException {
+            public void updateModelState(Command command) throws HistoryException {
                 throw e;
             }
         };

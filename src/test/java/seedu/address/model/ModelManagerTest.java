@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.history.CommandState;
 import seedu.address.history.ModelState;
 import seedu.address.history.exceptions.HistoryException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -112,12 +113,12 @@ public class ModelManagerTest {
                 UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
     @Test
-    public void retrievePreviousCommand_noCommandsInputted_placeholderString() { //Should throw historyexception
-        assertEquals(modelManager.retrievePreviousCommand(), "PlaceHolder Text Up Arrow Pressed");
+    public void retrievePreviousCommand_noCommandsInputted_placeholderString() throws HistoryException {
+        assertThrows(HistoryException.class, () -> modelManager.retrievePreviousCommand());
     }
     @Test
-    public void retrieveNextCommand_noCommandsInputted_placeholderString() { //Should throw historyexception
-        assertEquals(modelManager.retrieveNextCommand(), "PlaceHolder Text Down Arrow Pressed");
+    public void retrieveNextCommand_noCommandsInputted_placeholderString() throws HistoryException {
+        assertThrows(HistoryException.class, () -> modelManager.retrieveNextCommand());
     }
 
     @Test
@@ -163,13 +164,13 @@ public class ModelManagerTest {
     public void initialization_historyFailureStub_doesNotThrowHistoryException() {
         assertDoesNotThrow(ModelHistoryFailureStub::new);
         Model modelInitFailure = new ModelHistoryFailureStub();
-        ModelState modelState = modelInitFailure.getCurrentState();
+        ModelState modelState = modelInitFailure.getCurrentModelState();
         assertEquals(modelState.getAddressBook(), SampleDataUtil.getSampleAddressBook());
     }
 
     @Test
-    public void getCurrentState_startState_successfullyReturnsStartState() {
-        ModelState currModelState = modelManager.getCurrentState();
+    public void getCurrentModelState_startState_successfullyReturnsStartState() {
+        ModelState currModelState = modelManager.getCurrentModelState();
         assertEquals(currModelState, new ModelState(getStartCommand(),
                 modelManager.getAddressBook(),
                 modelManager.getFilteredPersonsListPredicate(),
@@ -178,7 +179,7 @@ public class ModelManagerTest {
 
     @Test
     public void restoreState_typicalSecondState_successfullyRestoresSecondState() {
-        modelManager.restoreState(TYPICAL_SECOND_MODEL_STATE);
+        modelManager.restoreModelState(TYPICAL_SECOND_MODEL_STATE);
         FilteredList<Person> filteredList = new FilteredList<>(TYPICAL_SECOND_MODEL_STATE
                 .getAddressBook().getPersonList());
         filteredList.setPredicate(TYPICAL_SECOND_MODEL_STATE.getFilteredPersonsListPredicate());
@@ -188,9 +189,9 @@ public class ModelManagerTest {
 
     @Test
     public void updateState_commandStub_successfullyUpdatesCurrentState() throws HistoryException {
-        assertDoesNotThrow(() -> modelManager.updateState(getCommandStub()));
-        modelManager.updateState(getCommandStub());
-        assertEquals(modelManager.getCurrentState(),
+        assertDoesNotThrow(() -> modelManager.updateModelState(getCommandStub()));
+        modelManager.updateModelState(getCommandStub());
+        assertEquals(modelManager.getCurrentModelState(),
                 new ModelState(getCommandStub(),
                         modelManager.getAddressBook(),
                         modelManager.getFilteredPersonsListPredicate(),
@@ -199,12 +200,12 @@ public class ModelManagerTest {
 
     @Test
     public void rollBackState_successfullyRollbacksCurrentState() {
-        assertDoesNotThrow(() -> modelManager.updateState(getCommandStub()));
+        assertDoesNotThrow(() -> modelManager.updateModelState(getCommandStub()));
         assertDoesNotThrow(() -> modelManager.rollBackState());
         assertEquals(new ModelState(getStartCommand(),
                 modelManager.getAddressBook(),
                 modelManager.getFilteredPersonsListPredicate(), modelManager.getCalendar()),
-                modelManager.getCurrentState()
+                modelManager.getCurrentModelState()
         );
     }
 
@@ -215,13 +216,14 @@ public class ModelManagerTest {
 
     @Test
     public void rollForwardState_successfullyRollForwardToCurrentState() {
-        assertDoesNotThrow(() -> modelManager.updateState(getCommandStub()));
+        assertDoesNotThrow(() -> modelManager.updateModelState(getCommandStub()));
         assertDoesNotThrow(() -> modelManager.rollBackState());
         assertDoesNotThrow(() -> modelManager.rollForwardState());
         assertEquals(new ModelState(getCommandStub(),
-                        modelManager.getAddressBook(),
-                        modelManager.getFilteredPersonsListPredicate(), modelManager.getCalendar()),
-                modelManager.getCurrentState()
+                modelManager.getAddressBook(),
+                modelManager.getFilteredPersonsListPredicate(),
+                modelManager.getCalendar()),
+                modelManager.getCurrentModelState()
         );
     }
 
@@ -240,7 +242,37 @@ public class ModelManagerTest {
                 }
             };
         }
+    }
 
+    @Test
+    public void getCurrentCommandState_startState_successfullyReturnsStartState() {
+        CommandState currCommandState = modelManager.getCurrentCommandState();
+        assertEquals(currCommandState.getCommandText(), new CommandState("start").getCommandText());
+    }
+
+    @Test
+    public void retrievePreviousCommand_successful() throws HistoryException {
+        modelManager.updateCommandState("help");
+        assertEquals(modelManager.retrievePreviousCommand(), "help");
+    }
+
+    @Test
+    public void retrievePreviousCommand_unsuccessful() throws HistoryException {
+        assertThrows(HistoryException.class, () -> modelManager.retrievePreviousCommand());
+    }
+
+    @Test
+    public void retrieveNextCommand_successful() throws HistoryException {
+        modelManager.updateCommandState("help");
+        modelManager.updateCommandState("list");
+        modelManager.retrievePreviousCommand();
+        modelManager.retrievePreviousCommand();
+        assertEquals(modelManager.retrieveNextCommand(), "list");
+    }
+
+    @Test
+    public void retrieveNextCommand_unsuccessful() throws HistoryException {
+        assertThrows(HistoryException.class, () -> modelManager.retrieveNextCommand());
     }
 
     @Test

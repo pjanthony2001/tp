@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -46,21 +47,23 @@ public class CommandBox extends UiPart<Region> {
      * Handles Key Press event
      */
     private void handleKeyPress(KeyEvent event) {
-        switch (event.getCode()) {
-        case UP:
-            System.out.println("Up key pressed");
-            commandTextField.setText(previousCommandRetriever.retrievePrevious());
-            break;
-        case DOWN:
-            System.out.println("Down key pressed");
-            commandTextField.setText(nextCommandRetriever.retrieveNext());
-            break;
-        case TAB:
-            System.out.println("Tab key pressed");
-            commandTextField.setText("TAB KEY PRESSED");
-            break;
-        default:
-            break;
+        try {
+            switch (event.getCode()) {
+            case UP:
+                commandTextField.setText(previousCommandRetriever.retrievePreviousCommand());
+                break;
+            case DOWN:
+                try {
+                    commandTextField.setText(nextCommandRetriever.retrieveNextCommand());
+                } catch (HistoryException e) {
+                    commandTextField.setText("");
+                }
+                break;
+            default:
+                break;
+            }
+        } catch (HistoryException e) {
+            setStyleToIndicateCommandFailure();
         }
     }
 
@@ -133,7 +136,7 @@ public class CommandBox extends UiPart<Region> {
          * Retrieves the previous command. Should throw History Exception
          *
          */
-        String retrievePrevious();
+        String retrievePreviousCommand() throws HistoryException;
     }
 
     /**
@@ -145,7 +148,7 @@ public class CommandBox extends UiPart<Region> {
          * Retrieves the previous command. Should throw History Exception
          *
          */
-        String retrieveNext();
+        String retrieveNextCommand() throws HistoryException;
     }
 
 

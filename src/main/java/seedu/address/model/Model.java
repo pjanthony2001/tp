@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.history.CommandState;
 import seedu.address.history.ModelState;
 import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.commands.Command;
@@ -84,23 +85,30 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
-    ModelState getCurrentState();
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    ModelState getCurrentModelState();
 
-    void restoreState(ModelState modelState);
+    void restoreModelState(ModelState modelState);
 
     void rollBackState() throws HistoryException;
 
     void rollForwardState() throws HistoryException;
 
-    void updateState(Command command) throws HistoryException;
+    void updateModelState(Command command) throws HistoryException;
 
     void updateFilteredPersonList(Predicate<? super Person> predicate);
 
+    CommandState getCurrentCommandState();
+
+    void updateCommandState(String command);
+
+    String retrievePreviousCommand() throws HistoryException;
+
+    String retrieveNextCommand() throws HistoryException;
     ObservableList<Event> getEventList();
-
-    String retrievePreviousCommand(); //Should throw historyexception
-
-    String retrieveNextCommand(); //Should throw historyexception
 
     ReadOnlyCalendar getCalendar();
     /**

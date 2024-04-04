@@ -37,8 +37,8 @@ public class RedoCommand extends Command {
             throw new CommandException(MESSAGE_NO_ROLLFORWARD);
         }
 
-        ModelState currModelState = model.getCurrentState();
-        model.restoreState(currModelState);
+        ModelState currModelState = model.getCurrentModelState();
+        model.restoreModelState(currModelState);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, currModelState.getCommand().getCommandString()));
     }

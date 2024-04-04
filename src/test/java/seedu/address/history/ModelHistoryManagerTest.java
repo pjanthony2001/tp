@@ -11,12 +11,14 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.history.exceptions.HistoryException;
 
-class ModelHistoryManagerTest {
-    private ModelHistoryManager history;
+class HistoryManagerTest {
+    private HistoryManager<ModelState> history;
+    private HistoryManager<ModelState> bufferedHistory;
 
     @BeforeEach
     void setup() {
-        history = new ModelHistoryManager(TYPICAL_START_MODEL_STATE);
+        history = new HistoryManager<>(TYPICAL_START_MODEL_STATE, false);
+        bufferedHistory = new HistoryManager<>(TYPICAL_START_MODEL_STATE, true);
     }
 
     @Test
@@ -43,4 +45,8 @@ class ModelHistoryManagerTest {
         assertDoesNotThrow(() -> history.rollBackState());
     }
 
+    @Test
+    void getCurrStateHasBuffer_typicalStartState_successfullyReturnsStartState() {
+        assertThrows(HistoryException.class, () -> bufferedHistory.getCurrStateHasBuffer());
+    }
 }
