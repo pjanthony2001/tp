@@ -5,7 +5,7 @@
 ---
 
 <p align="left">
-  <img src="images/Logo.jpeg" width="200"/>
+  <img src="images/Logo.png" width="200"/>
 </p>
 
 # ConnectCare User Guide
@@ -331,9 +331,9 @@ As the commands given were invalid, there would be no changes to the client list
 
 ### Locating clients by name: `find`
 
-_This command allows you to find a specific client in your client list by their `NAME`, and optionally by other fields too._
+_This command allows you to find a specific client in your client list by any of a client's parameters_
 
-**Format:** `find n/NAME… [a/KEYWORD]… [e/KEYWORD]… [t/KEYWORD]… [k/KEYWORD]… [d/KEYWORD]… [p/KEYWORD]…`
+**Format:** `find [n/NAME]… [a/KEYWORD]… [e/KEYWORD]… [t/KEYWORD]… [k/KEYWORD]… [d/KEYWORD]… [p/KEYWORD]…`
 
 <panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
 <markdown>
@@ -353,19 +353,24 @@ _This command allows you to find a specific client in your client list by their 
 &nbsp;
 
 **Example:**
-- `find n/alex p/99824412`
+- `find p/99824412`
 - `find n/xavier k/polly`
 - `find n/bobby`
 
 **Walkthrough:**
 
 Let's say your client list contains the following clients:
-<img src="images/ExampleClientList.png" /> <USE IMAGE LIKE LIST COMMAND HERE>
+<div class="image-container" align="middle" style="display: flex;">
+    <pic src="images/user-guide/ExampleClientList.png" alt="clientlist">
+        <markdown> Figure 1.1: An example client list in ConnectCare </markdown>
+    </pic>
+</div>
 
--   `find n/alex` would return `Alex Lee` as well as `Alex Chan`
--   `find n/alex p/99824412 ` would return `Alex Chan`
--   `find n/a` would return `Alex Lee` , `Alex Chan`, as well as `Xavier`
--   `find n/a t/important` would return `Alex Lee` as well as `Xavier`
+-   `find n/alex` would return `Alex Yeoh` as the client name matches with `alex`.
+-   `find n/alex p/99272758 ` would return `Alex Yeoh` as the client name matches with `alex`
+    as well as `Bernice Yu` as the client phone number matches with `99272758`.
+-   `find p/9` would return `Bernice Yu`, `Charlotte Oliveiro` and `David Li` as their phone numbers all
+    start with `9`.
 
 <box type="info">
 
@@ -373,9 +378,9 @@ Let's say your client list contains the following clients:
 
 **Note:** you can search for multiple keywords, for example `find n/name1 n/name2` would search for all clients with names that contain name1 OR name2
 This also applies to the optional keywords, for example `find n/name1 a/address1 a/address2 would search for all clients with names that contain name1 AND
-have an address that contains address1 OR address2, so
--   `find n/alex n/bobby` would return `Alex Lee`, `Alex Chan`, and `Bobby`
--   `find n/a p/86151644 p/12355125` would return `Alex Lee` and `Bobby`
+have an address that contains address1 OR address2, for example:
+-   `find n/alex n/bernice` would return `Alex Yeoh` as well as `Bernice Yu`
+-   `find t/friends t/family` would return `Alex Yeoh`, `Bernice Yu`, and `David Li`
 </box>
 
 <box type="tip">
@@ -613,7 +618,7 @@ ___
 |-------------|-----------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**     | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… [k/NEXTOFKIN]`              | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/Suffers from anxiety k/Jon Ho t/friend t/colleague` |
 | **Update**  | `update u/existing user [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…` | `Update u/Jane Doe n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-011`                                    |
-| **Find**    | `find n/NAME… [a/ADD]… [e/EMAIL]… [t/TAG]… [k/KIN]… [d/DESC]… [p/PHONE]…`         | `find n/James a/clementi e/gmail t/important k/charles d/tall p/123`                                                               |
+| **Find**    | `find [n/NAME]… [a/ADD]… [e/EMAIL]… [t/TAG]… [k/KIN]… [d/DESC]… [p/PHONE]…`         | `find n/James a/clementi e/gmail t/important k/charles d/tall p/123`                                                               |
 | **Undo**    | `undo`                                                                            |                                                                                                                                    |
 | **Redo**    | `redo`                                                                            |                                                                                                                                    |
 | **Display** | `display n/NAME`                                                                  |                                                                                                                                    |
