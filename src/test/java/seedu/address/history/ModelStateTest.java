@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.CommandUtil.getCommandStub;
 import static seedu.address.testutil.HistoryUtil.TYPICAL_SECOND_MODEL_STATE;
 import static seedu.address.testutil.HistoryUtil.TYPICAL_START_MODEL_STATE;
+import static seedu.address.testutil.TypicalEvents.getTypicalCalendar;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.function.Predicate;
@@ -17,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Calendar;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 
@@ -25,14 +27,16 @@ import seedu.address.model.person.Person;
 class ModelStateTest {
     private ModelState modelState;
     private AddressBook addressBook;
+    private Calendar calendar;
     private FilteredList<Person> filteredPersons;
     private Command command;
     @BeforeEach
     void setup() {
         addressBook = getTypicalAddressBook();
+        calendar = getTypicalCalendar();
         command = getCommandStub();
         filteredPersons = new FilteredList<>(addressBook.getPersonList());
-        modelState = new ModelState(command, addressBook, PREDICATE_SHOW_ALL_PERSONS);
+        modelState = new ModelState(command, addressBook, PREDICATE_SHOW_ALL_PERSONS, calendar);
     }
     @Test
     void getAddressBook_typicalAddressBook_successfullyReturnsTypicalAddressBook() {
@@ -64,6 +68,6 @@ class ModelStateTest {
         assertNotEquals(TYPICAL_SECOND_MODEL_STATE, null); //check for null
         assertEquals(TYPICAL_START_MODEL_STATE, new ModelState(getStartCommand(),
                 getTypicalAddressBook(),
-                PREDICATE_SHOW_ALL_PERSONS));
+                PREDICATE_SHOW_ALL_PERSONS, calendar));
     }
 }

@@ -172,8 +172,8 @@ public class ModelManagerTest {
         ModelState currModelState = modelManager.getCurrentState();
         assertEquals(currModelState, new ModelState(getStartCommand(),
                 modelManager.getAddressBook(),
-                modelManager.getFilteredPersonsListPredicate()
-        ));
+                modelManager.getFilteredPersonsListPredicate(),
+                modelManager.getCalendar()));
     }
 
     @Test
@@ -193,8 +193,8 @@ public class ModelManagerTest {
         assertEquals(modelManager.getCurrentState(),
                 new ModelState(getCommandStub(),
                         modelManager.getAddressBook(),
-                        modelManager.getFilteredPersonsListPredicate()
-                ));
+                        modelManager.getFilteredPersonsListPredicate(),
+                        modelManager.getCalendar()));
     }
 
     @Test
@@ -203,7 +203,7 @@ public class ModelManagerTest {
         assertDoesNotThrow(() -> modelManager.rollBackState());
         assertEquals(new ModelState(getStartCommand(),
                 modelManager.getAddressBook(),
-                modelManager.getFilteredPersonsListPredicate()),
+                modelManager.getFilteredPersonsListPredicate(), modelManager.getCalendar()),
                 modelManager.getCurrentState()
         );
     }
@@ -220,7 +220,7 @@ public class ModelManagerTest {
         assertDoesNotThrow(() -> modelManager.rollForwardState());
         assertEquals(new ModelState(getCommandStub(),
                         modelManager.getAddressBook(),
-                        modelManager.getFilteredPersonsListPredicate()),
+                        modelManager.getFilteredPersonsListPredicate(), modelManager.getCalendar()),
                 modelManager.getCurrentState()
         );
     }

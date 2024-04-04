@@ -57,7 +57,7 @@ public class ModelManager implements Model {
             ReadOnlyAddressBook sampleAddressBook = SampleDataUtil.getSampleAddressBook();
             startModelState = new ModelState(getStartCommand(),
                     sampleAddressBook,
-                    PREDICATE_SHOW_ALL_PERSONS);
+                    PREDICATE_SHOW_ALL_PERSONS, calendar);
         }
         history = new ModelHistoryManager(startModelState);
     }
@@ -190,7 +190,7 @@ public class ModelManager implements Model {
         try {
             return new ModelState(command,
                     getAddressBook().deepCopy(),
-                    getFilteredPersonsListPredicate());
+                    getFilteredPersonsListPredicate(), getCalendar().deepCopy());
         } catch (IllegalValueException e) {
             throw new HistoryException("Error while generating state", e);
         }
@@ -204,6 +204,8 @@ public class ModelManager implements Model {
         ReadOnlyAddressBook newAddressBook = modelState.getAddressBook();
         setAddressBook(newAddressBook);
 
+        ReadOnlyCalendar newCalendar = modelState.getCalendar();
+        setCalendar(newCalendar);
         Predicate<? super Person> newPredicate = modelState.getFilteredPersonsListPredicate();
         updateFilteredPersonList(newPredicate);
     }
@@ -259,22 +261,30 @@ public class ModelManager implements Model {
     public ReadOnlyCalendar getCalendar() {
         return calendar;
     }
+
     @Override
     public boolean hasEvent(Event event) {
         requireNonNull(event);
         return calendar.hasEvent(event);
     }
+
     @Override
     public void addEvent(Event event) {
         calendar.addEvent(event);
     }
+
     @Override
     public void deleteEvent(Event key) {
         calendar.removeEvent(key);
     }
+
     @Override
     public void setEvents(List<Event> events) {
         calendar.setEvents(events);
+    }
+    @Override
+    public void setCalendar(ReadOnlyCalendar calendar) {
+        this.calendar.resetData(calendar);
     }
 
 }
