@@ -234,6 +234,11 @@ public class AddCommandTest {
         public void setEvents(List<Event> events) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void setCalendar(ReadOnlyCalendar calendar) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
