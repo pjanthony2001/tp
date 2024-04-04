@@ -587,7 +587,11 @@ _These are a list of helpful actions to facilitate the ease of use of our applic
 |--------|---------------------------------------------------|
 | `Up`   | Displays to the previous command entered, if any. |
 | `Down` | Displays the next command entered, if any.        |
-| `Tab`  | Automatically completes commands, if available.   |
+
+<box type="info">
+
+**Note**: A message will be displayed in the dialog to notify users when there are no previous/next command available.
+</box>
 
 ### Saving the data
 

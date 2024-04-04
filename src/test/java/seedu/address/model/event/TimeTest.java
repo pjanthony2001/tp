@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_HOUSE_CHECKUP_BENSON;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_MEETING_WITH_ALICE;
+import static seedu.address.model.event.Time.DATE_TIME_FORMATTER;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDateTime;
