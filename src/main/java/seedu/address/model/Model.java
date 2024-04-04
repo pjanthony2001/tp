@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -8,6 +9,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.history.ModelState;
 import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.commands.Command;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
 /**
@@ -97,7 +99,30 @@ public interface Model {
     void updateState(Command command) throws HistoryException;
     void updateFilteredPersonList(Predicate<? super Person> predicate);
 
+    ObservableList<Event> getEventList();
+
     String retrievePreviousCommand(); //Should throw historyexception
 
     String retrieveNextCommand(); //Should throw historyexception
+
+    ReadOnlyCalendar getCalendar();
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the calendar.
+     */
+    boolean hasEvent(Event event);
+    /**
+     * Adds a person to the address book.
+     * The person must not already exist in the calendar.
+     */
+    void addEvent(Event event);
+    /**
+     * Deletes the given event.
+     * The event must exist in the calendar.
+     */
+    void deleteEvent(Event key);
+    /**
+     * Replaces the contents of the events list with {@code events}.
+     * {@code events} must not contain duplicate persons.
+     */
+    void setEvents(List<Event> events);
 }

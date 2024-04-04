@@ -9,6 +9,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.CommandUtil.getCommandStub;
 import static seedu.address.testutil.HistoryUtil.TYPICAL_SECOND_MODEL_STATE;
+import static seedu.address.testutil.TypicalEvents.MEETING_WITH_ALICE;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
@@ -43,6 +44,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new Calendar(), new Calendar(modelManager.getCalendar()));
     }
 
     @Test
@@ -122,11 +124,13 @@ public class ModelManagerTest {
     public void equalsTest() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
+
+        Calendar differentCalendar = new Calendar();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(addressBook, userPrefs, differentCalendar);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, differentCalendar);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -139,12 +143,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, differentCalendar)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, differentCalendar)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -152,7 +156,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, differentCalendar)));
     }
 
     @Test
@@ -238,4 +242,25 @@ public class ModelManagerTest {
         }
 
     }
+
+    @Test
+    public void hasEvent_nullEvent_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasEvent(null));
+    }
+
+    @Test
+    public void hasEvent_eventNotInCalendar_returnsFalse() {
+        assertFalse(modelManager.hasEvent(MEETING_WITH_ALICE));
+    }
+    @Test
+    public void hasEvent_eventInCalendar_returnsTrue() {
+        modelManager.addEvent(MEETING_WITH_ALICE);
+        assertTrue(modelManager.hasEvent(MEETING_WITH_ALICE));
+    }
+    @Test
+    public void getFilteredEventList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(
+                UnsupportedOperationException.class, () -> modelManager.getEventList().remove(0));
+    }
+
 }

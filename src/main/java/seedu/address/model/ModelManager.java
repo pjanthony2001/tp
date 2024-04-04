@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.commands.StartCommand.getStartCommand;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -18,6 +19,7 @@ import seedu.address.history.ModelHistoryManager;
 import seedu.address.history.ModelState;
 import seedu.address.history.exceptions.HistoryException;
 import seedu.address.logic.commands.Command;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -26,7 +28,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-
+    private final Calendar calendar;
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private FilteredList<Person> filteredPersons;
@@ -36,13 +38,15 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ReadOnlyCalendar calendar) {
         requireAllNonNull(addressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs
+            + "and calendar " + calendar);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.calendar = new Calendar(calendar);
         this.source = this.addressBook.getPersonList();
         this.filteredPersons = new FilteredList<>(source);
 
@@ -56,11 +60,10 @@ public class ModelManager implements Model {
                     PREDICATE_SHOW_ALL_PERSONS);
         }
         history = new ModelHistoryManager(startModelState);
-
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new Calendar());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -222,6 +225,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Event> getEventList() {
+        return calendar.getEventList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -245,6 +253,28 @@ public class ModelManager implements Model {
     @Override
     public String retrieveNextCommand() { //Should throw historyexception
         return "PlaceHolder Text Down Arrow Pressed";
+    }
+    //=========== Calendar Accessors =============================================================
+    @Override
+    public ReadOnlyCalendar getCalendar() {
+        return calendar;
+    }
+    @Override
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return calendar.hasEvent(event);
+    }
+    @Override
+    public void addEvent(Event event) {
+        calendar.addEvent(event);
+    }
+    @Override
+    public void deleteEvent(Event key) {
+        calendar.removeEvent(key);
+    }
+    @Override
+    public void setEvents(List<Event> events) {
+        calendar.setEvents(events);
     }
 
 }
