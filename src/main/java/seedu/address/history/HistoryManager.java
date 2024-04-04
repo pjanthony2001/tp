@@ -55,7 +55,6 @@ public class HistoryManager<T> implements History<T> {
             throw new HistoryException("You can't roll forward the state anymore!");
         }
         currStateIdx += 1;
-        System.out.println(currStateIdx);
     }
 
     /**

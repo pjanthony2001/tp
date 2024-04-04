@@ -50,20 +50,14 @@ public class CommandBox extends UiPart<Region> {
         try {
             switch (event.getCode()) {
             case UP:
-                System.out.println("Up key pressed");
                 commandTextField.setText(previousCommandRetriever.retrievePreviousCommand());
                 break;
             case DOWN:
                 try {
-                    System.out.println("Down key pressed");
                     commandTextField.setText(nextCommandRetriever.retrieveNextCommand());
                 } catch (HistoryException e) {
                     commandTextField.setText("");
                 }
-                break;
-            case TAB:
-                System.out.println("Tab key pressed");
-                commandTextField.setText("TAB KEY PRESSED");
                 break;
             default:
                 break;

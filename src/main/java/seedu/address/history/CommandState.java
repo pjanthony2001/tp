@@ -1,7 +1,7 @@
 package seedu.address.history;
 
 /**
- * placeholder
+ * The `CommandState` class represents commands entered by the user that are executed successfully.
  */
 public class CommandState {
     private final String commandText;
