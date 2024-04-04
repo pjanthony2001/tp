@@ -13,10 +13,12 @@ import seedu.address.history.exceptions.HistoryException;
 
 class HistoryManagerTest {
     private HistoryManager<ModelState> history;
+    private HistoryManager<ModelState> bufferedHistory;
 
     @BeforeEach
     void setup() {
-        history = new HistoryManager<ModelState>(TYPICAL_START_MODEL_STATE, false);
+        history = new HistoryManager<>(TYPICAL_START_MODEL_STATE, false);
+        bufferedHistory = new HistoryManager<>(TYPICAL_START_MODEL_STATE, true);
     }
 
     @Test
@@ -45,7 +47,6 @@ class HistoryManagerTest {
 
     @Test
     void getCurrStateHasBuffer_typicalStartState_successfullyReturnsStartState() throws HistoryException {
-        ModelState modelState = history.getCurrStateHasBuffer();
-        assertEquals(modelState, TYPICAL_START_MODEL_STATE);
+        assertThrows(HistoryException.class, () -> bufferedHistory.getCurrStateHasBuffer());
     }
 }

@@ -103,7 +103,7 @@ public interface Model {
 
     CommandState getCurrentCommandState();
 
-    void updateCommandState(String command) throws HistoryException;
+    void updateCommandState(String command);
 
     String retrievePreviousCommand() throws HistoryException;
 

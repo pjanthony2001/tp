@@ -69,11 +69,8 @@ public class LogicManager implements Logic {
             throw new CommandException(String.format(HISTORY_SAVE_ERROR_FORMAT, e.getMessage()), e);
         }
 
-        try {
-            model.updateCommandState(commandText);
-        } catch (HistoryException e) {
-            throw new CommandException(String.format(HISTORY_SAVE_ERROR_FORMAT, e.getMessage()), e);
-        }
+        model.updateCommandState(commandText);
+
 
         return commandResult;
     }
