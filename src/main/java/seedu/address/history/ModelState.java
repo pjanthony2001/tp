@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCalendar;
 import seedu.address.model.person.Person;
 
 
@@ -18,18 +19,22 @@ public class ModelState {
     private final ReadOnlyAddressBook addressBook;
     private final Predicate<? super Person> filteredPersonsListPredicate;
 
+    private final ReadOnlyCalendar calendar;
+
     /**
      * Constructs a new ModelState object with the given command and task list.
      *
      * @param command                      The command executed to reach this state.
      * @param addressBook                  The list of tasks at this state.
      * @param filteredPersonsListPredicate The predicate of the filtered list
+     * @param calendar
      */
     public ModelState(Command command, ReadOnlyAddressBook addressBook,
-                      Predicate<? super Person> filteredPersonsListPredicate) {
+                      Predicate<? super Person> filteredPersonsListPredicate, ReadOnlyCalendar calendar) {
         this.command = command;
         this.addressBook = addressBook;
         this.filteredPersonsListPredicate = filteredPersonsListPredicate;
+        this.calendar = calendar;
     }
 
     /**
@@ -57,6 +62,10 @@ public class ModelState {
      */
     public Predicate<? super Person> getFilteredPersonsListPredicate() {
         return filteredPersonsListPredicate;
+    }
+
+    public ReadOnlyCalendar getCalendar() {
+        return calendar;
     }
 
     @Override

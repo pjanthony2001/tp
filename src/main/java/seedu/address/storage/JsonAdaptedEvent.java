@@ -65,7 +65,9 @@ class JsonAdaptedEvent {
                     Time.class.getSimpleName()));
         }
 
-        // @Rishit NEED TO ADD IS VALID TIME CHECK
+        if (!Time.isValidTime(time)) {
+            throw new IllegalValueException(Time.MESSAGE_CONSTRAINTS);
+        }
         final Time modelTime = new Time(time);
 
         if (clientName == null) {

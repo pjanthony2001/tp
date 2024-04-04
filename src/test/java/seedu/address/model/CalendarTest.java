@@ -138,7 +138,7 @@ public class CalendarTest {
     /**
      * A stub ReadOnlyCalendar whose events list can violate interface constraints.
      */
-    private static class CalendarStub implements ReadOnlyCalendar {
+    private static class CalendarStub extends Calendar {
         private final ObservableList<Event> events = FXCollections.observableArrayList();
 
         CalendarStub(Collection<Event> events) {

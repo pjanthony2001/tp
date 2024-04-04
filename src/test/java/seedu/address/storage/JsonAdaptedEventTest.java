@@ -48,11 +48,10 @@ public class JsonAdaptedEventTest {
 
     @Test
     public void toModelType_invalidTime_throwsIllegalValueException() {
-        //        JsonAdaptedEvent event = new JsonAdaptedEvent(VALID_HEADING, INVALID_TIME,
-        //                VALID_CLIENT_NAME, VALID_DESCRIPTION);
-        //        String expectedMessage = Time.MESSAGE_CONSTRAINTS;
-        //        assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
-        //        @Rishit modify this test to check for valid time
+        JsonAdaptedEvent event = new JsonAdaptedEvent(VALID_HEADING, INVALID_TIME,
+                VALID_CLIENT_NAME, VALID_DESCRIPTION);
+        String expectedMessage = Time.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
     }
 
     @Test

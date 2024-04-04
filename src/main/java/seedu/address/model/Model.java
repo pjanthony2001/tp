@@ -130,4 +130,6 @@ public interface Model {
      * {@code events} must not contain duplicate persons.
      */
     void setEvents(List<Event> events);
+
+    void setCalendar(ReadOnlyCalendar calendar);
 }

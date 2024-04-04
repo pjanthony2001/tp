@@ -5,9 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
+import seedu.address.storage.JsonSerializableCalendar;
 
 /**
  * Wraps all data at the calendar level
@@ -104,6 +106,11 @@ public class Calendar implements ReadOnlyCalendar {
     @Override
     public ObservableList<Event> getEventList() {
         return events.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ReadOnlyCalendar deepCopy() throws IllegalValueException {
+        return new JsonSerializableCalendar(this).toModelType();
     }
 
     @Override

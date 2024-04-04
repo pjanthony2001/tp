@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Event;
 
 /**
@@ -12,4 +13,5 @@ public interface ReadOnlyCalendar {
      * This list will not contain any duplicate events?.
      */
     ObservableList<Event> getEventList();
+    ReadOnlyCalendar deepCopy() throws IllegalValueException;
 }

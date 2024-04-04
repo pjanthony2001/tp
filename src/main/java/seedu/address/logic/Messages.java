@@ -49,11 +49,11 @@ public class Messages {
                 .append("; Email: ")
                 .append(person.getEmail())
                 .append("; Address: ")
-                .append(person.getAddress())
+                .append(person.getAddress().map(Object::toString).orElse(""))
                 .append("; Next Of Kin: ")
-                .append(person.getNextOfKin())
+                .append(person.getNextOfKin().map(Object::toString).orElse(""))
                 .append("; Description: ")
-                .append(person.getDescription())
+                .append(person.getDescription().map(Object::toString).orElse(""))
                 .append("; Tags: ");
         person.getTags().forEach(builder::append);
         return builder.toString();
