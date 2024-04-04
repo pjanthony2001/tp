@@ -1,7 +1,5 @@
 package seedu.address.testutil;
 
-import static seedu.address.model.event.Time.DATE_TIME_FORMATTER;
-
 import java.time.LocalDateTime;
 import java.time.Month;
 
@@ -18,8 +16,8 @@ import seedu.address.model.person.Name;
 public class EventBuilder {
 
     public static final String DEFAULT_HEADING = "Meeting with Alice";
-    public static final String DEFAULT_TIME = DATE_TIME_FORMATTER
-            .format(LocalDateTime.of(2024, Month.APRIL, 12, 10, 0));
+    public static final String DEFAULT_TIME = Time.stringifyDate(LocalDateTime
+            .of(2024, Month.APRIL, 12, 10, 0));
     public static final String DEFAULT_DESCRIPTION = "Discuss Financial Matters";
     public static final String DEFAULT_NAME = "Alice Pauline";
 

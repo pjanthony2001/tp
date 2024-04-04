@@ -12,7 +12,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_UPDATE;
-import static seedu.address.model.event.Time.DATE_TIME_FORMATTER;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDateTime;
@@ -25,6 +24,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.event.Time;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -52,14 +52,14 @@ public class CommandTestUtil {
 
     public static final String VALID_HEADING_MEETING_WITH_ALICE = "Meeting with Alice";
     public static final String VALID_DESCRIPTION_MEETING_WITH_ALICE = "Discuss Financial Matters";
-    public static final String VALID_TIME_MEETING_WITH_ALICE = DATE_TIME_FORMATTER
-            .format(LocalDateTime.of(2024, Month.APRIL, 12, 10, 0));
+    public static final String VALID_TIME_MEETING_WITH_ALICE = Time.stringifyDate(LocalDateTime
+            .of(2024, Month.APRIL, 12, 10, 0));
     public static final String VALID_CLIENT_NAME_MEETING_WITH_ALICE = "Alice Pauline";
 
     public static final String VALID_HEADING_HOUSE_CHECKUP_BENSON = "House Checkup Benson";
     public static final String VALID_DESCRIPTION_HOUSE_CHECKUP_BENSON = "Discuss Medical Matters";
-    public static final String VALID_TIME_HOUSE_CHECKUP_BENSON = DATE_TIME_FORMATTER
-            .format(LocalDateTime.of(2024, Month.APRIL, 13, 11, 0));
+    public static final String VALID_TIME_HOUSE_CHECKUP_BENSON = Time.stringifyDate(LocalDateTime
+            .of(2024, Month.APRIL, 13, 11, 0));
     public static final String VALID_CLIENT_NAME_HOUSE_CHECKUP_BENSON = "Benson";
 
 
