@@ -482,7 +482,9 @@ _This command allows you to view a client's information in a more detailed manne
 **Walkthrough:**
 
 The screenshots below are what you would expect when using the `display` command. In this example, after using the `list` command,
-the full clients list is displayed. Thereafter, the `display Peter` command was used, displaying Peter.
+the full clients list is displayed. Thereafter, the `display Peter` command was used, displaying Peter. The cursor automatically moves
+to the description box, allowing you to make changes to Peter's details. After making the necessary changes, hit enter. The details will be updated
+and you will be redirected back to the home page with the clients list. At no stage do you need to reach for the mouse!
 
 <div class="image-container" align="middle" style="display:flex">
     <pic src="images/user-guide/display_command_before.png" alt="list">
