@@ -54,13 +54,15 @@ public class FindCommand extends Command {
             AddressContainsKeywordsPredicate addressPredicate, EmailContainsKeywordsPredicate emailPredicate,
             TagContainsKeywordsPredicate tagPredicate, KinContainsKeywordsPredicate kinPredicate,
             DescriptionContainsKeywordsPredicate descriptionPredicate) {
-        assert namePredicate != null;
-        assert phonePredicate != null;
-        assert addressPredicate != null;
-        assert emailPredicate != null;
-        assert tagPredicate != null;
-        assert kinPredicate != null;
-        assert descriptionPredicate != null;
+        super.setReversible(true);
+        requireNonNull(namePredicate);
+        requireNonNull(namePredicate);
+        requireNonNull(phonePredicate);
+        requireNonNull(addressPredicate);
+        requireNonNull(emailPredicate);
+        requireNonNull(tagPredicate);
+        requireNonNull(kinPredicate);
+        requireNonNull(descriptionPredicate);
         predicates = Arrays.asList(namePredicate, phonePredicate, addressPredicate,
                 emailPredicate, tagPredicate, kinPredicate, descriptionPredicate);
     }
@@ -70,9 +72,7 @@ public class FindCommand extends Command {
         requireNonNull(model);
 
         Optional<Predicate<Person>> combinedPredicate = predicates.stream().reduce(Predicate::or);
-        if (combinedPredicate.isPresent()) {
-            model.updateFilteredPersonList(combinedPredicate.get());
-        }
+        combinedPredicate.ifPresent(model::updateFilteredPersonList);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }

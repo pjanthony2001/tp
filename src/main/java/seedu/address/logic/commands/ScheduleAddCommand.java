@@ -100,6 +100,6 @@ public class ScheduleAddCommand extends ScheduleCommand {
      */
     @Override
     public String getCommandString() {
-        return COMMAND_WORD;
+        return "schedule " + COMMAND_WORD;
     }
 }
