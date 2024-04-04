@@ -623,14 +623,14 @@ _These are a list of helpful actions to facilitate the ease of use of our applic
 </box>
 
 
-| Action | Description                                       |
-|--------|---------------------------------------------------|
-| `Up`   | Displays to the previous command entered, if any. |
-| `Down` | Displays the next command entered, if any.        |
+| Action | Description                                    |
+|--------|------------------------------------------------|
+| `Up`   | Displays the previous command entered, if any. |
+| `Down` | Displays the next command entered, if any.     |
 
 <box type="info">
 
-**Note**: A message will be displayed in the dialog to notify users when there are no previous/next command available.
+**Note**: A message will be displayed in the dialog "You can't rollback/roll forward the state anymore!" to notify users when there are no previous/next command available.
 </box>
 
 ### Saving the data
