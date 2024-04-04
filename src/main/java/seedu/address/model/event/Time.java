@@ -5,7 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoField;
 
 /**
  * An object that represents the time for a particular event
@@ -47,11 +49,27 @@ public class Time {
      * @throws DateTimeParseException If the input string cannot be parsed into a valid LocalDateTime.
      */
     private static LocalDateTime parseDate(String date) {
+
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
-        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("M/d/yyyy");
-        DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter2 = new DateTimeFormatterBuilder()
+                .appendPattern("M/d/yyyy")
+                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+                .toFormatter();
+        DateTimeFormatter formatter3 = new DateTimeFormatterBuilder()
+                .appendPattern("yyyy-MM-dd")
+                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+                .toFormatter();
         DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        DateTimeFormatter formatter5 = DateTimeFormatter.ofPattern("MMM d yyyy");
+        DateTimeFormatter formatter5 = new DateTimeFormatterBuilder()
+                .appendPattern("MMM d yyyy")
+                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+                .toFormatter();
         DateTimeFormatter formatter6 = DateTimeFormatter.ofPattern("EEEE, MMMM, dd, yyyy - hh:mm a");
         DateTimeFormatter[] formatters = {formatter1, formatter2, formatter3, formatter4, formatter5, formatter6};
 
