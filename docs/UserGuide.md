@@ -587,7 +587,7 @@ Once the command is entered, the event should be added to the events panel on th
 
 _This command allows you to remove an appointment with the specified parameters._
 
-**Format:** `schedule add h/HEADING`
+**Format:** `schedule delete h/HEADING`
 
 <panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
 <markdown>
