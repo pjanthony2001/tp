@@ -33,7 +33,7 @@ public class UniqueEventList implements Iterable<Event> {
      */
     public boolean contains(Event toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
+        return internalList.stream().anyMatch(toCheck::isSameEvent);
     }
 
     /**
@@ -119,7 +119,7 @@ public class UniqueEventList implements Iterable<Event> {
     private boolean eventsAreUnique(List<Event> events) {
         for (int i = 0; i < events.size() - 1; i++) {
             for (int j = i + 1; j < events.size(); j++) {
-                if (events.get(i).equals(events.get(j))) {
+                if (events.get(i).isSameEvent(events.get(j))) {
                     return false;
                 }
             }
