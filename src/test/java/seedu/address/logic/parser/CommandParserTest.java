@@ -13,7 +13,6 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -35,8 +34,14 @@ import seedu.address.logic.commands.UpdateCommand.UpdatePersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.Heading;
+import seedu.address.model.person.AddressContainsKeywordsPredicate;
+import seedu.address.model.person.DescriptionContainsKeywordsPredicate;
+import seedu.address.model.person.EmailContainsKeywordsPredicate;
+import seedu.address.model.person.KinContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PhoneContainsKeywordsPredicate;
+import seedu.address.model.person.TagContainsKeywordsPredicate;
 import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.EventUtil;
 import seedu.address.testutil.PersonBuilder;
@@ -99,10 +104,19 @@ public class CommandParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        assertTrue(parser.parseCommand(FindCommand.COMMAND_WORD + " n/foo") instanceof FindCommand);
+        NameContainsKeywordsPredicate namePredicate = new NameContainsKeywordsPredicate(Arrays.asList("k"));
+        AddressContainsKeywordsPredicate addressPredicate = new AddressContainsKeywordsPredicate(Arrays.asList("a"));
+        PhoneContainsKeywordsPredicate phonePredicate = new PhoneContainsKeywordsPredicate(Arrays.asList("1"));
+        EmailContainsKeywordsPredicate emailPredicate = new EmailContainsKeywordsPredicate(Arrays.asList("e"));
+        TagContainsKeywordsPredicate tagPredicate = new TagContainsKeywordsPredicate(Arrays.asList("t"));
+        KinContainsKeywordsPredicate kinPredicate = new KinContainsKeywordsPredicate(Arrays.asList("k"));
+        DescriptionContainsKeywordsPredicate descriptionPredicate =
+            new DescriptionContainsKeywordsPredicate(Arrays.asList("d"));
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+                FindCommand.COMMAND_WORD + " " + "n/k a/a k/k t/t d/d p/1 e/e");
+        assertEquals(new FindCommand(namePredicate, phonePredicate, addressPredicate, emailPredicate,
+            tagPredicate, kinPredicate, descriptionPredicate), command);
     }
 
     @Test
