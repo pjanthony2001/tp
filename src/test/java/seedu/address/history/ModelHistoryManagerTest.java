@@ -46,7 +46,7 @@ class HistoryManagerTest {
     }
 
     @Test
-    void getCurrStateHasBuffer_typicalStartState_successfullyReturnsStartState() throws HistoryException {
+    void getCurrStateHasBuffer_typicalStartState_successfullyReturnsStartState() {
         assertThrows(HistoryException.class, () -> bufferedHistory.getCurrStateHasBuffer());
     }
 }
