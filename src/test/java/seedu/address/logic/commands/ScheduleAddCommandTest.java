@@ -92,7 +92,7 @@ class ScheduleAddCommandTest {
     @Test
     public void getCommandStringTest() {
         ScheduleAddCommand scheduleAddCommand = new ScheduleAddCommand(MEETING_WITH_ALICE);
-        String expected = ScheduleAddCommand.COMMAND_WORD;
+        String expected = "schedule " + ScheduleAddCommand.COMMAND_WORD;
         assertEquals(expected, scheduleAddCommand.getCommandString());
     }
     /**
