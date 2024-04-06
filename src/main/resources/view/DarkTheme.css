@@ -1,3 +1,4 @@
+// Colors inspired by: https://github.com/AY2324S1-CS2103T-W12-1/tp
 .background {
     -fx-background-color: derive(#2E4374, 20%);
     background-color: #293a66; /* Used in the default.html file */
