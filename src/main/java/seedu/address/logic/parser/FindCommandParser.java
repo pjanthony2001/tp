@@ -31,6 +31,8 @@ public class FindCommandParser implements Parser<FindCommand> {
      * and returns a FindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+
+    @SuppressWarnings("unchecked")
     public FindCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty() || trimmedArgs.length() <= 2) {
@@ -49,6 +51,9 @@ public class FindCommandParser implements Parser<FindCommand> {
         List<String> tagKeywords = argMultimap.getAllValues(PREFIX_TAG);
         List<String> descriptionKeywords = argMultimap.getAllValues(PREFIX_DESCRIPTION);
 
+        checkForNulls(nameKeywords, phoneKeywords, emailKeywords,
+            addressKeywords, tagKeywords, kinKeywords, descriptionKeywords);
+
         return new FindCommand(new NameContainsKeywordsPredicate(nameKeywords),
                 new PhoneContainsKeywordsPredicate(phoneKeywords),
                 new AddressContainsKeywordsPredicate(addressKeywords),
@@ -58,4 +63,14 @@ public class FindCommandParser implements Parser<FindCommand> {
                 new DescriptionContainsKeywordsPredicate(descriptionKeywords));
     }
 
+    private void checkForNulls(List<String>... lists) throws ParseException {
+        for (List<String> list : lists) {
+            for (String str: list) {
+                if (str.trim().isEmpty()) {
+                    throw new ParseException(
+                            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                }
+            }
+        }
+    }
 }
