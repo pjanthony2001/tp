@@ -1,7 +1,6 @@
 package seedu.address.model.person;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
@@ -10,7 +9,7 @@ import seedu.address.commons.util.ToStringBuilder;
  * Tests that a {@code Person}'s {@code Description} matches any of the
  * keywords given.
  */
-public class DescriptionContainsKeywordsPredicate implements Predicate<Person> {
+public class DescriptionContainsKeywordsPredicate extends KeywordMatcherPredicate {
     private final List<String> keywords;
 
     public DescriptionContainsKeywordsPredicate(List<String> keywords) {
