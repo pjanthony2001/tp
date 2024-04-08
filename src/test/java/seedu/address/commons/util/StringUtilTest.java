@@ -49,9 +49,7 @@ public class StringUtilTest {
     //---------------- Tests for containsWordIgnoreCase --------------------------------------
 
     /*
-     * Invalid equivalence partitions for word: null, empty, multiple words
      * Invalid equivalence partitions for sentence: null
-     * The four test cases below test one invalid input at a time.
      */
 
     @Test
@@ -60,20 +58,19 @@ public class StringUtilTest {
     }
 
     @Test
-    public void containsWordIgnoreCase_emptyWord_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, "Word parameter cannot be empty", ()
-            -> StringUtil.containsWordIgnoreCase("typical sentence", "  "));
-    }
-
-    @Test
-    public void containsWordIgnoreCase_multipleWords_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, "Word parameter should be a single word", ()
-            -> StringUtil.containsWordIgnoreCase("typical sentence", "aaa BBB"));
-    }
-
-    @Test
     public void containsWordIgnoreCase_nullSentence_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> StringUtil.containsWordIgnoreCase(null, "abc"));
+    }
+
+    @Test
+    public void containsWordIgnoreCase_singleWord() {
+        assertTrue(StringUtil.containsWordIgnoreCase("a b c", "c"));
+    }
+
+    @Test
+    public void containsWordIgnoreCase_multipleWords() {
+        assertTrue(StringUtil.containsWordIgnoreCase("a b c", "a c"));
+        assertFalse(StringUtil.containsWordIgnoreCase("a b c", "a d"));
     }
 
     /*
