@@ -14,6 +14,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.history.BufferedHistory;
+import seedu.address.history.BufferedHistoryManager;
 import seedu.address.history.CommandState;
 import seedu.address.history.History;
 import seedu.address.history.HistoryManager;
@@ -35,7 +37,7 @@ public class ModelManager implements Model {
     private FilteredList<Person> filteredPersons;
     private ObservableList<Person> source;
     private final History<ModelState> modelHistory;
-    private final History<CommandState> commandHistory;
+    private final BufferedHistory<CommandState> commandHistory;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -63,8 +65,8 @@ public class ModelManager implements Model {
                     PREDICATE_SHOW_ALL_PERSONS, calendar);
         }
         startCommandState = generateCommandState(getStartCommand().getCommandString());
-        this.modelHistory = new HistoryManager<>(startModelState, false);
-        this.commandHistory = new HistoryManager<>(startCommandState, true);
+        this.modelHistory = new HistoryManager<>(startModelState);
+        this.commandHistory = new BufferedHistoryManager<>(startCommandState);
     }
 
     public ModelManager() {
