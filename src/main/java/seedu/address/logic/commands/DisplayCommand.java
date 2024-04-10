@@ -2,6 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -33,11 +36,21 @@ public class DisplayCommand extends Command {
 
         model.updateFilteredPersonList(predicate);
 
-        if (model.getFilteredPersonList().isEmpty()) {
+        String fullNameInput = predicate.getKeywords().stream()
+                .collect(Collectors.joining(" "))
+                .toLowerCase();
+
+        // Further refine the filtered list for an exact match.
+        List<Person> exactMatches = model.getFilteredPersonList().stream()
+                .filter(person -> person.getName().fullName.toLowerCase().equals(fullNameInput))
+                .collect(Collectors.toList());
+
+        if (exactMatches.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_NAME);
         }
 
-        Person firstMatchedPerson = model.getFilteredPersonList().get(0);
+        // Focus on the first strictly matched person.
+        Person firstMatchedPerson = exactMatches.get(0);
         model.updateFilteredPersonList(p -> p.equals(firstMatchedPerson));
 
 
