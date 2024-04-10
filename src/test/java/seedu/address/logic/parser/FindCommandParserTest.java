@@ -1,13 +1,22 @@
 package seedu.address.logic.parser;
-import seedu.address.logic.parser.exceptions.ParseException;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.AddressContainsKeywordsPredicate;
+import seedu.address.model.person.DescriptionContainsKeywordsPredicate;
+import seedu.address.model.person.EmailContainsKeywordsPredicate;
+import seedu.address.model.person.KinContainsKeywordsPredicate;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.PhoneContainsKeywordsPredicate;
+import seedu.address.model.person.TagContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
 
@@ -38,7 +47,22 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_expectedCommand_success() throws ParseException {
-        assertParseSuccess(parser, "n/alex yeoh a/clementi #40",
-            parser.parse(" n/alex yeoh a/clementi #40"));
+        NameContainsKeywordsPredicate namePred = new NameContainsKeywordsPredicate(
+            Arrays.asList("alex yeoh"));
+        PhoneContainsKeywordsPredicate phonePred = new PhoneContainsKeywordsPredicate(
+            Arrays.asList("123"));
+        AddressContainsKeywordsPredicate addressPred = new AddressContainsKeywordsPredicate(
+            Arrays.asList("clementi"));
+        TagContainsKeywordsPredicate tagPred = new TagContainsKeywordsPredicate(
+            Arrays.asList());
+        KinContainsKeywordsPredicate kinPred = new KinContainsKeywordsPredicate(
+            Arrays.asList());
+        EmailContainsKeywordsPredicate emailPred = new EmailContainsKeywordsPredicate(
+            Arrays.asList());
+        DescriptionContainsKeywordsPredicate descriptionPred = new DescriptionContainsKeywordsPredicate(
+            Arrays.asList());
+
+        assertParseSuccess(parser, " n/alex yeoh p/123 a/clementi" ,
+            new FindCommand(namePred, phonePred, addressPred, emailPred, tagPred, kinPred, descriptionPred));
     }
 }
