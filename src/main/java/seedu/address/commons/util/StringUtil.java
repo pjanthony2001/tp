@@ -35,8 +35,7 @@ public class StringUtil {
 
         return Arrays.stream(wordsInPhrase)
                 .allMatch(singleWordInPhrase -> Arrays.stream(wordsInSentence)
-                        .anyMatch(singleWordInSentence -> singleWordInSentence.startsWith(singleWordInPhrase)
-                                || singleWordInSentence.equals(singleWordInPhrase)));
+                        .anyMatch(singleWordInSentence -> singleWordInSentence.startsWith(singleWordInPhrase)));
     }
 
     /**
