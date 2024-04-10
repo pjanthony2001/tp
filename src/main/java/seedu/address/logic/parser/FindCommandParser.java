@@ -52,12 +52,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         List<String> tagKeywords = argMultimap.getAllValues(PREFIX_TAG);
         List<String> descriptionKeywords = argMultimap.getAllValues(PREFIX_DESCRIPTION);
 
-        if (nameKeywords.isEmpty() && phoneKeywords.isEmpty() && emailKeywords.isEmpty()
-            && addressKeywords.isEmpty() && tagKeywords.isEmpty() && kinKeywords.isEmpty()
-            && descriptionKeywords.isEmpty()) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        }
+        checkAllEmpty(nameKeywords, phoneKeywords, emailKeywords,
+            addressKeywords, tagKeywords, kinKeywords, descriptionKeywords);
 
         checkForNulls(nameKeywords, phoneKeywords, emailKeywords,
             addressKeywords, tagKeywords, kinKeywords, descriptionKeywords);
@@ -78,6 +74,15 @@ public class FindCommandParser implements Parser<FindCommand> {
             .anyMatch(String::isEmpty);
 
         if (hasEmptyString) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+    }
+
+    private void checkAllEmpty(List<String>... lists) throws ParseException {
+        boolean allEmpty = Arrays.stream(lists)
+            .allMatch(List::isEmpty);
+        if (allEmpty) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
