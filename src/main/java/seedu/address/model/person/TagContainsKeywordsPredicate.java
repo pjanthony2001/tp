@@ -2,48 +2,22 @@ package seedu.address.model.person;
 
 import java.util.List;
 
-import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.util.ToStringBuilder;
 
 /**
  * Tests that a {@code Person}'s {@code Tags} matches any of the keywords given.
  */
 public class TagContainsKeywordsPredicate extends KeywordMatcherPredicate {
-    private final List<String> keywords;
 
     public TagContainsKeywordsPredicate(List<String> keywords) {
-        this.keywords = keywords;
+        super(keywords);
     }
 
     @Override
     public boolean test(Person person) {
-        if (keywords.isEmpty()) {
-            return false;
-        }
-        boolean personmatches = keywords.stream()
-                .anyMatch(keyword -> person.getTags().stream()
-                    .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword)));
-        return personmatches;
+        return super.matchesKeywords(person.getTags().stream()
+                .map(tag -> tag.tagName)
+                .reduce("", (x, y) -> x + " " + y));
     }
 
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
 
-        // instanceof handles nulls
-        if (!(other instanceof TagContainsKeywordsPredicate)) {
-            return false;
-        }
-
-        TagContainsKeywordsPredicate otherTagContainsKeywordsPredicate = (TagContainsKeywordsPredicate) other;
-        return keywords.equals(otherTagContainsKeywordsPredicate.keywords);
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this).add("keywords", keywords).toString();
-    }
 }
-

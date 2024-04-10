@@ -10,15 +10,8 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.person.AddressContainsKeywordsPredicate;
-import seedu.address.model.person.DescriptionContainsKeywordsPredicate;
-import seedu.address.model.person.EmailContainsKeywordsPredicate;
-import seedu.address.model.person.KinContainsKeywordsPredicate;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.KeywordMatcherPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.PhoneContainsKeywordsPredicate;
-import seedu.address.model.person.TagContainsKeywordsPredicate;
-
 /**
  * Finds and lists all persons in address book whose name contains any of the
  * argument keywords.
@@ -42,29 +35,13 @@ public class FindCommand extends Command {
 
     /**
      * Constructor for FindCommand
-     * @param namePredicate
-     * @param phonePredicate
-     * @param addressPredicate
-     * @param emailPredicate
-     * @param tagPredicate
-     * @param kinPredicate
-     * @param descriptionPredicate
      */
-    public FindCommand(NameContainsKeywordsPredicate namePredicate, PhoneContainsKeywordsPredicate phonePredicate,
-            AddressContainsKeywordsPredicate addressPredicate, EmailContainsKeywordsPredicate emailPredicate,
-            TagContainsKeywordsPredicate tagPredicate, KinContainsKeywordsPredicate kinPredicate,
-            DescriptionContainsKeywordsPredicate descriptionPredicate) {
+    public FindCommand(KeywordMatcherPredicate... predicates) {
         super.setReversible(true);
-        requireNonNull(namePredicate);
-        requireNonNull(namePredicate);
-        requireNonNull(phonePredicate);
-        requireNonNull(addressPredicate);
-        requireNonNull(emailPredicate);
-        requireNonNull(tagPredicate);
-        requireNonNull(kinPredicate);
-        requireNonNull(descriptionPredicate);
-        predicates = Arrays.asList(namePredicate, phonePredicate, addressPredicate,
-                emailPredicate, tagPredicate, kinPredicate, descriptionPredicate);
+        for (KeywordMatcherPredicate predicate : predicates) {
+            requireNonNull(predicate);
+        }
+        this.predicates = Arrays.asList(predicates);
     }
 
     @Override
