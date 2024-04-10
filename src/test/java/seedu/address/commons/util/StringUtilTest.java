@@ -68,6 +68,11 @@ public class StringUtilTest {
     }
 
     @Test
+    public void containsWordIgnoreCase_completeMatch() {
+        assertTrue(StringUtil.containsWordIgnoreCase("abc def", "abc"));
+    }
+
+    @Test
     public void containsWordIgnoreCase_multipleWords() {
         assertTrue(StringUtil.containsWordIgnoreCase("a b c", "a c"));
         assertFalse(StringUtil.containsWordIgnoreCase("a b c", "a d"));
