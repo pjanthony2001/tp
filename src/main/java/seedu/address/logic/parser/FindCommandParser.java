@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.logic.commands.FindCommand;
@@ -32,7 +33,7 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
 
-    @SuppressWarnings("unchecked")
+    @Override
     public FindCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty() || trimmedArgs.length() <= 2) {
@@ -64,13 +65,14 @@ public class FindCommandParser implements Parser<FindCommand> {
     }
 
     private void checkForNulls(List<String>... lists) throws ParseException {
-        for (List<String> list : lists) {
-            for (String str: list) {
-                if (str.trim().isEmpty()) {
-                    throw new ParseException(
-                            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-                }
-            }
+        boolean hasEmptyString = Arrays.stream(lists)
+            .flatMap(List::stream)
+            .map(String::trim)
+            .anyMatch(String::isEmpty);
+
+        if (hasEmptyString) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
     }
 }

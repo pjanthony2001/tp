@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Arrays;
 
 /**
  * Helper functions for handling strings.
@@ -32,20 +33,10 @@ public class StringUtil {
         String[] wordsInSentence = sentence.toLowerCase().split("\\s+");
         String[] wordsInPhrase = word.toLowerCase().split("\\s+");
 
-        for (String singleWordInPhrase : wordsInPhrase) {
-            boolean wordFound = false;
-            for (String singleWordInSentence : wordsInSentence) {
-                if (singleWordInSentence.startsWith(
-                    singleWordInPhrase) || singleWordInSentence.equals(singleWordInPhrase)) {
-                    wordFound = true;
-                    break;
-                }
-            }
-            if (!wordFound) {
-                return false;
-            }
-        }
-        return true;
+        return Arrays.stream(wordsInPhrase)
+                .allMatch(singleWordInPhrase -> Arrays.stream(wordsInSentence)
+                        .anyMatch(singleWordInSentence -> singleWordInSentence.startsWith(singleWordInPhrase)
+                                || singleWordInSentence.equals(singleWordInPhrase)));
     }
 
     /**
