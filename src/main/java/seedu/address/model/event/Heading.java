@@ -35,7 +35,7 @@ public class Heading {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidHeading(String test) {
-        return (test.length() < 70) && (test.matches(VALIDATION_REGEX));
+        return (test.length() <= 70) && (test.matches(VALIDATION_REGEX));
     }
 
     @Override

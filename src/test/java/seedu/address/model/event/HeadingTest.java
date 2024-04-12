@@ -38,6 +38,7 @@ class HeadingTest {
         assertTrue(Heading.isValidHeading("Capital Meeting with Tan")); // with capital letters
         assertTrue(Heading.isValidHeading("Meeting MEETING meeting meeting with MEETING MEETING MEETING man"));
         // long titles
+        assertTrue(Heading.isValidHeading("1234567890123456789012345678901234567890123456789012345678901234567890"));
     }
 
     @Test
