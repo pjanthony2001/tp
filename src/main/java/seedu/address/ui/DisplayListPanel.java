@@ -49,7 +49,7 @@ public class DisplayListPanel extends UiPart<Region> {
         DisplayPerson displayPerson = new DisplayPerson(person);
         displayListView.setCellFactory(listView -> new DisplayListPanel.PersonListViewCell());
         displayListView.setItems(displayPerson.getFieldDescriptions());
-        descriptionTextArea.setText(person.getDescription().get().value);
+        descriptionTextArea.setText(person.getDescription().map(Object::toString).orElse(""));
         descriptionTextArea.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         descriptionTextArea.setOnKeyPressed(event -> handleDescriptionEntered(event.getCode()));
 
