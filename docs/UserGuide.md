@@ -23,21 +23,21 @@ _This page is for ConnectCare users. If you're a developer, see also the
 ___
 
 ## Introduction
-Welcome to *ConnectCare User Guide*, your comprehensive resource for efficiently managing client contacts with ease and reliability!
-Designed for social workers grappling with demanding caseloads, *ConnectCare* empowers users to navigate their client interactions seamlessly. Whether you're troubleshooting issues, just getting started, or looking to enhance your workflow, this guide is tailored to meet your needs.
+Welcome to *ConnectCare User Guide*, your comprehensive resource for managing client contacts with ease!
+Designed to help you handle demanding caseloads, *ConnectCare* empowers you to navigate your client interactions seamlessly. Whether you're troubleshooting issues, just getting started, or looking to enhance your workflow, this guide has you covered.
 
 ## Who ConnectCare is For
 
-ConnectCare caters to the needs of social workers juggling high caseloads, providing a solution that streamlines client management processes. This application is ideal for both new and experienced users, offering intuitive features that prioritize efficiency, accuracy, and productivity. 
-Whether you're a seasoned professional or new to social work practice, ConnectCare is designed to enhance your workflow and elevate your client management experience. Furthermore, ConnectCare boasts a range of benefits that directly address the challenges faced by social workers, including: 
+ConnectCare is designed to help social workers with high caseloads, providing solutions that simplifies client management. Whether you're new to the field or a seasoned pro, ConnectCare offers intuitive features that prioritize efficiency, accuracy, and productivity. 
+Furthermore, ConnectCare boasts a range of benefits that directly address the needs of social workers, including: 
 
-* Increased Efficiency: Spend less time navigating the software and more time directly helping clients.
-* Reduced Errors: Minimize the possibility of errors caused by switching between input methods.
-* Boosted Productivity: Complete tasks faster and free up valuable time for client interaction.
+* **Increased Efficiency:** Spend less time on software and more time directly helping clients.
+* **Reduced Errors:** Minimize errors caused by switching between input methods.
+* **Boosted Productivity:** Complete tasks faster and free up valuable time for client interaction.
 
 ##### Embrace a Keyboard-Centric Approach
 
-Social workers often spend significant time documenting and updating client information.  By minimizing the need to use a mouse, ConnectCare allows for a smoother workflow, especially when working remotely or on laptops.
+Social workers often spend significant time documenting and updating client information.  By minimizing the use of your mouse, ConnectCare allows for a smoother workflow, especially when working remotely or on laptops.
 
 This approach can significantly reduce:
 
@@ -47,16 +47,15 @@ This approach can significantly reduce:
 
 ##### Work Offline, Stay Productive
 
-One of the key benefits of ConnectCare is that it doesn't require a constant internet connection. This allows you to work seamlessly even in areas with limited or no internet access.  Whether you're conducting a home visit or working remotely in the field, ConnectCare ensures you can access and update client information efficiently.
+ConnectCare doesn't need constant internet. This means you can update client information even in areas with spotty reception. Perfect for home visits, field work, or anywhere life takes you.
 
 ##### Sensitive Data is kept Secure
 
-We understand that social workers handle sensitive client information. Since ConnectCare functions offline, your data never needs to be transmitted over the internet or stored on remote servers. This significantly reduces the risk of unauthorized access compared to cloud-based solutions. ConnectCare prioritizes data security by storing information [locally](#local) on your device.
+ConnectCare takes data security seriously. Unlike some systems, ConnectCare stores your client information directly on your device, not on the internet. This reduces the risk of unauthorized access, keeping your client information safe and secure.
 
 ##### Focus on Your Clients, Not Software
 
-By streamlining workflows and offering social work-specific features, ConnectCare empowers you to focus on what matters most: your clients. You can spend more time building rapport with clients, respond to inquiries and needs more promptly and ultimately focus on delivering high-quality care.
-
+ConnectCare simplifies tasks, freeing up your time for what truly matters - building relationships with your clients. Respond faster, deliver better care, and make a real difference in their lives.
 ___
 
 ## Who This Guide Is For
@@ -67,7 +66,7 @@ ___
 
 ## How to Use This Guide
 
-There is no wrong way to read this guide: if you want to skip ahead, go for it! Each section is contained entirely in itself, and you can find what you are looking for without needing to read the previous sections. However, we recommend that you read through the entire guide at least once before utilizing the application, so that you would have a more thorough understanding of the all necessary features.
+There is no wrong way to read this guide: if you want to skip ahead, go for it! Each section is contained entirely in itself, and you can find what you are looking for without needing to read the previous sections.
 
 
 This guide has 4 main sections:
@@ -102,13 +101,13 @@ Important warnings that you should keep in mind while using this User Guide.
 
 ___
 
-## Quick start
+# Quick start
 <IMPROVE BY ADDING SCREENSHOTS AND LINKS>
 
 This section allows you to start caring for your clients as soon as possible!
 It will help you [install](#installation-instructions) and [start](#startup-instructions) using the application as fast as possible.
 
-### Installation instructions
+## Installation instructions
 1. To use ConnectCare you will require Java 11 to be installed in your computer.
 
 **If you have Java 11 installed**
@@ -138,7 +137,7 @@ It will help you [install](#installation-instructions) and [start](#startup-inst
 
 5. Copy the jar file to the folder you want to use as the home folder.
 
-### Startup instructions
+## Startup instructions
 
 6. Double-click on the `connectcare.jar` file to start the application. 
    - If you are facing issues, you can consult [this guide](https://www.wikihow.com/Run-a-.Jar-Java-File).
@@ -151,9 +150,9 @@ It will help you [install](#installation-instructions) and [start](#startup-inst
 
 ___
 
-## Features
+# Features
 
-### Notes about the command format:
+## Notes about the command format:
 -   Words in `UPPER_CASE` are the parameters to be supplied by the user.
     e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
@@ -169,8 +168,17 @@ ___
 -   Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.
     e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
-### Adding a new client: `add`
+## Client Management
+Connect care provides the following commands to help you manage your clients:
+* Adding a client: `add`
+* Deleting a client: `delete`
+* Updating a client: `update`
+* Listing all clients: `list`
+* Finding clients: `find`
+* Displaying a client's information: `display`
+* Clearing all entries: `clear`
 
+### Adding a client: `add`
 _This command adds a new client to your client list._
 
 **Format:** `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [k/NEXT_OF_KIN] [d/DESCRIPTION] [t/TAG]…`
@@ -251,28 +259,60 @@ As the commands given were invalid, there would be no changes to the client list
 
 &nbsp;
 
-### Listing all persons : `list`
-_This command shows a list of all persons._
+### Deleting a client: `delete`
 
-**Format:** `list`
+_This command allows you to delete a client at a specified `INDEX` from your client list._
 
-**Examples:**
+**Format:** `delete INDEX`
 
-The screenshots below are what you would expect when using the [`list`](#listing-all-persons-list) command. In this example, after using the [`find`](#locating-clients-by-name-find) command,
-only `Peter Crow` was shown in the list. Thereafter, the `list` command was used, displaying the entire list of client contacts.
-&nbsp;  
+<panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
+<markdown>
 
-<div class="image-container" align="middle" style="display:flex">
-    <pic src="images/user-guide/list_command_before.png" alt="list">
-        Figure 1.1: Before the list command is executed
-    </pic>
-    <pic src="images/user-guide/list_command_after.png" alt="list">
-        Figure 1.2: After the list command is executed
-    </pic>
-</div>
+| Parameter | Description                            | Remarks                                                                                            |
+|-----------|----------------------------------------|----------------------------------------------------------------------------------------------------|
+| INDEX     | Index of the client you want to delete | Index needs to be a number 1 or greater and cannot be more than the number of clients in your list |
+</markdown>
+</panel>
+
 &nbsp;
 
-### Updating a client : `update`
+**Examples:**
+- `delete 1` would delete the first client in your client list.
+- `delete 2` would delete the second client in your client list.
+
+**Walkthrough**:
+
+The screenshots below are what you would expect when using the `delete` command. In this example, after using the `list` command,
+the full clients list is displayed. Thereafter, the `delete 3` command was used, removing `John Doe`, the first person in the list, from the list of client contacts.
+
+<div class="image-container" align="middle" style="display:flex">
+    <pic src="images/user-guide/delete_command_before.png" alt="delete">
+        <markdown> Figure 1.2: Before the `delete 3` command is executed </markdown>
+    </pic>
+    <pic src="images/user-guide/delete_command_after.png" alt="delete">
+        <markdown> Figure 1.2: After the `delete 3` command is executed </markdown>
+    </pic>
+</div>
+
+&nbsp;
+
+What if the command was used with an incorrect index? In the example on the left, `delete 0` command was used, which is an invalid index.
+Here the error message shown is `Invalid command format! ... Parameters: INDEX (must be a positive integer)` which lets you know to retype the command with a larger index value.
+In the example on the right, `delete 4` is used, which again is invalid. Here the error message shown is `The person index provided is invalid` which lets you know to retype the command with a lower index.
+As the commands given were invalid, there would be no changes to the client list.
+
+&nbsp;
+
+<div class="image-container" align="middle" style="display: flex;">
+    <pic src="images/user-guide/delete_command_after_invalid_0.png" alt="delete"> 
+        <markdown> Figure 1.2: After the invalid `delete 0` command is executed </markdown>
+    </pic>
+    <pic src="images/user-guide/delete_command_after_invalid_5.png" alt="delete">
+        <markdown> Figure 1.3: After the invalid  `delete 4` command is executed </markdown> 
+    </pic>
+</div>
+
+### Updating a client: `update`
 
 _This command helps update existing client's information in the client list in the event that something changes._
 
@@ -345,7 +385,28 @@ As the commands given were invalid, there would be no changes to the client list
 
 &nbsp;
 
-### Locating clients by name: `find`
+### Listing all clients: `list`
+_This command shows a list of all persons._
+
+**Format:** `list`
+
+**Examples:**
+
+The screenshots below are what you would expect when using the [`list`](#listing-all-persons-list) command. In this example, after using the [`find`](#locating-clients-by-name-find) command,
+only `Peter Crow` was shown in the list. Thereafter, the `list` command was used, displaying the entire list of client contacts.
+&nbsp;  
+
+<div class="image-container" align="middle" style="display:flex">
+    <pic src="images/user-guide/list_command_before.png" alt="list">
+        Figure 1.1: Before the list command is executed
+    </pic>
+    <pic src="images/user-guide/list_command_after.png" alt="list">
+        Figure 1.2: After the list command is executed
+    </pic>
+</div>
+&nbsp;
+
+### Finding clients: `find`
 
 _This command allows you to find a specific client in your client list by any of a client's parameters_
 
@@ -409,6 +470,113 @@ have an address that contains address1 OR address2, for example:
 **Tip:**
 After searching for clients, you can use the `list` command to view your full list of clients again!
 </box>
+
+### Displaying a client's information: `display`
+
+_This command allows you to view a client's information in a more detailed manner_
+
+**Format:** `display NAME`
+
+<panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
+<markdown>
+
+| Parameter | Description                            | Remarks                                  |
+|-----------|----------------------------------------|------------------------------------------|
+| NAME      | Name of the client you want to display | Name must be present in the client list  |
+</markdown>
+</panel>
+
+&nbsp;
+
+**Examples:**
+
+`display Peter` would display all of Peter's information as a contact card on the application.
+
+**Walkthrough:**
+
+The screenshots below are what you would expect when using the `display` command. In this example, after using the `list` command,
+the full clients list is displayed. Thereafter, the `display Peter` command was used, displaying Peter. The cursor automatically moves
+to the description box, allowing you to make changes to Peter's details. After making the necessary changes, hit enter. The details will be updated
+and you will be redirected back to the home page with the clients list. At no stage do you need to reach for the mouse!
+
+<div class="image-container" align="middle" style="display:flex">
+    <pic src="images/user-guide/display_command_before.png" alt="list">
+        Figure 1.1: Before the display command is executed
+    </pic>
+    <pic src="images/user-guide/display_command_after.png" alt="list">
+        Figure 1.2: After the display command is executed
+    </pic>
+</div>
+
+<box type="warning">
+
+**Caution:**
+While you are in the display view, you cannot enter any commands in the command box other than the [list command](#listing-all-persons-list) which will swap you back into the list view.
+Any changes you make to description by reverting to the list view using this method would not be saved. Alternatively, you can the press ENTER key and the [undo command](#undoing-a-command-undo) to revert the changes.
+If you would like to resume entering commands, press the ENTER key in the description box (which will save your changes) to return to the list view.
+</box>
+
+### Clearing all entries : `clear`
+
+_This command allows you to purge your client list, removing **ALL** clients in your client list._
+
+Format: `clear`
+
+<box type="tip">
+
+**Tip:**
+Accidentally cleared your client list? Worry not, the `undo` feature might be able to help you get it back!
+</box>
+
+## Appointment Management
+ConnectCare provides the following commands to help you manage your appointments:
+* Adding an appointment: `schedule add`
+* Deleting an appointment: `schedule delete`
+
+### Adding an appointment: `schedule add`
+
+_This command allows you to add an appointment with the specified parameters._
+
+**Format:** `schedule add h/HEADING t/TIME d/DESCRIPTION n/CLIENT_NAME `
+
+<panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
+<markdown>
+
+| Parameter   | Description                               | Remarks                                                                                                                                                                                                                                                                                                                                                           |
+|-------------|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| HEADING     | The heading of the appointment            | The heading must contain only alpha-numeric characters and should not be more than 70 characters                                                                                                                                                                                                                                                                  |
+| TIME        | The time of the appointment               | The time of the appointment must conform to one of these formats: "M/d/yyyy HHmm", "M/d/yyyy", "yyyy-MM-dd", "yyyy-MM-dd HHmm", "MMM d yyyy", "EEEE, MMMM, dd, yyyy - hh:mm a". Refer to [this Java Documentation article](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html) for more information about what these formats mean. |
+| DESCRIPTION | The description of the appointment        | Description should not be blank                                                                                                                                                                                                                                                                                                                                   |
+| CLIENT_NAME | The name of the client in the appointment | The name should contain only alpha-numeric characters and spaces and shouldn't be blank                                                                                                                                                                                                                                                                           |
+</markdown>
+</panel>
+
+Once the command is entered, the event should be added to the events panel on the right of the application.
+
+### Deleting Appointments: `schedule delete`
+
+_This command allows you to remove an appointment with the specified parameters._
+
+**Format:** `schedule delete h/HEADING`
+
+<panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
+<markdown>
+
+| Parameter   | Description                               | Remarks                                                           |
+|-------------|-------------------------------------------|-------------------------------------------------------------------|
+| HEADING     | The heading of the appointment            | Heading must be present in the client list and is case sensitive. |
+</markdown>
+</panel>
+
+Once the command is entered, the event should be removed from the events panel on the right of the application.
+
+## Program Controls
+ConnectCare provides the following commands for navigating the application:
+* Undoing a command: `undo`
+* Redoing a command: `redo`
+* Shortcuts
+* `up` arrow
+* `down` arrow
 
 ### Undoing a command : `undo`
 
@@ -476,174 +644,8 @@ For a comprehensive deep-dive into the redo command, please refer to the [Implem
 
 </box>
 
-### Displaying a client's information : `display`
-
-_This command allows you to view a client's information in a more detailed manner_
-
-**Format:** `display NAME`
-
-<panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
-<markdown>
-
-| Parameter | Description                            | Remarks                                  |
-|-----------|----------------------------------------|------------------------------------------|
-| NAME      | Name of the client you want to display | Name must be present in the client list  |
-</markdown>
-</panel>
-
-&nbsp;
-
-**Examples:**
-
-`display Peter` would display all of Peter's information as a contact card on the application.
-
-**Walkthrough:**
-
-The screenshots below are what you would expect when using the `display` command. In this example, after using the `list` command,
-the full clients list is displayed. Thereafter, the `display Peter` command was used, displaying Peter. The cursor automatically moves
-to the description box, allowing you to make changes to Peter's details. After making the necessary changes, hit enter. The details will be updated
-and you will be redirected back to the home page with the clients list. At no stage do you need to reach for the mouse!
-
-<div class="image-container" align="middle" style="display:flex">
-    <pic src="images/user-guide/display_command_before.png" alt="list">
-        Figure 1.1: Before the display command is executed
-    </pic>
-    <pic src="images/user-guide/display_command_after.png" alt="list">
-        Figure 1.2: After the display command is executed
-    </pic>
-</div>
-
-<box type="warning">
-
-**Caution:**
-While you are in the display view, you cannot enter any commands in the command box other than the [list command](#listing-all-persons-list) which will swap you back into the list view. 
-Any changes you make to description by reverting to the list view using this method would not be saved. Alternatively, you can the press ENTER key and the [undo command](#undoing-a-command-undo) to revert the changes.
-If you would like to resume entering commands, press the ENTER key in the description box (which will save your changes) to return to the list view.
-</box>
-
-
-### Deleting a client: `delete`
-
-_This command allows you to delete a client at a specified `INDEX` from your client list._
-
-**Format:** `delete INDEX`
-
-<panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
-<markdown>
-
-| Parameter | Description                            | Remarks                                                                                            |
-|-----------|----------------------------------------|----------------------------------------------------------------------------------------------------|
-| INDEX     | Index of the client you want to delete | Index needs to be a number 1 or greater and cannot be more than the number of clients in your list |
-</markdown>
-</panel>
-
-&nbsp;
-
-**Examples:**
-- `delete 1` would delete the first client in your client list.
-- `delete 2` would delete the second client in your client list.
-
-**Walkthrough**:
-
-The screenshots below are what you would expect when using the `delete` command. In this example, after using the `list` command,
-the full clients list is displayed. Thereafter, the `delete 3` command was used, removing `John Doe`, the first person in the list, from the list of client contacts.
-
-<div class="image-container" align="middle" style="display:flex">
-    <pic src="images/user-guide/delete_command_before.png" alt="delete">
-        <markdown> Figure 1.2: Before the `delete 3` command is executed </markdown>
-    </pic>
-    <pic src="images/user-guide/delete_command_after.png" alt="delete">
-        <markdown> Figure 1.2: After the `delete 3` command is executed </markdown>
-    </pic>
-</div>
-
-&nbsp;  
-
-What if the command was used with an incorrect index? In the example on the left, `delete 0` command was used, which is an invalid index.
-Here the error message shown is `Invalid command format! ... Parameters: INDEX (must be a positive integer)` which lets you know to retype the command with a larger index value.
-In the example on the right, `delete 4` is used, which again is invalid. Here the error message shown is `The person index provided is invalid` which lets you know to retype the command with a lower index.
-As the commands given were invalid, there would be no changes to the client list.
-
-&nbsp;  
-
-<div class="image-container" align="middle" style="display: flex;">
-    <pic src="images/user-guide/delete_command_after_invalid_0.png" alt="delete"> 
-        <markdown> Figure 1.2: After the invalid `delete 0` command is executed </markdown>
-    </pic>
-    <pic src="images/user-guide/delete_command_after_invalid_5.png" alt="delete">
-        <markdown> Figure 1.3: After the invalid  `delete 4` command is executed </markdown> 
-    </pic>
-</div>
-
-&nbsp;  
-
-### Clearing all entries : `clear`
-
-_This command allows you to purge your client list, removing **ALL** clients in your client list._
-
-Format: `clear`
-
-<box type="tip">
-
-**Tip:**
-Accidentally cleared your client list? Worry not, the `undo` feature might be able to help you get it back!
-</box>
-
-### Scheduling Appointments : `schedule`
-
-#### Adding Appointments : `schedule add`
-
-_This command allows you to add an appointment with the specified parameters._
-
-**Format:** `schedule add h/HEADING t/TIME d/DESCRIPTION n/CLIENT_NAME `
-
-<panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
-<markdown>
-
-| Parameter   | Description                               | Remarks                                                                                                                                                                                                                                                                                                                                                           |
-|-------------|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| HEADING     | The heading of the appointment            | The heading must contain only alpha-numeric characters and should not be more than 70 characters                                                                                                                                                                                                                                                                  |
-| TIME        | The time of the appointment               | The time of the appointment must conform to one of these formats: "M/d/yyyy HHmm", "M/d/yyyy", "yyyy-MM-dd", "yyyy-MM-dd HHmm", "MMM d yyyy", "EEEE, MMMM, dd, yyyy - hh:mm a". Refer to [this Java Documentation article](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html) for more information about what these formats mean. |
-| DESCRIPTION | The description of the appointment        | Description should not be blank                                                                                                                                                                                                                                                                                                                                   |
-| CLIENT_NAME | The name of the client in the appointment | The name should contain only alpha-numeric characters and spaces and shouldn't be blank                                                                                                                                                                                                                                                                           |
-</markdown>
-</panel>
-
-Once the command is entered, the event should be added to the events panel on the right of the application.
-
-#### Adding Appointments : `schedule delete`
-
-_This command allows you to remove an appointment with the specified parameters._
-
-**Format:** `schedule delete h/HEADING`
-
-<panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
-<markdown>
-
-| Parameter   | Description                               | Remarks                                                           |
-|-------------|-------------------------------------------|-------------------------------------------------------------------|
-| HEADING     | The heading of the appointment            | Heading must be present in the client list and is case sensitive. |
-</markdown>
-</panel>
-
-Once the command is entered, the event should be removed from the events panel on the right of the application.
-
-### Exiting the program : `exit`
-
-_This command allows you to exit the application._
-
-Format: `exit`
-
-<box type="tip">
-
-**Tip:**
-You can simply close the window using the X button too!
-</box>
-
 ### Shortcuts
-_These are a list of helpful actions to facilitate the ease of use of our application_
-
-#### Command Line Shortcuts
+_These are a list of keyboard actions to better navigate our application_
 
 <box type="tip">
 
@@ -666,7 +668,19 @@ _These are a list of helpful actions to facilitate the ease of use of our applic
 **Note**: Only commands that have been executed successfully will be saved.
 </box>
 
-### Saving the data
+## Exiting the program : `exit`
+
+_This command allows you to exit the application._
+
+Format: `exit`
+
+<box type="tip">
+
+**Tip:**
+You can simply close the window using the X button too!
+</box>
+
+## Saving the data
 
 Your locally saved client list will be updated after any change is made, so no further action needs to be taken when operating the application! On start-up, your existing client list (if it exists) will also be automatically loaded, so don't worry about that!
 
