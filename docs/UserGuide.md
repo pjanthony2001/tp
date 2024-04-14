@@ -150,7 +150,26 @@ It will help you [install](#installation-instructions) and [start](#startup-inst
 
 ___
 
-# Features
+# CLI guide
+Our application uses [CLI](#cli) commands. 
+
+## Structure
+Each command has the general structure:
+1. Main command
+2. Parameters
+
+To enter a command:
+1. Click on the text box with the placeholder text `Enter command here...`
+2. Type in your command, which is made up of a main command, followed by parameters if applicable
+
+<div class="image-container" align="middle" style="display:flex">
+    <pic src="images/user-guide/cli_tutorial/cli_tutorial_1.png" alt="cli">
+        <markdown> Figure 1.1: Application on startup </markdown>
+    </pic>
+    <pic src="images/user-guide/cli_tutorial/cli_tutorial_2.png" alt="cli">
+        <markdown> Figure 1.2: Application with command in textbox </markdown>
+    </pic>
+</div>
 
 ## Notes about the command format:
 -   Words in `UPPER_CASE` are the parameters to be supplied by the user.
@@ -167,6 +186,8 @@ ___
 
 -   Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.
     e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
+# Features
 
 ## Client Management
 Connect care provides the following commands to help you manage your clients:
@@ -232,7 +253,7 @@ After execution, the client `John Doe` is added successfully with the correspond
 
 <div class="image-container" align="middle" style="display:flex">
     <pic src="images/user-guide/add_command/add_command_before.png" alt="add">
-        <markdown> Figure 1.2: Before the `add` command is executed </markdown>
+        <markdown> Figure 1.1: Before the `add` command is executed </markdown>
     </pic>
     <pic src="images/user-guide/add_command/add_command_after.png" alt="add">
         <markdown> Figure 1.2: After the `add` command is executed </markdown>
@@ -287,7 +308,7 @@ the full clients list is displayed. Thereafter, the `delete 3` command was used,
 
 <div class="image-container" align="middle" style="display:flex">
     <pic src="images/user-guide/delete_command_before.png" alt="delete">
-        <markdown> Figure 1.2: Before the `delete 3` command is executed </markdown>
+        <markdown> Figure 1.1: Before the `delete 3` command is executed </markdown>
     </pic>
     <pic src="images/user-guide/delete_command_after.png" alt="delete">
         <markdown> Figure 1.2: After the `delete 3` command is executed </markdown>
@@ -305,10 +326,10 @@ As the commands given were invalid, there would be no changes to the client list
 
 <div class="image-container" align="middle" style="display: flex;">
     <pic src="images/user-guide/delete_command_after_invalid_0.png" alt="delete"> 
-        <markdown> Figure 1.2: After the invalid `delete 0` command is executed </markdown>
+        <markdown> Figure 1.3: After the invalid `delete 0` command is executed </markdown>
     </pic>
     <pic src="images/user-guide/delete_command_after_invalid_5.png" alt="delete">
-        <markdown> Figure 1.3: After the invalid  `delete 4` command is executed </markdown> 
+        <markdown> Figure 1.4: After the invalid  `delete 4` command is executed </markdown> 
     </pic>
 </div>
 
@@ -356,7 +377,7 @@ After execution, the client `Peter Crow` is updated successfully with the corres
 
 <div class="image-container" align="middle" style="display:flex">
     <pic src="images/user-guide/update_command/update_command_before.png" alt="update">
-        <markdown> Figure 1.2: Before the `update command is executed </markdown>
+        <markdown> Figure 1.1: Before the `update command is executed </markdown>
     </pic>
     <pic src="images/user-guide/update_command/update_command_after.png" alt="update">
         <markdown> Figure 1.2: After the `update` command is executed </markdown>
@@ -375,10 +396,10 @@ As the commands given were invalid, there would be no changes to the client list
 
 <div class="image-container" align="middle" style="display: flex;">
     <pic src="images/user-guide/update_command/update_command_after_with_invalid_client.png" alt="update"> 
-        <markdown> Figure 1.2: After the invalid `update` command with an invalid client is executed </markdown>
+        <markdown> Figure 1.3: After the invalid `update` command with an invalid client is executed </markdown>
     </pic>
     <pic src="images/user-guide/update_command/update_command_after_with_incorrect_parameters.png" alt="update">
-        <markdown> Figure 1.3: After the invalid  `update` command with invalid parameters is executed </markdown> 
+        <markdown> Figure 1.4: After the invalid  `update` command with invalid parameters is executed </markdown> 
     </pic>
 </div>
 
