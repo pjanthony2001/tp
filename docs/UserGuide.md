@@ -620,9 +620,9 @@ _This command allows you to remove an appointment with the specified parameters.
 <panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
 <markdown>
 
-| Parameter   | Description                               | Remarks                                                                                                                                                                                                                                                                                                                                                           |
-|-------------|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| HEADING     | The heading of the appointment            | The heading must contain only alpha-numeric characters and should not be more than 70 characters                                                                                                                                                                                                                                                                  |
+| Parameter   | Description                               | Remarks                                                           |
+|-------------|-------------------------------------------|-------------------------------------------------------------------|
+| HEADING     | The heading of the appointment            | Heading must be present in the client list and is case sensitive. |
 </markdown>
 </panel>
 
