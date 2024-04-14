@@ -186,12 +186,18 @@ _This command adds a new client to your client list._
 | a/ADDRESS      | Address of client that you want to add             | -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | k/NEXT_OF_KIN  | Next of Kin details of client that you want to add | Name must be alphanumeric                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | d/DESCRIPTION  | Description of client that you want to add         | Description should not be blank                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| t/TAG          | Tag to identify the client                         | A person can have any number of tags (or even 0)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| t/TAG          | Tag to identify the client                         | A person can have any number of tags (or even 0). Tags should be alphanumeric and should not contain spaces.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 
 
 <box type="tip" seamless>
   
-**Tip:** If you have difficulty adding clients, check if you have added the correct prefixes
+**Tip:** If you have difficulty adding clients, check if you have the correct prefixes
+
+</box>
+
+<box type="tip" seamless>
+
+**Tip:** If you want tags containing multiple words, consider using camel case (e.g. `t/fallRisk`).
 
 </box>
 </markdown>
