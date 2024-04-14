@@ -200,6 +200,12 @@ _This command adds a new client to your client list._
 **Tip:** If you want tags containing multiple words, consider using camel case (e.g. `t/fallRisk`).
 
 </box>
+
+<box type="tip" seamless>
+
+**Tip:** You can use spaces in place of special characters in the names you want to enter.
+
+</box>
 </markdown>
 </panel>
 
