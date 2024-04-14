@@ -345,6 +345,11 @@ _This command allows you to find a specific client in your client list by any of
 
 **Format:** `find [n/NAME]… [a/KEYWORD]… [e/KEYWORD]… [t/KEYWORD]… [k/KEYWORD]… [d/KEYWORD]… [p/KEYWORD]…`
 
+<box type="info">
+
+**Note:** This command finds clients that match any of your search terms.
+</box>
+
 <panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
 <markdown>
 
