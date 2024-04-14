@@ -480,21 +480,11 @@ _This command allows you to view a client's information in a more detailed manne
 </markdown>
 </panel>
 
+&nbsp;
+
 **Examples:**
 
 `display Peter` would display all of Peter's information as a contact card on the application.
-
-<panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
-<markdown>
-
-| Parameter | Description                     | Remarks                            |
-|-----------|---------------------------------|------------------------------------|
-| NAME      | Name of client you want to view | Name must be unique and compulsory |
-</markdown>
-</panel>
-
-**Examples:**
-- `display Peter` would display all of Peter's information as a contact card on the application.
 
 **Walkthrough:**
 
