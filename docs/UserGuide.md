@@ -175,6 +175,11 @@ _This command adds a new client to your client list._
 
 **Format:** `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [k/NEXT_OF_KIN] [d/DESCRIPTION] [t/TAG]…`
 
+<box type="info" seamless>
+
+**Note:** Names of users need to be unique and are case-sensitive.
+</box>
+
 <panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
 <markdown>
 
@@ -268,7 +273,7 @@ _This command helps update existing client's information in the client list in t
 
 <box type="info">
 
-**Note**: At least one optional parameter has to be given.
+**Note:** At least one optional parameter has to be given.
 </box>
 
 <panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
