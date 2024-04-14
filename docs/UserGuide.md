@@ -468,32 +468,21 @@ _This command allows you to view a client's information in a more detailed manne
 <panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
 <markdown>
 
-| Parameter | Description                            | Remarks                                  |
-|-----------|----------------------------------------|------------------------------------------|
-| NAME      | Name of the client you want to display | Name must be present in the client list  |
+| Parameter | Description                                 | Remarks                                  |
+|-----------|---------------------------------------------|------------------------------------------|
+| NAME      | Full name of the client you want to display | Name must be present in the client list  |
 </markdown>
 </panel>
 
 **Examples:**
 
-`display Peter` would display all of Peter's information as a contact card on the application.
+`display Peter Crouch` would display all of Peter's information as a contact card on the application.
 
-<panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
-<markdown>
-
-| Parameter | Description                     | Remarks                            |
-|-----------|---------------------------------|------------------------------------|
-| NAME      | Name of client you want to view | Name must be unique and compulsory |
-</markdown>
-</panel>
-
-**Examples:**
-- `display Peter` would display all of Peter's information as a contact card on the application.
 
 **Walkthrough:**
 
 The screenshots below are what you would expect when using the `display` command. In this example, after using the `list` command,
-the full clients list is displayed. Thereafter, the `display Peter` command was used, displaying Peter. The cursor automatically moves
+the full clients list is displayed. Thereafter, the `display Peter Crouch` command was used, displaying Peter. The cursor automatically moves
 to the description box, allowing you to make changes to Peter's details. After making the necessary changes, hit enter. The details will be updated
 and you will be redirected back to the home page with the clients list. At no stage do you need to reach for the mouse!
 
@@ -604,7 +593,7 @@ _This command allows you to add an appointment with the specified parameters._
 
 Once the command is entered, the event should be added to the events panel on the right of the application.
 
-#### Adding Appointments : `schedule delete`
+#### Deleting Appointments : `schedule delete`
 
 _This command allows you to remove an appointment with the specified parameters._
 
