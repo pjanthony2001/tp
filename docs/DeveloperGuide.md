@@ -263,8 +263,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 ### Schedule feature
 
-The schedule mechanism is facilitated by `LogicManager`. This class implements this important method:
-* `LogicManager#getEventList` - Returns the list of all the events.
+The schedule mechanism is facilitated by `LogicManager`.
 
 Step 1. The user executes the `schedule delete h/Meeting` command to delete the event with heading "Meeting". The `LogicManager` parses the command through `CommandParser#parseCommand()`.
 
