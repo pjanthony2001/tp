@@ -268,6 +268,27 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Easy to implement, and captures all aspects of the application in the state
   * Cons: May have performance issues in terms of memory usage.
 
+### Find feature
+
+The find function in the application uses the following components, which work together to parse a command, filter the existing client list and update the user interface accordingly
+
+#### Key Components
+
+1. `FindCommand` and `FindCommandParser`
+
+- `FindCommandParser` parses a given user input and extracts the search term(s), following which it creates a `FindCommand` object with the relevant predicates
+
+2. `KeywordMatcherPredicate` objects
+
+- When the `FindCommandParser` parses the user input, it creates `KeywordMatcherPredicate` objects, that each respectively filter a list based on keyword matches for a specific field.
+
+#### Implementation Details
+
+Command parsing and execution
+
+- The `FindCommandParser` reads the user input and instantiates a `FindCommand` object with the `KeywordMatcherPredicate` objects it creates
+- The `FindCommand` object then logically ORs the predicate objects to form a final predicate object, with which it interacts with the model to filter the persons list based on th predicate.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -514,7 +535,26 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Searching for a person
+
+1. Finding a person by name
+
+  1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+  1. Test case: `find n/John Doe` <br>
+     Expected: displays a persons list that only contains `John Doe`
+
+  1. Test case: `find n/J` <br>
+     Expected: displays a persons list with all the clients who's name fields contain a word that starts with `J`
+
+  1. Test case: `find` <br>
+     Expected: returns an error message indicating incorrect format for the `find` command.
+
+  1. Test case: `find x/bill` <br>
+     Expected: returns an error message indicating incorrect format for the `find` command.
+
+  1. Test case: `find n/John a/address`
+     Expected: returns a persons list with all the clients who either has a name field that contains a word that starts with `John` or address field contain a word that starts with the substring `address`
 
 ### Deleting a person
 
