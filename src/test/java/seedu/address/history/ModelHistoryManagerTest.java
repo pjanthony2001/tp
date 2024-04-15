@@ -13,12 +13,12 @@ import seedu.address.history.exceptions.HistoryException;
 
 class HistoryManagerTest {
     private HistoryManager<ModelState> history;
-    private HistoryManager<ModelState> bufferedHistory;
+    private BufferedHistoryManager<ModelState> bufferedHistory;
 
     @BeforeEach
     void setup() {
-        history = new HistoryManager<>(TYPICAL_START_MODEL_STATE, false);
-        bufferedHistory = new HistoryManager<>(TYPICAL_START_MODEL_STATE, true);
+        history = new HistoryManager<>(TYPICAL_START_MODEL_STATE);
+        bufferedHistory = new BufferedHistoryManager<>(TYPICAL_START_MODEL_STATE);
     }
 
     @Test

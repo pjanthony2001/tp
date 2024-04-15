@@ -290,16 +290,20 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                         | I want to …​                 | So that I can…​                                                        |
-|----------|---------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | social worker                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | social worker                   | create a new client          | keep track of their information efficiently                            |
-| `* * *`  | social worker                   | delete a client              | remove client entries that I no longer need                            |
-| `* * *`  | social worker                   | find a client by name        | locate details of clients without having to go through the entire list |
-| `* *`    | social worker                   | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | social worker with many clients | sort persons by name         | locate a person easily                                                 |
-| `*`      | social worker with colleagues   | switch between profiles      | manage my own set of clients on the same machine                       |
-| `*`      | social worker                   | undo and redo my commands    | easily rectify a mistaken command                                      |
+| Priority | As a …​                         | I want to …​                 | So that I can…​                                                              |
+|----------|---------------------------------|------------------------------|------------------------------------------------------------------------------|
+| `* * *`  | social worker                   | see usage instructions       | refer to instructions when I forget how to use the App                       |
+| `* * *`  | social worker                   | create a new client          | keep track of their information efficiently                                  |
+| `* * *`  | social worker                   | delete a client              | remove client entries that I no longer need                                  |
+| `* * *`  | social worker                   | find a client by name        | locate details of clients without having to go through the entire list       |
+| `* * *`  | social worker                   | view a client's information  | review and prepare for upcoming appointments                                 |
+| `* * *`  | social worker                   | take notes during meetings   | document clients' needs and concerns                                         |
+| `* * *`  | social worker                   | schedule meetings            | keep track of all appointments and ensure there are no scheduling conflicts  |
+| `* * *`  | social worker                   | delete meetings              | remove meetings that have been cancelled or completed                        |
+| `* *`    | social worker                   | hide private contact details | minimize chance of someone else seeing them by accident                      |
+| `*`      | social worker with many clients | sort persons by name         | locate a person easily                                                       |
+| `*`      | social worker with colleagues   | switch between profiles      | manage my own set of clients on the same machine                             |
+| `*`      | social worker                   | undo and redo my commands    | easily rectify a mistaken command                                            |
 
 *{More to be added}*
 
