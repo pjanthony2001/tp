@@ -222,7 +222,7 @@ Step 4. The user now decides that adding the person was a mistake, and decides t
 
 <box type="info" seamless>
 
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook modelState, then there are no previous AddressBook states to restore. The call to `Model#rollBackState()` will throw a checked exception, which will be caught and return an error to the user rather than attempting to perform the undo.
+**Note:** If the `currentStateIdx` is at index 0, pointing to the initial AddressBook modelState, then there are no previous AddressBook states to restore. The call to `Model#rollBackState()` will throw a checked exception, which will be caught and return an error to the user rather than attempting to perform the undo.
 
 </box>
 
@@ -264,9 +264,29 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 **Aspect: How undo & redo executes:**
 
-* Saves the entire address book, filtered list and predicate.
+* Saves the entire address book, calendar, and predicate.
   * Pros: Easy to implement, and captures all aspects of the application in the state
   * Cons: May have performance issues in terms of memory usage.
+
+* Saves only the changes made when a command is executed.
+  * Pros: Utilises a lot less space and is thus makes the application more performative
+  * Cons: Much more difficult to implement and is less scalable as more commands and features are added
+
+**Aspect: Which commands are reversible:**
+
+* Currently, the following commands are reversible:
+  * AddCommand
+  * ClearCommand
+  * DeleteCommand
+  * DisplayCommand
+  * FindCommand
+  * ListCommand
+  * ScheduleAddCommand
+  * ScheduleDeleteCommand
+  * UpdateCommand
+
+
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -464,6 +484,78 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
+
+#### Use case: Undo a command
+
+**MSS**
+
+1.  User requests to undo a command
+2.  ConnectCare undoes the command
+3.  ConnectCare restores the application to the previous state
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. There are no more commands to undo
+
+    * 1a1. ConnectCare shows an error message.
+
+      Use case ends.
+
+#### Use case: Redo a command
+
+**MSS**
+
+1.  User requests to redo a command
+2.  ConnectCare redoes the command
+3.  ConnectCare restores the application to the desired state
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. There are no more commands to redo
+
+    * 1a1. ConnectCare shows an error message.
+
+      Use case ends.
+
+#### Use case: Shortcut (Up-Arrow Key) Display previous command
+
+**MSS**
+
+1.  User requests to display a previous command
+2.  ConnectCare displays the command
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. There are no more commands to display
+
+    * 1a1. ConnectCare shows an error message.
+
+      Use case ends.
+
+#### Use case: Shortcut (Down-Arrow Key) Display next command
+
+**MSS**
+
+1.  User requests to display next command
+2.  ConnectCare displays the command
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. There are no more commands to display
+
+    * 1a1. ConnectCare shows an error message.
+
+      Use case ends.
+
+
 #### Use case: Exit the application
 
 **MSS**
@@ -533,22 +625,74 @@ testers are expected to do more *exploratory* testing.
       Expected: Similar to previous.
 
 
+### Undoing a command
+
+1. Undoing a command when no commands have been entered
+
+   1. Prerequisites: No commands have been entered and the application has just been initialised.
+   
+   2. Test case: `undo` <br>
+        Expected: No changes to person or event lists. Error shown in the result display. No more history to rollback.
+   
+2. Undoing a command when no reversible commands have been entered
+
+    1. Prerequisites: No reversible commands have been entered. For a full list of reversible commands see the [implementation section for undo](#undoredo-feature)
+
+    2. Test case: `undo` <br>
+       Expected: No changes to person or event lists. Error shown in the result display. No more history to rollback.
+
+
+3. Undoing a command when reversible commands have been entered
+
+   1. Prerequisites: Reversible commands have been entered. For a full list of reversible commands see the [implementation section for undo](#undoredo-feature)
+
+   2. Test case: `undo` while there are commands to revert <br>
+        Expected: Application reverts back to the state before the reversible commands are executes. Success message shown on result display. This continues until there are no more commands to revert.
+    
+   3. Test case: `undo` when there are no commands to revert (start state) <br>
+        Expected: Application has been reverted back to the start state. Error shown in the result display. No more history to rollback.
+
+
+### Redoing a command
+
+1. Redoing a command when no commands have been entered
+
+    1. Prerequisites: No commands have been entered and the application has just been initialised.
+
+    2. Test case: `redo` <br>
+       Expected: No changes to person or event lists. Error shown in the result display. No more history to roll forward.
+
+
+2. Redoing a command when reversible commands have been entered
+
+    1. Prerequisites: Reversible commands have been entered. For a full list of reversible commands see the [implementation section for undo](#undoredo-feature)
+
+    2. Test case: `undo` while there are commands to revert and then `redo` <br>
+       Expected: Application reverts back to the desired state before the `undo`. Success message shown on result display.
+
+    3. Test case: `redo` when there are no "`undo`" commands to revert <br>
+       Expected: Application remains in current state. Error shown in the result display. No more history to forward.
+    
+    4. Test case: `undo` while there are commands to revert and then execute a command (that is not `redo`). Next execute `redo` <br>
+       Expected: Application remains in current state. Error shown in the result display. No more history to roll forward. This is due to the states being truncated.
+
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files on start-up
 
-   1. Edit the `addressbook.json` and add or remove fields or add special characters that are not allowed. <br>
+   1. Test case: Edit the `addressbook.json` and add or remove fields or add special characters that are not allowed. <br>
         Expected: The application will initialise but with an empty persons list instead. Logger will log a warning
    
-   2. Edit the `calendar.json` and add or remove fields or add special characters that are not allowed. <br>
+   2. Test case: Edit the `calendar.json` and add or remove fields or add special characters that are not allowed. <br>
         Expected: The application will initialise but with an empty events list instead. Logger will log a warning.
    
 2. Dealing with missing/corrupted data files while application is running
 
-    1. Edit the `addressbook.json` and add or remove fields or add special characters that are not allowed. <br>
+    1. Test case: Edit the `addressbook.json` and add or remove fields or add special characters that are not allowed. <br>
        Expected: The application will overwrite the changes made with the correct details, and will continue as per normal
 
-    2. Edit the `calendar.json` and add or remove fields or add special characters that are not allowed. <br>
+    2. Test case: Edit the `calendar.json` and add or remove fields or add special characters that are not allowed. <br>
        Expected: The application will overwrite the changes made with the correct details, and will continue as per normal
 
 ### Planned Enhancements
