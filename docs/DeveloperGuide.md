@@ -584,7 +584,7 @@ testers are expected to do more *exploratory* testing.
        Expected: A new event is added to the events list. Details of the added event is shown in the status message.
 
     1. Other incorrect schedule add commands to try: `schedule add`, `schedule add n/`, `schedule add n/Phil h/Meeting t/0900` <br>
-       Expected: Similar to previous.
+       Expected: Error details shown in the status message.
 
 1. _{ more test cases …​ }_
 
