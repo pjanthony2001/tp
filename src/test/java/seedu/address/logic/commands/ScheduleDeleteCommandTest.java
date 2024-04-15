@@ -73,7 +73,7 @@ public class ScheduleDeleteCommandTest {
     }
 
     @Test
-    public void getCommandStringTest() {
+    public void getCommandString_returnsCommandString() {
         ScheduleDeleteCommand deleteCommand = new ScheduleDeleteCommand(new Heading(VALID_HEADING_MEETING_WITH_ALICE));
         String expected = "schedule " + ScheduleDeleteCommand.COMMAND_WORD;
         assertEquals(expected, deleteCommand.getCommandString());

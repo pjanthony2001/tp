@@ -30,6 +30,7 @@ class ModelStateTest {
     private Calendar calendar;
     private FilteredList<Person> filteredPersons;
     private Command command;
+
     @BeforeEach
     void setup() {
         addressBook = getTypicalAddressBook();
@@ -46,7 +47,7 @@ class ModelStateTest {
     }
 
     @Test
-    void getCommand_commandStubTracked_successfullyReturnsCommandStub() {
+    void getCommand_commandStubReversible_successfullyReturnsCommandStub() {
         Command original = getCommandStub();
         Command retrieved = modelState.getCommand();
         assertEquals(original, retrieved);

@@ -94,7 +94,7 @@ public class DisplayCommandTest {
     }
 
     @Test
-    public void getCommandStringTest() {
+    public void getCommandString_returnsCommandString() {
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         DisplayCommand displayCommand = new DisplayCommand(predicate);
         String expected = DisplayCommand.COMMAND_WORD;

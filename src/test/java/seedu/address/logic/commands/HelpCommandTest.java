@@ -20,7 +20,7 @@ public class HelpCommandTest {
     }
 
     @Test
-    public void getCommandStringTest() {
+    public void getCommandString_returnsCommandString() {
         HelpCommand helpCommand = new HelpCommand();
         String expected = HelpCommand.COMMAND_WORD;
         assertEquals(expected, helpCommand.getCommandString());
