@@ -4,7 +4,7 @@
   pageNav: 3
 ---
 
-# AB-3 Developer Guide
+# ConnectCare Developer Guide
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -13,7 +13,7 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -158,47 +158,45 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
+### Undo/redo feature
 
-#### Proposed Implementation
+The undo/redo mechanism is facilitated by `HistoryManager`. This class implements certain methods:
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+* `HistoryManager#rollBackState()` - Rolls back to the previous state in the history.
+* `HistoryManager#rollForwardState()` - Rolls forward to the next state in the history.
+* `HistoryManager#addState()` - Adds a new T state to the history, removing subsequent states.
+* `HistoryManager#getCurrState()` - Gets the current state from the history.
 
-* `VersionedAddressBook#commit()` — Saves the current address book modelState in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book modelState from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book modelState from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `History` interface as `History#rollBackState()`, `History#rollForwardState()`, `History#addState()` and `History#getCurrState()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book modelState, and the `currentStatePointer` pointing to that single address book modelState.
+Step 1. The user launches the application for the first time. The `HistoryManager<ModelState>` will be initialized with the initial `modelState`, and the `currentStateIdx` is set to 0, indicating that it is at the very first index.
 
 <puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified modelState of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book modelState.
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. After the `delete` command is executed, the method `Model#updateModelState()` is called, causing the modified model state of the application after the `delete 5` command to be added to `states` list in `HistoryManager`, by an invocation of the `History#addState()` method. The `currentStateIdx` is shifted to 1.
 
 <puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book modelState to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#updateModelState()`, causing another modified application model state to be saved into the `states` list.
 
 <puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
 
 <box type="info" seamless>
 
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book modelState will not be saved into the `addressBookStateList`.
+**Note:** If a command fails its execution, it will not call `Model#updateModelState()`, so the model state will not be saved into the `states` list.
 
 </box>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book modelState, and restores the address book to that modelState.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#rollBackState()`, in turn calling `History#rollBackState`, which will decrement the `currentStateIdx` once, retrieving and restoring the address book to the model state at that index.
 
 <puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
 
 
 <box type="info" seamless>
 
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook modelState, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
+**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook modelState, then there are no previous AddressBook states to restore. The call to `Model#rollBackState()` will throw a checked exception, which will be caught and return an error to the user rather than attempting to perform the undo.
 
 </box>
 
@@ -216,19 +214,19 @@ Similarly, how an undo operation goes through the `Model` component is shown bel
 
 <puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone modelState, and restores the address book to that modelState.
+The `redo` command does the opposite — it calls `Model#rollForwardState()`, which increments the `currentStateIdx`, which is the index of the previously undone model state, and restores the application to that state.
 
 <box type="info" seamless>
 
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book modelState, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+**Note:** If the `currentStateIdx` is at index `addressBookStateList.size() - 1`, the index of the last state, then there are no undone states to restore. The call to `Model#rollForwardState()` will throw a checked exception, which will be caught and return an error to the user rather than attempting to perform the redo.
 
 </box>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `help`. Commands that do not modify the application, such as `help`, are not "reversible" and thus, executing them do not call `History#addState()`. This means that the `states` list and the `currentStateIdx` remain unchanged.
 
 <puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#updateModelState` and subsequently, `History#addState`. Since the `currentStateIdx` is not at the end of the `states`, all model states after the `currentStateIdx` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
 
 <puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
 
@@ -240,21 +238,9 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 **Aspect: How undo & redo executes:**
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
+* Saves the entire address book, filtered list and predicate.
+  * Pros: Easy to implement, and captures all aspects of the application in the state
   * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -494,3 +480,9 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+### Planned Enhancements
+
+1. Currently, names must be unique and must only contain alphanumeric characters. This means different languages and special characters are not allowed, and we are planning to include these in the future.
+
+2. There is currently no method for new user to clear or find schedules quickly. We are planning to add these commands and expand the capability of this feature in the future.
