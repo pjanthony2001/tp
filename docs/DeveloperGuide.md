@@ -518,6 +518,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 Given below are instructions to test the app manually.
 
 <box type="info" seamless>
+
 **Note:** These instructions only provide a starting point for testers to work on;
 testers are expected to do more *exploratory* testing.
 </box>
@@ -528,7 +529,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. In the terminal, navigate to the folder with the jar file and run `java -jar connectcare.jar`. Ensure the filename is connectcare.jar. The window size may not be optimum. 
 
 1. Saving window preferences
 
@@ -546,13 +547,58 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
 
    1. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
+
+1. _{ more test cases …​ }_
+
+### Adding a person
+
+1. Adding a person
+
+    1. Prerequisites: None.
+
+    1. Test case: `add n/Phil p/987654321 e/phil@gmail.com`<br>
+       Expected: Phil is added to the client list. Details of the added client is shown in the status message.
+
+    1. Test case: `add n/Nobody`<br>
+       Expected: No client is added. Error details shown in the status message.
+
+    1. Other incorrect add commands to try: `add`, `add n/Phile`, `...` <br>
+       Expected: Similar to previous.
+
+1. _{ more test cases …​ }_
+
+### Scheduling an event
+
+1. Adding an event
+
+    1. Prerequisites: None.
+
+    1. Test case: `schedule add h/Meeting with Client t/2/14/2024 0930 d/Discuss project details n/John Doe`<br>
+       Expected: A new event is added to the events list. Details of the added event is shown in the status message.
+
+    1. Other incorrect schedule add commands to try: `schedule add`, `schedule add n/`, `schedule add n/Phil h/Meeting t/0900` <br>
+       Expected: Similar to previous.
+
+1. _{ more test cases …​ }_
+
+### Deleting an event
+
+1. Deleting an event
+
+    1. Prerequisites: Event heading must exist in event list.
+
+    1. Test case: `schedule delete h/Meeting with Client`<br>
+       Expected: Event is deleted from events list. Details of the deleted event is shown in the status message.
+
+    1. Other incorrect schedule add commands to try: `schedule delete`, `schedule delete n/Phil`, `schedule delete h/Not a real event h/Another unreal event` <br>
+       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
 
@@ -571,4 +617,6 @@ Team size: 5
 1. Currently, names must be unique and must only contain alphanumeric characters. This means different languages and special characters are not allowed, and we are planning to include these in the future.
 
 2. There is currently no method for new user to clear or find schedules quickly. We are planning to add these commands and expand the capability of this feature in the future.
+
+3. Currently, the user can only schedule an event with a single date format. We aim to improve the user experience by adding more allowed date formats.
 
