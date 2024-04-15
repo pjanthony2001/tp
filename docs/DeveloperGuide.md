@@ -535,7 +535,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   1. Re-launch the app by navigating to the folder with the jar file (in the terminal) and running `java -jar connectcare.jar`.<br>
        Expected: The most recent window size and location is retained.
 
 1. _{ more test cases …​ }_
