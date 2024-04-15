@@ -260,6 +260,30 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 <puml src="diagrams/CommitActivityDiagram.puml" width="250" />
 
+
+### Schedule feature
+
+The schedule mechanism is facilitated by `LogicManager`. This class implements this important method:
+* `LogicManager#getEventList` - Returns the list of all the events.
+
+Step 1. The user executes the `schedule delete h/Meeting` command to delete the event with heading "Meeting". The `LogicManager` parses the command through `CommandParser#parseCommand()`.
+
+Step 2. The `CommandParser` selects a parser based on the command word. In this case the command word is `schedule`. The `ScheduleCommandParser#parse()` is run on `schedule delete h/Meeting`.
+
+Step 3. The `ScheduleCommandParser` further parses the input and decides which parser to parse the input with depending on the command word (either `ScheduleAddCommandParser` or `ScheduleDeleteCommandParser`).
+In this case the command word is `delete`.
+Thus, the `ScheduleDeleteCommandParser#parse()` is run on `delete h/Meeting`.
+
+Step 4. If the input is valid a `ScheduleDeleteCommand` object is made, with the appropriate heading, and returned to the `LogicManager` through the `ScheduleCommandParser` and `CommandParser`.
+
+Step 5. The schedule delete command is then executed. The event is found and removed from the events list.
+
+The following sequence diagram shows how a schedule delete operation goes through the `Logic` component:
+
+<puml src="diagrams/ScheduleDeleteSequenceDiagram.puml" alt="ScheduleDeleteSequenceDiagram-Logic" />
+
+The above sequence diagram shows the entire mechanism in detail.
+
 #### Design considerations:
 
 **Aspect: How undo & redo executes:**
