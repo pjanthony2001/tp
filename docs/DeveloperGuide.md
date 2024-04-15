@@ -598,7 +598,7 @@ testers are expected to do more *exploratory* testing.
        Expected: Event is deleted from events list. Details of the deleted event is shown in the status message.
 
     1. Other incorrect schedule delete commands to try: `schedule delete`, `schedule delete n/Phil`, `schedule delete h/Not a real event h/Another unreal event` <br>
-       Expected: Similar to previous.
+       Expected: Error details shown in the status message.
 
 1. _{ more test cases …​ }_
 
@@ -612,7 +612,7 @@ testers are expected to do more *exploratory* testing.
        Expected: Details of the client are shown in the client list. Provided client exists in the event list.
 
     1. Other incorrect find commands to try: `find`, `...` <br>
-       Expected: Error message on status bar.
+       Expected: Error details shown in the status message.
 
 1. _{ more test cases …​ }_
 
@@ -626,7 +626,7 @@ testers are expected to do more *exploratory* testing.
        Expected: Details of the client are seen in the display screen.
 
     1. Other incorrect display commands to try: `display NOT_A_REAL_PERSON`, `display`, `...` <br>
-       Expected: Error message on status bar.
+       Expected: Error details shown in the status message.
 
 1. _{ more test cases …​ }_
 
