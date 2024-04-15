@@ -589,8 +589,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 Given below are instructions to test the app manually.
 
 <box type="info" seamless>
+
 **Note:** These instructions only provide a starting point for testers to work on;
 testers are expected to do more *exploratory* testing.
+
 </box>
 
 ### Launch and shutdown
@@ -699,7 +701,63 @@ testers are expected to do more *exploratory* testing.
 
 Team size: 5
 
-1. Currently, names must be unique and must only contain alphanumeric characters. This means different languages and special characters are not allowed, and we are planning to include these in the future.
+#### Enhancement 1: More robust `Names`
 
-2. There is currently no method for new user to clear or find schedules quickly. We are planning to add these commands and expand the capability of this feature in the future.
+Feature Flaw/Bug: <br>
+Currently, all names must be unique and must only contain alphanumeric characters. This means different languages and special characters are not allowed.
 
+Proposed Enhancement: <br>
+Change the restrictions on the regex for the Name class to allow for more flexible names
+
+Justification: <br>
+This allows for a more realistic application where names can contain "/" characters, and chracters from other languages.
+
+
+#### Enhancement 2: More robust `clear` and `find` for `schedule` commands
+
+Feature Flaw/Bug: <br>
+Currently, no command for users to clear or find events quickly.
+
+Proposed Enhancement: <br>
+Add commands that allows users to clear or find events quickly.
+
+Justification: <br>
+This allows for a more user-friendly experience.
+
+#### Enhancement 3: More robust date formats for `schedule add`
+
+Feature Flaw/Bug: <br>
+Currently, there is only one format for the date for the `schedule add` command.
+
+Proposed Enhancement: <br>
+Add more formats that we can accept for the `schedule add` command like `dd/MM/yyyy HHmm` or more human-readable formats like `dd/MMM/yyyy HHmm`
+
+Justification: <br>
+This caters to a wider audience as people from different regions use different date-time formats.
+
+#### Enhancement 4: More functionality to the NOK field
+
+Feature Flaw/Bug: <br>
+Currently, the NOK field is just a string representation that is alphanumeric and has the same constraints as `Name`.
+
+Proposed Enhancement: <br>
+Add more structure in the code for the NOK field (give it its own class) and allow users to add special characters and validate different aspects of the NOK object (NOK phone number, NOK email should have their own constraints)
+
+Justification: <br>
+This is more realistic and useful as NOK details can now be more detailed. This ensures that important information can be communicated effectively in case of emergencies or other situations involving the person associated with the NOK details.
+
+#### Enhancement 5: When `display` throws an error and is incompatible with `undo`/`redo`
+
+Feature Flaw/Bug: <br>
+
+Proposed Enhancement: <br>
+
+Justification: <br>
+
+#### Enhancement 6: Find command error
+
+Feature Flaw/Bug: <br>
+
+Proposed Enhancement: <br>
+
+Justification: <br>
