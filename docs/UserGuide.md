@@ -322,9 +322,12 @@ As the commands given were invalid, there would be no changes to the client list
     </pic>
 </div>
 
+
 &nbsp;
 
 Click [here](#table-of-contents) to return to the table of contents!
+
+Now that we are done with the **add** command let's move on to the **delete** command!
 
 ---
 
@@ -384,6 +387,8 @@ As the commands given were invalid, there would be no changes to the client list
 &nbsp;
 
 Click [here](#table-of-contents) to return to the table of contents!
+
+Now that we are done with the **delete** command let's move on to the **update** command!
 
 ---
 
@@ -468,6 +473,8 @@ As the commands given were invalid, there would be no changes to the client list
 
 Click [here](#table-of-contents) to return to the table of contents!
 
+Now that we are done with the **update** command let's move on to the **list** command!
+
 ---
 
 ### Listing all clients: `list`
@@ -492,6 +499,8 @@ only `Peter Crow` was shown in the list. Thereafter, the `list` command was used
 &nbsp;
 
 Click [here](#table-of-contents) to return to the table of contents!
+
+Now that we are done with the **list** command let's move on to the **find** command!
 
 ---
 
@@ -567,7 +576,10 @@ After searching for clients, you can use the `list` command to view your full li
 </box>
 
 &nbsp;
+
 Click [here](#table-of-contents) to return to the table of contents!
+
+Now that we are done with the **find** command let's move on to the **display** command!
 
 ---
 
@@ -619,6 +631,8 @@ If you would like to resume entering commands, press the ENTER key in the descri
 &nbsp;
 Click [here](#table-of-contents) to return to the table of contents!
 
+Now that we are done with the **display** command let's move on to the **clear** command!
+
 ### Clearing all entries : `clear`
 
 _This command allows you to purge your client list, removing **ALL** clients in your client list._
@@ -632,12 +646,17 @@ Accidentally cleared your client list? Worry not, the `undo` feature might be ab
 </box>
 
 &nbsp;
+
 Click [here](#table-of-contents) to return to the table of contents!
+
+Now that we are done with the **Client management** features let's move on to the **Appointment management** features!
 
 ## Appointment Management
 ConnectCare provides the following commands to help you manage your appointments:
 * Adding an appointment: `schedule add`
 * Deleting an appointment: `schedule delete`
+
+Let's talk about the different **Appointment management** features, starting with **schedule add** command
 
 ### Adding an appointment: `schedule add`
 
@@ -682,6 +701,8 @@ Once the command is entered, the event should be deleted on the events panel on 
 
 Click [here](#table-of-contents) to return to the table of contents!
 
+Now that we are done with the **schedule add** command let's move on to the **schedule delete** command!
+
 ---
 
 ### Deleting Appointment : `schedule delete`
@@ -724,8 +745,9 @@ Once the command is entered, the event should be added to the events panel on th
 
 &nbsp;
 
-
 Click [here](#table-of-contents) to return to the table of contents!
+
+Now that we are done with the **Appointment management** features let's move on to the **Program controls**!
 
 ---
 
@@ -736,6 +758,8 @@ ConnectCare provides the following commands for navigating the application:
 * Shortcuts
 * `up` arrow
 * `down` arrow
+
+Let's talk about the different **Program controls**, starting with the **undo** command
 
 ### Undoing a command : `undo`
 
@@ -771,6 +795,8 @@ For a comprehensive deep-dive into the undo command, please refer to the [Implem
 </box>
 
 Click [here](#table-of-contents) to return to the table of contents!
+
+Now that we are done with the **undo** command let's move on to the **redo** command!
 
 ---
 
@@ -809,6 +835,8 @@ For a comprehensive deep-dive into the redo command, please refer to the [Implem
 
 Click [here](#table-of-contents) to return to the table of contents!
 
+Now that we are done with the **redo** command let's move on to see some command **shortcuts**!
+
 ---
 
 ### Shortcuts
@@ -837,6 +865,8 @@ _These are a list of keyboard actions to better navigate our application_
 
 Click [here](#table-of-contents) to return to the table of contents!
 
+Now that we are done with the **shortcuts** let's move on to explore the **Miscellaneous commands**!
+
 ---
 
 ## Miscellaneous Commands
@@ -856,6 +886,8 @@ Format: `help`
 
 Click [here](#table-of-contents) to return to the table of contents!
 
+Now that we are done with the **help** command let's move on to the **exit** command!
+
 ---
 
 ### Exiting the program : `exit`
@@ -871,6 +903,8 @@ You can simply close the window using the X button too!
 </box>
 
 Click [here](#table-of-contents) to return to the table of contents!
+
+Let's now understand how data is saved and managed in the application.
 
 ---
 
