@@ -41,7 +41,7 @@ _This page is for ConnectCare users. If you're a developer, see also the
         + [Clearing all entries](#clearing-all-entries-clear)
     + [Appointment Management](#appointment-management)
         + [Adding an Appointment](#adding-an-appointment-schedule-add)
-        + [Deleting an Appointment](#deleting-appointments-schedule-delete)
+        + [Deleting an Appointment](#deleting-appointment-schedule-delete)
     + [Program Controls](#program-controls)
       + [Undoing a Command](#undoing-a-command-undo)
       + [Redoing a Command](#redoing-a-command-redo)
