@@ -539,7 +539,7 @@ Let's say your client list contains the following clients:
 
 <div class="image-container" style="display: block;max-width: 40%;margin: auto;">
     <pic src="images/user-guide/ExampleClientList.png" alt="clientlist">
-        <markdown> Figure 1.1: _An example client list in ConnectCare_ </markdown>
+        <markdown> Figure 1.1: _An example client list in ConnectCare (appointments list is cropped)_ </markdown>
     </pic>
 </div>
 
