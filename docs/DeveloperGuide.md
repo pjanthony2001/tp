@@ -244,7 +244,7 @@ The `redo` command does the opposite — it calls `Model#rollForwardState()`
 
 <box type="info" seamless>
 
-**Note:** If the `currentStateIdx` is at index `addressBookStateList.size() - 1`, the index of the last state, then there are no undone states to restore. The call to `Model#rollForwardState()` will throw a checked exception, which will be caught and return an error to the user rather than attempting to perform the redo.
+**Note:** If the `currentStateIdx` is at index `states.size() - 1`, the index of the last state, then there are no undone states to restore. The call to `Model#rollForwardState()` will throw a checked exception, which will be caught and return an error to the user rather than attempting to perform the redo.
 
 </box>
 
@@ -267,6 +267,72 @@ The following activity diagram summarizes what happens when a user executes a ne
 * Saves the entire address book, filtered list and predicate.
   * Pros: Easy to implement, and captures all aspects of the application in the state
   * Cons: May have performance issues in terms of memory usage.
+
+### Shortcuts feature
+
+The shortcuts mechanism is similar to the undo/redo mechanism. It is facilitated by `BufferedHistoryManager`. This class implements certain methods:
+
+* `BufferedHistoryManager#rollBackState()` - Rolls back to the previous state in the history.
+* `BufferedHistoryManager#rollForwardState()` - Rolls forward to the next state in the history.
+* `BufferedHistoryManager#addState()` - Adds a new T state to the history, removing subsequent states.
+* `BufferedHistoryManager#getCurrStateHasBuffer()` - Gets the current state from the history.
+
+These operations are exposed in the `BufferedHistory` interface as `BufferedHistory#rollBackState()`, `BufferedHistory#rollForwardState()`, `BufferedHistory#addState()` and `BufferedHistory#getCurrState()` respectively.
+
+The main difference between the undo/redo and shortcuts mechanism is that the last state will always be set to a buffer state. Given below is an example usage scenario and how the shortcut mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `BufferedHistoryManager<CommandState>` will be initialized with the initial `commandState`, and the `currentStateIdx` is set to 0, indicating that it is at the very first index.
+
+<puml src="diagrams/ShortcutsState0.puml" alt="ShortcutState0" />
+
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. After the `delete` command is executed, the method `Model#updateCommandState()` is called, causing the modified command state of the application after the `delete 5` command to be added to `states` list in `BufferedHistoryManager`, by an invocation of the `BufferedHistory#addState()` method. The `currentStateIdx` is shifted to 1.
+
+<puml src="diagrams/ShortcutsState1.puml" alt="ShortcutState1" />
+
+Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#updateCommandState()`, causing another modified application command state to be saved into the `states` list.
+
+<puml src="diagrams/ShortcutsState2.puml" alt="ShortcutState2" />
+
+<box type="info" seamless>
+
+**Note:** If a command fails its execution, it will not call `Model#updateCommandState()`, so the command state will not be saved into the `states` list.
+
+</box>
+
+Step 4. The user wants to go back to his previously typed command, and decides to use the `up` arrow shortcut. The `up` arrow shortcut will call `Model#retrievePreviousCommand()`, in turn calling `BufferedHistory#rollBackState`, which will decrement the `currentStateIdx` once, retrieving and restoring the command text to the command state at that index.
+
+<puml src="diagrams/ShortcutsState3.puml" alt="ShortcutsState3" />
+
+
+<box type="info" seamless>
+
+**Note:** If the `currentStateIdx` is at index 0, pointing to the first commandState, then there are no previous states to restore. The call to `Model#retrievePreviousCommand()` will throw a checked exception, which will be caught and return an error to the user rather than attempting to perform the undo.
+
+</box>
+
+The following sequence diagram shows how an `down` arrow operation goes through the `Logic` component:
+
+<puml src="diagrams/UpSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic" />
+
+Similarly, how an `up` arrow operation goes through the `Model` component is shown below:
+
+<puml src="diagrams/UpSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
+
+The `down` arrow shortcut does the opposite — it calls `Model#retrieveNextCommand()`, which increments the `currentStateIdx`, which is the index of the next command state, and restores the application to that state.
+
+<box type="info" seamless>
+
+**Note:** If the `currentStateIdx` is at index `states.size() - 1`, the index of the last state, then there are no more recent states to restore. The call to `Model#retrieveNextCommand()` will throw a checked exception, which will be caught and return an error to the user rather than attempting to perform the `down` shortcut.
+
+</box>
+
+#### Design considerations:
+
+**Aspect: How shortcuts execute:**
+
+* Saves the command text entered.
+    * Pros: Easy to implement, and captures all aspects of the application in the state
+    * Cons: May have performance issues in terms of memory usage.
 
 --------------------------------------------------------------------------------------------------------------------
 
