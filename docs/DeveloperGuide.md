@@ -543,6 +543,8 @@ testers are expected to do more *exploratory* testing.
 
 ### Planned Enhancements
 
+Team size: 5
+
 1. Currently, names must be unique and must only contain alphanumeric characters. This means different languages and special characters are not allowed, and we are planning to include these in the future.
 
 2. There is currently no method for new user to clear or find schedules quickly. We are planning to add these commands and expand the capability of this feature in the future.
