@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.model.ReadOnlyCalendar;
-import seedu.address.model.ReadOnlyCalendar;
 
 
 /**
