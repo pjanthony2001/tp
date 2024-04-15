@@ -37,11 +37,11 @@ _This page is for ConnectCare users. If you're a developer, see also the
         + [Updating a Client](#updating-a-client-update)
         + [Listing all Clients](#listing-all-clients-list)
         + [Finding Clients](#finding-clients-find)
-        + [Displaying a Client's Information](#displaying-a-clients-information-display)
+        + [Displaying a client's information](#displaying-a-client-s-information-display)
         + [Clearing all entries](#clearing-all-entries-clear)
     + [Appointment Management](#appointment-management)
-        + [Adding an Appointment](#adding-an-appointment--schedule-add)
-        + [Deleting an Appointment](#deleting-appointments--schedule-delete)
+        + [Adding an Appointment](#adding-an-appointment-schedule-add)
+        + [Deleting an Appointment](#deleting-appointments-schedule-delete)
     + [Program Controls](#program-controls)
       + [Undoing a Command](#undoing-a-command-undo)
       + [Redoing a Command](#redoing-a-command-redo)
@@ -537,9 +537,9 @@ _This command allows you to find clients in your client list by specifying clien
 
 Let's say your client list contains the following clients:
 
-<div class="image-container" style="display: block;max-width: 40%;margin: auto;">
+<div class="image-container" style="display: block;max-width: 60%;margin: auto;">
     <pic src="images/user-guide/ExampleClientList.png" alt="clientlist">
-        <markdown> Figure 1.1: _An example client list in ConnectCare (appointments list is cropped)_ </markdown>
+        <markdown> Figure 1.1: _An example client list in ConnectCare (as indicated by the red box)_ </markdown>
     </pic>
 </div>
 
@@ -616,6 +616,9 @@ Any changes you make to description by reverting to the list view using this met
 If you would like to resume entering commands, press the ENTER key in the description box (which will save your changes) to return to the list view.
 </box>
 
+&nbsp;
+Click [here](#table-of-contents) to return to the table of contents!
+
 ### Clearing all entries : `clear`
 
 _This command allows you to purge your client list, removing **ALL** clients in your client list._
@@ -627,6 +630,9 @@ Format: `clear`
 **Tip:**
 Accidentally cleared your client list? Worry not, the `undo` feature might be able to help you get it back!
 </box>
+
+&nbsp;
+Click [here](#table-of-contents) to return to the table of contents!
 
 ## Appointment Management
 ConnectCare provides the following commands to help you manage your appointments:
@@ -678,7 +684,7 @@ Click [here](#table-of-contents) to return to the table of contents!
 
 ---
 
-### Deleting Appointments : `schedule delete`
+### Deleting Appointment : `schedule delete`
 
 _This command allows you to remove an appointment with the specified parameters._
 
