@@ -667,25 +667,25 @@ _This command allows you to add an appointment with the specified parameters._
 <panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
 <markdown>
 
-| Parameter   | Description                               | Remarks                                                                                                                                                                                                                                                                           |
-|-------------|-------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| HEADING     | The heading of the appointment            | The heading must contain only alpha-numeric characters and should not be more than 70 characters                                                                                                                                                                                  |
-| TIME        | The time of the appointment               | The time of the appointment must conform to this format: "EEEE, MMMM, dd, yyyy - hh:mm a". <br/>Note that day of the week (EEEE), month (MMMM), day of the month (dd), year (yyyy) <br/>Refer to [this Java Documentation article](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html) for more information about what this format means. |
-| DESCRIPTION | The description of the appointment        | Description should not be blank                                                                                                                                                                                                                                                   |
-| CLIENT_NAME | The name of the client in the appointment | The name should contain only alpha-numeric characters and spaces and shouldn't be blank                                                                                                                                                                                           |
+| Parameter   | Description                               | Remarks                                                                                                                                                                                                                                                                                                                             |
+|-------------|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| HEADING     | The heading of the appointment            | The heading must contain only alpha-numeric characters and should not be more than 70 characters                                                                                                                                                                                                                                    |
+| TIME        | The time of the appointment               | The time of the appointment must conform to this format: M/d/yyyy HHmm, where, month (M), day (d), year(yyyy), time in 24 hour format (HHmm). <br/>Refer to [this Java Documentation article](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html) for more information about what this format means. |
+| DESCRIPTION | The description of the appointment        | Description should not be blank                                                                                                                                                                                                                                                                                                     |
+| CLIENT_NAME | The name of the client in the appointment | The name should contain only alpha-numeric characters and spaces and shouldn't be blank                                                                                                                                                                                                                                             |
 </markdown>
 </panel>
 
 Once the command is entered, the event should be added to the events panel on the right of the application.
 
 **Examples:**
--   `schedule add h/Meeting with Client t/Wednesday, January, 24, 2024 - 09:00 AM d/Discuss project details n/John Doe`
--   `schedule add h/Discharge plan meeting t/Wednesday, January, 24, 2024 - 09:00 AM d/Discuss discharge n/Jack Doe`
+-   `schedule add h/Meeting with Client t/2/14/2024 0930 d/Discuss project details n/John Doe`
+-   `schedule add h/Discharge plan meeting t/02/14/2024 1000 d/Discuss discharge n/Jack Doe`
 
 
 **Walkthrough:**
 
-The screenshots show what you should expect on your screen while executing this command: `schedule add h/Meeting with Client t/Wednesday, January, 24, 2024 - 09:00 AM d/Discuss project details n/John Doe`.
+The screenshots show what you should expect on your screen while executing this command: `schedule add h/Meeting with Client t/2/14/2024 0930 d/Discuss project details n/John Doe`.
 Once the command is entered, the event should be deleted on the events panel on the right of the application.
 
 <div class="image-container" align="middle" style="display:flex">
@@ -722,11 +722,18 @@ _This command allows you to remove an appointment with the specified parameters.
 
 Once the command is entered, the event should be removed from the events panel on the right of the application.
 
+<box type="tip">
+
+**Tip:** Make sure there are no extra spaces between words in the heading.
+</box>
+
 **Examples:**
 -   `schedule delete h/Meeting with Client`
 -   `schedule delete h/Discharge plan meeting`
+
 <box type="info">
-It is only possible to delete an event if the heading exists in the events panel on the right of the application.
+
+**Note:** It is only possible to delete an event if the heading exists in the events panel on the right of the application.
 </box>
 
 **Walkthrough:**
@@ -935,18 +942,18 @@ ___
 
 # Command summary
 
-| Action              | Format                                                                               | Examples                                                                                                                           |
-|---------------------|--------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| Action              | Format                                                                                  | Examples                                                                                                                           |
+|---------------------|-----------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**             | `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [k/NEXTOFKIN] [d/DESCRIPTION] [t/TAG]… ` | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/Suffers from anxiety k/Jon Ho t/friend t/colleague` |
-| **Update**          | `update u/existing user [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…`    | `Update u/Jane Doe n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-011`                                    |
-| **Find**            | `find [n/NAME]… [a/ADD]… [e/EMAIL]… [t/TAG]… [k/KIN]… [d/DESC]… [p/PHONE]…`          | `find n/James a/clementi e/gmail t/important k/charles d/tall p/123`                                                               |
-| **Add Schedule**    | `schedule add h/HEADING t/TIME d/DESCRIPTION n/CLIENT_NAME`                          | `schedule add h/Meeting with Client t/Wednesday, January, 24, 2024 - 09:00 AM d/Discuss project details n/John Doe`                                                               |
-| **Delete Schedule** | `schedule delete h/HEADING`                                                          | `schedule delete h/Meeting with Client`                                                               |
-| **Undo**            | `undo`                                                                               |                                                                                                                                    |
-| **Redo**            | `redo`                                                                               |                                                                                                                                    |
-| **Display**         | `display NAME`                                                                       |                                                                                                                                    |
-| **Clear**           | `clear`                                                                              |                                                                                                                                    |
-| **Exit**            | `exit`                                                                               |                                                                                                                                    |
+| **Update**          | `update u/existing user [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…`       | `Update u/Jane Doe n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-011`                                    |
+| **Find**            | `find [n/NAME]… [a/ADD]… [e/EMAIL]… [t/TAG]… [k/KIN]… [d/DESC]… [p/PHONE]…`             | `find n/James a/clementi e/gmail t/important k/charles d/tall p/123`                                                               |
+| **Add Schedule**    | `schedule add h/HEADING t/TIME d/DESCRIPTION n/CLIENT_NAME`                             | `schedule add h/Meeting with Client t/2/14/2024 0930 d/Discuss project details n/John Doe`                                         |
+| **Delete Schedule** | `schedule delete h/HEADING`                                                             | `schedule delete h/Meeting with Client`                                                                                            |
+| **Undo**            | `undo`                                                                                  |                                                                                                                                    |
+| **Redo**            | `redo`                                                                                  |                                                                                                                                    |
+| **Display**         | `display NAME`                                                                          |                                                                                                                                    |
+| **Clear**           | `clear`                                                                                 |                                                                                                                                    |
+| **Exit**            | `exit`                                                                                  |                                                                                                                                    |
 
 Click [here](#table-of-contents) to return to the table of contents!
 ___
