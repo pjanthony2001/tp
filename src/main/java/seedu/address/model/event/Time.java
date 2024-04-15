@@ -5,18 +5,16 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoField;
 
 /**
  * An object that represents the time for a particular event
  */
 public class Time {
-    public static final String MESSAGE_CONSTRAINTS = "Time should be of format: EEEE, MMMM, dd, yyyy - hh:mm a. "
+    public static final String MESSAGE_CONSTRAINTS = "Time should be of format: EEEE, MMMM, dd, yyyy - hh:mm a. \n"
             + "Note that day of the week (EEEE), month (MMMM), day of the month (dd), year (yyyy), "
-            + "time in 12-hour format (hh:mm), and am/pm indicator (a).";
-
+            + "time in 12-hour format (hh:mm), and AM/PM indicator (a).\n"
+            + "Note that AM/PM indicator must be capitalised";
     public final String time;
     private final LocalDateTime localDateTime;
 
@@ -49,38 +47,8 @@ public class Time {
      * @throws DateTimeParseException If the input string cannot be parsed into a valid LocalDateTime.
      */
     private static LocalDateTime parseDate(String date) {
-
-        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
-        DateTimeFormatter formatter2 = new DateTimeFormatterBuilder()
-                .appendPattern("M/d/yyyy")
-                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
-                .toFormatter();
-        DateTimeFormatter formatter3 = new DateTimeFormatterBuilder()
-                .appendPattern("yyyy-MM-dd")
-                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
-                .toFormatter();
-        DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        DateTimeFormatter formatter5 = new DateTimeFormatterBuilder()
-                .appendPattern("MMM d yyyy")
-                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
-                .toFormatter();
-        DateTimeFormatter formatter6 = DateTimeFormatter.ofPattern("EEEE, MMMM, dd, yyyy - hh:mm a");
-        DateTimeFormatter[] formatters = {formatter1, formatter2, formatter3, formatter4, formatter5, formatter6};
-
-        for (DateTimeFormatter dateFormat : formatters) {
-            try {
-                return LocalDateTime.parse(date, dateFormat);
-            } catch (DateTimeParseException e) {
-                // Parsing failed for this pattern, try the next one
-            }
-        }
-        throw new DateTimeParseException("Failed to parse date string: " + date, date, 0);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMMM, dd, yyyy - hh:mm a");
+        return LocalDateTime.parse(date, formatter);
     }
     /**
      * Converts the given LocalDateTime object into a string representation
