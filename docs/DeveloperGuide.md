@@ -748,11 +748,14 @@ This is more realistic and useful as NOK details can now be more detailed. This 
 
 #### Enhancement 5: When `display` throws an error and is incompatible with `undo`/`redo`
 
-Feature Flaw/Bug: <br>
+Feature Flaw: <br>
+Once the user partially types a client’s name and receives an error message when using the display command, the history is reset and the undo/command utils can’t revert to a previous state.
 
-Proposed Enhancement: <br>
+Propose doing Enhancement: <br>
+Ensure the command history isn’t affected when an error is thrown in the display command
 
 Justification: <br>
+This enhancement allows users to revert back to a previous state even if they face an error when trying to display a client
 
 #### Enhancement 6: Find command error
 
