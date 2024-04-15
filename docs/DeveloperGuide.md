@@ -285,6 +285,7 @@ The following activity diagram summarizes what happens when a user executes a ne
   * ScheduleDeleteCommand
   * UpdateCommand
 
+* For `display` Command calling `undo` would show that `update` was undone because the `display` command runs the `update` command silently.
 
 
 
@@ -757,10 +758,13 @@ Ensure the command history isn’t affected when an error is thrown in the displ
 Justification: <br>
 This enhancement allows users to revert back to a previous state even if they face an error when trying to display a client
 
-#### Enhancement 6: Find command error
+#### Enhancement 6: Updating a client with the same details does not give more feedback
 
 Feature Flaw/Bug: <br>
+Currently, updating a client with the same details do not give user feedback in the result display.
 
 Proposed Enhancement: <br>
+Give user feedback in the result display.
 
 Justification: <br>
+This adds to the user-friendliness of the application.
