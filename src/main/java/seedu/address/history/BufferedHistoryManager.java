@@ -3,12 +3,12 @@ package seedu.address.history;
 import seedu.address.history.exceptions.HistoryException;
 
 /**
- * @param <T> The type of state that the abstract class keeps track of
+ * @param <T> The type of state that the BufferedHistoryManager class keeps track of
  */
 public class BufferedHistoryManager<T> extends HistoryManager<T> implements BufferedHistory<T> {
 
     /**
-     * Constructs a new HistoryManager with a starting state.
+     * Constructs a new BufferedHistoryManager with a starting state. This state acts as the buffer.
      *
      * @param startState The initial state of the history.
      */
@@ -19,8 +19,9 @@ public class BufferedHistoryManager<T> extends HistoryManager<T> implements Buff
     @Override
     public void addState(T state) {
         pullForwardPointer();
-        T buffer = states.get(states.size() - 1);
-        states.remove(states.size() - 1);
+        int lastIndex = states.size() - 1;
+        T buffer = states.get(lastIndex);
+        states.remove(lastIndex);
         states.add(state);
         states.add(buffer);
         currStateIdx++;

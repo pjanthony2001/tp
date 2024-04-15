@@ -12,22 +12,21 @@ import seedu.address.model.person.Person;
 
 /**
  * The `ModelState` class represents a snapshot of the ConnectCare application's state at a specific point in time.
- * It contains information about the executed command and the list of tasks at that time.
+ * It contains information about the executed command, the AddressBook and the Calendar at that time.
  */
 public class ModelState {
     private final Command command;
     private final ReadOnlyAddressBook addressBook;
     private final Predicate<? super Person> filteredPersonsListPredicate;
-
     private final ReadOnlyCalendar calendar;
 
     /**
      * Constructs a new ModelState object with the given command and task list.
      *
      * @param command                      The command executed to reach this state.
-     * @param addressBook                  The list of tasks at this state.
+     * @param addressBook                  The address book at this state.
      * @param filteredPersonsListPredicate The predicate of the filtered list
-     * @param calendar
+     * @param calendar                     The calendar at this state
      */
     public ModelState(Command command, ReadOnlyAddressBook addressBook,
                       Predicate<? super Person> filteredPersonsListPredicate, ReadOnlyCalendar calendar) {
@@ -38,9 +37,9 @@ public class ModelState {
     }
 
     /**
-     * Gets the list of tasks at this state.
+     * Gets the AddressBook at this state.
      *
-     * @return The list of tasks.
+     * @return The AddressBook.
      */
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
@@ -56,14 +55,19 @@ public class ModelState {
     }
 
     /**
-     * Gets the command executed to reach this state.
+     * Gets the predicate that was used at this state to display the filtered list of persons.
      *
-     * @return The command.
+     * @return The predicate.
      */
     public Predicate<? super Person> getFilteredPersonsListPredicate() {
         return filteredPersonsListPredicate;
     }
 
+    /**
+     * Gets the calendar at this state.
+     *
+     * @return The calendar.
+     */
     public ReadOnlyCalendar getCalendar() {
         return calendar;
     }
@@ -89,7 +93,8 @@ public class ModelState {
 
         return addressBook.equals(otherModelState.addressBook)
                 && command.equals(otherModelState.command)
-                && filteredList.equals(filteredListOther);
+                && filteredList.equals(filteredListOther)
+                && calendar.equals(otherModelState.calendar);
 
     }
 }

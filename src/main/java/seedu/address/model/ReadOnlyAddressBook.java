@@ -14,5 +14,9 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any duplicate persons.
      */
     ObservableList<Person> getPersonList();
+
+    /**
+     * Returns an unmodifiable deep copy of the ReadOnlyAddressBook
+     */
     ReadOnlyAddressBook deepCopy() throws IllegalValueException;
 }

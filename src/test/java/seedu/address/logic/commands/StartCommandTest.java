@@ -17,13 +17,9 @@ public class StartCommandTest {
     }
 
     @Test
-    public void getCommandStringTest() {
+    public void getCommandString_returnsCommandString() {
         StartCommand startCommand = StartCommand.getStartCommand();
         String expected = StartCommand.COMMAND_WORD;
         assertEquals(expected, startCommand.getCommandString());
-    }
-
-    public static boolean assertionsDisabled() {
-        return !StartCommand.class.desiredAssertionStatus();
     }
 }

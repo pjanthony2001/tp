@@ -5,12 +5,11 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataLoadingException;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCalendar;
 
 
 /**
- * Calendar Storage
+ * Represents a storage for the Calendar
  */
 public interface CalendarStorage {
     /**
@@ -19,7 +18,7 @@ public interface CalendarStorage {
     Path getCalendarFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
+     * Returns Calander data as a {@link ReadOnlyCalendar}.
      * Returns {@code Optional.empty()} if storage file is not found.
      *
      * @throws DataLoadingException if loading the data from storage failed.
@@ -32,15 +31,15 @@ public interface CalendarStorage {
     Optional<ReadOnlyCalendar> readCalendar(Path filePath) throws DataLoadingException;
 
     /**
-     * Saves the given {@link ReadOnlyAddressBook} to the storage.
-     * @param addressBook cannot be null.
+     * Saves the given {@link ReadOnlyCalendar} to the storage.
+     * @param calendar cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveCalendar(ReadOnlyCalendar addressBook) throws IOException;
+    void saveCalendar(ReadOnlyCalendar calendar) throws IOException;
 
     /**
      * @see #saveCalendar(ReadOnlyCalendar)
      */
-    void saveCalendar(ReadOnlyCalendar addressBook, Path filePath) throws IOException;
+    void saveCalendar(ReadOnlyCalendar calendar, Path filePath) throws IOException;
 
 }

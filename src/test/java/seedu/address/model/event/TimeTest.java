@@ -15,7 +15,7 @@ class TimeTest {
 
     @Test
     public void isValidTimeTest() {
-        // null time
+        // null
         assertThrows(NullPointerException.class, () -> Time.isValidTime(null));
 
         // invalid time
@@ -24,19 +24,20 @@ class TimeTest {
         assertFalse(Time.isValidTime("meeting*")); // contains not time
         assertFalse(Time.isValidTime("meeting*")); // contains not time
         assertFalse(Time.isValidTime("meeting*")); // contains not time
-        assertFalse(Time.isValidTime("April, 12, 2024 - 10:00 AM")); // no day
-        assertFalse(Time.isValidTime("Friday, 12, 2024 - 10:00 AM")); // no month
-        assertFalse(Time.isValidTime("Friday, April,2024 - 10:00 AM")); //no day (int)
-        assertFalse(Time.isValidTime("Friday, April, 12 - 10:00 AM")); // no year
-        assertFalse(Time.isValidTime("Friday, April, 12, 2024 AM")); // no time
-        assertFalse(Time.isValidTime("Friday, April, 12, 2024 - 10:00")); // no am/pm
-        assertFalse(Time.isValidTime("Friday, April, 12, 2024 -10:00 AM")); //missing space
-        assertFalse(Time.isValidTime("Friday, April, 12, 2024  10:00 AM")); //missing hyphen
-        assertFalse(Time.isValidTime("Friday, April 12 2024 - 10:00 AM")); //missing comma
+        assertFalse(Time.isValidTime("12/2024 1000")); // no day
+        assertFalse(Time.isValidTime("4/2024 1000")); // no month
+        assertFalse(Time.isValidTime("12/2024 1000")); // no day (int)
+        assertFalse(Time.isValidTime("4/12 1000")); // no year
+        assertFalse(Time.isValidTime("4/12/2024")); // no time
+        assertFalse(Time.isValidTime("4/12/20241000")); // missing space
+        assertFalse(Time.isValidTime("4/12/2024 2500")); // missing space
+        assertFalse(Time.isValidTime("4/12/2024 2401")); // missing space
 
-        assertTrue(Time.isValidTime("Friday, April, 12, 2024 - 10:00 AM"));
-        assertTrue(Time.isValidTime("Thursday, April, 04, 2024 - 10:00 AM"));
-        assertTrue(Time.isValidTime("Thursday, May, 02, 2024 - 09:00 AM"));
+        // valid time
+        assertTrue(Time.isValidTime("4/12/2024 1000")); // no am/pm
+        assertTrue(Time.isValidTime("04/12/2024 1000"));
+        assertTrue(Time.isValidTime("04/04/2024 1000"));
+        assertTrue(Time.isValidTime("5/2/2024 0900"));
     }
     @Test
     void equals() {

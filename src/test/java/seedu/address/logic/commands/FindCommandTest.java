@@ -89,7 +89,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void getCommandStringTest() throws ParseException {
+    public void getCommandString_returnsCommandString() throws ParseException {
         FindCommand findCommand = parser.parse("find n/Kurz");
         String expected = FindCommand.COMMAND_WORD;
         assertEquals(expected, findCommand.getCommandString());

@@ -23,7 +23,7 @@ public class Heading {
     /**
      * Constructs a {@code Heading}.
      *
-     * @param heading A valid name.
+     * @param heading A valid heading for the event.
      */
     public Heading(String heading) {
         requireNonNull(heading);
@@ -32,7 +32,7 @@ public class Heading {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid heading.
      */
     public static boolean isValidHeading(String test) {
         return (test.length() <= 70) && (test.matches(VALIDATION_REGEX));

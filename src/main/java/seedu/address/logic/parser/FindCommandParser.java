@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.logic.commands.FindCommand;
@@ -31,6 +32,8 @@ public class FindCommandParser implements Parser<FindCommand> {
      * and returns a FindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+
+    @Override
     public FindCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty() || trimmedArgs.length() <= 2) {
@@ -49,6 +52,12 @@ public class FindCommandParser implements Parser<FindCommand> {
         List<String> tagKeywords = argMultimap.getAllValues(PREFIX_TAG);
         List<String> descriptionKeywords = argMultimap.getAllValues(PREFIX_DESCRIPTION);
 
+        checkAllEmpty(nameKeywords, phoneKeywords, emailKeywords,
+            addressKeywords, tagKeywords, kinKeywords, descriptionKeywords);
+
+        checkForNulls(nameKeywords, phoneKeywords, emailKeywords,
+            addressKeywords, tagKeywords, kinKeywords, descriptionKeywords);
+
         return new FindCommand(new NameContainsKeywordsPredicate(nameKeywords),
                 new PhoneContainsKeywordsPredicate(phoneKeywords),
                 new AddressContainsKeywordsPredicate(addressKeywords),
@@ -58,4 +67,24 @@ public class FindCommandParser implements Parser<FindCommand> {
                 new DescriptionContainsKeywordsPredicate(descriptionKeywords));
     }
 
+    private void checkForNulls(List<String>... lists) throws ParseException {
+        boolean hasEmptyString = Arrays.stream(lists)
+            .flatMap(List::stream)
+            .map(String::trim)
+            .anyMatch(String::isEmpty);
+
+        if (hasEmptyString) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+    }
+
+    private void checkAllEmpty(List<String>... lists) throws ParseException {
+        boolean isAllEmpty = Arrays.stream(lists)
+            .allMatch(List::isEmpty);
+        if (isAllEmpty) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+    }
 }

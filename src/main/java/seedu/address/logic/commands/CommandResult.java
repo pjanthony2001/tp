@@ -14,7 +14,7 @@ public class CommandResult {
 
     private final String feedbackToUser;
     private final boolean isDisplayCommand;
-    private Person firstMatchedPerson;
+    private final Person firstMatchedPerson;
 
     /** Help information should be shown to the user. */
     private final boolean isShowHelp;

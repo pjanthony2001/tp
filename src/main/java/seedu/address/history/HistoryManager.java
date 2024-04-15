@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import seedu.address.history.exceptions.HistoryException;
 
 /**
- * @param <T> The type of state that the abstract class keeps track of
+ * @param <T> The type of state that the HistoryManager class keeps track of
  */
 public class HistoryManager<T> implements History<T> {
     protected int currStateIdx;
@@ -23,10 +23,11 @@ public class HistoryManager<T> implements History<T> {
     }
 
     /**
-     * Removes modelStates after the current state, effectively truncating the history.
+     * Removes states after the current state, effectively truncating the history.
      */
     private void truncate() {
-        assert (currStateIdx >= 0 && currStateIdx < states.size());
+        boolean isValidIndex = currStateIdx >= 0 && currStateIdx < states.size();
+        assert (isValidIndex);
         states.subList(currStateIdx + 1, states.size()).clear();
     }
 

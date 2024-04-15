@@ -16,7 +16,7 @@ public interface History<T> {
     /**
      * Rolls forward to the next state in the history.
      *
-     * @throws Exception If there are no more future states to roll forward to.
+     * @throws HistoryException If there are no more future states to roll forward to.
      */
     void rollForwardState() throws HistoryException;
 

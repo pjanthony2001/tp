@@ -32,7 +32,7 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void getCommandStringTest() {
+    public void getCommandString_returnsCommandString() {
         ClearCommand clearCommand = new ClearCommand();
         String expected = ClearCommand.COMMAND_WORD;
         assertEquals(expected, clearCommand.getCommandString());

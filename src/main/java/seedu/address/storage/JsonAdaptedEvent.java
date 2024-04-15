@@ -16,7 +16,7 @@ import seedu.address.model.person.Name;
  */
 class JsonAdaptedEvent {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Event's %s field is missing!";
 
     private final String time;
     private final String heading;
@@ -24,7 +24,7 @@ class JsonAdaptedEvent {
     private final String clientName;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedEvent} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedEvent(@JsonProperty("heading") String heading, @JsonProperty("time") String time,
@@ -37,7 +37,7 @@ class JsonAdaptedEvent {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Event} into this class for Jackson use.
      */
     public JsonAdaptedEvent(Event source) {
         heading = source.getHeadingString();
@@ -47,7 +47,7 @@ class JsonAdaptedEvent {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted person object into the model's {@code Event} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
