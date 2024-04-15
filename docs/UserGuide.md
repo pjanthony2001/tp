@@ -730,8 +730,10 @@ Once the command is entered, the event should be removed from the events panel o
 **Examples:**
 -   `schedule delete h/Meeting with Client`
 -   `schedule delete h/Discharge plan meeting`
+
 <box type="info">
-It is only possible to delete an event if the heading exists in the events panel on the right of the application.
+
+**Note:** It is only possible to delete an event if the heading exists in the events panel on the right of the application.
 </box>
 
 **Walkthrough:**
