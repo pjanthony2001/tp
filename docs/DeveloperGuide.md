@@ -13,7 +13,7 @@
 
 ## **Acknowledgements**
 
-
+This application is based off of the AddressBook Level-3 by SE-EDU.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -291,13 +291,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | social worker with colleagues   | switch between profiles      | manage my own set of clients on the same machine                             |
 | `*`      | social worker                   | undo and redo my commands    | easily rectify a mistaken command                                            |
 
-*{More to be added}*
+
 
 ### Use cases
 
 (For all use cases below, the **System** is `ConnectCare` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Add a client**
+#### Use case: Add a client
 
 **MSS**
 
@@ -314,7 +314,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
         Use case ends.
 
-**Use case: Update client details**
+#### Use case: Update client details
 
 **MSS**
 
@@ -337,7 +337,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: Delete a person**
+#### Use case: Delete a person
 
 **MSS**
 
@@ -360,7 +360,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: Find client**
+#### Use case: Find client
 
 **MSS**
 
@@ -377,7 +377,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: Clear all clients**
+
+#### Use case: Clear all clients
 
 **MSS**
 
@@ -402,7 +403,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: Exit the application**
+#### Use case: Exit the application
 
 **MSS**
 
@@ -420,14 +421,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 5.  The user interface should be intuitive and easy to navigate, requiring minimal training for social workers to use effectively.
 6.  The system should work without access to the internet.
 
-*{More to be added}*
-
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Command Line Interface (CLI)**: A CLI is a text-based interface used to run programs, manage computer file sand interact with the computer
 * **Main Success Scenario (MSS)**: The primary sequence of steps in a use case that describes the ideal path of interaction between a user and the system without encountering any errors
+* **Clients**: People that social workers who are using this application want to keep contact of
+* 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
@@ -454,7 +455,6 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
 
 ### Deleting a person
 
@@ -471,15 +471,24 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Dealing with missing/corrupted data files on start-up
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Edit the `addressbook.json` and add or remove fields or add special characters that are not allowed. <br>
+        Expected: The application will initialise but with an empty persons list instead. Logger will log a warning
+   
+   2. Edit the `calendar.json` and add or remove fields or add special characters that are not allowed. <br>
+        Expected: The application will initialise but with an empty events list instead. Logger will log a warning.
+   
+2. Dealing with missing/corrupted data files while application is running
 
-1. _{ more test cases …​ }_
+    1. Edit the `addressbook.json` and add or remove fields or add special characters that are not allowed. <br>
+       Expected: The application will overwrite the changes made with the correct details, and will continue as per normal
+
+    2. Edit the `calendar.json` and add or remove fields or add special characters that are not allowed. <br>
+       Expected: The application will overwrite the changes made with the correct details, and will continue as per normal
 
 ### Planned Enhancements
 
