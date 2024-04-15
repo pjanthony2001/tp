@@ -26,6 +26,9 @@ public class DisplayCommand extends Command {
 
     private final NameContainsKeywordsPredicate predicate;
 
+    /**
+     * @param predicate The predicate for the finding the correct client to display
+     */
     public DisplayCommand(NameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }

@@ -33,7 +33,9 @@ public class DisplayCard extends UiPart<Region> {
 
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
+     * Constructs a DisplayCard for displaying details of a specified field from a person's record.
+     * This card extracts the field name and description from {@code fieldDescription} and assigns them
+     * to the labels in the UI.
      */
     public DisplayCard(DisplayListPanel.FieldDescription fieldDescription) {
         super(FXML);
