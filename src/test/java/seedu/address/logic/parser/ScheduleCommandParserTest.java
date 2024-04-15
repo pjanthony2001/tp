@@ -17,9 +17,9 @@ public class ScheduleCommandParserTest {
 
     @Test
     public void parse_validAddCommand_returnsScheduleAddCommand() throws ParseException {
-        String args1 = " add h/Meeting with Client t/Wednesday, January, 24, 2024 - 09:00 AM "
+        String args1 = " add h/Meeting with Client t/2/14/2024 0930 "
                 + "d/Discuss project details n/John Doe";
-        String args2 = " h/Meeting with Client t/Wednesday, January, 24, 2024 - 09:00 AM "
+        String args2 = " h/Meeting with Client t/2/14/2024 0930 "
                 + "d/Discuss project details n/John Doe";
         ScheduleCommand expectedCommand = new ScheduleAddCommandParser().parse(args2);
         assertEquals(expectedCommand, parser.parse(args1));

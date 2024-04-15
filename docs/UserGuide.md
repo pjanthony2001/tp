@@ -679,13 +679,13 @@ _This command allows you to add an appointment with the specified parameters._
 Once the command is entered, the event should be added to the events panel on the right of the application.
 
 **Examples:**
--   `schedule add h/Meeting with Client t/Wednesday, January, 24, 2024 - 09:00 AM d/Discuss project details n/John Doe`
--   `schedule add h/Discharge plan meeting t/Wednesday, January, 24, 2024 - 09:00 AM d/Discuss discharge n/Jack Doe`
+-   `schedule add h/Meeting with Client t/2/14/2024 0930 d/Discuss project details n/John Doe`
+-   `schedule add h/Discharge plan meeting t/02/14/2024 1000 d/Discuss discharge n/Jack Doe`
 
 
 **Walkthrough:**
 
-The screenshots show what you should expect on your screen while executing this command: `schedule add h/Meeting with Client t/Wednesday, January, 24, 2024 - 09:00 AM d/Discuss project details n/John Doe`.
+The screenshots show what you should expect on your screen while executing this command: `schedule add h/Meeting with Client t/2/14/2024 0930 d/Discuss project details n/John Doe`.
 Once the command is entered, the event should be deleted on the events panel on the right of the application.
 
 <div class="image-container" align="middle" style="display:flex">
@@ -935,18 +935,18 @@ ___
 
 # Command summary
 
-| Action              | Format                                                                               | Examples                                                                                                                           |
-|---------------------|--------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| Action              | Format                                                                                  | Examples                                                                                                                           |
+|---------------------|-----------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**             | `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [k/NEXTOFKIN] [d/DESCRIPTION] [t/TAG]… ` | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/Suffers from anxiety k/Jon Ho t/friend t/colleague` |
-| **Update**          | `update u/existing user [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…`    | `Update u/Jane Doe n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-011`                                    |
-| **Find**            | `find [n/NAME]… [a/ADD]… [e/EMAIL]… [t/TAG]… [k/KIN]… [d/DESC]… [p/PHONE]…`          | `find n/James a/clementi e/gmail t/important k/charles d/tall p/123`                                                               |
-| **Add Schedule**    | `schedule add h/HEADING t/TIME d/DESCRIPTION n/CLIENT_NAME`                          | `schedule add h/Meeting with Client t/Wednesday, January, 24, 2024 - 09:00 AM d/Discuss project details n/John Doe`                                                               |
-| **Delete Schedule** | `schedule delete h/HEADING`                                                          | `schedule delete h/Meeting with Client`                                                               |
-| **Undo**            | `undo`                                                                               |                                                                                                                                    |
-| **Redo**            | `redo`                                                                               |                                                                                                                                    |
-| **Display**         | `display NAME`                                                                       |                                                                                                                                    |
-| **Clear**           | `clear`                                                                              |                                                                                                                                    |
-| **Exit**            | `exit`                                                                               |                                                                                                                                    |
+| **Update**          | `update u/existing user [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…`       | `Update u/Jane Doe n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-011`                                    |
+| **Find**            | `find [n/NAME]… [a/ADD]… [e/EMAIL]… [t/TAG]… [k/KIN]… [d/DESC]… [p/PHONE]…`             | `find n/James a/clementi e/gmail t/important k/charles d/tall p/123`                                                               |
+| **Add Schedule**    | `schedule add h/HEADING t/TIME d/DESCRIPTION n/CLIENT_NAME`                             | `schedule add h/Meeting with Client t/2/14/2024 0930 d/Discuss project details n/John Doe`                                         |
+| **Delete Schedule** | `schedule delete h/HEADING`                                                             | `schedule delete h/Meeting with Client`                                                                                            |
+| **Undo**            | `undo`                                                                                  |                                                                                                                                    |
+| **Redo**            | `redo`                                                                                  |                                                                                                                                    |
+| **Display**         | `display NAME`                                                                          |                                                                                                                                    |
+| **Clear**           | `clear`                                                                                 |                                                                                                                                    |
+| **Exit**            | `exit`                                                                                  |                                                                                                                                    |
 
 Click [here](#table-of-contents) to return to the table of contents!
 ___

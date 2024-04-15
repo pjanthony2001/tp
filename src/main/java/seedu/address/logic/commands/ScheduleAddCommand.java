@@ -26,7 +26,7 @@ public class ScheduleAddCommand extends ScheduleCommand {
             + PREFIX_NAME + "CLIENT NAME\n"
             + "Example: schedule " + COMMAND_WORD + " "
             + PREFIX_HEADING + "Meeting with Client "
-            + PREFIX_TIME + "Wednesday, January, 24, 2024 - 09:00 AM "
+            + PREFIX_TIME + "2/14/2024 0930 "
             + PREFIX_DESCRIPTION + "Discuss project details "
             + PREFIX_NAME + "John Doe";
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
