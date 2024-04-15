@@ -18,12 +18,47 @@ _This page is for ConnectCare users. If you're a developer, see also the
 </box>
 
 <!-- * Table of Contents -->
-<page-nav-print />
+## Table of Contents
++ [ConnectCare User Guide](#connectcare-user-guide)
+  + [Introduction](#introduction)
+  + [Who ConnectCare is For](#who-connectcare-is-for)
+  + [Who This Guide is For](#who-this-guide-is-for)
+  + [How to Use This Guide](#how-to-use-this-guide)
++ [Quick Start](#quick-start)
+    + [Installation Instructions](#installation-instructions)
+    + [Startup Instructions](#startup-instructions)
++ [CLI Guide](#cli-guide)
+  + [Structure](#structure)
+  + [Notes about the command format](#notes-about-the-command-format)
++ [Features](#features)
+    + [Client Management](#client-management)
+        + [Adding a Client](#adding-a-client-add)
+        + [Deleting a Client](#deleting-a-client-delete)
+        + [Updating a Client](#updating-a-client-update)
+        + [Listing all Clients](#listing-all-clients-list)
+        + [Finding Clients](#finding-clients-find)
+        + [Displaying a Client's Information](#displaying-a-clients-information-display)
+        + [Clearing all entries](#clearing-all-entries-clear)
+    + [Appointment Management](#appointment-management)
+        + [Adding an Appointment](#adding-an-appointment--schedule-add)
+        + [Deleting an Appointment](#deleting-appointments--schedule-delete)
+    + [Program Controls](#program-controls)
+      + [Undoing a Command](#undoing-a-command-undo)
+      + [Redoing a Command](#redoing-a-command-redo)
+      + [Shortcuts](#shortcuts)
+    + [Miscellaneous Commands](#miscellaneous-commands)
+      + [Viewing Help](#viewing-help-help)
+      + [Exiting the Program](#exiting-the-program-exit)
+    + [Saving the data](#saving-the-data)
++ [Frequently Asked Questions](#faq)
++ [Command Summary](#command-summary)
++ [Glossary](#glossary)
+
 
 ___
 
 ## Introduction
-Welcome to *ConnectCare User Guide*, your comprehensive resource for managing client contacts with ease!
+Welcome to the *ConnectCare User Guide*, your comprehensive resource for managing client contacts with ease!
 Designed to help you handle demanding caseloads, *ConnectCare* empowers you to navigate your client interactions seamlessly. Whether you're troubleshooting issues, just getting started, or looking to enhance your workflow, this guide has you covered.
 
 ## Who ConnectCare is For
@@ -141,17 +176,11 @@ It will help you [install](#installation-instructions) and [start](#startup-inst
 
 6. Double-click on the `connectcare.jar` file to start the application. 
    - If you are facing issues, you can consult [this guide](https://www.wikihow.com/Run-a-.Jar-Java-File).
-
-**Your first command**
-- Type this command to add and manage your first client
-    
-    `add n/John Doe p/98765432 e/johnd@example.com a/John street, Block 123, #01-01 d/Suffers from depression k/Jasmin Doe t/mentalIllness`
-- Go to the [command summary](#command-summary) for a list of different commands to try out!
-
+   - **macOS** users might experience a pop-up that says "connectcar.jar cannot be opened because it is from an unidentified developer." To solve this issue, please consult [this Apple guide](https://support.apple.com/en-sg/guide/mac-help/mh40616/mac)
 ___
 
 # CLI guide
-Our application uses [CLI](#cli) commands. 
+Our application uses a [CLI](#cli) and primarily, running commands is how users interact with the application. 
 
 ## Structure
 Each command has the general structure:
@@ -160,7 +189,7 @@ Each command has the general structure:
 
 To enter a command:
 1. Click on the text box with the placeholder text `Enter command here...`
-2. Type in your command, which is made up of a main command, followed by parameters if applicable
+2. Type in your command, which is made up of a main command, followed by parameters if applicable. Here we have the command `add n/Derek Lau p/92784935 e/dlau@example.com` entered into the command box.
 
 <div class="image-container" align="middle" style="display:flex">
     <pic src="images/user-guide/cli_tutorial/cli_tutorial_1.png" alt="cli">
@@ -171,14 +200,22 @@ To enter a command:
     </pic>
 </div>
 
-## Notes about the command format:
--   Words in `UPPER_CASE` are the parameters to be supplied by the user.
+3. Press the `ENTER` key and voilà! You have added your first client with the CLI! 
+
+<div class="image-container" align="middle" style="margin:auto;max-width:50%;">
+    <pic src="images/user-guide/cli_tutorial/cli_tutorial_3.png" alt="cli">
+        <markdown> Figure 1.3: Application after command is executed </markdown>
+    </pic>
+</div>
+
+## Notes about the command format
+-   In this guide, words in `UPPER_CASE` are the parameters to be supplied by the user.
     e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
--   Items in square brackets are optional.
+-   Parameters in square brackets are optional.
     e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
--   Items with `…` after them can be used multiple times including zero times.
+-   Parameters with `…` after them can be used multiple times including zero times.
     e.g. `[t/TAG]…` can be used as (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 -   Parameters can be in any order.
@@ -186,6 +223,13 @@ To enter a command:
 
 -   Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.
     e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+
+---
+
+You're all set to use the CLI to its full potential! Read further in our [Features Section](#features) to find out about all the various features and commands that the ConnectCare application offers!
+Or jump straight to the [Command Summary](#command-summary) if you are already familiar with the features!
+
+---
 
 # Features
 
@@ -215,7 +259,7 @@ _This command adds a new client to your client list._
 | a/ADDRESS      | Address of client that you want to add             | -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | k/NEXT_OF_KIN  | Next of Kin details of client that you want to add | Name must be alphanumeric                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | d/DESCRIPTION  | Description of client that you want to add         | Description should not be blank                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| t/TAG          | Tag to identify the client                         | A person can have any number of tags (or even 0). Tags should be alphanumeric and should not contain spaces.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| t/TAG          | Tag to identify the client                         | A person can have any number of tags (or even 0). Tags should be alphanumeric and should not contain spaces or other special characters.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 
 
 <box type="tip" seamless>
@@ -280,6 +324,10 @@ As the commands given were invalid, there would be no changes to the client list
 
 &nbsp;
 
+Click [here](#table-of-contents) to return to the table of contents!
+
+---
+
 ### Deleting a client: `delete`
 
 _This command allows you to delete a client at a specified `INDEX` from your client list._
@@ -332,6 +380,12 @@ As the commands given were invalid, there would be no changes to the client list
         <markdown> Figure 1.4: After the invalid  `delete 4` command is executed </markdown> 
     </pic>
 </div>
+
+&nbsp;
+
+Click [here](#table-of-contents) to return to the table of contents!
+
+---
 
 ### Updating a client: `update`
 
@@ -406,6 +460,10 @@ As the commands given were invalid, there would be no changes to the client list
 
 &nbsp;
 
+Click [here](#table-of-contents) to return to the table of contents!
+
+---
+
 ### Listing all clients: `list`
 _This command shows a list of all persons._
 
@@ -426,6 +484,10 @@ only `Peter Crow` was shown in the list. Thereafter, the `list` command was used
     </pic>
 </div>
 &nbsp;
+
+Click [here](#table-of-contents) to return to the table of contents!
+
+---
 
 ### Finding clients: `find`
 
@@ -463,9 +525,10 @@ _This command allows you to find a specific client in your client list by any of
 **Walkthrough:**
 
 Let's say your client list contains the following clients:
-<div class="image-container" align="middle" style="display: flex;">
+
+<div class="image-container" style="display: block;max-width: 40%;margin: auto;">
     <pic src="images/user-guide/ExampleClientList.png" alt="clientlist">
-        <markdown> Figure 1.1: An example client list in ConnectCare </markdown>
+        <markdown> Figure 1.1: _An example client list in ConnectCare_ </markdown>
     </pic>
 </div>
 
@@ -491,6 +554,11 @@ have an address that contains address1 OR address2, for example:
 **Tip:**
 After searching for clients, you can use the `list` command to view your full list of clients again!
 </box>
+
+&nbsp;
+Click [here](#table-of-contents) to return to the table of contents!
+
+---
 
 ### Displaying a client's information: `display`
 
@@ -574,7 +642,6 @@ _This command allows you to add an appointment with the specified parameters._
 
 Once the command is entered, the event should be added to the events panel on the right of the application.
 
-
 **Examples:**
 -   `schedule add h/Meeting with Client t/Wednesday, January, 24, 2024 - 09:00 AM d/Discuss project details n/John Doe`
 -   `schedule add h/Discharge plan meeting t/Wednesday, January, 24, 2024 - 09:00 AM d/Discuss discharge n/Jack Doe`
@@ -595,6 +662,10 @@ Once the command is entered, the event should be deleted on the events panel on 
 </div>
 
 &nbsp;
+
+Click [here](#table-of-contents) to return to the table of contents!
+
+---
 
 ### Deleting Appointments : `schedule delete`
 
@@ -626,15 +697,20 @@ The screenshots show what you should expect on your screen while executing this 
 Once the command is entered, the event should be added to the events panel on the right of the application.
 
 <div class="image-container" align="middle" style="display:flex">
-    <pic src="images/user-guide/schedule_command/schedule-add.png" alt="schedule-add">
+    <pic src="images/user-guide/schedule_command/schedule-delete.png" alt="schedule-delete">
         <markdown> Figure 1.1: Before the `schedule delete` command is executed </markdown>
     </pic>
-    <pic src="images/user-guide/schedule_command/schedule-add-after.png" alt="add">
+    <pic src="images/user-guide/schedule_command/schedule-delete-after.png" alt="schedule-delete">
         <markdown> Figure 1.2: After the `schedule delete` command is executed </markdown>
     </pic>
 </div>
 
 &nbsp;
+
+
+Click [here](#table-of-contents) to return to the table of contents!
+
+---
 
 ## Program Controls
 ConnectCare provides the following commands for navigating the application:
@@ -646,7 +722,7 @@ ConnectCare provides the following commands for navigating the application:
 
 ### Undoing a command : `undo`
 
-_This command allows you to undo your last command, restoring the ConnectCare application to its previous modelState._
+_This command allows you to undo your last command, restoring the ConnectCare application to its previous state._
 
 Format: `undo`
 
@@ -671,11 +747,15 @@ As seen in the second image, after using the `undo` command, Charlie is no longe
 <box type="tip">
 
 **Tip:**
-The undo command does not undo every single command, only those that change the address-book in a significant way.
+The undo command does not undo every single command, only those that change the ConnectCare application in a significant way.
 If you are at the earliest state (i.e. you can't undo any command) an appropriate error message will be displayed: "You cannot rollback the state anymore!"
 For a comprehensive deep-dive into the undo command, please refer to the [Implementation section of our Developer Guide](https://ay2324s2-cs2103t-w12-4.github.io/tp/DeveloperGuide.html)
 
 </box>
+
+Click [here](#table-of-contents) to return to the table of contents!
+
+---
 
 ### Redoing a command : `redo`
 
@@ -704,11 +784,15 @@ As seen in the second image, after using the `redo` command, the change is redon
 <box type="tip">
 
 **Tip:**
-The redo command does not redo every single command, only those that change the address-book in a significant way. 
+The redo command does not redo every single command, only those that change the ConnectCare application in a significant way. 
 If you are at the most recent state (i.e. you can't redo this command) an appropriate error message will be displayed: "You cannot roll forward the state anymore!"
 For a comprehensive deep-dive into the redo command, please refer to the [Implementation section of our Developer Guide](https://ay2324s2-cs2103t-w12-4.github.io/tp/DeveloperGuide.html)
 
 </box>
+
+Click [here](#table-of-contents) to return to the table of contents!
+
+---
 
 ### Shortcuts
 _These are a list of keyboard actions to better navigate our application_
@@ -734,7 +818,30 @@ _These are a list of keyboard actions to better navigate our application_
 **Note**: Only commands that have been executed successfully will be saved.
 </box>
 
-## Exiting the program : `exit`
+Click [here](#table-of-contents) to return to the table of contents!
+
+---
+
+## Miscellaneous Commands
+
+### Viewing Help : `help`
+
+_This command displays a popup message with a link to access this User Guide._
+
+Format: `help`
+
+<div class="image-container" align="middle" style="margin:auto;">
+    <pic src="images/user-guide/help/help_command.png" alt="help popup">
+        Figure 1: Pop-up when the help command is entered
+    </pic>
+</div>
+&nbsp;
+
+Click [here](#table-of-contents) to return to the table of contents!
+
+---
+
+### Exiting the program : `exit`
 
 _This command allows you to exit the application._
 
@@ -746,25 +853,36 @@ Format: `exit`
 You can simply close the window using the X button too!
 </box>
 
+Click [here](#table-of-contents) to return to the table of contents!
+
+---
+
 ## Saving the data
 
 Your locally saved client list will be updated after any change is made, so no further action needs to be taken when operating the application! On start-up, your existing client list (if it exists) will also be automatically loaded, so don't worry about that!
 
 <box type="info">
 
-**Note**: If it is your first time running the program, and there is no existing client list, a new file will automatically be generated to store your new client list!
+**Note**: If it is your first time running the program, and there is no existing client list, a new file will automatically be generated to store your new client list once changes are made!
 </box>
+
+Click [here](#table-of-contents) to return to the table of contents!
 
 ___
 
-## FAQ
+Congratulations, you've reached the end of all of our current features! If you ever forget any of the commands a quick look at the [command summary](#command-summary) would help!
+
+---
+
+# FAQ
 
 **Q:** How do I transfer my data to another Computer? \
 **A:** Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
 
+Click [here](#table-of-contents) to return to the table of contents!
 ___
 
-## Command summary
+# Command summary
 
 | Action      | Format                                                                                  | Examples                                                                                                                           |
 |-------------|-----------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
@@ -776,10 +894,11 @@ ___
 | **Display** | `display NAME`                                                                          |                                                                                                                                    |
 | **Clear**   | `clear`                                                                                 |                                                                                                                                    |
 | **Exit**    | `exit`                                                                                  |                                                                                                                                    |
-  
+
+Click [here](#table-of-contents) to return to the table of contents!
 ___
 
-## Glossary
+# Glossary
 
 ##### CLI
 CLI stands for Command Line Interface, which is a way for you to interact with the application with only textual
@@ -789,3 +908,7 @@ For more information, see also the [Wikipedia article for CLI](https://en.wikipe
 ##### Local
 Local applications runs on the same computer it is launched on and there is no program or data that is being ran or transferred to another remote machine.
 For more information, see also this [Microsoft article for Local and Remote execution](https://learn.microsoft.com/en-us/sql/integration-services/run-manage-packages-programmatically/understanding-the-differences-between-local-and-remote-execution?view=sql-server-ver16)
+
+Click [here](#table-of-contents) to return to the table of contents!
+
+---
