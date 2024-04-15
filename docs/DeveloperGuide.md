@@ -428,6 +428,40 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
+**Use case: Schedule an event**
+
+**MSS**
+
+1.  User requests to schedule an event
+2.  ConnectCare schedules the event
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The details of the event are incorrect
+
+    * 1a1. ConnectCare shows an error message.
+
+      Use case ends.
+
+**Use case: Delete an event**
+
+**MSS**
+
+1.  User requests to delete an event
+2.  ConnectCare deletes the event
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The details of the event are incorrect
+
+    * 1a1. ConnectCare shows an error message.
+
+      Use case ends.
+
 **Use case: Exit the application**
 
 **MSS**
@@ -508,6 +542,8 @@ testers are expected to do more *exploratory* testing.
 1. _{ more test cases …​ }_
 
 ### Planned Enhancements
+
+Team size: 5
 
 1. Currently, names must be unique and must only contain alphanumeric characters. This means different languages and special characters are not allowed, and we are planning to include these in the future.
 
