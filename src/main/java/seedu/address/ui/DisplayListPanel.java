@@ -19,7 +19,7 @@ import seedu.address.model.person.Person;
 
 
 /**
- * Panel containing the list of persons.
+ * Represents the panel that displays the list of persons within the application.
  */
 public class DisplayListPanel extends UiPart<Region> {
     private static final String FXML = "DisplayListPanel.fxml";
@@ -59,6 +59,12 @@ public class DisplayListPanel extends UiPart<Region> {
         });
     }
 
+    /**
+     * Handles key press events in the description text area,
+     * specifically looking for the ENTER key to execute update commands.
+     *
+     * @param keyCode the key code associated with the key event.
+     */
     @FXML
     private void handleDescriptionEntered(KeyCode keyCode) {
 
@@ -79,6 +85,9 @@ public class DisplayListPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Resets the style of the description text area to the default style.
+     */
     private void setStyleToDefault() {
         descriptionTextArea.getStyleClass().remove(CommandBox.ERROR_STYLE_CLASS);
     }
@@ -98,8 +107,6 @@ public class DisplayListPanel extends UiPart<Region> {
 
 
     private class DisplayPerson {
-        // Change method to utilise optionals instead of directly assuming the fields exist in the Person
-        // person.getField().map(person -> String).orElse(DEFAULT)
 
         private static final String NAME_FIELD = "Name";
         private static final String PHONE_FIELD = "Phone";

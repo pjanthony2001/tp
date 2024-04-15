@@ -99,7 +99,7 @@ public class MainApp extends Application {
         ReadOnlyCalendar initialCalendarData;
         try {
             calendarOptional = storage.readCalendar();
-            if (!calendarOptional.isPresent()) {
+            if (calendarOptional.isEmpty()) {
                 logger.info("Creating a new data file " + storage.getCalendarFilePath()
                         + " populated with a sample Calendar.");
             }

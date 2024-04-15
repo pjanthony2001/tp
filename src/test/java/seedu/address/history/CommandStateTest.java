@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 public class CommandStateTest {
-    private CommandState commandState = new CommandState("update u/Alex Yeoh p/92647812");
+    private final CommandState commandState = new CommandState("update u/Alex Yeoh p/92647812");
 
     @Test
     void getCommandText_validCommand_success() {
