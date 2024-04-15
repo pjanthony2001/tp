@@ -8,20 +8,18 @@ import seedu.address.history.exceptions.HistoryException;
  * @param <T> The type of state that the abstract class keeps track of
  */
 public class HistoryManager<T> implements History<T> {
-    private int currStateIdx;
-    private final ArrayList<T> states;
-    private boolean hasBuffer;
+    protected int currStateIdx;
+    protected final ArrayList<T> states;
 
     /**
      * Constructs a new HistoryManager with a starting state.
      *
      * @param startState The initial state of the history.
      */
-    public HistoryManager(T startState, boolean hasBuffer) {
+    public HistoryManager(T startState) {
         states = new ArrayList<>();
         currStateIdx = 0;
         states.add(startState);
-        this.hasBuffer = hasBuffer;
     }
 
     /**
@@ -50,7 +48,6 @@ public class HistoryManager<T> implements History<T> {
      */
     @Override
     public void rollForwardState() throws HistoryException {
-        int boundary = hasBuffer ? states.size() - 2 : states.size() - 1;
         if (currStateIdx >= states.size() - 1) {
             throw new HistoryException("You can't roll forward the state anymore!");
         }
@@ -64,18 +61,9 @@ public class HistoryManager<T> implements History<T> {
      */
     @Override
     public void addState(T state) {
-        if (hasBuffer) {
-            pullForwardPointer();
-            T buffer = states.get(states.size() - 1);
-            states.remove(states.size() - 1);
-            states.add(state);
-            states.add(buffer);
-            currStateIdx++;
-        } else {
-            truncate();
-            states.add(state);
-            currStateIdx += 1;
-        }
+        truncate();
+        states.add(state);
+        currStateIdx += 1;
     }
 
     /**
@@ -85,18 +73,6 @@ public class HistoryManager<T> implements History<T> {
      */
     @Override
     public T getCurrState() {
-        return states.get(currStateIdx);
-    }
-
-    private void pullForwardPointer() {
-        currStateIdx = states.size() - 1;
-    }
-
-    @Override
-    public T getCurrStateHasBuffer() throws HistoryException {
-        if (hasBuffer && currStateIdx == states.size() - 1) {
-            throw new HistoryException("Cannot read from buffer");
-        }
         return states.get(currStateIdx);
     }
 }
