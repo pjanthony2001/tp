@@ -601,7 +601,7 @@ ConnectCare provides the following commands for navigating the application:
 
 ### Undoing a command : `undo`
 
-_This command allows you to undo your last command, restoring the ConnectCare application to its previous modelState._
+_This command allows you to undo your last command, restoring the ConnectCare application to its previous state._
 
 Format: `undo`
 
