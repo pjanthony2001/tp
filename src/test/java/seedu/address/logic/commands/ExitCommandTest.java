@@ -20,7 +20,7 @@ public class ExitCommandTest {
     }
 
     @Test
-    public void getCommandStringTest() {
+    public void getCommandString_returnsCommandString() {
         ExitCommand exitCommand = new ExitCommand();
         String expected = ExitCommand.COMMAND_WORD;
         assertEquals(expected, exitCommand.getCommandString());

@@ -174,7 +174,7 @@ public class UpdateCommandTest {
     }
 
     @Test
-    public void getCommandStringTest() {
+    public void getCommandString_returnsCommandString() {
         UpdateCommand updateCommand = new UpdateCommand(ALICE.getName(), new UpdateCommand.UpdatePersonDescriptor());
         String expected = UpdateCommand.COMMAND_WORD;
         assertEquals(expected, updateCommand.getCommandString());

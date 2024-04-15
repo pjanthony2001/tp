@@ -22,7 +22,6 @@ public class Messages {
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_DUPLICATE_NAMES = "There are people with the same names in the list";
     public static final String MESSAGE_INVALID_EVENT_DISPLAYED_HEADING = "The event heading provided is invalid";
-    public static final String MESSAGE_DUPLICATE_HEADINGS = "There are events with the same headings in the list";
 
 
 
@@ -59,7 +58,7 @@ public class Messages {
         return builder.toString();
     }
     /**
-     * Formats the {@code person} for display to the user.
+     * Formats the {@code event} for display to the user.
      */
     public static String format(Event event) {
         final StringBuilder builder = new StringBuilder();

@@ -4,7 +4,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Start command for the start state
+ * A dummy start command for the start state
  */
 public class StartCommand extends Command {
 
@@ -24,10 +24,6 @@ public class StartCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         throw new CommandException(MESSAGE_SHOULD_NOT_EXECUTE);
     }
-
-    /**
-     * @return String representation of command
-     */
     @Override
     public String getCommandString() {
         return COMMAND_WORD;

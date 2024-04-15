@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class RedoCommandTest {
 
     @Test
-    public void getCommandStringTest() {
+    public void getCommandString_returnsCommandString() {
         RedoCommand redoCommand = new RedoCommand();
         String expected = RedoCommand.COMMAND_WORD;
         assertEquals(expected, redoCommand.getCommandString());

@@ -35,12 +35,12 @@ public class UndoCommandIntegrationTest {
     }
 
     @Test
-    void executeFailure() {
+    void execute_startStateRollback_failure() {
         assertCommandFailure(new UndoCommand(), model, UndoCommand.MESSAGE_NO_ROLLBACK);
     }
 
     @Test
-    void executeAddCommandSuccess() {
+    void execute_undoAddCommand_success() {
         try {
             Person validPerson = new PersonBuilder().build();
             AddCommand addCommand = new AddCommand(validPerson);
@@ -63,7 +63,7 @@ public class UndoCommandIntegrationTest {
     }
 
     @Test
-    void executeClearCommandSuccess() {
+    void execute_undoClearCommand_commandSuccess() {
         try {
             model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalCalendar());
             ClearCommand clearCommand = new ClearCommand();
@@ -84,7 +84,7 @@ public class UndoCommandIntegrationTest {
     }
 
     @Test
-    void executeHelpCommandFailure() {
+    void execute_undoHelpCommand_commandFailure() {
         try {
             model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalCalendar());
             HelpCommand helpCommand = new HelpCommand();
@@ -103,7 +103,7 @@ public class UndoCommandIntegrationTest {
 
 
     @Test
-    void executeFailureUndoTwice() {
+    void execute_undoTwice_throwsCommandException() {
         try {
             Person validPerson = new PersonBuilder().build();
             AddCommand addCommand = new AddCommand(validPerson);

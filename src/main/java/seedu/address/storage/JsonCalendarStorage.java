@@ -47,7 +47,7 @@ public class JsonCalendarStorage implements CalendarStorage {
 
         Optional<JsonSerializableCalendar> jsonCalendar = JsonUtil.readJsonFile(
                 filePath, JsonSerializableCalendar.class);
-        if (!jsonCalendar.isPresent()) {
+        if (jsonCalendar.isEmpty()) {
             return Optional.empty();
         }
 

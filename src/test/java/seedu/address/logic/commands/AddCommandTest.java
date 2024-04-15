@@ -91,14 +91,14 @@ public class AddCommandTest {
     }
 
     @Test
-    public void getCommandStringTest() {
+    public void getCommandString_returnsCommandString() {
         AddCommand addCommand = new AddCommand(ALICE);
         String expected = AddCommand.COMMAND_WORD;
         assertEquals(expected, addCommand.getCommandString());
     }
 
     /**
-     * A default model stub that have all of the methods failing.
+     * A default model stub that have all the methods failing.
      */
     private class ModelStub implements Model {
         @Override

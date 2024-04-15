@@ -40,7 +40,7 @@ public class ListCommandTest {
     }
 
     @Test
-    public void getCommandStringTest() {
+    public void getCommandString_returnsCommandString() {
         ListCommand listCommand = new ListCommand();
         String expected = ListCommand.COMMAND_WORD;
         assertEquals(expected, listCommand.getCommandString());

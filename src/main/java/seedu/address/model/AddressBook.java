@@ -130,6 +130,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.hashCode();
     }
 
+    @Override
     public ReadOnlyAddressBook deepCopy() throws IllegalValueException {
         return new JsonSerializableAddressBook(this).toModelType();
     }

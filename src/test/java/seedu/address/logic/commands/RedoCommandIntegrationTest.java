@@ -34,12 +34,12 @@ public class RedoCommandIntegrationTest {
     }
 
     @Test
-    void executeFailure() {
+    void execute_redoStartState_commandFailure() {
         assertCommandFailure(new RedoCommand(), model, RedoCommand.MESSAGE_NO_ROLLFORWARD);
     }
 
     @Test
-    void executeAddCommandSuccess() {
+    void execute_redoAddCommand_commandSuccess() {
         try {
             Person validPerson = new PersonBuilder().build();
             AddCommand addCommand = new AddCommand(validPerson);
@@ -64,7 +64,7 @@ public class RedoCommandIntegrationTest {
     }
 
     @Test
-    void executeClearCommandSuccess() {
+    void execute_redoClearCommand_commandSuccess() {
         try {
             model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalCalendar());
             ClearCommand clearCommand = new ClearCommand();
@@ -87,7 +87,7 @@ public class RedoCommandIntegrationTest {
     }
 
     @Test
-    void executeFailureRedoTwice() {
+    void execute_redoTwice_commandFailure() {
         try {
             Person validPerson = new PersonBuilder().build();
             AddCommand addCommand = new AddCommand(validPerson);
