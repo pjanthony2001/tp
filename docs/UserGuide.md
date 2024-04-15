@@ -241,7 +241,7 @@ _This command adds a new client to your client list._
 &nbsp;
 
 **Examples:**
--   `add n/John Doe p/98765432 e/johnd@example.com a/57 Ubi Avenue 1 #04-13 Ubi Centre d/Suffers from depression k/Jasmin Doe`
+-   `add n/John Doe p/98765432 e/johnd@example.com`
 -   `add n/Betsy Crowe t/friend d/Takes anxiety medication k/Bethany Crowe e/betsycrowe@example.com a/Blk 684A Jurong West Central 1 #10-124 p/92748321 t/lowPriority`
 -   `add n/Aaron James p/84362143 e/billj@example.com a/400 Balestier Road #02-27 Balestier Plaza t/highPriority k/John Doe d/Has low blood pressure`
 
