@@ -180,7 +180,7 @@ It will help you [install](#installation-instructions) and [start](#startup-inst
 ___
 
 # CLI guide
-Our application uses [CLI](#cli) commands. 
+Our application uses a [CLI](#cli) and primarily, running commands is how users interact with the application. 
 
 ## Structure
 Each command has the general structure:
@@ -315,10 +315,10 @@ As the commands given were invalid, there would be no changes to the client list
 
 <div class="image-container" align="middle" style="display: flex;">
     <pic src="images/user-guide/add_command/add_command_after_without_all_parameters.png" alt="add"> 
-        <markdown> Figure 1.2: After the invalid `add` command without all parameters is executed </markdown>
+        <markdown> Figure 1.3: After the invalid `add` command without all parameters is executed </markdown>
     </pic>
     <pic src="images/user-guide/add_command/add_command_after_with_incorrect_parameters.png" alt="add">
-        <markdown> Figure 1.3: After the invalid  `add` command with incorrect parameters is executed </markdown> 
+        <markdown> Figure 1.4: After the invalid  `add` command with incorrect parameters is executed </markdown> 
     </pic>
 </div>
 
@@ -642,6 +642,27 @@ _This command allows you to add an appointment with the specified parameters._
 
 Once the command is entered, the event should be added to the events panel on the right of the application.
 
+**Examples:**
+-   `schedule add h/Meeting with Client t/Wednesday, January, 24, 2024 - 09:00 AM d/Discuss project details n/John Doe`
+-   `schedule add h/Discharge plan meeting t/Wednesday, January, 24, 2024 - 09:00 AM d/Discuss discharge n/Jack Doe`
+
+
+**Walkthrough:**
+
+The screenshots show what you should expect on your screen while executing this command: `schedule add h/Meeting with Client t/Wednesday, January, 24, 2024 - 09:00 AM d/Discuss project details n/John Doe`.
+Once the command is entered, the event should be deleted on the events panel on the right of the application.
+
+<div class="image-container" align="middle" style="display:flex">
+    <pic src="images/user-guide/schedule_command/schedule-add.png" alt="schedule-add">
+        <markdown> Figure 1.1: Before the `schedule add` command is executed </markdown>
+    </pic>
+    <pic src="images/user-guide/schedule_command/schedule-add-after.png" alt="add">
+        <markdown> Figure 1.2: After the `schedule add` command is executed </markdown>
+    </pic>
+</div>
+
+&nbsp;
+
 Click [here](#table-of-contents) to return to the table of contents!
 
 ---
@@ -662,6 +683,30 @@ _This command allows you to remove an appointment with the specified parameters.
 </panel>
 
 Once the command is entered, the event should be removed from the events panel on the right of the application.
+
+**Examples:**
+-   `schedule delete h/Meeting with Client`
+-   `schedule delete h/Discharge plan meeting`
+<box type="info">
+It is only possible to delete an event if the heading exists in the events panel on the right of the application.
+</box>
+
+**Walkthrough:**
+
+The screenshots show what you should expect on your screen while executing this command: `schedule delete h/Client Checkin`.
+Once the command is entered, the event should be added to the events panel on the right of the application.
+
+<div class="image-container" align="middle" style="display:flex">
+    <pic src="images/user-guide/schedule_command/schedule-delete.png" alt="schedule-delete">
+        <markdown> Figure 1.1: Before the `schedule delete` command is executed </markdown>
+    </pic>
+    <pic src="images/user-guide/schedule_command/schedule-delete-after.png" alt="schedule-delete">
+        <markdown> Figure 1.2: After the `schedule delete` command is executed </markdown>
+    </pic>
+</div>
+
+&nbsp;
+
 
 Click [here](#table-of-contents) to return to the table of contents!
 
