@@ -19,8 +19,9 @@ public class BufferedHistoryManager<T> extends HistoryManager<T> implements Buff
     @Override
     public void addState(T state) {
         pullForwardPointer();
-        T buffer = states.get(states.size() - 1);
-        states.remove(states.size() - 1);
+        int lastIndex = states.size() - 1;
+        T buffer = states.get(lastIndex);
+        states.remove(lastIndex);
         states.add(state);
         states.add(buffer);
         currStateIdx++;
