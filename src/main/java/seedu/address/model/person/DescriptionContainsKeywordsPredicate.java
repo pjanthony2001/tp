@@ -14,7 +14,7 @@ public class DescriptionContainsKeywordsPredicate extends KeywordMatcherPredicat
 
     @Override
     public boolean test(Person person) {
-        if (person.getDescription().isPresent()) {
+        if (!person.getDescription().isPresent()) {
             return false;
         }
         return super.matchesKeywords(person.getDescription().get().toString());

@@ -13,7 +13,7 @@ public class KinContainsKeywordsPredicate extends KeywordMatcherPredicate {
 
     @Override
     public boolean test(Person person) {
-        if (person.getNextOfKin().isPresent()) {
+        if (!person.getNextOfKin().isPresent()) {
             return false;
         }
         return super.matchesKeywords(person.getNextOfKin().get().toString());

@@ -13,7 +13,7 @@ public class AddressContainsKeywordsPredicate extends KeywordMatcherPredicate {
 
     @Override
     public boolean test(Person person) {
-        if (person.getAddress().isPresent()) {
+        if (!person.getAddress().isPresent()) {
             return false;
         }
         return super.matchesKeywords(person.getAddress().get().toString());
