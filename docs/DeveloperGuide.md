@@ -334,6 +334,10 @@ The `down` arrow shortcut does the opposite — it calls `Model#retrieveNext
     * Pros: Easy to implement, and captures all aspects of the application in the state
     * Cons: May have performance issues in terms of memory usage.
 
+* Saves only the changes made when a command is executed.
+    * Pros: Utilises a lot less space and is thus makes the application more performative
+    * Cons: Much more difficult to implement and is less scalable as more commands and features are added
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
