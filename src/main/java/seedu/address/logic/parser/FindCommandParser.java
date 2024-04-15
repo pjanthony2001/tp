@@ -80,9 +80,9 @@ public class FindCommandParser implements Parser<FindCommand> {
     }
 
     private void checkAllEmpty(List<String>... lists) throws ParseException {
-        boolean allEmpty = Arrays.stream(lists)
+        boolean isAllEmpty = Arrays.stream(lists)
             .allMatch(List::isEmpty);
-        if (allEmpty) {
+        if (isAllEmpty) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
