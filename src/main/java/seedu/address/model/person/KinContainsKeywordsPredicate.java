@@ -13,6 +13,9 @@ public class KinContainsKeywordsPredicate extends KeywordMatcherPredicate {
 
     @Override
     public boolean test(Person person) {
+        if (person.getNextOfKin().isEmpty()) {
+            return false;
+        }
         return super.matchesKeywords(person.getNextOfKin().get().toString());
     }
 }
