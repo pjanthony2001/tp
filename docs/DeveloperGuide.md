@@ -13,7 +13,7 @@
 
 ## **Acknowledgements**
 
-
+This application is based off of the AddressBook Level-3 by SE-EDU.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -222,7 +222,7 @@ Step 4. The user now decides that adding the person was a mistake, and decides t
 
 <box type="info" seamless>
 
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook modelState, then there are no previous AddressBook states to restore. The call to `Model#rollBackState()` will throw a checked exception, which will be caught and return an error to the user rather than attempting to perform the undo.
+**Note:** If the `currentStateIdx` is at index 0, pointing to the initial AddressBook modelState, then there are no previous AddressBook states to restore. The call to `Model#rollBackState()` will throw a checked exception, which will be caught and return an error to the user rather than attempting to perform the undo.
 
 </box>
 
@@ -264,9 +264,26 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 **Aspect: How undo & redo executes:**
 
-* Saves the entire address book, filtered list and predicate.
+* Saves the entire address book, calendar, and predicate.
   * Pros: Easy to implement, and captures all aspects of the application in the state
   * Cons: May have performance issues in terms of memory usage.
+
+* Saves only the changes made when a command is executed.
+  * Pros: Utilises a lot less space and is thus makes the application more performative
+  * Cons: Much more difficult to implement and is less scalable as more commands and features are added
+
+**Aspect: Which commands are reversible:**
+
+* Currently, the following commands are reversible:
+  * AddCommand
+  * ClearCommand
+  * DeleteCommand
+  * DisplayCommand
+  * FindCommand
+  * ListCommand
+  * ScheduleAddCommand
+  * ScheduleDeleteCommand
+  * UpdateCommand
 
 ### Shortcuts feature
 
@@ -338,6 +355,50 @@ The `down` arrow shortcut does the opposite — it calls `Model#retrieveNext
     * Pros: Utilises a lot less space and is thus makes the application more performative
     * Cons: Much more difficult to implement and is less scalable as more commands and features are added
 
+### Display feature
+
+The display mechanism in the application is constructed using several components, including `DisplayCommand`,
+`DisplayCommandParser`, `DisplayListPanel`, and `DisplayCard`. These components work together to 
+parse user commands, filter relevant data, and update the user interface accordingly.
+
+#### Key Components:
+
+1. `DisplayCommand` and `DisplayCommandParser`:
+
+- `DisplayCommandParser` parses the user input to extract search terms and constructs a `DisplayCommand` with a 
+predicate that encapsulates these terms.
+- `DisplayCommand` uses this predicate to filter the displayed data in the model. The command interacts with the model
+to update the list of persons to those that match the criteria specified by the predicate.
+
+2. `DisplayListPanel`:
+
+- This UI component is responsible for displaying the list of persons that match the search criteria. It utilizes
+`ListView` and custom `ListCell` implementations to render the filtered list.
+- The `DisplayListPanel` is updated whenever the `DisplayCommand` alters the list of persons in the model to show only 
+those that match the search criteria.
+
+3. `DisplayCard`: 
+
+- Each `DisplayCard` represents a single person in the `DisplayListPanel`. It formats and shows detailed information 
+about a person, such as their name, phone number, and any other relevant details.
+- The `DisplayCard` updates whenever a new person is selected or the displayed list changes.
+
+#### Implementation Details
+
+Command Parsing and Execution:
+
+- The `DisplayCommandParser` reads the input from the user and uses it to instantiate a `DisplayCommand` with the 
+appropriate matching criteria.
+- `DisplayCommand` then interacts with the model to filter the data based on the provided predicate. If the 
+predicate results in one or more matches, the `DisplayListPanel` is updated to show these matches.
+
+UI Updates:
+
+- `DisplayListPanel` listens for changes in the model's filtered list. When `DisplayCommand` updates this list, 
+`DisplayListPanel` reacts by refreshing its contents, using `DisplayCard` for each item in the filtered list.
+- Each `DisplayCard` extracts and displays information from the Person instance it represents, providing a 
+visual representation of each matched person.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -387,13 +448,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | social worker with colleagues   | switch between profiles      | manage my own set of clients on the same machine                             |
 | `*`      | social worker                   | undo and redo my commands    | easily rectify a mistaken command                                            |
 
-*{More to be added}*
+
 
 ### Use cases
 
 (For all use cases below, the **System** is `ConnectCare` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Add a client**
+#### Use case: Add a client
 
 **MSS**
 
@@ -410,7 +471,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
         Use case ends.
 
-**Use case: Update client details**
+#### Use case: Update client details
 
 **MSS**
 
@@ -433,7 +494,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: Delete a person**
+#### Use case: Delete a person
 
 **MSS**
 
@@ -456,7 +517,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: Find client**
+#### Use case: Find client
 
 **MSS**
 
@@ -473,7 +534,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: Clear all clients**
+
+#### Use case: Clear all clients
 
 **MSS**
 
@@ -498,7 +560,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: Schedule an event**
+
+#### Use case: Schedule an event
 
 **MSS**
 
@@ -515,7 +578,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: Delete an event**
+#### Use case: Delete an event
 
 **MSS**
 
@@ -532,7 +595,79 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: Exit the application**
+
+#### Use case: Undo a command
+
+**MSS**
+
+1.  User requests to undo a command
+2.  ConnectCare undoes the command
+3.  ConnectCare restores the application to the previous state
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. There are no more commands to undo
+
+    * 1a1. ConnectCare shows an error message.
+
+      Use case ends.
+
+#### Use case: Redo a command
+
+**MSS**
+
+1.  User requests to redo a command
+2.  ConnectCare redoes the command
+3.  ConnectCare restores the application to the desired state
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. There are no more commands to redo
+
+    * 1a1. ConnectCare shows an error message.
+
+      Use case ends.
+
+#### Use case: Shortcut (Up-Arrow Key) Display previous command
+
+**MSS**
+
+1.  User requests to display a previous command
+2.  ConnectCare displays the command
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. There are no more commands to display
+
+    * 1a1. ConnectCare shows an error message.
+
+      Use case ends.
+
+#### Use case: Shortcut (Down-Arrow Key) Display next command
+
+**MSS**
+
+1.  User requests to display next command
+2.  ConnectCare displays the command
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. There are no more commands to display
+
+    * 1a1. ConnectCare shows an error message.
+
+      Use case ends.
+
+
+#### Use case: Exit the application
 
 **MSS**
 
@@ -550,14 +685,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 5.  The user interface should be intuitive and easy to navigate, requiring minimal training for social workers to use effectively.
 6.  The system should work without access to the internet.
 
-*{More to be added}*
-
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Command Line Interface (CLI)**: A CLI is a text-based interface used to run programs, manage computer file sand interact with the computer
 * **Main Success Scenario (MSS)**: The primary sequence of steps in a use case that describes the ideal path of interaction between a user and the system without encountering any errors
+* **Clients**: People that social workers who are using this application want to keep contact of
+* 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
@@ -565,8 +700,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 Given below are instructions to test the app manually.
 
 <box type="info" seamless>
+
 **Note:** These instructions only provide a starting point for testers to work on;
 testers are expected to do more *exploratory* testing.
+
 </box>
 
 ### Launch and shutdown
@@ -584,7 +721,6 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
 
 ### Deleting a person
 
@@ -601,21 +737,156 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+
+### Displaying a person
+
+1. Displaying a person by name
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    1. Test case: `display John Doe`<br>
+       Expected: Displays all details associated with "John Doe" in the dedicated display area of the GUI. The command should result in showing details such as name, phone, email, address, etc., that match "John Doe".
+
+    1. Test case: `display Jane`<br>
+       Expected: Since there is no client named Jane, no details are shown in the display area. An error message should be shown indicating that no person matches the name "Jane".
+   
+    1. Test case: `display`<br>
+       Expected:  No details are shown in the display area. An error message should be shown indicating the incorrect command format or reminding to enter the name of the person to display.
+
+### Undoing a command
+
+1. Undoing a command when no commands have been entered
+
+   1. Prerequisites: No commands have been entered and the application has just been initialised.
+   
+   2. Test case: `undo` <br>
+        Expected: No changes to person or event lists. Error shown in the result display. No more history to rollback.
+   
+2. Undoing a command when no reversible commands have been entered
+
+    1. Prerequisites: No reversible commands have been entered. For a full list of reversible commands see the [implementation section for undo](#undoredo-feature)
+
+    2. Test case: `undo` <br>
+       Expected: No changes to person or event lists. Error shown in the result display. No more history to rollback.
+
+
+3. Undoing a command when reversible commands have been entered
+
+   1. Prerequisites: Reversible commands have been entered. For a full list of reversible commands see the [implementation section for undo](#undoredo-feature)
+
+   2. Test case: `undo` while there are commands to revert <br>
+        Expected: Application reverts back to the state before the reversible commands are executes. Success message shown on result display. This continues until there are no more commands to revert.
+    
+   3. Test case: `undo` when there are no commands to revert (start state) <br>
+        Expected: Application has been reverted back to the start state. Error shown in the result display. No more history to rollback.
+
+
+### Redoing a command
+
+1. Redoing a command when no commands have been entered
+
+    1. Prerequisites: No commands have been entered and the application has just been initialised.
+
+    2. Test case: `redo` <br>
+       Expected: No changes to person or event lists. Error shown in the result display. No more history to roll forward.
+
+
+2. Redoing a command when reversible commands have been entered
+
+    1. Prerequisites: Reversible commands have been entered. For a full list of reversible commands see the [implementation section for undo](#undoredo-feature)
+
+    2. Test case: `undo` while there are commands to revert and then `redo` <br>
+       Expected: Application reverts back to the desired state before the `undo`. Success message shown on result display.
+
+    3. Test case: `redo` when there are no "`undo`" commands to revert <br>
+       Expected: Application remains in current state. Error shown in the result display. No more history to forward.
+    
+    4. Test case: `undo` while there are commands to revert and then execute a command (that is not `redo`). Next execute `redo` <br>
+       Expected: Application remains in current state. Error shown in the result display. No more history to roll forward. This is due to the states being truncated.
+
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. Dealing with missing/corrupted data files on start-up
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Test case: Edit the `addressbook.json` and add or remove fields or add special characters that are not allowed. <br>
+        Expected: The application will initialise but with an empty persons list instead. Logger will log a warning
+   
+   2. Test case: Edit the `calendar.json` and add or remove fields or add special characters that are not allowed. <br>
+        Expected: The application will initialise but with an empty events list instead. Logger will log a warning.
+   
+2. Dealing with missing/corrupted data files while application is running
 
-1. _{ more test cases …​ }_
+    1. Test case: Edit the `addressbook.json` and add or remove fields or add special characters that are not allowed. <br>
+       Expected: The application will overwrite the changes made with the correct details, and will continue as per normal
+
+    2. Test case: Edit the `calendar.json` and add or remove fields or add special characters that are not allowed. <br>
+       Expected: The application will overwrite the changes made with the correct details, and will continue as per normal
 
 ### Planned Enhancements
 
 Team size: 5
 
-1. Currently, names must be unique and must only contain alphanumeric characters. This means different languages and special characters are not allowed, and we are planning to include these in the future.
+#### Enhancement 1: More robust `Names`
 
-2. There is currently no method for new user to clear or find schedules quickly. We are planning to add these commands and expand the capability of this feature in the future.
+Feature Flaw/Bug: <br>
+Currently, all names must be unique and must only contain alphanumeric characters. This means different languages and special characters are not allowed.
 
+Proposed Enhancement: <br>
+Change the restrictions on the regex for the Name class to allow for more flexible names
+
+Justification: <br>
+This allows for a more realistic application where names can contain "/" characters, and chracters from other languages.
+
+
+#### Enhancement 2: More robust `clear` and `find` for `schedule` commands
+
+Feature Flaw/Bug: <br>
+Currently, no command for users to clear or find events quickly.
+
+Proposed Enhancement: <br>
+Add commands that allows users to clear or find events quickly.
+
+Justification: <br>
+This allows for a more user-friendly experience.
+
+#### Enhancement 3: More robust date formats for `schedule add`
+
+Feature Flaw/Bug: <br>
+Currently, there is only one format for the date for the `schedule add` command.
+
+Proposed Enhancement: <br>
+Add more formats that we can accept for the `schedule add` command like `dd/MM/yyyy HHmm` or more human-readable formats like `dd/MMM/yyyy HHmm`
+
+Justification: <br>
+This caters to a wider audience as people from different regions use different date-time formats.
+
+#### Enhancement 4: More functionality to the NOK field
+
+Feature Flaw/Bug: <br>
+Currently, the NOK field is just a string representation that is alphanumeric and has the same constraints as `Name`.
+
+Proposed Enhancement: <br>
+Add more structure in the code for the NOK field (give it its own class) and allow users to add special characters and validate different aspects of the NOK object (NOK phone number, NOK email should have their own constraints)
+
+Justification: <br>
+This is more realistic and useful as NOK details can now be more detailed. This ensures that important information can be communicated effectively in case of emergencies or other situations involving the person associated with the NOK details.
+
+#### Enhancement 5: When `display` throws an error and is incompatible with `undo`/`redo`
+
+Feature Flaw: <br>
+Once the user partially types a client’s name and receives an error message when using the display command, the history is reset and the undo/command utils can’t revert to a previous state.
+
+Propose doing Enhancement: <br>
+Ensure the command history isn’t affected when an error is thrown in the display command
+
+Justification: <br>
+This enhancement allows users to revert back to a previous state even if they face an error when trying to display a client
+
+#### Enhancement 6: Find command error
+
+Feature Flaw/Bug: <br>
+
+Proposed Enhancement: <br>
+
+Justification: <br>
