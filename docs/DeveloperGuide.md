@@ -285,8 +285,49 @@ The following activity diagram summarizes what happens when a user executes a ne
   * ScheduleDeleteCommand
   * UpdateCommand
 
+### Display feature
 
+The display mechanism in the application is constructed using several components, including `DisplayCommand`,
+`DisplayCommandParser`, `DisplayListPanel`, and `DisplayCard`. These components work together to 
+parse user commands, filter relevant data, and update the user interface accordingly.
 
+#### Key Components:
+
+1. `DisplayCommand` and `DisplayCommandParser`:
+
+- `DisplayCommandParser` parses the user input to extract search terms and constructs a `DisplayCommand` with a 
+predicate that encapsulates these terms.
+- `DisplayCommand` uses this predicate to filter the displayed data in the model. The command interacts with the model
+to update the list of persons to those that match the criteria specified by the predicate.
+
+2. `DisplayListPanel`:
+
+- This UI component is responsible for displaying the list of persons that match the search criteria. It utilizes
+`ListView` and custom `ListCell` implementations to render the filtered list.
+- The `DisplayListPanel` is updated whenever the `DisplayCommand` alters the list of persons in the model to show only 
+those that match the search criteria.
+
+3. `DisplayCard`: 
+
+- Each `DisplayCard` represents a single person in the `DisplayListPanel`. It formats and shows detailed information 
+about a person, such as their name, phone number, and any other relevant details.
+- The `DisplayCard` updates whenever a new person is selected or the displayed list changes.
+
+#### Implementation Details
+
+Command Parsing and Execution:
+
+- The `DisplayCommandParser` reads the input from the user and uses it to instantiate a `DisplayCommand` with the 
+appropriate matching criteria.
+- `DisplayCommand` then interacts with the model to filter the data based on the provided predicate. If the 
+predicate results in one or more matches, the `DisplayListPanel` is updated to show these matches.
+
+UI Updates:
+
+- `DisplayListPanel` listens for changes in the model's filtered list. When `DisplayCommand` updates this list, 
+`DisplayListPanel` reacts by refreshing its contents, using `DisplayCard` for each item in the filtered list.
+- Each `DisplayCard` extracts and displays information from the Person instance it represents, providing a 
+visual representation of each matched person.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -624,6 +665,21 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
+
+### Displaying a person
+
+1. Displaying a person by name
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    1. Test case: `display John Doe`<br>
+       Expected: Displays all details associated with "John Doe" in the dedicated display area of the GUI. The command should result in showing details such as name, phone, email, address, etc., that match "John Doe".
+
+    1. Test case: `display Jane`<br>
+       Expected: Since there is no client named Jane, no details are shown in the display area. An error message should be shown indicating that no person matches the name "Jane".
+   
+    1. Test case: `display`<br>
+       Expected:  No details are shown in the display area. An error message should be shown indicating the incorrect command format or reminding to enter the name of the person to display.
 
 ### Undoing a command
 
