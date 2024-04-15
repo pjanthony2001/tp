@@ -561,7 +561,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Adding a person
 
-    1. Prerequisites: None.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
     1. Test case: `add n/Phil p/987654321 e/phil@gmail.com`<br>
        Expected: Phil is added to the client list. Details of the added client is shown in the status message.
@@ -578,7 +578,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Adding an event
 
-    1. Prerequisites: None.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
     1. Test case: `schedule add h/Meeting with Client t/2/14/2024 0930 d/Discuss project details n/John Doe`<br>
        Expected: A new event is added to the events list. Details of the added event is shown in the status message.
@@ -597,8 +597,22 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `schedule delete h/Meeting with Client`<br>
        Expected: Event is deleted from events list. Details of the deleted event is shown in the status message.
 
-    1. Other incorrect schedule add commands to try: `schedule delete`, `schedule delete n/Phil`, `schedule delete h/Not a real event h/Another unreal event` <br>
+    1. Other incorrect schedule delete commands to try: `schedule delete`, `schedule delete n/Phil`, `schedule delete h/Not a real event h/Another unreal event` <br>
        Expected: Similar to previous.
+
+1. _{ more test cases …​ }_
+
+### Finding a person
+
+1. Finding a person
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    1. Test case: `find n/Phil`<br>
+       Expected: Details of the client are shown in the client list. Provided client exists in the event list.
+
+    1. Other incorrect find commands to try: `find`, `...` <br>
+       Expected: Error message on status bar.
 
 1. _{ more test cases …​ }_
 
