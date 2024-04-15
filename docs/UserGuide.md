@@ -159,7 +159,7 @@ It will help you [install](#installation-instructions) and [start](#startup-inst
    - **MacOS** users should use [this guide](https://docs.oracle.com/en/java/javase/11/install/installation-jdk-macos.html#GUID-2FE451B0-9572-4E38-A1A5-568B77B146DE).
    - **Linux** users should use [this guide](https://docs.oracle.com/en/java/javase/11/install/installation-jdk-linux-platforms.html#GUID-737A84E4-2EFF-4D38-8E60-3E29D1B884B8).
 
-4. Download the latest release of `connectcare.jar` [here](https://github.com/AY2324S2-CS2103T-W12-4/tp/releases). Look for the green "Latest" tag next to the Release version as shown below.
+4. Download the latest release of `connectcare.jar` [here](https://github.com/AY2324S2-CS2103T-W12-4/tp/releases).
 
 <div class="image-container" align="middle" style="display:flex">
     <pic src="images/quickstart/latest-release.png" alt="jar_file">
