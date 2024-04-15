@@ -428,7 +428,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-
 **Use case: Schedule an event**
 
 **MSS**
