@@ -26,7 +26,8 @@ public class HistoryManager<T> implements History<T> {
      * Removes states after the current state, effectively truncating the history.
      */
     private void truncate() {
-        assert (currStateIdx >= 0 && currStateIdx < states.size());
+        boolean isValidIndex = currStateIdx >= 0 && currStateIdx < states.size();
+        assert (isValidIndex);
         states.subList(currStateIdx + 1, states.size()).clear();
     }
 
