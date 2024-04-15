@@ -76,6 +76,13 @@ public class DescriptionContainsKeywordsPredicateTest {
     }
 
     @Test
+    public void test_personDescriptionIsEmpty_returnsFalse() {
+        DescriptionContainsKeywordsPredicate predicate = new DescriptionContainsKeywordsPredicate(
+            Collections.singletonList("ill"));
+        assertFalse(predicate.test(new PersonBuilder().build()));
+    }
+
+    @Test
     public void toStringMethod() {
         List<String> keywords = List.of("keyword1", "keyword2");
         DescriptionContainsKeywordsPredicate predicate =
