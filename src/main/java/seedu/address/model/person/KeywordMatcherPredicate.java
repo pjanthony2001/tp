@@ -10,7 +10,7 @@ import seedu.address.commons.util.ToStringBuilder;
  * Superclass for keyword matching predicates.
  */
 public abstract class KeywordMatcherPredicate implements Predicate<Person> {
-    private final List<String> keywords;
+    protected final List<String> keywords;
 
     public KeywordMatcherPredicate(List<String> keywords) {
         this.keywords = keywords;
