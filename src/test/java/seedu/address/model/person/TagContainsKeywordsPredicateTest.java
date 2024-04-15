@@ -85,5 +85,12 @@ public class TagContainsKeywordsPredicateTest {
         assertEquals(expected, predicate.toString());
     }
 
+    @Test
+    public void test_personTagsIsEmpty_returnsFalse() {
+        TagContainsKeywordsPredicate predicate = new TagContainsKeywordsPredicate(
+            Collections.singletonList("Important"));
+        assertFalse(predicate.test(new PersonBuilder().build()));
+    }
+
 }
 

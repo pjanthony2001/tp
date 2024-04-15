@@ -244,7 +244,7 @@ The `redo` command does the opposite — it calls `Model#rollForwardState()`
 
 <box type="info" seamless>
 
-**Note:** If the `currentStateIdx` is at index `addressBookStateList.size() - 1`, the index of the last state, then there are no undone states to restore. The call to `Model#rollForwardState()` will throw a checked exception, which will be caught and return an error to the user rather than attempting to perform the redo.
+**Note:** If the `currentStateIdx` is at index `states.size() - 1`, the index of the last state, then there are no undone states to restore. The call to `Model#rollForwardState()` will throw a checked exception, which will be caught and return an error to the user rather than attempting to perform the redo.
 
 </box>
 
@@ -259,6 +259,29 @@ Step 6. The user executes `clear`, which calls `Model#updateModelState` and subs
 The following activity diagram summarizes what happens when a user executes a new command:
 
 <puml src="diagrams/CommitActivityDiagram.puml" width="250" />
+
+
+### Schedule feature
+
+The schedule mechanism is facilitated by `LogicManager`.
+
+Step 1. The user executes the `schedule delete h/Meeting` command to delete the event with heading "Meeting". The `LogicManager` parses the command through `CommandParser#parseCommand()`.
+
+Step 2. The `CommandParser` selects a parser based on the command word. In this case the command word is `schedule`. The `ScheduleCommandParser#parse()` is run on `schedule delete h/Meeting`.
+
+Step 3. The `ScheduleCommandParser` further parses the input and decides which parser to parse the input with depending on the command word (either `ScheduleAddCommandParser` or `ScheduleDeleteCommandParser`).
+In this case the command word is `delete`.
+Thus, the `ScheduleDeleteCommandParser#parse()` is run on `delete h/Meeting`.
+
+Step 4. If the input is valid a `ScheduleDeleteCommand` object is made, with the appropriate heading, and returned to the `LogicManager` through the `ScheduleCommandParser` and `CommandParser`.
+
+Step 5. The schedule delete command is then executed. The event is found and removed from the events list.
+
+The following sequence diagram shows how a schedule delete operation goes through the `Logic` component:
+
+<puml src="diagrams/ScheduleDeleteSequenceDiagram.puml" alt="ScheduleDeleteSequenceDiagram-Logic" />
+
+The above sequence diagram shows the entire mechanism in detail.
 
 #### Design considerations:
 
@@ -287,7 +310,141 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 * For `display` Command calling `undo` would show that `update` was undone because the `display` command runs the `update` command silently.
 
+=======
+### Shortcuts feature
 
+The shortcuts mechanism is similar to the undo/redo mechanism. It is facilitated by `BufferedHistoryManager`. This class implements certain methods:
+
+* `BufferedHistoryManager#rollBackState()` - Rolls back to the previous state in the history.
+* `BufferedHistoryManager#rollForwardState()` - Rolls forward to the next state in the history.
+* `BufferedHistoryManager#addState()` - Adds a new T state to the history, removing subsequent states.
+* `BufferedHistoryManager#getCurrStateHasBuffer()` - Gets the current state from the history.
+
+These operations are exposed in the `BufferedHistory` interface as `BufferedHistory#rollBackState()`, `BufferedHistory#rollForwardState()`, `BufferedHistory#addState()` and `BufferedHistory#getCurrState()` respectively.
+
+The main difference between the undo/redo and shortcuts mechanism is that the last state will always be set to a buffer state. Given below is an example usage scenario and how the shortcut mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `BufferedHistoryManager<CommandState>` will be initialized with the initial `commandState`, and the `currentStateIdx` is set to 0, indicating that it is at the very first index.
+
+<puml src="diagrams/ShortcutsState0.puml" alt="ShortcutState0" />
+
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. After the `delete` command is executed, the method `Model#updateCommandState()` is called, causing the modified command state of the application after the `delete 5` command to be added to `states` list in `BufferedHistoryManager`, by an invocation of the `BufferedHistory#addState()` method. The `currentStateIdx` is shifted to 1.
+
+<puml src="diagrams/ShortcutsState1.puml" alt="ShortcutState1" />
+
+Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#updateCommandState()`, causing another modified application command state to be saved into the `states` list.
+
+<puml src="diagrams/ShortcutsState2.puml" alt="ShortcutState2" />
+
+<box type="info" seamless>
+
+**Note:** If a command fails its execution, it will not call `Model#updateCommandState()`, so the command state will not be saved into the `states` list.
+
+</box>
+
+Step 4. The user wants to go back to his previously typed command, and decides to use the `up` arrow shortcut. The `up` arrow shortcut will call `Model#retrievePreviousCommand()`, in turn calling `BufferedHistory#rollBackState`, which will decrement the `currentStateIdx` once, retrieving and restoring the command text to the command state at that index.
+
+<puml src="diagrams/ShortcutsState3.puml" alt="ShortcutsState3" />
+
+
+<box type="info" seamless>
+
+**Note:** If the `currentStateIdx` is at index 0, pointing to the first commandState, then there are no previous states to restore. The call to `Model#retrievePreviousCommand()` will throw a checked exception, which will be caught and return an error to the user rather than attempting to perform the undo.
+
+</box>
+
+The following sequence diagram shows how an `down` arrow operation goes through the `Logic` component:
+
+<puml src="diagrams/UpSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic" />
+
+Similarly, how an `up` arrow operation goes through the `Model` component is shown below:
+
+<puml src="diagrams/UpSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
+
+The `down` arrow shortcut does the opposite — it calls `Model#retrieveNextCommand()`, which increments the `currentStateIdx`, which is the index of the next command state, and restores the application to that state.
+
+<box type="info" seamless>
+
+**Note:** If the `currentStateIdx` is at index `states.size() - 1`, the index of the last state, then there are no more recent states to restore. The call to `Model#retrieveNextCommand()` will throw a checked exception, which will be caught and return an error to the user rather than attempting to perform the `down` shortcut.
+
+</box>
+
+#### Design considerations:
+
+**Aspect: How shortcuts execute:**
+
+* Saves the command text entered.
+    * Pros: Easy to implement, and captures all aspects of the application in the state
+    * Cons: May have performance issues in terms of memory usage.
+
+* Saves only the changes made when a command is executed.
+    * Pros: Utilises a lot less space and is thus makes the application more performative
+    * Cons: Much more difficult to implement and is less scalable as more commands and features are added
+
+### Display feature
+
+The display mechanism in the application is constructed using several components, including `DisplayCommand`,
+`DisplayCommandParser`, `DisplayListPanel`, and `DisplayCard`. These components work together to 
+parse user commands, filter relevant data, and update the user interface accordingly.
+
+#### Key Components:
+
+1. `DisplayCommand` and `DisplayCommandParser`:
+
+- `DisplayCommandParser` parses the user input to extract search terms and constructs a `DisplayCommand` with a 
+predicate that encapsulates these terms.
+- `DisplayCommand` uses this predicate to filter the displayed data in the model. The command interacts with the model
+to update the list of persons to those that match the criteria specified by the predicate.
+
+2. `DisplayListPanel`:
+
+- This UI component is responsible for displaying the list of persons that match the search criteria. It utilizes
+`ListView` and custom `ListCell` implementations to render the filtered list.
+- The `DisplayListPanel` is updated whenever the `DisplayCommand` alters the list of persons in the model to show only 
+those that match the search criteria.
+
+3. `DisplayCard`: 
+
+- Each `DisplayCard` represents a single person in the `DisplayListPanel`. It formats and shows detailed information 
+about a person, such as their name, phone number, and any other relevant details.
+- The `DisplayCard` updates whenever a new person is selected or the displayed list changes.
+
+#### Implementation Details
+
+Command Parsing and Execution:
+
+- The `DisplayCommandParser` reads the input from the user and uses it to instantiate a `DisplayCommand` with the 
+appropriate matching criteria.
+- `DisplayCommand` then interacts with the model to filter the data based on the provided predicate. If the 
+predicate results in one or more matches, the `DisplayListPanel` is updated to show these matches.
+
+UI Updates:
+
+- `DisplayListPanel` listens for changes in the model's filtered list. When `DisplayCommand` updates this list, 
+`DisplayListPanel` reacts by refreshing its contents, using `DisplayCard` for each item in the filtered list.
+- Each `DisplayCard` extracts and displays information from the Person instance it represents, providing a 
+visual representation of each matched person.
+
+### Find feature
+
+The find function in the application uses the following components, which work together to parse a command, filter the existing client list and update the user interface accordingly
+
+#### Key Components
+
+1. `FindCommand` and `FindCommandParser`
+
+- `FindCommandParser` parses a given user input and extracts the search term(s), following which it creates a `FindCommand` object with the relevant predicates
+
+2. `KeywordMatcherPredicate` objects
+
+- When the `FindCommandParser` parses the user input, it creates `KeywordMatcherPredicate` objects, that each respectively filter a list based on keyword matches for a specific field.
+
+#### Implementation Details
+
+Command parsing and execution
+
+- The `FindCommandParser` reads the user input and instantiates a `FindCommand` object with the `KeywordMatcherPredicate` objects it creates
+- The `FindCommand` object then logically ORs the predicate objects to form a final predicate object, with which it interacts with the model to filter the persons list based on th predicate.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -602,15 +759,35 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. In the terminal, navigate to the folder with the jar file and run `java -jar connectcare.jar`. Ensure the filename is connectcare.jar. The window size may not be optimum. 
 
 1. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   1. Re-launch the app by navigating to the folder with the jar file (in the terminal) and running `java -jar connectcare.jar`.<br>
        Expected: The most recent window size and location is retained.
 
+### Searching for a person
+
+1. Finding a person by name
+
+  1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+  1. Test case: `find n/John Doe` <br>
+     Expected: displays a persons list that only contains `John Doe`
+
+  1. Test case: `find n/J` <br>
+     Expected: displays a persons list with all the clients who's name fields contain a word that starts with `J`
+
+  1. Test case: `find` <br>
+     Expected: returns an error message indicating incorrect format for the `find` command.
+
+  1. Test case: `find x/bill` <br>
+     Expected: returns an error message indicating incorrect format for the `find` command.
+
+  1. Test case: `find n/John a/address`
+     Expected: returns a persons list with all the clients who either has a name field that contains a word that starts with `John` or address field contain a word that starts with the substring `address`
 
 ### Deleting a person
 
@@ -619,7 +796,7 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
 
    1. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
@@ -627,6 +804,21 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
+
+### Displaying a person
+
+1. Displaying a person by name
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    1. Test case: `display John Doe`<br>
+       Expected: Displays all details associated with "John Doe" in the dedicated display area of the GUI. The command should result in showing details such as name, phone, email, address, etc., that match "John Doe".
+
+    1. Test case: `display Jane`<br>
+       Expected: Since there is no client named Jane, no details are shown in the display area. An error message should be shown indicating that no person matches the name "Jane".
+   
+    1. Test case: `display`<br>
+       Expected:  No details are shown in the display area. An error message should be shown indicating the incorrect command format or reminding to enter the name of the person to display.
 
 ### Undoing a command
 
@@ -679,6 +871,79 @@ testers are expected to do more *exploratory* testing.
     4. Test case: `undo` while there are commands to revert and then execute a command (that is not `redo`). Next execute `redo` <br>
        Expected: Application remains in current state. Error shown in the result display. No more history to roll forward. This is due to the states being truncated.
 
+
+### Adding a person
+
+1. Adding a person
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    1. Test case: `add n/Phil p/987654321 e/phil@gmail.com`<br>
+       Expected: Phil is added to the client list. Details of the added client is shown in the status message.
+
+    1. Test case: `add n/Nobody`<br>
+       Expected: No client is added. Error details shown in the status message.
+
+    1. Other incorrect add commands to try: `add`, `add n/Phile`, `...` <br>
+       Expected: Similar to previous.
+
+1. _{ more test cases …​ }_
+
+### Scheduling an event
+
+1. Adding an event
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    1. Test case: `schedule add h/Meeting with Client t/2/14/2024 0930 d/Discuss project details n/John Doe`<br>
+       Expected: A new event is added to the events list. Details of the added event is shown in the status message.
+
+    1. Other incorrect schedule add commands to try: `schedule add`, `schedule add n/`, `schedule add n/Phil h/Meeting t/0900` <br>
+       Expected: Error details shown in the status message.
+
+1. _{ more test cases …​ }_
+
+### Deleting an event
+
+1. Deleting an event
+
+    1. Prerequisites: Event heading must exist in event list.
+
+    1. Test case: `schedule delete h/Meeting with Client`<br>
+       Expected: Event is deleted from events list. Details of the deleted event is shown in the status message.
+
+    1. Other incorrect schedule delete commands to try: `schedule delete`, `schedule delete n/Phil`, `schedule delete h/Not a real event h/Another unreal event` <br>
+       Expected: Error details shown in the status message.
+
+1. _{ more test cases …​ }_
+
+### Finding a person
+
+1. Finding a person
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    1. Test case: `find n/Phil`<br>
+       Expected: Details of the client are shown in the client list. Provided client exists in the event list.
+
+    1. Other incorrect find commands to try: `find`, `...` <br>
+       Expected: Error details shown in the status message.
+
+1. _{ more test cases …​ }_
+
+### Displaying a person
+
+1. Displaying a person
+
+    1. Prerequisites: List all persons using the `list` command.
+
+    1. Test case: `display Phil`<br>
+       Expected: Details of the client are seen in the display screen.
+
+    1. Other incorrect display commands to try: `display NOT_A_REAL_PERSON`, `display`, `...` <br>
+       Expected: Error details shown in the status message.
+
+1. _{ more test cases …​ }_
 
 ### Saving data
 

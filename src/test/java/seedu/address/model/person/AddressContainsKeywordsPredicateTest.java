@@ -75,6 +75,14 @@ public class AddressContainsKeywordsPredicateTest {
     }
 
     @Test
+    public void test_personAddressIsEmpty_returnsFalse() {
+        // Address field is empty
+        AddressContainsKeywordsPredicate predicate = new AddressContainsKeywordsPredicate(
+            Collections.singletonList("Clementi"));
+        assertFalse(predicate.test(new PersonBuilder().build()));
+    }
+
+    @Test
     public void toStringMethod() {
         List<String> keywords = List.of("keyword1", "keyword2");
         AddressContainsKeywordsPredicate predicate = new AddressContainsKeywordsPredicate(keywords);

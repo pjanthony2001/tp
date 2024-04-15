@@ -236,7 +236,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser("");
             return nextCommand;
         } catch (HistoryException e) {
-            logger.info("An error occurred while executing shortcut: Up");
+            logger.info("An error occurred while executing shortcut: Down");
             resultDisplay.setFeedbackToUser("Keyboard Shortcuts: There are no more commands to display!");
             throw e;
         }
@@ -252,7 +252,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser("");
             return previousCommand;
         } catch (HistoryException e) {
-            logger.info("An error occurred while executing shortcut: Down");
+            logger.info("An error occurred while executing shortcut: Up");
             resultDisplay.setFeedbackToUser("Keyboard Shortcuts: There are no more commands to display!");
             throw e;
         }

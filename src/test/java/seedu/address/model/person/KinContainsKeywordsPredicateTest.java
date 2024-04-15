@@ -73,6 +73,12 @@ public class KinContainsKeywordsPredicateTest {
     }
 
     @Test
+    public void test_personKinIsEmpty_returnsFalse() {
+        KinContainsKeywordsPredicate predicate = new KinContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        assertFalse(predicate.test(new PersonBuilder().build()));
+    }
+
+    @Test
     public void toStringMethod() {
         List<String> keywords = List.of("keyword1", "keyword2");
         KinContainsKeywordsPredicate predicate = new KinContainsKeywordsPredicate(keywords);
