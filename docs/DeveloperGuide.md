@@ -616,6 +616,20 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+### Displaying a person
+
+1. Displaying a person
+
+    1. Prerequisites: List all persons using the `list` command.
+
+    1. Test case: `display Phil`<br>
+       Expected: Details of the client are seen in the display screen.
+
+    1. Other incorrect display commands to try: `display NOT_A_REAL_PERSON`, `display`, `...` <br>
+       Expected: Error message on status bar.
+
+1. _{ more test cases …​ }_
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
