@@ -8,12 +8,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Undoes a command
+ * Redoes a command, reverting the model to that state
  */
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redoes the most recent command.";
     public static final String MESSAGE_SUCCESS = "Command redone: %1$s";
     public static final String MESSAGE_NO_ROLLFORWARD = "There is no more history to roll forward!";

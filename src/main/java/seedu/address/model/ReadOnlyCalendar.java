@@ -10,8 +10,12 @@ import seedu.address.model.event.Event;
 public interface ReadOnlyCalendar {
     /**
      * Returns an unmodifiable view of the event list.
-     * This list will not contain any duplicate events?.
+     * This list will not contain any duplicate events.
      */
     ObservableList<Event> getEventList();
+
+    /**
+     * Returns an unmodifiable deep copy of the ReadOnlyCalendar.
+     */
     ReadOnlyCalendar deepCopy() throws IllegalValueException;
 }

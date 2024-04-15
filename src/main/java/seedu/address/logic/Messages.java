@@ -59,7 +59,7 @@ public class Messages {
         return builder.toString();
     }
     /**
-     * Formats the {@code person} for display to the user.
+     * Formats the {@code event} for display to the user.
      */
     public static String format(Event event) {
         final StringBuilder builder = new StringBuilder();

@@ -68,10 +68,10 @@ public class Calendar implements ReadOnlyCalendar {
         setEvents(newData.getEventList());
     }
 
-    //// person-level operations
+    //// event-level operations
 
     /**
-     * Returns true if an event with the same identity as {@code even} exists in the calendar.
+     * Returns true if an event with the same "identity" (heading) as {@code event} exists in the calendar.
      */
     public boolean hasEvent(Event event) {
         requireNonNull(event);
