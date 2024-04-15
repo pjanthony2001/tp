@@ -45,6 +45,8 @@ The bulk of the app's work is done by the following four components:
 * [**`Logic`**](#logic-component): The command executor.
 * [**`Model`**](#model-component): Holds the data of the App in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
+* [**`History`**](#storage-component): Holds states of the model.
+* [**`State`**](#storage-component): Has data on the state of the model at a specific time point.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
@@ -67,7 +69,7 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2324S2-CS2103T-W12-4/tp/blob/master/src/main/java/seedu/address/ui/Ui.java)
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
@@ -84,7 +86,7 @@ The `UI` component,
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2324S2-CS2103T-W12-4/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -116,7 +118,7 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2324S2-CS2103T-W12-4/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
 <puml src="diagrams/ModelClassDiagram.puml" width="450" />
 
@@ -139,7 +141,7 @@ The `Model` component,
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2324S2-CS2103T-W12-4/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
@@ -147,6 +149,30 @@ The `Storage` component,
 * can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
 * inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
+
+### History component
+
+**API** : [`History.java`](https://github.com/AY2324S2-CS2103T-W12-4/tp/blob/master/src/main/java/seedu/address/history/History.java)
+
+<puml src="diagrams/HistoryClassDiagram.puml" width="350" />
+
+The `History` component,
+* Stores the states of the model or commands entered at different time points.
+* depends on some classes in the `Model` component (because the `History` component's job is to save/retrieve objects that belong to the `Model`)
+
+### State component
+
+**API** : [`ModelState.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/history/ModelState.java), [`CommandState.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/history/CommandState.java) 
+
+<puml src="diagrams/ModelStateClassDiagram.puml" width="550" />
+<puml src="diagrams/CommandStateClassDiagram.puml" width="150" />
+
+The `ModelState` component,
+* Stores a single state of the model at a specific time point.
+* depends on some classes in the `Model` component (because the `State` component's job is to save/retrieve objects that belong to the `Model`)
+ 
+The `CommandState` component,
+* Stores a single state of the command entered at a specific time point.
 
 ### Common classes
 
@@ -403,6 +429,41 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
+
+#### Use case: Schedule an event
+
+**MSS**
+
+1.  User requests to schedule an event
+2.  ConnectCare schedules the event
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The details of the event are incorrect
+
+    * 1a1. ConnectCare shows an error message.
+
+      Use case ends.
+
+#### Use case: Delete an event
+
+**MSS**
+
+1.  User requests to delete an event
+2.  ConnectCare deletes the event
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The details of the event are incorrect
+
+    * 1a1. ConnectCare shows an error message.
+
+      Use case ends.
+
 #### Use case: Exit the application
 
 **MSS**
@@ -491,6 +552,8 @@ testers are expected to do more *exploratory* testing.
        Expected: The application will overwrite the changes made with the correct details, and will continue as per normal
 
 ### Planned Enhancements
+
+Team size: 5
 
 1. Currently, names must be unique and must only contain alphanumeric characters. This means different languages and special characters are not allowed, and we are planning to include these in the future.
 

@@ -40,13 +40,14 @@ public class PersonTest {
                 .withNextOfKin(VALID_NOK_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSamePerson(updatedAlice));
 
+        // name differs in case, all other attributes same -> returns true
+        Person updatedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
+        assertTrue(BOB.isSamePerson(updatedBob));
+
         // different name, all other attributes same -> returns false
         updatedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSamePerson(updatedAlice));
 
-        // name differs in case, all other attributes same -> returns false
-        Person updatedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
-        assertFalse(BOB.isSamePerson(updatedBob));
 
         // name has trailing spaces, all other attributes same -> returns false
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";

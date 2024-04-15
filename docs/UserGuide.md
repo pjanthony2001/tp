@@ -37,11 +37,11 @@ _This page is for ConnectCare users. If you're a developer, see also the
         + [Updating a Client](#updating-a-client-update)
         + [Listing all Clients](#listing-all-clients-list)
         + [Finding Clients](#finding-clients-find)
-        + [Displaying a Client's Information](#displaying-a-clients-information-display)
+        + [Displaying a client's information](#displaying-a-client-s-information-display)
         + [Clearing all entries](#clearing-all-entries-clear)
     + [Appointment Management](#appointment-management)
-        + [Adding an Appointment](#adding-an-appointment--schedule-add)
-        + [Deleting an Appointment](#deleting-appointments--schedule-delete)
+        + [Adding an Appointment](#adding-an-appointment-schedule-add)
+        + [Deleting an Appointment](#deleting-appointment-schedule-delete)
     + [Program Controls](#program-controls)
       + [Undoing a Command](#undoing-a-command-undo)
       + [Redoing a Command](#redoing-a-command-redo)
@@ -251,15 +251,15 @@ _This command adds a new client to your client list._
 <panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
 <markdown>
 
-| Parameter      | Description                                        | Remarks                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-|----------------|----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| n/NAME         | Name of client that you want to add                | Name must be unique, alphanumeric and case-sensitive. It is also compulsory                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| p/PHONE_NUMBER | Phone Number of client that you want to add        | Phone number should only contain numbers and is compulsory                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| e/EMAIL        | Email of client that you want to add               | Emails should be of the format local-part@domain and adhere to the following constraints:<br/>1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.<br/>2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.<br/>The domain name must:<br/>  - end with a domain label at least 2 characters long<br/>  - have each domain label start and end with alphanumeric characters<br/>  - have each domain label consist of alphanumeric characters, separated only by hyphens, if any. |
-| a/ADDRESS      | Address of client that you want to add             | -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| k/NEXT_OF_KIN  | Next of Kin details of client that you want to add | Name must be alphanumeric                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| d/DESCRIPTION  | Description of client that you want to add         | Description should not be blank                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| t/TAG          | Tag to identify the client                         | A person can have any number of tags (or even 0). Tags should be alphanumeric and should not contain spaces or other special characters.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Parameter      | Description                                        | Remarks                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+|----------------|----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| n/NAME         | Name of client that you want to add                | Name must be unique, alphanumeric and case-sensitive. It is also compulsory                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| p/PHONE_NUMBER | Phone number of client that you want to add        | Phone number should only contain numbers and is compulsory                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| e/EMAIL        | Email address of client that you want to add       | Emails should be of the format local-part@domain and adhere to the following constraints:<br/>1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.<br/>2. This is followed by a '@' and then a domain name. The domain name is made up of one or more domain labels separated by periods.<br/>The domain name must:<br/>  - end with a domain label at least 2 characters long<br/>  - have each domain label start and end with alphanumeric characters<br/>  - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.<br/> - Valid emails include: PeterJack_1190@example.com, felix@asd, e1234567@u.nus.edu |
+| a/ADDRESS      | Address of client that you want to add             | -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| k/NEXT_OF_KIN  | Next of Kin details of client that you want to add | Name must be alphanumeric                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| d/DESCRIPTION  | Description of client that you want to add         | Description should not be blank                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| t/TAG          | Tag to identify the client                         | A person can have any number of tags (or even 0). Tags should be alphanumeric and should not contain spaces or other special characters.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 
 
 <box type="tip" seamless>
@@ -276,7 +276,7 @@ _This command adds a new client to your client list._
 
 <box type="tip" seamless>
 
-**Tip:** You can use spaces in place of special characters in the names you want to enter.
+**Tip:** You can use spaces in place of special characters in the names you want to enter (for the NAME or NEXT_OF_KIN parameters).
 
 </box>
 </markdown>
@@ -322,9 +322,12 @@ As the commands given were invalid, there would be no changes to the client list
     </pic>
 </div>
 
+
 &nbsp;
 
 Click [here](#table-of-contents) to return to the table of contents!
+
+Now that we are done with the **add** command let's move on to the **delete** command!
 
 ---
 
@@ -385,6 +388,8 @@ As the commands given were invalid, there would be no changes to the client list
 
 Click [here](#table-of-contents) to return to the table of contents!
 
+Now that we are done with the **delete** command let's move on to the **update** command!
+
 ---
 
 ### Updating a client: `update`
@@ -401,27 +406,33 @@ _This command helps update existing client's information in the client list in t
 <panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
 <markdown>
 
-| Parameter       | Description                                        | Remarks                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-|-----------------|----------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| u/EXISTING_USER | Name of client that you want to update             | Name must be unique, alphanumeric and case-sensitive. It is also compulsory                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| n/NAME          | New name of client that you want to add            | Name must be unique, alphanumeric and case-sensitive                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| p/PHONE_NUMBER  | Phone Number of client that you want to add        | Phone number should only contain numbers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| e/EMAIL         | Email of client that you want to add               | Emails should be of the format local-part@domain and adhere to the following constraints:<br/>1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.<br/>. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.<br/>The domain name must:<br/>- end with a domain label at least 2 characters long<br/>- have each domain label start and end with alphanumeric characters<br/>- have each domain label consist of alphanumeric characters, separated only by hyphens, if any. |
-| a/ADDRESS       | Address of client that you want to add             | -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| k/NEXT_OF_KIN   | Next of Kin details of client that you want to add | Name must be alphanumeric                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| d/DESCRIPTION   | Description of client that you want to add         | Description should not be blank                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| t/TAG           | Tag to identify the client                         | Multiple tags can be specified, but they must each be prefixed                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Parameter       | Description                                        | Remarks                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+|-----------------|----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| u/EXISTING_USER | Name of client that you want to update             | Name must be unique, alphanumeric and case-sensitive. It is also compulsory                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| n/NAME          | New name of client that you want to add            | Name must be unique, alphanumeric and case-sensitive                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| p/PHONE_NUMBER  | Phone Number of client that you want to add        | Phone number should only contain numbers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| e/EMAIL         | Email of client that you want to add               | Emails should be of the format local-part@domain and adhere to the following constraints:<br/>1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.<br/>2. This is followed by a '@' and then a domain name. The domain name is made up of one or more domain labels separated by periods.<br/>The domain name must:<br/>  - end with a domain label at least 2 characters long<br/>  - have each domain label start and end with alphanumeric characters<br/>  - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.<br/> - Valid emails include: PeterJack_1190@example.com, felix@asd, e1234567@u.nus.edu |
+| a/ADDRESS       | Address of client that you want to add             | -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| k/NEXT_OF_KIN   | Next of Kin details of client that you want to add | Name must be alphanumeric                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| d/DESCRIPTION   | Description of client that you want to add         | Description should not be blank                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| t/TAG           | Tag to identify the client                         | Multiple tags can be specified, but they must each be prefixed                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 </markdown>
+
+<box type="tip" seamless>
+
+**Tip:** You can use spaces in place of special characters in the names you want to enter (for the NAME or NEXT_OF_KIN parameters).
+
+</box>
 </panel>
 
 &nbsp;
 
 **Example:**
--   `update u/Jane Doe n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-011` updates the information of Jane Doe's information to be
-    name: John Doe  
-    phone no: 98765432
-    email: [johnd@example.com](mailto:johnd@example.com)  
-    address: John street, block 123, #01-011
+-   `update u/Jane Doe n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-011` This command updates Jane Doe's information to be as follows: </br>
+    - name: John Doe  
+    - phone no: 98765432
+    - email: [johnd@example.com](mailto:johnd@example.com)  
+    - address: John street, block 123, #01-011
 
 **Walkthrough:**
 
@@ -462,6 +473,8 @@ As the commands given were invalid, there would be no changes to the client list
 
 Click [here](#table-of-contents) to return to the table of contents!
 
+Now that we are done with the **update** command let's move on to the **list** command!
+
 ---
 
 ### Listing all clients: `list`
@@ -487,13 +500,20 @@ only `Peter Crow` was shown in the list. Thereafter, the `list` command was used
 
 Click [here](#table-of-contents) to return to the table of contents!
 
+Now that we are done with the **list** command let's move on to the **find** command!
+
 ---
 
 ### Finding clients: `find`
 
-_This command allows you to find a specific client in your client list by any of a client's parameters_
+_This command allows you to find clients in your client list by specifying client parameters that you are interested in._
 
 **Format:** `find [n/NAME]… [a/KEYWORD]… [e/KEYWORD]… [t/KEYWORD]… [k/KEYWORD]… [d/KEYWORD]… [p/KEYWORD]…`
+
+<box type="info">
+
+**Note:** At least one optional parameter has to be given.
+</box>
 
 <box type="info">
 
@@ -526,9 +546,9 @@ _This command allows you to find a specific client in your client list by any of
 
 Let's say your client list contains the following clients:
 
-<div class="image-container" style="display: block;max-width: 40%;margin: auto;">
+<div class="image-container" style="display: block;max-width: 60%;margin: auto;">
     <pic src="images/user-guide/ExampleClientList.png" alt="clientlist">
-        <markdown> Figure 1.1: _An example client list in ConnectCare_ </markdown>
+        <markdown> Figure 1.1: _An example client list in ConnectCare (as indicated by the red box)_ </markdown>
     </pic>
 </div>
 
@@ -556,7 +576,10 @@ After searching for clients, you can use the `list` command to view your full li
 </box>
 
 &nbsp;
+
 Click [here](#table-of-contents) to return to the table of contents!
+
+Now that we are done with the **find** command let's move on to the **display** command!
 
 ---
 
@@ -605,6 +628,11 @@ Any changes you make to description by reverting to the list view using this met
 If you would like to resume entering commands, press the ENTER key in the description box (which will save your changes) to return to the list view.
 </box>
 
+&nbsp;
+Click [here](#table-of-contents) to return to the table of contents!
+
+Now that we are done with the **display** command let's move on to the **clear** command!
+
 ### Clearing all entries : `clear`
 
 _This command allows you to purge your client list, removing **ALL** clients in your client list._
@@ -617,10 +645,18 @@ Format: `clear`
 Accidentally cleared your client list? Worry not, the `undo` feature might be able to help you get it back!
 </box>
 
+&nbsp;
+
+Click [here](#table-of-contents) to return to the table of contents!
+
+Now that we are done with the **Client management** features let's move on to the **Appointment management** features!
+
 ## Appointment Management
 ConnectCare provides the following commands to help you manage your appointments:
 * Adding an appointment: `schedule add`
 * Deleting an appointment: `schedule delete`
+
+Let's talk about the different **Appointment management** features, starting with **schedule add** command
 
 ### Adding an appointment: `schedule add`
 
@@ -631,25 +667,25 @@ _This command allows you to add an appointment with the specified parameters._
 <panel header="Parameter Descriptions and Remarks" alt="Parameters" minimized>
 <markdown>
 
-| Parameter   | Description                               | Remarks                                                                                                                                                                                                                                                                                                                                                           |
-|-------------|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| HEADING     | The heading of the appointment            | The heading must contain only alpha-numeric characters and should not be more than 70 characters                                                                                                                                                                                                                                                                  |
-| TIME        | The time of the appointment               | The time of the appointment must conform to one of these formats: "M/d/yyyy HHmm", "M/d/yyyy", "yyyy-MM-dd", "yyyy-MM-dd HHmm", "MMM d yyyy", "EEEE, MMMM, dd, yyyy - hh:mm a". Refer to [this Java Documentation article](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html) for more information about what these formats mean. |
-| DESCRIPTION | The description of the appointment        | Description should not be blank                                                                                                                                                                                                                                                                                                                                   |
-| CLIENT_NAME | The name of the client in the appointment | The name should contain only alpha-numeric characters and spaces and shouldn't be blank                                                                                                                                                                                                                                                                           |
+| Parameter   | Description                               | Remarks                                                                                                                                                                                                                                                                                                                             |
+|-------------|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| HEADING     | The heading of the appointment            | The heading must contain only alpha-numeric characters and should not be more than 70 characters                                                                                                                                                                                                                                    |
+| TIME        | The time of the appointment               | The time of the appointment must conform to this format: M/d/yyyy HHmm, where, month (M), day (d), year(yyyy), time in 24 hour format (HHmm). <br/>Refer to [this Java Documentation article](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html) for more information about what this format means. |
+| DESCRIPTION | The description of the appointment        | Description should not be blank                                                                                                                                                                                                                                                                                                     |
+| CLIENT_NAME | The name of the client in the appointment | The name should contain only alpha-numeric characters and spaces and shouldn't be blank                                                                                                                                                                                                                                             |
 </markdown>
 </panel>
 
 Once the command is entered, the event should be added to the events panel on the right of the application.
 
 **Examples:**
--   `schedule add h/Meeting with Client t/Wednesday, January, 24, 2024 - 09:00 AM d/Discuss project details n/John Doe`
--   `schedule add h/Discharge plan meeting t/Wednesday, January, 24, 2024 - 09:00 AM d/Discuss discharge n/Jack Doe`
+-   `schedule add h/Meeting with Client t/2/14/2024 0930 d/Discuss project details n/John Doe`
+-   `schedule add h/Discharge plan meeting t/02/14/2024 1000 d/Discuss discharge n/Jack Doe`
 
 
 **Walkthrough:**
 
-The screenshots show what you should expect on your screen while executing this command: `schedule add h/Meeting with Client t/Wednesday, January, 24, 2024 - 09:00 AM d/Discuss project details n/John Doe`.
+The screenshots show what you should expect on your screen while executing this command: `schedule add h/Meeting with Client t/2/14/2024 0930 d/Discuss project details n/John Doe`.
 Once the command is entered, the event should be deleted on the events panel on the right of the application.
 
 <div class="image-container" align="middle" style="display:flex">
@@ -665,9 +701,11 @@ Once the command is entered, the event should be deleted on the events panel on 
 
 Click [here](#table-of-contents) to return to the table of contents!
 
+Now that we are done with the **schedule add** command let's move on to the **schedule delete** command!
+
 ---
 
-### Deleting Appointments : `schedule delete`
+### Deleting Appointment : `schedule delete`
 
 _This command allows you to remove an appointment with the specified parameters._
 
@@ -684,11 +722,18 @@ _This command allows you to remove an appointment with the specified parameters.
 
 Once the command is entered, the event should be removed from the events panel on the right of the application.
 
+<box type="tip">
+
+**Tip:** Make sure there are no extra spaces between words in the heading.
+</box>
+
 **Examples:**
 -   `schedule delete h/Meeting with Client`
 -   `schedule delete h/Discharge plan meeting`
+
 <box type="info">
-It is only possible to delete an event if the heading exists in the events panel on the right of the application.
+
+**Note:** It is only possible to delete an event if the heading exists in the events panel on the right of the application.
 </box>
 
 **Walkthrough:**
@@ -707,8 +752,9 @@ Once the command is entered, the event should be added to the events panel on th
 
 &nbsp;
 
-
 Click [here](#table-of-contents) to return to the table of contents!
+
+Now that we are done with the **Appointment management** features let's move on to the **Program controls**!
 
 ---
 
@@ -719,6 +765,8 @@ ConnectCare provides the following commands for navigating the application:
 * Shortcuts
 * `up` arrow
 * `down` arrow
+
+Let's talk about the different **Program controls**, starting with the **undo** command
 
 ### Undoing a command : `undo`
 
@@ -754,6 +802,8 @@ For a comprehensive deep-dive into the undo command, please refer to the [Implem
 </box>
 
 Click [here](#table-of-contents) to return to the table of contents!
+
+Now that we are done with the **undo** command let's move on to the **redo** command!
 
 ---
 
@@ -792,6 +842,8 @@ For a comprehensive deep-dive into the redo command, please refer to the [Implem
 
 Click [here](#table-of-contents) to return to the table of contents!
 
+Now that we are done with the **redo** command let's move on to see some command **shortcuts**!
+
 ---
 
 ### Shortcuts
@@ -820,6 +872,8 @@ _These are a list of keyboard actions to better navigate our application_
 
 Click [here](#table-of-contents) to return to the table of contents!
 
+Now that we are done with the **shortcuts** let's move on to explore the **Miscellaneous commands**!
+
 ---
 
 ## Miscellaneous Commands
@@ -839,6 +893,8 @@ Format: `help`
 
 Click [here](#table-of-contents) to return to the table of contents!
 
+Now that we are done with the **help** command let's move on to the **exit** command!
+
 ---
 
 ### Exiting the program : `exit`
@@ -854,6 +910,8 @@ You can simply close the window using the X button too!
 </box>
 
 Click [here](#table-of-contents) to return to the table of contents!
+
+Let's now understand how data is saved and managed in the application.
 
 ---
 
@@ -884,16 +942,18 @@ ___
 
 # Command summary
 
-| Action      | Format                                                                                  | Examples                                                                                                                           |
-|-------------|-----------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**     | `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [k/NEXTOFKIN] [d/DESCRIPTION] [t/TAG]… ` | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/Suffers from anxiety k/Jon Ho t/friend t/colleague` |
-| **Update**  | `update u/existing user [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…`       | `Update u/Jane Doe n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-011`                                    |
-| **Find**    | `find n/NAME… [a/ADD]… [e/EMAIL]… [t/TAG]… [k/KIN]… [d/DESC]… [p/PHONE]…`               | `find n/James a/clementi e/gmail t/important k/charles d/tall p/123`                                                               |
-| **Undo**    | `undo`                                                                                  |                                                                                                                                    |
-| **Redo**    | `redo`                                                                                  |                                                                                                                                    |
-| **Display** | `display NAME`                                                                          |                                                                                                                                    |
-| **Clear**   | `clear`                                                                                 |                                                                                                                                    |
-| **Exit**    | `exit`                                                                                  |                                                                                                                                    |
+| Action              | Format                                                                                  | Examples                                                                                                                           |
+|---------------------|-----------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**             | `add n/NAME p/PHONE_NUMBER e/EMAIL [a/ADDRESS] [k/NEXTOFKIN] [d/DESCRIPTION] [t/TAG]… ` | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 d/Suffers from anxiety k/Jon Ho t/friend t/colleague` |
+| **Update**          | `update u/existing user [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…`       | `Update u/Jane Doe n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-011`                                    |
+| **Find**            | `find [n/NAME]… [a/ADD]… [e/EMAIL]… [t/TAG]… [k/KIN]… [d/DESC]… [p/PHONE]…`             | `find n/James a/clementi e/gmail t/important k/charles d/tall p/123`                                                               |
+| **Add Schedule**    | `schedule add h/HEADING t/TIME d/DESCRIPTION n/CLIENT_NAME`                             | `schedule add h/Meeting with Client t/2/14/2024 0930 d/Discuss project details n/John Doe`                                         |
+| **Delete Schedule** | `schedule delete h/HEADING`                                                             | `schedule delete h/Meeting with Client`                                                                                            |
+| **Undo**            | `undo`                                                                                  |                                                                                                                                    |
+| **Redo**            | `redo`                                                                                  |                                                                                                                                    |
+| **Display**         | `display NAME`                                                                          |                                                                                                                                    |
+| **Clear**           | `clear`                                                                                 |                                                                                                                                    |
+| **Exit**            | `exit`                                                                                  |                                                                                                                                    |
 
 Click [here](#table-of-contents) to return to the table of contents!
 ___

@@ -1,10 +1,10 @@
 package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Arrays;
 
 /**
  * Helper functions for handling strings.
@@ -30,17 +30,12 @@ public class StringUtil {
         requireNonNull(sentence);
         requireNonNull(word);
 
-        String preppedWord = word.trim().toLowerCase();
-        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
-        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
+        String[] wordsInSentence = sentence.toLowerCase().split("\\s+");
+        String[] wordsInPhrase = word.toLowerCase().split("\\s+");
 
-        String[] words = sentence.split("\\s+");
-        for (String singleWord : words) {
-            if (singleWord.trim().toLowerCase().startsWith(preppedWord)) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays.stream(wordsInPhrase)
+                .allMatch(singleWordInPhrase -> Arrays.stream(wordsInSentence)
+                        .anyMatch(singleWordInSentence -> singleWordInSentence.startsWith(singleWordInPhrase)));
     }
 
     /**

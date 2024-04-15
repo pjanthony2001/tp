@@ -5,17 +5,15 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoField;
 
 /**
  * An object that represents the time for a particular event
  */
 public class Time {
-    public static final String MESSAGE_CONSTRAINTS = "Time should be of format: EEEE, MMMM, dd, yyyy - hh:mm a. "
-            + "Note that day of the week (EEEE), month (MMMM), day of the month (dd), year (yyyy), "
-            + "time in 12-hour format (hh:mm), and am/pm indicator (a).";
+    public static final String MESSAGE_CONSTRAINTS = "Time should be of format: M/d/yyyy HHmm. \n"
+            + "Note that: month (M), day (d), year(yyyy), time in 24 hour format (HHmm)\n"
+            + "Example: 2/14/2024 0930";
 
     public final String time;
     private final LocalDateTime localDateTime;
@@ -42,55 +40,24 @@ public class Time {
         time = stringifyDate(localDateTime);
     }
     /**
-     * Parses the given date string into a LocalDateTime object, attempting multiple date time formats.
+     * Parses the given date string into a LocalDateTime object.
      *
      * @param date The date string to parse.
      * @return A LocalDateTime object parsed from the input date string.
      * @throws DateTimeParseException If the input string cannot be parsed into a valid LocalDateTime.
      */
     private static LocalDateTime parseDate(String date) {
-
-        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
-        DateTimeFormatter formatter2 = new DateTimeFormatterBuilder()
-                .appendPattern("M/d/yyyy")
-                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
-                .toFormatter();
-        DateTimeFormatter formatter3 = new DateTimeFormatterBuilder()
-                .appendPattern("yyyy-MM-dd")
-                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
-                .toFormatter();
-        DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        DateTimeFormatter formatter5 = new DateTimeFormatterBuilder()
-                .appendPattern("MMM d yyyy")
-                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
-                .toFormatter();
-        DateTimeFormatter formatter6 = DateTimeFormatter.ofPattern("EEEE, MMMM, dd, yyyy - hh:mm a");
-        DateTimeFormatter[] formatters = {formatter1, formatter2, formatter3, formatter4, formatter5, formatter6};
-
-        for (DateTimeFormatter dateFormat : formatters) {
-            try {
-                return LocalDateTime.parse(date, dateFormat);
-            } catch (DateTimeParseException e) {
-                // Parsing failed for this pattern, try the next one
-            }
-        }
-        throw new DateTimeParseException("Failed to parse date string: " + date, date, 0);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy HHmm");
+        return LocalDateTime.parse(date, formatter);
     }
     /**
-     * Converts the given LocalDateTime object into a string representation
-     *  in the format "EEEE, MMMM, dd, yyyy - hh:mm a".
+     * Converts the given LocalDateTime object into a string representation in a specific format.
      *
      * @param date The LocalDateTime object to convert.
      * @return A string representation of the input LocalDateTime in the specified format.
      */
     public static String stringifyDate(LocalDateTime date) {
-        return date.format(DateTimeFormatter.ofPattern("EEEE, MMMM, dd, yyyy - hh:mm a"));
+        return date.format(DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
     }
     /**
      * Returns true if a given string is a valid time.
