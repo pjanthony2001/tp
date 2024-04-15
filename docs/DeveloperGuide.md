@@ -542,7 +542,21 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Displaying a person
+
+1. Displaying a person by name
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    1. Test case: `display John Doe`<br>
+       Expected: Displays all details associated with "John Doe" in the dedicated display area of the GUI. The command should result in showing details such as name, phone, email, address, etc., that match "John Doe".
+
+    1. Test case: `display Jane`<br>
+       Expected: Since there is no client named Jane, no details are shown in the display area. An error message should be shown indicating that no person matches the name "Jane".
+   
+    1. Test case: `display`<br>
+       Expected:  No details are shown in the display area. An error message should be shown indicating the incorrect command format or reminding to enter the name of the person to display.
+
 
 ### Saving data
 
