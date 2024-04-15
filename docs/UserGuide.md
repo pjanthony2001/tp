@@ -32,26 +32,25 @@ _This page is for ConnectCare users. If you're a developer, see also the
   + [Notes about the command format](#notes-about-the-command-format)
 + [Features](#features)
     + [Client Management](#client-management)
-        + [Adding a Client](#adding-a-client--add)
-        + [Deleting a Client](#deleting-a-client--delete)
-        + [Updating a Client](#updating-a-client--update)
-        + [Listing all Clients](#listing-all-clients--list)
-        + [Finding Clients](#finding-clients--find)
-        + [Displaying a Client's Information](#displaying-a-clients-information--display)
-        + [Clearing all entries](#clearing-all-entries--clear)
+        + [Adding a Client](#adding-a-client-add)
+        + [Deleting a Client](#deleting-a-client-delete)
+        + [Updating a Client](#updating-a-client-update)
+        + [Listing all Clients](#listing-all-clients-list)
+        + [Finding Clients](#finding-clients-find)
+        + [Displaying a Client's Information](#displaying-a-clients-information-display)
+        + [Clearing all entries](#clearing-all-entries-clear)
     + [Appointment Management](#appointment-management)
         + [Adding an Appointment](#adding-an-appointment--schedule-add)
         + [Deleting an Appointment](#deleting-appointments--schedule-delete)
     + [Program Controls](#program-controls)
-      + [Undoing a Command](#undoing-a-command--undo)
-      + [Redoing a Command](#redoing-a-command--redo)
+      + [Undoing a Command](#undoing-a-command-undo)
+      + [Redoing a Command](#redoing-a-command-redo)
       + [Shortcuts](#shortcuts)
     + [Miscellaneous Commands](#miscellaneous-commands)
-      + [Viewing Help](#viewing-help--help)
-      + [Exiting the Program](#exiting-the-program--exit)
+      + [Viewing Help](#viewing-help-help)
+      + [Exiting the Program](#exiting-the-program-exit)
     + [Saving the data](#saving-the-data)
-+ [Frequently Asked Questions](#frequently-asked-questions)
-+ [Known Issues and Future Features](#known-issues-and-future-features)
++ [Frequently Asked Questions](#faq)
 + [Command Summary](#command-summary)
 + [Glossary](#glossary)
 
@@ -786,7 +785,7 @@ _This command displays a popup message with a link to access this User Guide._
 
 Format: `help`
 
-<div class="image-container" align="middle" style="display:flex">
+<div class="image-container" align="middle" style="margin:auto;">
     <pic src="images/user-guide/help/help_command.png" alt="help popup">
         Figure 1: Pop-up when the help command is entered
     </pic>
