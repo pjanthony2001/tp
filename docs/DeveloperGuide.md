@@ -260,6 +260,29 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 <puml src="diagrams/CommitActivityDiagram.puml" width="250" />
 
+
+### Schedule feature
+
+The schedule mechanism is facilitated by `LogicManager`.
+
+Step 1. The user executes the `schedule delete h/Meeting` command to delete the event with heading "Meeting". The `LogicManager` parses the command through `CommandParser#parseCommand()`.
+
+Step 2. The `CommandParser` selects a parser based on the command word. In this case the command word is `schedule`. The `ScheduleCommandParser#parse()` is run on `schedule delete h/Meeting`.
+
+Step 3. The `ScheduleCommandParser` further parses the input and decides which parser to parse the input with depending on the command word (either `ScheduleAddCommandParser` or `ScheduleDeleteCommandParser`).
+In this case the command word is `delete`.
+Thus, the `ScheduleDeleteCommandParser#parse()` is run on `delete h/Meeting`.
+
+Step 4. If the input is valid a `ScheduleDeleteCommand` object is made, with the appropriate heading, and returned to the `LogicManager` through the `ScheduleCommandParser` and `CommandParser`.
+
+Step 5. The schedule delete command is then executed. The event is found and removed from the events list.
+
+The following sequence diagram shows how a schedule delete operation goes through the `Logic` component:
+
+<puml src="diagrams/ScheduleDeleteSequenceDiagram.puml" alt="ScheduleDeleteSequenceDiagram-Logic" />
+
+The above sequence diagram shows the entire mechanism in detail.
+
 #### Design considerations:
 
 **Aspect: How undo & redo executes:**
@@ -642,13 +665,13 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. In the terminal, navigate to the folder with the jar file and run `java -jar connectcare.jar`. Ensure the filename is connectcare.jar. The window size may not be optimum. 
 
 1. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+   1. Re-launch the app by navigating to the folder with the jar file (in the terminal) and running `java -jar connectcare.jar`.<br>
        Expected: The most recent window size and location is retained.
 
 
@@ -659,7 +682,7 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
 
    1. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
@@ -734,6 +757,79 @@ testers are expected to do more *exploratory* testing.
     4. Test case: `undo` while there are commands to revert and then execute a command (that is not `redo`). Next execute `redo` <br>
        Expected: Application remains in current state. Error shown in the result display. No more history to roll forward. This is due to the states being truncated.
 
+
+### Adding a person
+
+1. Adding a person
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    1. Test case: `add n/Phil p/987654321 e/phil@gmail.com`<br>
+       Expected: Phil is added to the client list. Details of the added client is shown in the status message.
+
+    1. Test case: `add n/Nobody`<br>
+       Expected: No client is added. Error details shown in the status message.
+
+    1. Other incorrect add commands to try: `add`, `add n/Phile`, `...` <br>
+       Expected: Similar to previous.
+
+1. _{ more test cases …​ }_
+
+### Scheduling an event
+
+1. Adding an event
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    1. Test case: `schedule add h/Meeting with Client t/2/14/2024 0930 d/Discuss project details n/John Doe`<br>
+       Expected: A new event is added to the events list. Details of the added event is shown in the status message.
+
+    1. Other incorrect schedule add commands to try: `schedule add`, `schedule add n/`, `schedule add n/Phil h/Meeting t/0900` <br>
+       Expected: Error details shown in the status message.
+
+1. _{ more test cases …​ }_
+
+### Deleting an event
+
+1. Deleting an event
+
+    1. Prerequisites: Event heading must exist in event list.
+
+    1. Test case: `schedule delete h/Meeting with Client`<br>
+       Expected: Event is deleted from events list. Details of the deleted event is shown in the status message.
+
+    1. Other incorrect schedule delete commands to try: `schedule delete`, `schedule delete n/Phil`, `schedule delete h/Not a real event h/Another unreal event` <br>
+       Expected: Error details shown in the status message.
+
+1. _{ more test cases …​ }_
+
+### Finding a person
+
+1. Finding a person
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    1. Test case: `find n/Phil`<br>
+       Expected: Details of the client are shown in the client list. Provided client exists in the event list.
+
+    1. Other incorrect find commands to try: `find`, `...` <br>
+       Expected: Error details shown in the status message.
+
+1. _{ more test cases …​ }_
+
+### Displaying a person
+
+1. Displaying a person
+
+    1. Prerequisites: List all persons using the `list` command.
+
+    1. Test case: `display Phil`<br>
+       Expected: Details of the client are seen in the display screen.
+
+    1. Other incorrect display commands to try: `display NOT_A_REAL_PERSON`, `display`, `...` <br>
+       Expected: Error details shown in the status message.
+
+1. _{ more test cases …​ }_
 
 ### Saving data
 
